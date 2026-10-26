@@ -30,6 +30,14 @@
       transform: rotate(-90deg);
       transform-origin: 50% 50%;
     }
+    /* Bộ lọc đồ họa làm nét ảnh đại diện chuẩn 4K Ultra-Sharp */
+    .avatar-4k {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: high-quality;
+      filter: contrast(1.06) saturate(1.10) brightness(1.02);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 9999px; }
@@ -37,7 +45,7 @@
 </head>
 <body class="text-slate-800 flex flex-col justify-start items-center min-h-screen p-2 sm:p-3">
 
-  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM (KẾT HỢP ĐỘNG CƠ HYBRID) -->
+  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM -->
   <audio id="audio-bgm" preload="auto" playsinline crossorigin="anonymous">
     <source src="https://tiengdong.com/wp-content/uploads/Nhac-nen-game-show-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
   </audio>
@@ -48,11 +56,11 @@
     <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- THANH CÔNG CỤ TRÊN CÙNG (MẶC ĐỊNH LUÔN BẬT ÂM THANH 100%) -->
+  <!-- THANH CÔNG CỤ TRÊN CÙNG -->
   <div class="w-full max-w-[440px] flex flex-wrap justify-between items-center gap-1 mb-2 px-1">
     <div class="flex items-center gap-1.5">
       <span id="conn-status" class="text-[10px] text-amber-300 font-bold">🟡 Đang kết nối...</span>
-      <span class="text-[9px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded-full font-bold">🛡️ BKAV-Shield V21</span>
+      <span class="text-[9px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded-full font-bold">🛡️ 4K-Shield V22</span>
     </div>
     <div class="flex items-center gap-1">
       <button onclick="openPrevRankModal()" class="text-[10px] text-emerald-300 hover:text-white bg-slate-900/85 px-2.5 py-1 rounded-full border border-emerald-500/40 shadow cursor-pointer font-bold">
@@ -64,10 +72,10 @@
     </div>
   </div>
 
-  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 5525) -->
+  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 5525 - ĐÃ ẨN DÒNG CUỐI THỪA) -->
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-3 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-[11px] font-black text-amber-400">👑 QUẢN TRÒ: ADMIN TUẤN PHỦ LÝ</span>
+      <span class="text-[11px] font-black text-amber-400">👑 ADMIN TUẤN PHỦ LÝ</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openPrevRankModal()" class="text-[10px] bg-emerald-700 hover:bg-emerald-600 px-2 py-1 rounded-lg font-bold cursor-pointer">
           📊 Hạng đề trước
@@ -78,9 +86,9 @@
         <button onclick="deleteCurrentQuiz()" class="text-[10px] bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded-lg font-bold cursor-pointer">
           🗑️ Xóa đề
         </button>
-        <!-- THƯ MỤC DANH SÁCH THÍ SINH THAM GIA NẰM NGAY CẠNH XÓA ĐỀ -->
-        <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2 py-1 rounded-lg font-black cursor-pointer shadow">
-          📁 DS Thí sinh (<span id="admin-dir-count-btn">0</span>)
+        <!-- THƯ MỤC TỔNG TÀI KHOẢN NẰM NGAY CẠNH XÓA ĐỀ -->
+        <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1 rounded-lg font-black cursor-pointer shadow">
+          📁 Tổng tài khoản (<span id="admin-dir-count-btn">0</span>)
         </button>
       </div>
     </div>
@@ -117,28 +125,10 @@
       <button onclick="hostResetGame()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-[11px] py-1.5 rounded-lg cursor-pointer font-bold">🔄 Thi lại từ câu 1</button>
       <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold py-1.5 rounded-lg cursor-pointer">📥 Tải Điểm Excel</button>
     </div>
-
-    <!-- DANH SÁCH THÍ SINH NHANH & NÚT MỞ THƯ MỤC -->
-    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-      <div class="flex justify-between items-center mb-1.5">
-        <span class="text-[10px] font-bold text-amber-300">👥 Tổng tài khoản: <span id="admin-player-count">0</span> thí sinh</span>
-        <div class="flex gap-1">
-          <button id="btn-scan" onclick="requestPlayerPresence()" class="text-[9px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2 py-0.5 rounded border border-slate-600 cursor-pointer">
-            🔄 Quét đồng bộ
-          </button>
-          <button onclick="openPlayerDirectoryModal()" class="text-[9px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-2 py-0.5 rounded border border-amber-500/40 cursor-pointer font-bold">
-            📁 Quản lý TK
-          </button>
-        </div>
-      </div>
-      <div id="admin-players-list" class="flex flex-wrap gap-1.5 max-h-[75px] overflow-y-auto text-[10px]">
-        <span class="text-slate-400 italic">Chưa có ai vào phòng...</span>
-      </div>
-    </div>
   </div>
 
   <!-- KHUNG MÀN HÌNH TRÒ CHƠI CHÍNH (CHUẨN TỶ LỆ TIKTOK LIVE 9:16) -->
-  <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[650px] border border-white/25 relative"
+  <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[660px] border border-white/25 relative"
        style="background: linear-gradient(180deg, rgba(255,240,245,0.24) 0%, rgba(254,215,170,0.20) 50%, rgba(15,23,42,0.55) 100%); backdrop-filter: blur(12px);">
 
     <!-- =================================================================== -->
@@ -154,7 +144,7 @@
         Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
       </p>
 
-      <!-- HAI CHẾ ĐỘ: ĐĂNG KÝ MỚI & ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ (SANG MÁY KHÁC KHÔNG CẦN UP LẠI ẢNH) -->
+      <!-- HAI CHẾ ĐỘ: ĐĂNG KÝ MỚI & ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ -->
       <div class="w-full grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-2xl mb-3 border border-slate-200">
         <button type="button" id="tab-btn-register" onclick="switchAuthTab('register')" class="py-2 rounded-xl text-[11px] font-black bg-indigo-600 text-white shadow cursor-pointer transition-all">
           ✨ Đăng ký TK mới
@@ -164,18 +154,18 @@
         </button>
       </div>
 
-      <!-- KHUNG TẢI & CẮT ẢNH ĐẠI DIỆN (CHỈ HIỆN KHI ĐĂNG KÝ MỚI) -->
+      <!-- KHUNG TẢI & CẮT ẢNH ĐẠI DIỆN CHUẨN 4K -->
       <div id="auth-avatar-section" class="w-full bg-slate-50 border-2 border-dashed border-indigo-300 rounded-2xl p-3 mb-3 flex flex-col items-center">
-        <label class="text-[11px] font-extrabold text-slate-700 mb-2">📸 1. Tải & Cắt ảnh đại diện (Avatar bắt buộc):</label>
+        <label class="text-[11px] font-extrabold text-slate-700 mb-2">📸 1. Tải & Cắt ảnh đại diện 4K (Avatar bắt buộc):</label>
         <div class="flex items-center gap-3">
           <div onclick="reopenCropperIfAvailable()" class="w-16 h-16 rounded-full bg-slate-200 border-2 border-amber-500 flex items-center justify-center overflow-hidden shadow-md shrink-0 cursor-pointer relative group" title="Bấm để căn chỉnh/cắt lại ảnh">
             <span id="avatar-placeholder" class="text-[9px] text-slate-500 font-bold px-1">Chưa có ảnh</span>
-            <img id="avatar-preview-img" src="" class="hidden w-full h-full object-cover" alt="Avatar">
+            <img id="avatar-preview-img" src="" class="hidden w-full h-full object-cover avatar-4k" alt="Avatar">
           </div>
           <div class="text-left">
             <div class="flex flex-wrap gap-1.5">
               <label for="avatarInput" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl cursor-pointer shadow">
-                📁 Chọn ảnh & Cắt ảnh
+                📁 Chọn ảnh & Cắt 4K
               </label>
               <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="hidden bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl cursor-pointer shadow">
                 ✂️ Cắt lại
@@ -183,7 +173,7 @@
             </div>
             <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
             <p id="avatar-status-text" class="text-[10px] text-rose-600 font-bold mt-1">
-              * Bắt buộc chọn & cắt ảnh đại diện ưng ý để tạo TK.
+              * Bắt buộc chọn & cắt ảnh đại diện 4K rõ nét.
             </p>
           </div>
         </div>
@@ -191,7 +181,7 @@
 
       <!-- HƯỚNG DẪN KHI CHỌN TAB ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ -->
       <div id="auth-login-hint" class="hidden w-full bg-emerald-50 border border-emerald-200 rounded-2xl p-2.5 mb-3 text-[11px] text-emerald-800 font-bold text-left">
-        💡 Nếu bạn đã tạo tài khoản trước đó (hoặc chuyển sang điện thoại/máy tính khác), chỉ cần nhập đúng <strong>Tên tài khoản</strong> và <strong>Mật khẩu số 1</strong>. Hệ thống sẽ tự động tải lại Ảnh đại diện và Điểm số của bạn!
+        💡 Nếu bạn đã tạo tài khoản trước đó (hoặc chuyển sang điện thoại/máy tính khác), chỉ cần nhập đúng <strong>Tên tài khoản</strong> và <strong>Mật khẩu số 1</strong>. Hệ thống sẽ tự động tải lại Ảnh đại diện 4K và Điểm số của bạn!
       </div>
       
       <!-- NHẬP TÊN TÀI KHOẢN TỐI ĐA 12 KÝ TỰ -->
@@ -226,7 +216,7 @@
     <!-- =================================================================== -->
     <div id="screen-game" class="hidden flex-1 flex flex-col p-3 justify-between">
       
-      <!-- 1. THANH HEADER TIKTOK LIVE -->
+      <!-- PHẦN TRÊN: HEADER + ĐỒNG HỒ + CÂU HỎI + 4 ĐÁP ÁN -->
       <div>
         <div class="flex items-start justify-between gap-2 mb-1">
           <div class="flex flex-col">
@@ -242,6 +232,11 @@
           </div>
         </div>
 
+        <!-- CẢNH BÁO NẾU THÍ SINH ĐANG BỊ ADMIN ĐÌNH CHỈ -->
+        <div id="suspended-alert-banner" class="hidden mb-2 bg-rose-600 text-white border-2 border-rose-300 rounded-2xl px-3 py-2 text-center text-xs font-black shadow-lg animate-pulse">
+          ⛔ TÀI KHOẢN CỦA BẠN ĐANG BỊ ADMIN TUẤN PHỦ LÝ TẠM ĐÌNH CHỈ THI ĐẤU!
+        </div>
+
         <!-- Băng rôn đếm ngược 5,4,3,2,1 kèm lời giải thích khi Admin bấm chuyển câu -->
         <div id="transition-Syntax-box" class="hidden mb-2 bg-slate-900/95 text-white border-2 border-amber-400 rounded-2xl p-2.5 shadow-xl">
           <div class="flex items-center justify-between border-b border-slate-700 pb-1 mb-1">
@@ -251,8 +246,8 @@
           <div id="transition-explanation-text" class="text-[11px] text-emerald-300 font-semibold leading-snug"></div>
         </div>
 
-        <!-- 2. ĐỒNG HỒ TRÒN SVG ĐÈ LÊN KHUNG CÂU HỎI TRẮNG -->
-        <div class="relative mt-7 mb-2.5">
+        <!-- ĐỒNG HỒ TRÒN SVG ĐÈ LÊN KHUNG CÂU HỎI TRẮNG -->
+        <div class="relative mt-6 mb-2.5">
           <div class="absolute -top-7 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
             <div class="flex flex-col gap-1 items-end">
               <span class="w-2.5 h-1 bg-amber-400 rounded-full rotate-12 block shadow"></span>
@@ -276,7 +271,7 @@
             </div>
           </div>
 
-          <div class="bg-white/95 rounded-[22px] pt-10 pb-4 px-4 shadow-lg border border-white min-h-[108px] flex flex-col items-center justify-center text-center">
+          <div class="bg-white/95 rounded-[22px] pt-10 pb-3.5 px-4 shadow-lg border border-white min-h-[104px] flex flex-col items-center justify-center text-center">
             <div id="thinking-banner" class="hidden mb-1 bg-sky-100 text-sky-800 border border-sky-300 font-black text-[10px] px-3 py-0.5 rounded-full animate-pulse">
               🧠 Suy nghĩ 3 giây...
             </div>
@@ -288,110 +283,108 @@
           </div>
         </div>
 
-        <!-- 3. LƯỚI 4 ĐÁP ÁN 2x2 KÈM CHỒNG ẢNH ĐẠI DIỆN (AVATAR STACK) & TỶ LỆ % -->
-        <div class="grid grid-cols-2 gap-2.5 mb-2.5">
-          <button onclick="pickAnswer('A')" id="btn-A" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
+        <!-- LƯỚI 4 ĐÁP ÁN 2x2 KÈM CHỒNG ẢNH ĐẠI DIỆN 4K & TỶ LỆ % -->
+        <div class="grid grid-cols-2 gap-2 mb-2.5">
+          <button onclick="pickAnswer('A')" id="btn-A" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">A</span>
               <span id="text-A" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án A</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
-              <div id="avatars-A" class="flex items-center -space-x-1.5 overflow-hidden min-h-[20px]"></div>
+              <div id="avatars-A" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
               <span id="stat-A" class="text-[10px] bg-rose-50 text-rose-500 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
 
-          <button onclick="pickAnswer('B')" id="btn-B" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
+          <button onclick="pickAnswer('B')" id="btn-B" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-sky-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">B</span>
               <span id="text-B" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án B</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
-              <div id="avatars-B" class="flex items-center -space-x-1.5 overflow-hidden min-h-[20px]"></div>
+              <div id="avatars-B" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
               <span id="stat-B" class="text-[10px] bg-sky-50 text-sky-500 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
 
-          <button onclick="pickAnswer('C')" id="btn-C" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
+          <button onclick="pickAnswer('C')" id="btn-C" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-amber-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">C</span>
               <span id="text-C" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án C</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
-              <div id="avatars-C" class="flex items-center -space-x-1.5 overflow-hidden min-h-[20px]"></div>
+              <div id="avatars-C" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
               <span id="stat-C" class="text-[10px] bg-amber-50 text-amber-600 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
 
-          <button onclick="pickAnswer('D')" id="btn-D" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
+          <button onclick="pickAnswer('D')" id="btn-D" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-purple-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">D</span>
               <span id="text-D" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án D</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
-              <div id="avatars-D" class="flex items-center -space-x-1.5 overflow-hidden min-h-[20px]"></div>
+              <div id="avatars-D" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
               <span id="stat-D" class="text-[10px] bg-purple-50 text-purple-600 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
         </div>
       </div>
 
-      <!-- 4. KHU VỰC 2 CỘT PHÍA DƯỚI (GÓC TRÁI CÓ THẺ TÀI KHOẢN + NÚT ĐĂNG XUẤT CHuyển MÁY) -->
-      <div class="grid grid-cols-12 gap-2.5 items-start">
-        
-        <!-- CỘT TRÁI (5/12): THẺ TÀI KHOẢN ĐANG KHÓA + NÚT ĐĂNG XUẤT ĐỂ ĐĂNG NHẬP MÁY KHÁC -->
-        <div class="col-span-5 flex flex-col gap-2">
-          <div class="bg-white/95 rounded-[18px] p-3 shadow-md flex flex-col justify-between">
-            <div id="locked-player-badge" class="flex items-center gap-2 text-xs font-extrabold text-slate-800 truncate">
-              <span>👤 Đang tải...</span>
-            </div>
-            <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-100">
-              <span class="text-[10px] font-bold text-slate-400">Điểm:</span>
-              <span id="my-score-badge" class="text-xs font-black text-amber-500">0 ⭐</span>
-            </div>
-            <button onclick="logoutAccount()" class="mt-2 w-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-extrabold text-[10px] py-1.5 rounded-xl cursor-pointer transition-all" title="Đăng xuất để chuyển sang điện thoại/máy tính khác">
-              🚪 Đăng xuất TK
-            </button>
+      <!-- PHẦN GIỮA: Ô BẢNG XẾP HẠNG TO CHE KÍN CHỖ TRỐNG (NẰM DƯỚI 4 Ô ĐÁP ÁN) -->
+      <div class="w-full flex-1 bg-white/95 rounded-[20px] p-3 shadow-md flex flex-col justify-between mb-2.5 border border-white">
+        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+          <div class="flex items-center gap-1.5">
+            <span class="text-sm font-black text-slate-800">🏆 Bảng xếp hạng</span>
+            <span class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded-full">Ảnh đại diện 4K</span>
           </div>
+          <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold px-2.5 py-1 rounded-full border border-indigo-200 cursor-pointer">
+            ⚡ Xem Top 10 câu
+          </button>
         </div>
-
-        <!-- CỘT PHẢI (7/12): THẺ BẢNG XẾP HẠNG TÍCH LŨY -->
-        <div class="col-span-7 bg-white/95 rounded-[18px] p-2.5 shadow-md flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-100">
-              <span class="text-xs font-black text-slate-800">🏆 Bảng xếp hạng</span>
-              <button onclick="openRoundSpeedModal()" class="text-[9px] text-indigo-600 font-extrabold underline cursor-pointer">Top 10 câu</button>
-            </div>
-            <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto max-h-[195px] pr-0.5"></div>
-          </div>
-        </div>
-
+        <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto max-h-[210px] flex-1 pr-0.5"></div>
       </div>
+
+      <!-- PHẦN DƯỚI CÙNG: THANH CHỮ NHẬT NẰM DÀI CUỐI CÙNG (TÊN TÀI KHOẢN - ĐIỂM SỐ - NÚT ĐĂNG XUẤT) -->
+      <div class="w-full bg-white/95 rounded-[18px] px-3.5 py-2.5 shadow-lg border border-indigo-100 flex items-center justify-between gap-2">
+        <div id="locked-player-badge" class="flex items-center gap-2 text-xs font-extrabold text-slate-800 truncate min-w-0 flex-1">
+          <span>👤 Đang tải...</span>
+        </div>
+        <div class="flex items-center gap-1 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-xl shrink-0">
+          <span class="text-[10px] font-bold text-slate-600">Điểm:</span>
+          <span id="my-score-badge" class="text-xs font-black text-amber-600">0 ⭐</span>
+        </div>
+        <button onclick="logoutAccount()" class="bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-600 border border-rose-200 font-extrabold text-[10px] px-2.5 py-1.5 rounded-xl cursor-pointer transition-all shrink-0">
+          🚪 Đăng xuất
+        </button>
+      </div>
+
     </div>
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL CẮT ẢNH ĐẠI DIỆN (AVATAR CROPPER KIỂU FACEBOOK / GMAIL)          -->
+  <!-- MODAL CẮT ẢNH ĐẠI DIỆN 4K ULTRA-SHARP (KIỂU FACEBOOK / GMAIL)          -->
   <!-- ===================================================================== -->
   <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
     <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl border-2 border-indigo-500 p-4 text-center space-y-3">
       <div class="flex justify-between items-center border-b border-slate-200 pb-2">
-        <span class="text-xs font-black text-slate-800">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN</span>
+        <span class="text-xs font-black text-slate-800">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN 4K</span>
         <button onclick="closeAvatarCropper()" class="text-xs text-slate-500 hover:text-slate-800 font-bold cursor-pointer">✖ Đóng</button>
       </div>
       <p class="text-[11px] text-slate-600 font-semibold">
-        Dùng ngón tay (hoặc chuột) <strong>kéo di chuyển ảnh</strong> và trượt thanh <strong>Phóng to / Thu nhỏ</strong> để chọn khung hình tròn ưng ý nhất:
+        Dùng ngón tay (hoặc chuột) <strong>kéo di chuyển ảnh</strong> và trượt thanh <strong>Phóng to / Thu nhỏ</strong> để lấy góc nét nhất:
       </p>
 
       <div class="flex justify-center">
         <div class="relative w-[220px] h-[220px] rounded-2xl overflow-hidden bg-slate-900 shadow-inner border-2 border-slate-300 touch-none">
-          <canvas id="cropper-canvas" width="220" height="220" class="w-full h-full cursor-move"></canvas>
+          <!-- Khung vẽ độ phân giải gấp đôi (440x440) chuẩn Retina 4K -->
+          <canvas id="cropper-canvas" width="440" height="440" class="w-[220px] h-[220px] cursor-move"></canvas>
         </div>
       </div>
 
       <div class="flex items-center gap-2 px-2">
         <button type="button" onclick="adjustCropZoom(-0.15)" class="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 font-black text-xs cursor-pointer">➖</button>
-        <input id="cropper-zoom" type="range" min="1" max="3.2" step="0.02" value="1" oninput="onCropZoomChange()" class="flex-1 accent-indigo-600 cursor-pointer">
+        <input id="cropper-zoom" type="range" min="1" max="3.5" step="0.02" value="1" oninput="onCropZoomChange()" class="flex-1 accent-indigo-600 cursor-pointer">
         <button type="button" onclick="adjustCropZoom(0.15)" class="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 font-black text-xs cursor-pointer">➕</button>
       </div>
 
@@ -400,38 +393,45 @@
           🔄 Chọn ảnh khác
         </label>
         <button type="button" onclick="applyAvatarCrop()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-2.5 rounded-xl shadow-lg cursor-pointer">
-          ✂️ Cắt & Chọn ảnh này
+          ✂️ Cắt chuẩn 4K
         </button>
       </div>
     </div>
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL THƯ MỤC DANH SÁCH THÍ SINH THAM GIA (DÀNH CHO ADMIN TUẤN PHỦ LÝ) -->
+  <!-- MODAL THƯ MỤC "TỔNG TÀI KHOẢN" (THEO DÕI, ĐÌNH CHỈ & BỎ ĐÌNH CHỈ)      -->
   <!-- ===================================================================== -->
   <div id="modal-player-directory" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
     <div class="w-full max-w-md bg-slate-900 text-white rounded-3xl border-2 border-amber-500 shadow-2xl p-4 space-y-3 max-h-[90vh] flex flex-col">
       <div class="flex justify-between items-center border-b border-slate-700 pb-2">
         <div>
-          <h3 class="text-sm font-black text-amber-400">📁 THƯ MỤC DANH SÁCH THÍ SINH THAM GIA</h3>
-          <p class="text-[11px] text-slate-300 font-semibold">Tổng số: <span id="dir-total-count" class="text-emerald-400 font-black">0</span> tài khoản đã đăng ký</p>
+          <h3 class="text-sm font-black text-amber-400">📁 THƯ MỤC TỔNG TÀI KHOẢN</h3>
+          <p class="text-[11px] text-slate-300 font-semibold">
+            Đã vào phòng: <span id="dir-total-count" class="text-emerald-400 font-black">0</span> thí sinh
+            (Đang online: <span id="dir-online-count" class="text-sky-400 font-black">0</span>)
+          </p>
         </div>
         <button onclick="closePlayerDirectoryModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1 rounded-full border border-slate-600 cursor-pointer font-bold">
           ✖ Đóng
         </button>
       </div>
 
-      <div class="flex gap-2">
-        <input id="dir-search-input" type="text" oninput="renderPlayerDirectoryList()" placeholder="🔍 Tìm tên thí sinh..." class="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
-        <button onclick="requestPlayerPresence()" class="bg-sky-700 hover:bg-sky-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl cursor-pointer">
-          🔄 Đồng bộ
+      <div class="flex gap-1.5">
+        <input id="dir-search-input" type="text" oninput="renderPlayerDirectoryList()" placeholder="🔍 Tìm tên tài khoản..." class="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+        <button onclick="requestPlayerPresence()" class="bg-sky-700 hover:bg-sky-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0">
+          🔄 Quét phòng
         </button>
-        <button onclick="clearRoomPlayers()" class="bg-rose-800 hover:bg-rose-700 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer" title="Xóa toàn bộ danh sách hiện tại">
+        <button onclick="clearRoomPlayers()" class="bg-rose-800 hover:bg-rose-700 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0" title="Xóa toàn bộ danh sách hiện tại">
           🗑️ Xóa hết
         </button>
       </div>
 
-      <div id="dir-players-container" class="flex-1 overflow-y-auto space-y-1.5 pr-1"></div>
+      <div class="text-[10px] text-slate-400 bg-slate-800/60 px-2.5 py-1.5 rounded-xl border border-slate-700">
+        💡 <strong>Ký tự điều khiển:</strong> Bấm <span class="text-amber-300 font-bold">⛔ Đình chỉ</span> để tạm khóa quyền trả lời của thí sinh, hoặc bấm <span class="text-emerald-300 font-bold">✅ Bỏ đình chỉ</span> để cho phép thi tiếp.
+      </div>
+
+      <div id="dir-players-container" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
     </div>
   </div>
 
@@ -558,7 +558,7 @@
 
   <script>
     // =========================================================================
-    // 0. HỆ THỐNG AN NINH MẠNG BKAV-SHIELD V21 (CHỐNG HACK, LỘ ĐÁP ÁN & SPAM)
+    // 0. HỆ THỐNG BẢO MẬT AN NINH MẠNG (CHỐNG GIẢ MẠO, CHỐNG LỘ ĐÁP ÁN & SPAM)
     // =========================================================================
     const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
     const clientRateLimits = {};
@@ -587,7 +587,6 @@
       return (hash >>> 0).toString(36);
     }
 
-    // Mã hóa đáp án đúng khi phát câu hỏi để không ai dùng F12 xem trước được
     function encodeAnswerHash(correctKey, qUid) {
       const raw = `ANS_${correctKey}_${qUid}_${SECURITY_SALT}`;
       let hash = 5381;
@@ -616,7 +615,6 @@
 
     // =========================================================================
     // 1. LƯU TRỮ 4 TẦNG (INDEXEDDB + LOCALSTORAGE + COOKIE + WINDOW.NAME)
-    //    ĐẢM BẢO ANDROID VUỐT RA VÀO LẠI HOẶC KHỞI ĐỘNG LẠI MÁY VẪN VÀO THẲNG GAME
     // =========================================================================
     const IDB_NAME = "FourHomeMegaArenaDB_V21";
     const IDB_STORE = "kv_store";
@@ -675,7 +673,7 @@
       try {
         let wn = {};
         if (window.name && window.name.startsWith('{')) wn = JSON.parse(window.name);
-        if (strVal.length < 15000) {
+        if (strVal.length < 35000) {
           wn[key] = strVal;
           window.name = JSON.stringify(wn);
         }
@@ -732,8 +730,7 @@
       }
     }
 
-    // Chuyển đổi giữa Tab Đăng ký TK mới và Tab Đăng nhập TK đã có
-    let authMode = 'register'; // 'register' | 'login'
+    let authMode = 'register';
     function switchAuthTab(mode) {
       authMode = mode;
       const btnReg = document.getElementById('tab-btn-register');
@@ -758,7 +755,7 @@
     }
 
     // =========================================================================
-    // 2. BỘ CẮT & CĂN CHỈNH ẢNH ĐẠI DIỆN KIỂU FACEBOOK / GMAIL (AVATAR CROPPER)
+    // 2. XỬ LÝ ĐỒ HỌA PHOTOSHOP 4K ULTRA-SHARP CHO ẢNH ĐẠI DIỆN (AVATAR CROPPER)
     // =========================================================================
     let tempUploadedAvatar = '';
     let rawSourceImage = null;
@@ -770,7 +767,7 @@
     let dragStartX = 0;
     let dragStartY = 0;
 
-    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#f59e0b"/><text x="32" y="42" font-size="30" text-anchor="middle" fill="#0f172a">👑</text></svg>');
+    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="#f59e0b"/><text x="64" y="84" font-size="60" text-anchor="middle" fill="#0f172a">👑</text></svg>');
 
     function handleAvatarFileSelect(event) {
       const file = event.target.files && event.target.files[0];
@@ -804,8 +801,8 @@
       const zoomSlider = document.getElementById('cropper-zoom');
       modal.classList.remove('hidden');
 
-      const stageSize = 220;
-      const circleDiameter = 184;
+      const stageSize = 440;
+      const circleDiameter = 368;
       cropBaseScale = Math.max(circleDiameter / img.width, circleDiameter / img.height);
       cropScale = 1;
       if (zoomSlider) zoomSlider.value = "1";
@@ -822,8 +819,8 @@
 
     function clampCropOffsets() {
       if (!rawSourceImage) return;
-      const stageSize = 220;
-      const circleRadius = 92;
+      const stageSize = 440;
+      const circleRadius = 184;
       const center = stageSize / 2;
       const totalScale = cropBaseScale * cropScale;
       const drawW = rawSourceImage.width * totalScale;
@@ -850,9 +847,11 @@
       const H = canvas.height;
       const cx = W / 2;
       const cy = H / 2;
-      const radius = 92;
+      const radius = 184;
 
       ctx.clearRect(0, 0, W, H);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       clampCropOffsets();
 
       const totalScale = cropBaseScale * cropScale;
@@ -869,7 +868,7 @@
       ctx.fill();
 
       ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx.stroke();
@@ -883,7 +882,7 @@
       const prevTotal = cropBaseScale * cropScale;
       const nextTotal = cropBaseScale * newScale;
 
-      const center = 110;
+      const center = 220;
       const relX = (center - cropOffsetX) / prevTotal;
       const relY = (center - cropOffsetY) / prevTotal;
 
@@ -897,7 +896,7 @@
       const zoomSlider = document.getElementById('cropper-zoom');
       if (!zoomSlider) return;
       let val = (parseFloat(zoomSlider.value) || 1) + delta;
-      val = Math.max(1, Math.min(3.2, val));
+      val = Math.max(1, Math.min(3.5, val));
       zoomSlider.value = val.toFixed(2);
       onCropZoomChange();
     }
@@ -955,17 +954,51 @@
       });
     })();
 
+    // Thuật toán Photoshop Unsharp Mask (Tăng độ sắc nét viền điểm ảnh chuẩn 4K)
+    function applyPhotoshopSharpenFilter(ctx, w, h) {
+      try {
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const src = imgData.data;
+        const dstImg = ctx.createImageData(w, h);
+        const dst = dstImg.data;
+        // Ma trận làm nét nhẹ (Mild Sharpen Kernel) giúp khuôn mặt trong trẻo, rõ nét
+        const amount = 0.28;
+        for (let y = 1; y < h - 1; y++) {
+          for (let x = 1; x < w - 1; x++) {
+            const idx = (y * w + x) * 4;
+            for (let c = 0; c < 3; c++) {
+              const center = src[idx + c];
+              const neighbors = (
+                src[((y - 1) * w + x) * 4 + c] +
+                src[((y + 1) * w + x) * 4 + c] +
+                src[(y * w + (x - 1)) * 4 + c] +
+                src[(y * w + (x + 1)) * 4 + c]
+              ) * 0.25;
+              const sharpened = center + (center - neighbors) * (amount * 4);
+              dst[idx + c] = Math.min(255, Math.max(0, Math.round(sharpened)));
+            }
+            dst[idx + 3] = 255;
+          }
+        }
+        ctx.putImageData(dstImg, 0, 0);
+      } catch (e) {}
+    }
+
     function applyAvatarCrop() {
       if (!rawSourceImage) return;
       const outCanvas = document.createElement('canvas');
-      const outSize = 72;
+      // Xuất ảnh độ phân giải cao 220x220px (Gấp 9 lần diện tích điểm ảnh bản cũ)
+      const outSize = 220;
       outCanvas.width = outSize;
       outCanvas.height = outSize;
       const outCtx = outCanvas.getContext('2d');
 
-      const cx = 110;
-      const cy = 110;
-      const radius = 92;
+      outCtx.imageSmoothingEnabled = true;
+      outCtx.imageSmoothingQuality = 'high';
+
+      const cx = 220;
+      const cy = 220;
+      const radius = 184;
       const cropBoxX = cx - radius;
       const cropBoxY = cy - radius;
       const cropBoxDim = radius * 2;
@@ -977,9 +1010,14 @@
 
       outCtx.fillStyle = "#ffffff";
       outCtx.fillRect(0, 0, outSize, outSize);
+      outCtx.filter = 'contrast(1.05) saturate(1.08)';
       outCtx.drawImage(rawSourceImage, sx, sy, sDim, sDim, 0, 0, outSize, outSize);
+      outCtx.filter = 'none';
 
-      tempUploadedAvatar = outCanvas.toDataURL('image/jpeg', 0.78);
+      // Áp dụng bộ lọc làm nét Photoshop 4K
+      applyPhotoshopSharpenFilter(outCtx, outSize, outSize);
+
+      tempUploadedAvatar = outCanvas.toDataURL('image/jpeg', 0.86);
 
       const previewImg = document.getElementById('avatar-preview-img');
       const placeholder = document.getElementById('avatar-placeholder');
@@ -993,20 +1031,20 @@
       }
       if (recropBtn) recropBtn.classList.remove('hidden');
       if (statusTxt) {
-        statusTxt.innerText = "✅ Đã cắt & lưu ảnh đại diện ưng ý!";
+        statusTxt.innerText = "✅ Đã cắt & làm nét ảnh đại diện chuẩn 4K!";
         statusTxt.className = "text-[10px] text-emerald-600 font-bold mt-1";
       }
 
       closeAvatarCropper();
     }
 
-    function renderAvatarHTML(avatarUrl, sizeClass = "w-5 h-5", borderClass = "border border-amber-400") {
+    function renderAvatarHTML(avatarUrl, sizeClass = "w-7 h-7", borderClass = "border border-amber-400") {
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
-      return `<img src="${src}" class="${sizeClass} rounded-full object-cover ${borderClass} shrink-0 inline-block bg-slate-200" alt="avt">`;
+      return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-200" alt="avt">`;
     }
 
     // =========================================================================
-    // 3. ĐỘNG CƠ ÂM THANH KÉP (HYBRID KEEP-ALIVE AUDIO ENGINE) KHÔNG BAO GIỜ MẤT TIẾNG
+    // 3. ĐỘNG CƠ ÂM THANH KÉP (HYBRID KEEP-ALIVE AUDIO ENGINE)
     // =========================================================================
     let audioCtx = null;
     let mp3Unlocked = false;
@@ -1173,7 +1211,7 @@
     }
 
     // =========================================================================
-    // 4. NGÂN HÀNG CÂU HỎI & QUẢN LÝ TÀI KHOẢN ĐA THIẾT BỊ (CLOUD REGISTRY)
+    // 4. NGÂN HÀNG CÂU HỎI & QUẢN LÝ TÀI KHOẢN ĐA THIẾT BỊ + ĐÌNH CHỈ THI
     // =========================================================================
     const defaultBank = {
       "Tuần 1 - Tổng quan & Quy mô Sun Urban City": [
@@ -1228,19 +1266,18 @@
     let currentQuizName = Object.keys(quizBank)[0] || "";
     let currentQIndex = -1;
 
-    // Mã phần cứng của trình duyệt/điện thoại hiện tại (Dùng để khóa phiên 1 máy)
     let myDeviceHwId = getPersistentData('fh_hw_device_id_v21');
     if (!myDeviceHwId) {
       myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
       setPersistentData('fh_hw_device_id_v21', myDeviceHwId);
     }
 
-    // Hỗ trợ khôi phục từ cả V20 và V21 để nhân sự không bị mất tài khoản
     let myId = getPersistentData('fh_account_uid_v21') || getPersistentData('fh_device_uid_v20') || '';
     let myName = getPersistentData('fh_locked_name_v20') || '';
     let myAvatar = getPersistentData('fh_locked_avatar_v20') || '';
     let myScore = parseInt(getPersistentData('fh_saved_score_v20'), 10) || 0;
     let myResetId = getPersistentData('fh_reset_id_v20') || 'init_session';
+    let isMyAccountSuspended = (getPersistentData('fh_suspended_v22') === 'true');
     let isLoggedOutExplicitly = (getPersistentData('fh_logged_out_v21') === 'true');
     let isAdminMode = false;
 
@@ -1249,7 +1286,6 @@
       setPersistentData('fh_account_uid_v21', myId);
     }
 
-    // Kho lưu trữ toàn bộ tài khoản trên đám mây (Theo dõi khóa 1 thiết bị / 1 thời điểm)
     let accountRegistry = {};
     try {
       accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v21')) || {};
@@ -1310,13 +1346,25 @@
       return `Đáp án đúng là ${cKey}: ${cText}`;
     }
 
+    function updateSuspensionUI() {
+      const banner = document.getElementById('suspended-alert-banner');
+      if (!banner) return;
+      if (isMyAccountSuspended) {
+        banner.classList.remove('hidden');
+      } else {
+        banner.classList.add('hidden');
+      }
+      updateLockedPlayerBadgeUI();
+    }
+
     function updateLockedPlayerBadgeUI() {
       const badgeEl = document.getElementById('locked-player-badge');
       if (!badgeEl) return;
       if (myName && myAvatar) {
-        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-7 h-7')} <span class="truncate">${myName}</span>`;
+        const suspTag = isMyAccountSuspended ? `<span class="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : '';
+        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-xs')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
       } else if (isAdminMode) {
-        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-7 h-7')} <span class="truncate">Admin Tuấn Phủ Lý</span>`;
+        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-xs')} <span class="truncate font-black text-slate-800">Admin Tuấn Phủ Lý</span>`;
       }
     }
 
@@ -1335,19 +1383,25 @@
       }
     }
 
-    // Tự động khôi phục phiên chơi từ cả LocalStorage và IndexedDB (Chống mất tài khoản trên Android)
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       if (myName && myAvatar && !isLoggedOutExplicitly) {
         if (!myId) myId = 'acc_' + normalizeAccountKey(myName);
-        players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true };
+        players[myId] = {
+          id: myId,
+          name: myName,
+          avatar: myAvatar,
+          score: myScore,
+          lockedByDevice: myDeviceHwId,
+          isOnline: true,
+          isSuspended: isMyAccountSuspended
+        };
         document.getElementById('screen-login').classList.add('hidden');
         document.getElementById('screen-game').classList.remove('hidden');
         document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
-        updateLockedPlayerBadgeUI();
+        updateSuspensionUI();
         renderLeaderboard();
       } else {
-        // Thử đọc sâu từ IndexedDB phòng trường hợp Android vừa xóa LocalStorage tạm thời
         idbGetAll((stored) => {
           if (stored['fh_logged_out_v21'] === 'true') return;
           const idbName = stored['fh_locked_name_v20'];
@@ -1357,6 +1411,7 @@
             myAvatar = idbAvt;
             myScore = parseInt(stored['fh_saved_score_v20'], 10) || 0;
             myId = stored['fh_account_uid_v21'] || ('acc_' + normalizeAccountKey(myName));
+            isMyAccountSuspended = (stored['fh_suspended_v22'] === 'true');
             if (stored['fh_hw_device_id_v21']) myDeviceHwId = stored['fh_hw_device_id_v21'];
 
             setPersistentData('fh_locked_name_v20', myName);
@@ -1364,11 +1419,19 @@
             setPersistentData('fh_saved_score_v20', myScore);
             setPersistentData('fh_account_uid_v21', myId);
 
-            players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true };
+            players[myId] = {
+              id: myId,
+              name: myName,
+              avatar: myAvatar,
+              score: myScore,
+              lockedByDevice: myDeviceHwId,
+              isOnline: true,
+              isSuspended: isMyAccountSuspended
+            };
             document.getElementById('screen-login').classList.add('hidden');
             document.getElementById('screen-game').classList.remove('hidden');
             document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
-            updateLockedPlayerBadgeUI();
+            updateSuspensionUI();
             renderLeaderboard();
             announceMyPresence();
           }
@@ -1409,7 +1472,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh21_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh22_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -1433,7 +1496,7 @@
 
         c.on('message', (fullTopic, message) => {
           const str = message.toString();
-          if (!str || str.length > 65000) return;
+          if (!str || str.length > 95000) return;
           try {
             const data = JSON.parse(str);
             const subTopic = fullTopic.replace(`${BASE_TOPIC}/`, '');
@@ -1493,6 +1556,7 @@
         score: myScore,
         lockedByDevice: myDeviceHwId,
         isOnline: true,
+        isSuspended: isMyAccountSuspended,
         resetId: myResetId
       };
 
@@ -1508,7 +1572,7 @@
     }, 3500);
 
     // =========================================================================
-    // 6. XỬ LÝ GÓI TIN BẢO MẬT & ĐỒNG BỘ KHO TÀI KHOẢN ĐÁM MÂY
+    // 6. XỬ LÝ GÓI TIN BẢO MẬT, ĐỒNG BỘ TÀI KHOẢN & ĐÌNH CHỈ / BỎ ĐÌNH CHỈ
     // =========================================================================
     function recordRoundChoice(data) {
       if (!data || !data.id || !data.choice || !['A', 'B', 'C', 'D'].includes(data.choice)) return;
@@ -1558,15 +1622,22 @@
           const accKey = normalizeAccountKey(cleanName);
           const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
 
+          const existing = players[data.id] || accountRegistry[accKey];
+          const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
+
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
             if (validScore > myScore) {
               myScore = validScore;
               setPersistentData('fh_saved_score_v20', myScore);
               document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
             }
+            if (isMyAccountSuspended !== suspState) {
+              isMyAccountSuspended = suspState;
+              setPersistentData('fh_suspended_v22', isMyAccountSuspended ? 'true' : 'false');
+              updateSuspensionUI();
+            }
           }
 
-          const existing = players[data.id] || accountRegistry[accKey];
           const bestScore = existing ? Math.max(existing.score || 0, validScore) : validScore;
           const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR);
           const isOnlineNow = (data.type === 'PLAYER_LOGOUT') ? false : (data.isOnline !== false);
@@ -1578,7 +1649,8 @@
             avatar: avt,
             score: bestScore,
             lockedByDevice: lockDev,
-            isOnline: isOnlineNow
+            isOnline: isOnlineNow,
+            isSuspended: suspState
           };
 
           players[data.id] = updatedRecord;
@@ -1587,6 +1659,28 @@
           renderLeaderboard();
           renderPlayerDirectoryList();
         }
+      } else if (data.type === 'ADMIN_SUSPEND_PLAYER') {
+        const accKey = normalizeAccountKey(data.targetName || '');
+        const newSusp = Boolean(data.isSuspended);
+        if (accKey && accountRegistry[accKey]) {
+          accountRegistry[accKey].isSuspended = newSusp;
+          saveAccountRegistryLocal();
+        }
+        if (data.targetId && players[data.targetId]) {
+          players[data.targetId].isSuspended = newSusp;
+        }
+        if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
+          isMyAccountSuspended = newSusp;
+          setPersistentData('fh_suspended_v22', newSusp ? 'true' : 'false');
+          updateSuspensionUI();
+          if (newSusp) {
+            alert("⛔ THÔNG BÁO: Tài khoản của bạn vừa bị Admin Tuấn Phủ Lý tạm đình chỉ thi đấu!");
+          } else {
+            alert("✅ THÔNG BÁO: Admin Tuấn Phủ Lý đã BỎ ĐÌNH CHỈ cho tài khoản của bạn. Chúc bạn thi đấu tốt!");
+          }
+        }
+        renderLeaderboard();
+        renderPlayerDirectoryList();
       } else if (data.type === 'ADMIN_UNLOCK_DEVICE') {
         const accKey = normalizeAccountKey(data.targetName || '');
         if (accKey && accountRegistry[accKey]) {
@@ -1637,7 +1731,8 @@
           avatar: avt,
           score: validScore,
           lockedByDevice: existing ? existing.lockedByDevice : null,
-          isOnline: true
+          isOnline: true,
+          isSuspended: existing ? Boolean(existing.isSuspended) : false
         };
         accountRegistry[accKey] = players[data.id];
         saveAccountRegistryLocal();
@@ -1701,7 +1796,7 @@
     // =========================================================================
     function logoutAccount() {
       if (!myName) return;
-      const ok = confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}" khỏi thiết bị này?\n\nSau khi đăng xuất, bạn có thể dùng tên tài khoản "${myName}" và mật khẩu số 1 để đăng nhập trên điện thoại hoặc máy tính khác (giữ nguyên Ảnh đại diện và Điểm số).`);
+      const ok = confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}" khỏi thiết bị này?\n\nSau khi đăng xuất, bạn có thể dùng tên tài khoản "${myName}" và mật khẩu số 1 để đăng nhập trên điện thoại hoặc máy tính khác.`);
       if (!ok) return;
 
       stopAllMP3();
@@ -1716,7 +1811,8 @@
         avatar: myAvatar,
         score: myScore,
         lockedByDevice: null,
-        isOnline: false
+        isOnline: false,
+        isSuspended: isMyAccountSuspended
       };
 
       if (players[myId]) {
@@ -1731,7 +1827,6 @@
 
       publishPacket(`players/${myId}`, logoutPacket, true);
 
-      // Chuyển về màn hình Đăng nhập TK đã có và điền sẵn tên tài khoản
       document.getElementById('screen-game').classList.add('hidden');
       document.getElementById('screen-login').classList.remove('hidden');
       switchAuthTab('login');
@@ -1741,7 +1836,7 @@
     }
 
     // =========================================================================
-    // 8. THƯ MỤC DANH SÁCH THÍ SINH & QUẢN LÝ KHÓA THIẾT BỊ CHO ADMIN TUẤN PHỦ LÝ
+    // 8. THƯ MỤC "TỔNG TÀI KHOẢN" & CHỨC NĂNG ĐÌNH CHỈ / BỎ ĐÌNH CHỈ THÍ SINH
     // =========================================================================
     function openPlayerDirectoryModal() {
       document.getElementById('modal-player-directory').classList.remove('hidden');
@@ -1755,17 +1850,20 @@
     function renderPlayerDirectoryList() {
       const container = document.getElementById('dir-players-container');
       const totalEl = document.getElementById('dir-total-count');
+      const onlineEl = document.getElementById('dir-online-count');
       const searchInp = document.getElementById('dir-search-input');
       if (!container) return;
 
       const allList = Object.values(players).sort((a, b) => b.score - a.score);
+      const onlineCount = allList.filter(p => p.isOnline !== false).length;
       if (totalEl) totalEl.innerText = allList.length;
+      if (onlineEl) onlineEl.innerText = onlineCount;
 
       const keyword = (searchInp ? searchInp.value.trim().toLowerCase() : '');
       const filtered = keyword ? allList.filter(p => (p.name || '').toLowerCase().includes(keyword)) : allList;
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Không tìm thấy thí sinh nào trong thư mục...</div>`;
+        container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Chưa có tài khoản thí sinh nào trong phòng...</div>`;
         return;
       }
 
@@ -1773,31 +1871,75 @@
       filtered.forEach((p, idx) => {
         const safeName = (p.name || '').replace(/'/g, "\\'");
         const isLocked = Boolean(p.lockedByDevice && p.isOnline !== false);
-        const statusBadge = isLocked
-          ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Đang khóa 1 máy</span>`
-          : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất (Cho phép đổi máy)</span>`;
+        const isSusp = Boolean(p.isSuspended);
+
+        let statusBadge = '';
+        if (isSusp) {
+          statusBadge = `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded-full font-black">⛔ Đang bị đình chỉ thi</span>`;
+        } else if (isLocked) {
+          statusBadge = `<span class="text-[9px] text-emerald-400 font-bold">🟢 Đang trong phòng thi</span>`;
+        } else {
+          statusBadge = `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất (Cho phép đổi máy)</span>`;
+        }
+
+        const suspendBtnHTML = isSusp
+          ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Bỏ đình chỉ để cho phép thí sinh tiếp tục thi">✅ Bỏ đình chỉ</button>`
+          : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Đình chỉ quyền trả lời của thí sinh này">⛔ Đình chỉ</button>`;
 
         container.innerHTML += `
-          <div class="flex items-center justify-between bg-slate-800/90 border border-slate-700 rounded-2xl px-3 py-2 text-xs gap-2">
+          <div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2">
             <div class="flex items-center gap-2.5 truncate">
               <span class="w-5 h-5 rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>
-              ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400')}
+              ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}
               <div class="truncate">
                 <div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div>
-                ${statusBadge}
+                <div class="mt-0.5">${statusBadge}</div>
               </div>
             </div>
-            <div class="flex items-center gap-1 shrink-0">
-              <button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Mở khóa để thí sinh đăng nhập sang máy khác mà vẫn giữ nguyên điểm">
-                🔓 Mở khóa
+            <div class="flex flex-wrap items-center justify-end gap-1 shrink-0">
+              ${suspendBtnHTML}
+              <button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Mở khóa thiết bị">
+                🔓
               </button>
-              <button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Xóa hoàn toàn tài khoản">
-                🗑️ Xóa TK
+              <button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Xóa tài khoản">
+                🗑️
               </button>
             </div>
           </div>
         `;
       });
+    }
+
+    // Chức năng ĐÌNH CHỈ và BỎ ĐÌNH CHỈ thí sinh tham gia
+    function adminToggleSuspendPlayer(targetId, targetName, suspendState) {
+      const actionLabel = suspendState ? "ĐÌNH CHỈ" : "BỎ ĐÌNH CHỈ";
+      const ok = confirm(`Admin Tuấn Phủ Lý muốn ${actionLabel} thí sinh "${targetName}"?`);
+      if (!ok) return;
+
+      const accKey = normalizeAccountKey(targetName);
+      if (accountRegistry[accKey]) {
+        accountRegistry[accKey].isSuspended = suspendState;
+        saveAccountRegistryLocal();
+      }
+      if (players[targetId]) {
+        players[targetId].isSuspended = suspendState;
+        publishPacket(`players/${targetId}`, {
+          ...players[targetId],
+          type: 'PLAYER_JOIN',
+          isSuspended: suspendState
+        }, true);
+      }
+
+      publishPacket('events', {
+        type: 'ADMIN_SUSPEND_PLAYER',
+        id: 'admin',
+        targetId: targetId,
+        targetName: targetName,
+        isSuspended: suspendState
+      }, false);
+
+      renderLeaderboard();
+      renderPlayerDirectoryList();
     }
 
     function adminUnlockPlayerDevice(targetId, targetName) {
@@ -1824,7 +1966,7 @@
         targetName: targetName
       }, false);
       renderPlayerDirectoryList();
-      alert(`✅ Đã mở khóa thiết bị cho tài khoản "${targetName}"! Bây giờ thí sinh có thể đăng nhập trên điện thoại/máy tính mới.`);
+      alert(`✅ Đã mở khóa thiết bị cho tài khoản "${targetName}"!`);
     }
 
     function forceResetMyLocalAccount() {
@@ -1835,6 +1977,7 @@
       removePersistentData('fh_answered_history_v20');
       removePersistentData('fh_account_uid_v21');
       removePersistentData('fh_logged_out_v21');
+      removePersistentData('fh_suspended_v22');
 
       myId = '';
       myName = '';
@@ -1843,6 +1986,7 @@
       rawSourceImage = null;
       myScore = 0;
       answeredHistory = {};
+      isMyAccountSuspended = false;
       isLoggedOutExplicitly = false;
 
       document.getElementById('playerName').value = '';
@@ -1851,7 +1995,7 @@
       document.getElementById('avatar-preview-img').classList.add('hidden');
       document.getElementById('avatar-placeholder').classList.remove('hidden');
       document.getElementById('btn-recrop').classList.add('hidden');
-      document.getElementById('avatar-status-text').innerText = '* Bắt buộc chọn & cắt ảnh đại diện ưng ý để tạo TK.';
+      document.getElementById('avatar-status-text').innerText = '* Bắt buộc chọn & cắt ảnh đại diện 4K rõ nét.';
       document.getElementById('avatar-status-text').className = 'text-[10px] text-rose-600 font-bold mt-1';
       switchAuthTab('register');
       updateCharCount();
@@ -1981,7 +2125,7 @@
           <div class="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-2.5 py-1.5 text-xs">
             <div class="flex items-center gap-2 truncate">
               <span class="w-5 h-5 rounded-full bg-sky-100 text-sky-700 font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
-              ${renderAvatarHTML(item.avatar, 'w-6 h-6', 'border border-slate-300')}
+              ${renderAvatarHTML(item.avatar, 'w-7 h-7', 'border border-slate-300')}
               <span class="font-extrabold text-slate-800 truncate">${item.name}</span>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
@@ -2069,7 +2213,7 @@
           <div class="flex items-center justify-between py-1.5 px-3 rounded-xl border ${rowClass} text-xs">
             <div class="flex items-center gap-2">
               <span class="font-extrabold text-amber-400">${badge}:</span>
-              ${renderAvatarHTML(p.avatar, 'w-5 h-5')}
+              ${renderAvatarHTML(p.avatar, 'w-7 h-7')}
               <span class="font-bold">${p.name} ${isMe ? '(Bạn)' : isAboveMe ? '🔼' : ''}</span>
             </div>
             <span class="font-black text-amber-300">${p.score} ⭐</span>
@@ -2117,7 +2261,7 @@
           <div class="flex items-center justify-between py-1.5 px-3 rounded-xl ${isMe ? 'bg-amber-500/30 border border-amber-400' : 'bg-slate-800 border border-slate-700'}">
             <div class="flex items-center gap-2">
               <span class="font-bold text-amber-300">${badge}</span>
-              ${renderAvatarHTML(p.avatar, 'w-5 h-5')}
+              ${renderAvatarHTML(p.avatar, 'w-7 h-7')}
               <span class="font-bold text-white">${p.name} ${isMe ? '(Bạn)' : ''}</span>
             </div>
             <span class="font-black text-amber-400">${p.score} ⭐</span>
@@ -2255,11 +2399,6 @@
 
     function requestPlayerPresence() {
       publishPacket('events', { type: 'PING_PRESENCE', id: 'admin' }, false);
-      const btn = document.getElementById('btn-scan');
-      if (btn) {
-        btn.innerText = '✅ Đã đồng bộ!';
-        setTimeout(() => { btn.innerText = '🔄 Quét đồng bộ'; }, 1500);
-      }
       renderLeaderboard();
       renderPlayerDirectoryList();
     }
@@ -2281,7 +2420,7 @@
     }
 
     // =========================================================================
-    // 12. ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP ĐA THIẾT BỊ (KHÓA 1 MÁY / THỜI ĐIỂM)
+    // 12. ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP ĐA THIẾT BỊ
     // =========================================================================
     function joinGame() {
       initAudio();
@@ -2305,32 +2444,32 @@
       const existingAcc = accountRegistry[accKey] || players[targetAccountId] ||
         Object.values(players).find(p => p && p.name && normalizeAccountKey(p.name) === accKey);
 
-      // TRƯỜNG HỢP 1: NGƯỜI DÙNG CHỌN TAB "ĐĂNG NHẬP TK ĐÃ CÓ" (HOẶC NHẬP LẠI TÀI KHOẢN CỦA CHÍNH MÌNH)
       if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
         if (!existingAcc) {
           return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}" trên hệ thống!\nNếu bạn chưa tạo tài khoản, vui lòng chuyển sang mục "✨ Đăng ký TK mới" để tải ảnh đại diện nhé.`);
         }
 
-        // Kiểm tra khóa độc quyền 1 thiết bị tại 1 thời điểm
         if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) {
-          return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\n\nTài khoản "${existingAcc.name}" hiện đang được sử dụng trên một điện thoại/máy tính khác.\n👉 Vui lòng bấm nút "🚪 Đăng xuất TK" trên thiết bị cũ (hoặc nhờ Admin Tuấn Phủ Lý bấm "🔓 Mở khóa") trước khi đăng nhập vào máy này!`);
+          return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\n\nTài khoản "${existingAcc.name}" hiện đang được sử dụng trên một điện thoại/máy tính khác.\n👉 Vui lòng bấm nút "🚪 Đăng xuất" trên thiết bị cũ (hoặc nhờ Admin Tuấn Phủ Lý bấm "🔓" trong mục Tổng tài khoản) trước khi đăng nhập vào máy này!`);
         }
 
         myId = existingAcc.id || targetAccountId;
         myName = existingAcc.name;
         myAvatar = existingAcc.avatar || DEFAULT_ADMIN_AVATAR;
         myScore = existingAcc.score || 0;
+        isMyAccountSuspended = Boolean(existingAcc.isSuspended);
         isLoggedOutExplicitly = false;
 
         setPersistentData('fh_account_uid_v21', myId);
         setPersistentData('fh_locked_name_v20', myName);
         setPersistentData('fh_locked_avatar_v20', myAvatar);
         setPersistentData('fh_saved_score_v20', myScore);
+        setPersistentData('fh_suspended_v22', isMyAccountSuspended ? 'true' : 'false');
         setPersistentData('fh_logged_out_v21', 'false');
 
         document.getElementById('screen-login').classList.add('hidden');
         document.getElementById('screen-game').classList.remove('hidden');
-        updateLockedPlayerBadgeUI();
+        updateSuspensionUI();
         document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
 
         playSynthTone(523.25, 0, 0.15, 'triangle', 0.2);
@@ -2340,11 +2479,9 @@
         return;
       }
 
-      // TRƯỜNG HỢP 2: ĐĂNG KÝ TÀI KHOẢN MỚI
       if (existingAcc) {
-        // Nếu tài khoản đã tồn tại nhưng đang ở trạng thái đã Đăng xuất -> Cho phép nhận diện đăng nhập luôn nếu người chơi quên chuyển tab
         if (existingAcc.isOnline === false || !existingAcc.lockedByDevice) {
-          const useExisting = confirm(`Tài khoản "${existingAcc.name}" đã được tạo trước đó!\nBạn có muốn ĐĂNG NHẬP luôn vào tài khoản "${existingAcc.name}" (giữ nguyên Ảnh đại diện và ${existingAcc.score || 0} ⭐) không?`);
+          const useExisting = confirm(`Tài khoản "${existingAcc.name}" đã được tạo trước đó!\nBạn có muốn ĐĂNG NHẬP luôn vào tài khoản "${existingAcc.name}" (giữ nguyên Ảnh đại diện 4K và ${existingAcc.score || 0} ⭐) không?`);
           if (useExisting) {
             switchAuthTab('login');
             joinGame();
@@ -2356,24 +2493,26 @@
 
       const avatarToUse = tempUploadedAvatar || myAvatar;
       if (!avatarToUse) {
-        return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh & Cắt ảnh' để tải và cắt Hình ảnh đại diện (Avatar) ưng ý trước khi đăng ký!");
+        return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh & Cắt 4K' để tải và cắt Hình ảnh đại diện (Avatar) ưng ý trước khi đăng ký!");
       }
 
       myId = targetAccountId;
       myName = nameInput;
       myAvatar = avatarToUse;
       myScore = 0;
+      isMyAccountSuspended = false;
       isLoggedOutExplicitly = false;
 
       setPersistentData('fh_account_uid_v21', myId);
       setPersistentData('fh_locked_name_v20', myName);
       setPersistentData('fh_locked_avatar_v20', myAvatar);
       setPersistentData('fh_saved_score_v20', myScore);
+      setPersistentData('fh_suspended_v22', 'false');
       setPersistentData('fh_logged_out_v21', 'false');
 
       document.getElementById('screen-login').classList.add('hidden');
       document.getElementById('screen-game').classList.remove('hidden');
-      updateLockedPlayerBadgeUI();
+      updateSuspensionUI();
       document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
 
       playSynthTone(523.25, 0, 0.15, 'triangle', 0.2);
@@ -2499,7 +2638,6 @@
       const expText = getExplanationForQuestion(q);
       const qUid = currentQuizName + '_q' + (currentQIndex + 1) + '_' + myResetId + '_' + Date.now();
 
-      // Bảo mật: Không gửi trực tiếp chữ cái đáp án đúng trong gói START_QUESTION mà chỉ gửi mã băm (answerHash)
       const packet = {
         type: 'START_QUESTION',
         id: 'admin',
@@ -2635,7 +2773,6 @@
         hasAnswered = false;
       }
 
-      // GIAI ĐOẠN 1: 3 GIÂY SUY NGHĨ (3, 2, 1)
       let thinkLeft = 3;
       isThinkingPhase = true;
       const thinkBanner = document.getElementById('thinking-banner');
@@ -2704,6 +2841,9 @@
     }
 
     function pickAnswer(choice) {
+      if (isMyAccountSuspended) {
+        return alert("⛔ Tài khoản của bạn đang bị Admin Tuấn Phủ Lý tạm đình chỉ thi đấu! Vui lòng chờ Admin bỏ đình chỉ để tiếp tục trả lời.");
+      }
       if (isThinkingPhase) return;
       if (hasAnswered || isQuestionRevealed || currentTimeLeft <= 0) return;
       initAudio();
@@ -2824,7 +2964,7 @@
       const displayName = myName || 'Admin Tuấn Phủ Lý';
       const displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
       if (myName) {
-        players[myId] = { id: myId, name: displayName, avatar: displayAvt, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true };
+        players[myId] = { id: myId, name: displayName, avatar: displayAvt, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
       }
 
       if (myPendingChoice) {
@@ -2895,62 +3035,47 @@
 
       const container = document.getElementById('leaderboard-list');
       container.innerHTML = '';
-      sorted.slice(0, 10).forEach((p, idx) => {
-        const rankNum = idx + 1;
-        const rankBadgeClass = rankNum === 1
-          ? 'bg-amber-400 text-white'
-          : rankNum === 2
-            ? 'bg-slate-400 text-white'
-            : rankNum === 3
-              ? 'bg-amber-600 text-white'
-              : 'bg-slate-100 text-slate-500';
+      if (sorted.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Đang chờ các thí sinh vào phòng thi...</div>`;
+      } else {
+        sorted.slice(0, 15).forEach((p, idx) => {
+          const rankNum = idx + 1;
+          const rankBadgeClass = rankNum === 1
+            ? 'bg-amber-400 text-white shadow-xs'
+            : rankNum === 2
+              ? 'bg-slate-400 text-white'
+              : rankNum === 3
+                ? 'bg-amber-600 text-white'
+                : 'bg-slate-200 text-slate-600';
+          const suspTag = p.isSuspended ? `<span class="text-[9px] bg-rose-100 text-rose-600 font-black px-1.5 py-0.5 rounded-full ml-1">⛔ Đình chỉ</span>` : '';
 
-        container.innerHTML += `
-          <div class="flex items-center justify-between py-1 px-2 rounded-xl bg-slate-50/90 border border-slate-100">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="w-4 h-4 rounded-full ${rankBadgeClass} font-black text-[9px] flex items-center justify-center shrink-0">${rankNum}</span>
-              ${renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-slate-300')}
-              <span class="font-bold text-slate-700 text-[11px] truncate max-w-[90px]">${p.name}</span>
-            </div>
-            <span class="font-black text-slate-800 text-[11px] shrink-0">${p.score} <span class="text-amber-400">⭐</span></span>
-          </div>
-        `;
-      });
-
-      const adminList = document.getElementById('admin-players-list');
-      const adminCount = document.getElementById('admin-player-count');
-      const dirCountBtn = document.getElementById('admin-dir-count-btn');
-      const allPlayers = Object.values(players);
-
-      if (adminCount) adminCount.innerText = allPlayers.length;
-      if (dirCountBtn) dirCountBtn.innerText = allPlayers.length;
-
-      if (adminList) {
-        if (allPlayers.length === 0) {
-          adminList.innerHTML = '<span class="text-slate-400 italic">Chưa có ai vào phòng...</span>';
-        } else {
-          adminList.innerHTML = '';
-          allPlayers.forEach(p => {
-            const safeName = (p.name || '').replace(/'/g, "\\'");
-            adminList.innerHTML += `
-              <div class="inline-flex items-center gap-1.5 bg-slate-800 text-slate-200 pl-1.5 pr-2 py-0.5 rounded-full border border-slate-700">
-                ${renderAvatarHTML(p.avatar, 'w-4 h-4')}
-                <span>${p.name} (${p.score}⭐)</span>
-                <button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="ml-0.5 text-rose-400 hover:text-rose-200 font-black cursor-pointer" title="Xóa tài khoản thí sinh này">✖</button>
+          container.innerHTML += `
+            <div class="flex items-center justify-between py-1.5 px-3 rounded-2xl bg-slate-50/95 border border-slate-200/70 hover:bg-white transition-all">
+              <div class="flex items-center gap-2.5 truncate">
+                <span class="w-5 h-5 rounded-full ${rankBadgeClass} font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
+                ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-2xs')}
+                <span class="font-extrabold text-slate-800 text-xs truncate max-w-[170px]">${p.name}</span>
+                ${suspTag}
               </div>
-            `;
-          });
-        }
+              <span class="font-black text-slate-800 text-xs shrink-0">${p.score} <span class="text-amber-400">⭐</span></span>
+            </div>
+          `;
+        });
       }
+
+      // Cập nhật con số trên nút "📁 Tổng tài khoản (X)" của Admin Tuấn Phủ Lý
+      const dirCountBtn = document.getElementById('admin-dir-count-btn');
+      if (dirCountBtn) dirCountBtn.innerText = Object.keys(players).length;
     }
 
     function downloadExcel() {
       const sorted = Object.values(players).sort((a, b) => b.score - a.score);
       if (sorted.length === 0) return alert("Chưa có dữ liệu người chơi!");
-      let csv = "\uFEFFHạng,Tên tài khoản,Điểm số,Chuyên đề,Ngày kiểm tra\n";
+      let csv = "\uFEFFHạng,Tên tài khoản,Điểm số,Trạng thái,Chuyên đề,Ngày kiểm tra\n";
       const d = new Date().toLocaleDateString('vi-VN');
       sorted.forEach((p, i) => {
-        csv += `${i + 1},"${p.name}",${p.score},"${currentQuizName}","${d}"\n`;
+        const st = p.isSuspended ? "Đình chỉ" : "Hợp lệ";
+        csv += `${i + 1},"${p.name}",${p.score},"${st}","${currentQuizName}","${d}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const a = document.createElement('a');
