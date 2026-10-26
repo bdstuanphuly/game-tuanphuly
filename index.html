@@ -85,9 +85,9 @@
       <input id="playerName" type="text" placeholder="Nhập Họ tên + Phòng ban..." 
         class="w-full px-4 py-3.5 border-2 border-slate-200 rounded-xl mb-4 focus:outline-none focus:border-blue-600 font-semibold text-sm text-center">
       
-      <button onclick="joinGame()" 
-        class="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 transition-all text-sm">
-        🚀 BẮT ĐẦU VÀO PHÒNG THI
+      <button id="btn-join" onclick="joinGame()" disabled
+        class="w-full bg-slate-400 text-white font-extrabold py-3.5 rounded-xl shadow-lg transition-all text-sm cursor-not-allowed">
+        ⏳ Đang kết nối tổng đài...
       </button>
     </div>
 
@@ -217,6 +217,14 @@
     client.on('connect', () => {
       document.getElementById('conn-status').innerText = '🟢 Đã kết nối phòng thi trực tuyến';
       client.subscribe(TOPIC);
+      
+      // Mở khóa nút đăng nhập cho thí sinh khi mạng đã sẵn sàng
+      const btnJoin = document.getElementById('btn-join');
+      if (btnJoin) {
+        btnJoin.disabled = false;
+        btnJoin.className = "w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 transition-all text-sm cursor-pointer";
+        btnJoin.innerText = "🚀 BẮT ĐẦU VÀO PHÒNG THI";
+      }
     });
 
     client.on('message', (topic, message) => {
