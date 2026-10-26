@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Four Home Mega - Đấu Trí Sun Urban City</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <style>
+    @keyframes pulse-ring {
+      0%, 100% { transform: scale(0.96); }
+      50% { transform: scale(1.05); }
+    }
+    .timer-pulse { animation: pulse-ring 1s infinite; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+  </style>
+</head>
+<body class="text-slate-800 font-sans flex flex-col justify-center items-center min-h-screen p-2 sm:p-4">
+
+  <!-- THANH CÔNG CỤ QUẢN TRÒ DÀNH CHO ANH TUẤN -->
+  <div class="w-full max-w-md flex justify-between items-center mb-2 px-1">
+    <span id="conn-status" class="text-[11px] text-emerald-400 font-semibold">🟢 Đang kết nối phòng thi...</span>
+    <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-xs text-amber-300 hover:text-white bg-slate-800 px-3 py-1.5 rounded-full border border-amber-500/40 shadow">
+      🔑 Quản trò (GĐ Tuấn)
+    </button>
+  </div>
+
+  <!-- BẢNG ĐIỀU KHIỂN CỦA GIÁM ĐỐC (MẬT KHẨU: 8538) -->
+  <div id="admin-panel" class="hidden w-full max-w-md bg-slate-800 text-white rounded-2xl p-3.5 mb-3 border-2 border-amber-500 shadow-xl space-y-2.5">
+    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+      <span class="text-xs font-extrabold text-amber-400">👑 BẢNG ĐIỀU KHIỂN QUẢN TRÒ</span>
+      <button onclick="toggleNewQuizModal()" class="text-[11px] bg-blue-600 hover:bg-blue-500 px-2.5 py-1 rounded-lg font-bold">
+        ➕ Dán đề mới từ NotebookLM
+      </button>
+    </div>
+
+    <div class="flex items-end gap-2">
+      <div class="flex-1">
+        <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Chọn bộ đề 52 tuần:</label>
+        <select id="admin-quiz-select" onchange="selectQuizWeek()" class="w-full bg-slate-900 border border-slate-600 rounded-lg text-xs py-2 px-2 text-white font-semibold"></select>
+      </div>
+      <button onclick="hostNextQuestion()" class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-lg">
+        ▶ Phát câu tiếp
+      </button>
+    </div>
+
+    <!-- Ô DÁN CÂU HỎI TỪ NOTEBOOK LM NGAY TRÊN ĐIỆN THOẠI/MÁY TÍNH -->
+    <div id="modal-new-quiz" class="hidden bg-slate-900 p-3 rounded-xl border border-slate-700 space-y-2">
+      <input id="new-quiz-title" type="text" placeholder="Tên tuần (VD: Tuần 3 - Chính sách bán hàng)" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-2.5 py-1.5 text-xs text-white">
+      <textarea id="new-quiz-json" rows="4" placeholder='Dán đoạn mã [ ... ] từ NotebookLM vào đây...' class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2 text-[11px] text-emerald-300 font-mono"></textarea>
+      <button onclick="saveNewQuizFromNotebook()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold text-xs py-2 rounded-lg">
+        💾 LƯU VÀO KHO & PHÁT CHO NHÂN SỰ
+      </button>
+    </div>
+
+    <div class="flex gap-2 pt-1">
+      <button onclick="hostResetGame()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-xs py-1.5 rounded-lg">🔄 Thi lại từ câu 1</button>
+      <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold py-1.5 rounded-lg">📥 Tải Điểm Excel</button>
+    </div>
+  </div>
+
+  <!-- KHUNG MÀN HÌNH TRÒ CHƠI CHÍNH (CHUẨN TỶ LỆ ĐIỆN THOẠI) -->
+  <div class="w-full max-w-md bg-white/95 rounded-3xl shadow-2xl overflow-hidden flex flex-col min-h-[600px] border border-slate-200">
+    
+    <!-- MÀN HÌNH 1: NHẬP TÊN VÀO PHÒNG -->
+    <div id="screen-login" class="flex-1 flex flex-col justify-center items-center p-6 text-center">
+      <div class="w-16 h-16 bg-gradient-to-tr from-blue-700 to-blue-500 text-white rounded-2xl flex items-center justify-center text-3xl font-black mb-3 shadow-lg">
+        🏆
+      </div>
+      <h1 class="text-xl font-black text-slate-800 tracking-tight">FOUR HOME MEGA</h1>
+      <p class="text-xs font-extrabold text-amber-600 mb-2">ĐẤU TRÍ ĐÀO TẠO SUN URBAN CITY</p>
+      <p id="login-quiz-badge" class="text-[11px] text-blue-700 font-bold mb-6 bg-blue-50 py-1 px-3 rounded-full border border-blue-200">
+        Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
+      </p>
+      
+      <input id="playerName" type="text" placeholder="Nhập Họ tên + Phòng ban..." 
+        class="w-full px-4 py-3.5 border-2 border-slate-200 rounded-xl mb-4 focus:outline-none focus:border-blue-600 font-semibold text-sm text-center">
+      
+      <button onclick="joinGame()" 
+        class="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 transition-all text-sm">
+        🚀 BẮT ĐẦU VÀO PHÒNG THI
+      </button>
+    </div>
+
+    <!-- MÀN HÌNH 2: THI ĐẤU TRẮC NGHIỆM (GIỐNG MẪU TIKTOK LIVE) -->
+    <div id="screen-game" class="hidden flex-1 flex flex-col p-4">
+      
+      <!-- Đồng hồ đếm ngược ở chính giữa -->
+      <div class="flex items-center justify-between mb-3">
+        <span id="question-index" class="text-xs font-extrabold text-blue-700 bg-blue-100 px-3 py-1 rounded-full">Phòng chờ</span>
+        <div class="w-14 h-14 rounded-full border-4 border-emerald-500 bg-white shadow-md flex flex-col items-center justify-center timer-pulse">
+          <span id="timer-count" class="font-black text-emerald-600 text-xl leading-none">20</span>
+          <span class="text-[9px] text-slate-400 font-bold">giây</span>
+        </div>
+        <span id="my-score-badge" class="text-xs font-extrabold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">0 ⭐</span>
+      </div>
+
+      <!-- Khung câu hỏi -->
+      <div class="bg-white border-2 border-slate-100 rounded-2xl p-4 mb-3 shadow-sm min-h-[95px] flex items-center justify-center text-center">
+        <h2 id="question-text" class="text-sm font-extrabold text-slate-800 leading-snug">
+          Đã vào phòng thành công! Hãy nhìn lên màn hình hoặc chờ Giám đốc bấm "Phát câu tiếp"...
+        </h2>
+      </div>
+
+      <!-- 4 Đáp án A, B, C, D chia 2 cột kèm % bình chọn -->
+      <div class="grid grid-cols-2 gap-2.5 mb-3">
+        <button onclick="pickAnswer('A')" id="btn-A" class="text-left p-3 rounded-2xl border-2 border-rose-200 bg-rose-50/40 active:scale-95 transition-all">
+          <div class="flex justify-between items-center mb-1">
+            <span class="w-5 h-5 rounded-full bg-rose-500 text-white text-[11px] font-black flex items-center justify-center">A</span>
+            <span id="stat-A" class="text-[10px] bg-rose-100 text-rose-600 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
+          </div>
+          <div id="text-A" class="text-xs font-bold text-slate-700">Đáp án A</div>
+        </button>
+
+        <button onclick="pickAnswer('B')" id="btn-B" class="text-left p-3 rounded-2xl border-2 border-sky-200 bg-sky-50/40 active:scale-95 transition-all">
+          <div class="flex justify-between items-center mb-1">
+            <span class="w-5 h-5 rounded-full bg-sky-500 text-white text-[11px] font-black flex items-center justify-center">B</span>
+            <span id="stat-B" class="text-[10px] bg-sky-100 text-sky-600 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
+          </div>
+          <div id="text-B" class="text-xs font-bold text-slate-700">Đáp án B</div>
+        </button>
+
+        <button onclick="pickAnswer('C')" id="btn-C" class="text-left p-3 rounded-2xl border-2 border-amber-200 bg-amber-50/40 active:scale-95 transition-all">
+          <div class="flex justify-between items-center mb-1">
+            <span class="w-5 h-5 rounded-full bg-amber-500 text-white text-[11px] font-black flex items-center justify-center">C</span>
+            <span id="stat-C" class="text-[10px] bg-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
+          </div>
+          <div id="text-C" class="text-xs font-bold text-slate-700">Đáp án C</div>
+        </button>
+
+        <button onclick="pickAnswer('D')" id="btn-D" class="text-left p-3 rounded-2xl border-2 border-purple-200 bg-purple-50/40 active:scale-95 transition-all">
+          <div class="flex justify-between items-center mb-1">
+            <span class="w-5 h-5 rounded-full bg-purple-500 text-white text-[11px] font-black flex items-center justify-center">D</span>
+            <span id="stat-D" class="text-[10px] bg-purple-100 text-purple-600 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
+          </div>
+          <div id="text-D" class="text-xs font-bold text-slate-700">Đáp án D</div>
+        </button>
+      </div>
+
+      <!-- Bảng Xếp Hạng Top 10 Thần Tốc -->
+      <div class="flex-1 bg-slate-50 border border-slate-200 rounded-2xl p-3 flex flex-col">
+        <div class="flex items-center justify-between pb-1.5 mb-2 border-b border-slate-200">
+          <span class="text-xs font-extrabold text-slate-700">🏆 Bảng Xếp Hạng Thần Tốc</span>
+          <span class="text-[10px] text-slate-400 font-semibold">Điểm tích lũy</span>
+        </div>
+        <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto max-h-[165px] text-xs"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // NGÂN HÀNG CÂU HỎI MẶC ĐỊNH DỰ ÁN SUN URBAN CITY
+    const defaultBank = {
+      "Tuần 1 - Tổng quan & Quy mô Sun Urban City": [
+        {
+          "id": 1,
+          "question": "Đại đô thị Sun Urban City tại Hà Nam có tổng quy mô diện tích và mật độ xây dựng là bao nhiêu?",
+          "options": { "A": "300ha - Mật độ 25%", "B": "420ha - Mật độ chỉ 18%", "C": "500ha - Mật độ 30%", "D": "250ha - Mật độ 20%" },
+          "correct": "B", "time": 20
+        },
+        {
+          "id": 2,
+          "question": "Diện tích dành cho cảnh quan cây xanh và mặt nước tại Sun Urban City chiếm khoảng bao nhiêu ha?",
+          "options": { "A": "50 ha", "B": "100 ha", "C": "200 ha", "D": "300 ha" },
+          "correct": "C", "time": 20
+        },
+        {
+          "id": 3,
+          "question": "Căn hộ cao tầng Art Residence tại Sun Urban City có chiều cao trần đột phá khoảng bao nhiêu mét?",
+          "options": { "A": "Cao 3,1m", "B": "Cao 3,4m", "C": "Cao tới gần 5m (có gác lửng)", "D": "Cao 6,2m" },
+          "correct": "C", "time": 20
+        },
+        {
+          "id": 4,
+          "question": "Sun Urban City sở hữu tổ hợp bao nhiêu đại công viên chủ đề lớn?",
+          "options": { "A": "3 đại công viên", "B": "5 đại công viên", "C": "6 đại công viên", "D": "8 đại công viên" },
+          "correct": "B", "time": 20
+        },
+        {
+          "id": 5,
+          "question": "Trụ sở Four Home Mega tọa lạc tại căn biệt thự nào trong dự án Sun Urban City?",
+          "options": { "A": "BT C11.119 đường Nguyễn Văn Linh", "B": "BT A02.10 đường Lê Công Thanh", "C": "BT B01.15 đường Điện Biên Phủ", "D": "BT C05.20 đường Quốc lộ 1A" },
+          "correct": "A", "time": 20
+        }
+      ]
+    };
+
+    let quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank')) || defaultBank;
+    let currentQuizName = Object.keys(quizBank)[0];
+    let currentQIndex = -1;
+    let myId = 'u_' + Math.random().toString(36).substr(2, 6);
+    let myName = '';
+    let myScore = 0;
+    let hasAnswered = false;
+    let questionStartTime = 0;
+    let countdownTimer = null;
+
+    // Dữ liệu phòng thi đồng bộ thời gian thực
+    let players = {};
+    let votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
+
+    // Kết nối sóng trực tuyến MQTT (Không cần cài đặt máy chủ)
+    const TOPIC = 'fourhome_mega_sunurbancity_2026_room1';
+    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
+
+    client.on('connect', () => {
+      document.getElementById('conn-status').innerText = '🟢 Đã kết nối phòng thi trực tuyến';
+      client.subscribe(TOPIC);
+    });
+
+    client.on('message', (topic, message) => {
+      const data = JSON.parse(message.toString());
+      if (data.type === 'PLAYER_JOIN') {
+        players[data.id] = { name: data.name, score: data.score };
+        renderLeaderboard();
+      } else if (data.type === 'START_QUESTION') {
+        showQuestionOnScreen(data);
+      } else if (data.type === 'SUBMIT_ANSWER') {
+        players[data.id] = { name: data.name, score: data.score };
+        if (votes[data.choice] !== undefined) {
+          votes[data.choice]++;
+          votes.total++;
+          updateVoteStatsUI();
+        }
+        renderLeaderboard();
+      } else if (data.type === 'REVEAL_CORRECT') {
+        highlightCorrectAnswer(data.correct);
+      } else if (data.type === 'SYNC_NEW_QUIZ') {
+        quizBank[data.title] = data.questions;
+        localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
+        currentQuizName = data.title;
+        renderQuizDropdown();
+        document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
+      } else if (data.type === 'RESET_GAME') {
+        myScore = 0;
+        for (let k in players) players[k].score = 0;
+        document.getElementById('my-score-badge').innerText = `0 ⭐`;
+        renderLeaderboard();
+      }
+    });
+
+    function renderQuizDropdown() {
+      const sel = document.getElementById('admin-quiz-select');
+      sel.innerHTML = '';
+      Object.keys(quizBank).forEach(title => {
+        const opt = document.createElement('option');
+        opt.value = title;
+        opt.innerText = `${title} (${quizBank[title].length} câu)`;
+        if (title === currentQuizName) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    }
+    renderQuizDropdown();
+
+    function unlockAdmin() {
+      const pin = prompt("Nhập mật khẩu Quản trò (4 số cuối SĐT anh Tuấn - 8538):");
+      if (pin === "8538") {
+        document.getElementById('admin-panel').classList.remove('hidden');
+        document.getElementById('btn-unlock-admin').classList.add('hidden');
+      } else if (pin !== null) {
+        alert("Sai mật khẩu Quản trò!");
+      }
+    }
+
+    function toggleNewQuizModal() {
+      document.getElementById('modal-new-quiz').classList.toggle('hidden');
+    }
+
+    function selectQuizWeek() {
+      currentQuizName = document.getElementById('admin-quiz-select').value;
+      currentQIndex = -1;
+      document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
+    }
+
+    function saveNewQuizFromNotebook() {
+      const title = document.getElementById('new-quiz-title').value.trim();
+      const rawJson = document.getElementById('new-quiz-json').value.trim();
+      if (!title || !rawJson) return alert("Anh vui lòng nhập Tên tuần và dán nội dung JSON!");
+      try {
+        const parsed = JSON.parse(rawJson);
+        quizBank[title] = parsed;
+        localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
+        currentQuizName = title;
+        currentQIndex = -1;
+        renderQuizDropdown();
+        client.publish(TOPIC, JSON.stringify({ type: 'SYNC_NEW_QUIZ', title: title, questions: parsed }));
+        document.getElementById('modal-new-quiz').classList.add('hidden');
+        alert(`Đã lưu thành công bộ đề "${title}" (${parsed.length} câu)!`);
+      } catch (e) {
+        alert("Đoạn mã dán vào chưa đúng chuẩn JSON từ `[` đến `]`. Anh kiểm tra lại nhé!");
+      }
+    }
+
+    function joinGame() {
+      const nameInput = document.getElementById('playerName').value.trim();
+      if (!nameInput) return alert("Vui lòng nhập Họ tên của bạn!");
+      myName = nameInput;
+      players[myId] = { name: myName, score: myScore };
+      document.getElementById('screen-login').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('hidden');
+      client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
+    }
+
+    function hostNextQuestion() {
+      const list = quizBank[currentQuizName] || [];
+      currentQIndex++;
+      if (currentQIndex >= list.length) {
+        alert("🎉 Đã hoàn thành toàn bộ câu hỏi của tuần này! Anh có thể bấm 'Tải Điểm Excel' để lưu kết quả.");
+        currentQIndex = -1;
+        return;
+      }
+      const q = list[currentQIndex];
+      client.publish(TOPIC, JSON.stringify({
+        type: 'START_QUESTION',
+        qIndex: currentQIndex + 1,
+        total: list.length,
+        question: q.question,
+        options: q.options,
+        correct: q.correct,
+        time: q.time || 20
+      }));
+
+      setTimeout(() => {
+        client.publish(TOPIC, JSON.stringify({ type: 'REVEAL_CORRECT', correct: q.correct }));
+      }, (q.time || 20) * 1000);
+    }
+
+    function hostResetGame() {
+      currentQIndex = -1;
+      client.publish(TOPIC, JSON.stringify({ type: 'RESET_GAME' }));
+    }
+
+    function showQuestionOnScreen(data) {
+      hasAnswered = false;
+      votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
+      questionStartTime = Date.now();
+      window.currentCorrectAns = data.correct;
+
+      document.getElementById('question-index').innerText = `Vòng ${data.qIndex}/${data.total}`;
+      document.getElementById('question-text').innerText = data.question;
+
+      ['A', 'B', 'C', 'D'].forEach(k => {
+        const btn = document.getElementById(`btn-${k}`);
+        btn.classList.remove('ring-4', 'ring-slate-800', 'bg-emerald-200', 'border-emerald-600');
+        document.getElementById(`text-${k}`).innerText = data.options[k];
+        document.getElementById(`stat-${k}`).innerText = `0 (0%)`;
+      });
+
+      let timeLeft = data.time;
+      document.getElementById('timer-count').innerText = timeLeft;
+      clearInterval(countdownTimer);
+      countdownTimer = setInterval(() => {
+        timeLeft--;
+        if (timeLeft >= 0) document.getElementById('timer-count').innerText = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(countdownTimer);
+          hasAnswered = true;
+        }
+      }, 1000);
+    }
+
+    function pickAnswer(choice) {
+      if (hasAnswered) return;
+      hasAnswered = true;
+      document.getElementById(`btn-${choice}`).classList.add('ring-4', 'ring-slate-800');
+
+      if (choice === window.currentCorrectAns) {
+        const elapsedSec = (Date.now() - questionStartTime) / 1000;
+        const speedBonus = Math.max(5, Math.round(25 - elapsedSec));
+        myScore += speedBonus;
+        document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
+      }
+
+      client.publish(TOPIC, JSON.stringify({
+        type: 'SUBMIT_ANSWER',
+        id: myId,
+        name: myName || 'Quản trò',
+        choice: choice,
+        score: myScore
+      }));
+    }
+
+    function updateVoteStatsUI() {
+      if (votes.total === 0) return;
+      ['A', 'B', 'C', 'D'].forEach(k => {
+        const count = votes[k];
+        const pct = Math.round((count / votes.total) * 100);
+        document.getElementById(`stat-${k}`).innerText = `${count} (${pct}%)`;
+      });
+    }
+
+    function highlightCorrectAnswer(correctKey) {
+      clearInterval(countdownTimer);
+      hasAnswered = true;
+      const btn = document.getElementById(`btn-${correctKey}`);
+      if (btn) btn.classList.add('bg-emerald-200', 'border-emerald-600');
+    }
+
+    function renderLeaderboard() {
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score).slice(0, 10);
+      const container = document.getElementById('leaderboard-list');
+      container.innerHTML = '';
+      sorted.forEach((p, idx) => {
+        const badge = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
+        container.innerHTML += `
+          <div class="flex items-center justify-between py-1.5 px-3 rounded-xl bg-white border border-slate-100 shadow-2xs">
+            <span class="font-bold text-slate-700">${badge} ${p.name}</span>
+            <span class="font-black text-amber-500">${p.score} ⭐</span>
+          </div>
+        `;
+      });
+    }
+
+    function downloadExcel() {
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      if (sorted.length === 0) return alert("Chưa có dữ liệu người chơi!");
+      let csv = "\uFEFFHạng,Họ và Tên,Điểm số,Chuyên đề,Ngày kiểm tra\n";
+      const d = new Date().toLocaleDateString('vi-VN');
+      sorted.forEach((p, i) => {
+        csv += `${i + 1},"${p.name}",${p.score},"${currentQuizName}","${d}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Bang-Diem-FourHome-${d}.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
