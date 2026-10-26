@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Four Home Mega - Đấu Trí Sun Urban City</title>
+  <!-- Cho phép tải trực tiếp file MP3 từ TiếngĐộng.com không bị chặn Hotlink -->
+  <meta name="referrer" content="no-referrer">
+  <title>Four Home Mega - Mega Arena</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Thư viện MQTT chính thức trên Cloudflare CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
@@ -26,6 +28,17 @@
   </style>
 </head>
 <body class="text-slate-800 font-sans flex flex-col justify-center items-center min-h-screen p-2 sm:p-4">
+
+  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM -->
+  <audio id="audio-bgm" preload="auto" playsinline>
+    <source src="https://tiengdong.com/wp-content/uploads/Nhac-nen-game-show-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audio-correct" preload="auto" playsinline>
+    <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audio-wrong" preload="auto" playsinline>
+    <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- THANH CÔNG CỤ TRÊN CÙNG -->
   <div class="w-full max-w-xl flex flex-wrap justify-between items-center gap-1 mb-2 px-1">
@@ -116,7 +129,7 @@
         🏆
       </div>
       <h1 class="text-xl font-black text-slate-800 tracking-tight">FOUR HOME MEGA</h1>
-      <p class="text-xs font-extrabold text-amber-600 mb-2">ĐẤU TRÍ AI LÀ TRIỆU PHÚ - SUN URBAN CITY</p>
+      <p class="text-xs font-extrabold text-amber-600 mb-2">ĐẤU TRƯỜNG TRI THỨC</p>
       <p id="login-quiz-badge" class="text-[11px] text-indigo-700 font-bold mb-4 bg-indigo-50 py-1 px-3 rounded-full border border-indigo-200">
         Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
       </p>
@@ -291,10 +304,7 @@
         </button>
       </div>
 
-      <!-- Khung báo cáo vị trí của bản thân & Ai đang đứng trên mình -->
       <div id="prev-my-summary" class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 text-xs space-y-1.5"></div>
-
-      <!-- Danh sách những người đứng trên mình / Bảng tổng sắp đề trước -->
       <div class="flex-1 overflow-y-auto space-y-1.5 pr-1" id="prev-rank-list"></div>
     </div>
   </div>
@@ -371,10 +381,15 @@
     }
 
     // =========================================================================
-    // 2. BỘ TỔNG HỢP ÂM THANH "AI LÀ TRIỆU PHÚ" & PHÁO HOA CHIẾN THẮNG
+    // 2. HỆ THỐNG PHÁT NHẠC MP3 "AI LÀ TRIỆU PHÚ" TỪ TIẾNGĐỘNG.COM + DỰ PHÒNG
     // =========================================================================
     let audioCtx = null;
     let soundEnabled = true;
+    let mp3Unlocked = false;
+
+    const bgmEl = document.getElementById('audio-bgm');
+    const correctEl = document.getElementById('audio-correct');
+    const wrongEl = document.getElementById('audio-wrong');
 
     function initAudio() {
       if (!audioCtx) {
@@ -384,10 +399,31 @@
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
+      // Mở khóa quyền phát file MP3 trên iPhone / Safari / Android ngay khi chạm màn hình
+      if (!mp3Unlocked) {
+        mp3Unlocked = true;
+        [bgmEl, correctEl, wrongEl].forEach(el => {
+          if (el) {
+            el.volume = 1.0;
+            el.load();
+          }
+        });
+      }
     }
 
     document.addEventListener('touchstart', initAudio, { once: true });
     document.addEventListener('click', initAudio, { once: true });
+
+    function stopAllMP3() {
+      [bgmEl, correctEl, wrongEl].forEach(el => {
+        if (el) {
+          try {
+            el.pause();
+            el.currentTime = 0;
+          } catch (e) {}
+        }
+      });
+    }
 
     function toggleSound() {
       initAudio();
@@ -396,14 +432,15 @@
       if (soundEnabled) {
         btn.innerText = '🔊 Âm thanh: BẬT';
         btn.className = 'text-[11px] text-sky-300 hover:text-white bg-slate-800/90 px-2.5 py-1 rounded-full border border-sky-500/40 shadow cursor-pointer';
-        playNote(523.25, 0, 0.15, 'triangle', 0.15);
       } else {
+        stopAllMP3();
         btn.innerText = '🔇 Âm thanh: TẮT';
         btn.className = 'text-[11px] text-slate-400 bg-slate-800/90 px-2.5 py-1 rounded-full border border-slate-600 shadow cursor-pointer';
       }
     }
 
-    function playNote(freq, startOffset, duration, type = 'sawtooth', volume = 0.18) {
+    // Hàm tạo âm thanh dự phòng trong trường hợp mạng di động chặn tải MP3
+    function playFallbackNote(freq, startOffset, duration, type = 'sawtooth', volume = 0.16) {
       if (!soundEnabled) return;
       initAudio();
       if (!audioCtx) return;
@@ -426,47 +463,72 @@
       osc.stop(now + duration + 0.02);
     }
 
+    // 1. Phát Nhạc nền / Nhạc mở đầu câu hỏi Ai Là Triệu Phú (MP3 TiếngĐộng.com)
     function playALTPQuestionStart() {
-      playNote(146.83, 0.00, 0.65, 'sawtooth', 0.15);
-      playNote(220.00, 0.08, 0.60, 'sawtooth', 0.15);
-      playNote(293.66, 0.16, 0.70, 'triangle', 0.20);
-      playNote(349.23, 0.26, 0.85, 'triangle', 0.22);
-    }
-
-    function playALTPTick(timeLeft) {
-      if (timeLeft <= 0) return;
-      if (timeLeft <= 5) {
-        playNote(880, 0, 0.09, 'sine', 0.18);
-        playNote(440, 0.05, 0.08, 'triangle', 0.12);
-      } else {
-        playNote(260, 0, 0.06, 'sine', 0.10);
+      if (!soundEnabled) return;
+      stopAllMP3();
+      if (bgmEl) {
+        bgmEl.volume = 0.85;
+        const p = bgmEl.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            playFallbackNote(146.83, 0.00, 0.65, 'sawtooth', 0.15);
+            playFallbackNote(220.00, 0.08, 0.60, 'sawtooth', 0.15);
+            playFallbackNote(293.66, 0.16, 0.70, 'triangle', 0.20);
+            playFallbackNote(349.23, 0.26, 0.85, 'triangle', 0.22);
+          });
+        }
       }
     }
 
+    // Nhịp tích tắc hỗ trợ ở 5 giây cuối cùng
+    function playALTPTick(timeLeft) {
+      if (!soundEnabled || timeLeft <= 0) return;
+      if (timeLeft <= 5) {
+        playFallbackNote(880, 0, 0.08, 'sine', 0.12);
+      }
+    }
+
+    // 2. Phát Âm thanh Trả lời ĐÚNG Ai Là Triệu Phú (MP3 TiếngĐộng.com)
     function playALTPCorrect() {
-      playNote(523.25, 0.00, 0.16, 'triangle', 0.25);
-      playNote(659.25, 0.13, 0.16, 'triangle', 0.25);
-      playNote(783.99, 0.26, 0.18, 'triangle', 0.28);
-      playNote(1046.50, 0.40, 0.75, 'sawtooth', 0.24);
-      playNote(523.25, 0.40, 0.75, 'triangle', 0.20);
+      if (!soundEnabled) return;
+      if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
+      if (correctEl) {
+        correctEl.currentTime = 0;
+        correctEl.volume = 1.0;
+        const p = correctEl.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            playFallbackNote(523.25, 0.00, 0.16, 'triangle', 0.25);
+            playFallbackNote(659.25, 0.13, 0.16, 'triangle', 0.25);
+            playFallbackNote(783.99, 0.26, 0.18, 'triangle', 0.28);
+            playFallbackNote(1046.50, 0.40, 0.75, 'sawtooth', 0.24);
+          });
+        }
+      }
     }
 
+    // 3. Phát Âm thanh Trả lời SAI Ai Là Triệu Phú (MP3 TiếngĐộng.com)
     function playALTPWrong() {
-      playNote(311.13, 0.00, 0.28, 'sawtooth', 0.25);
-      playNote(293.66, 0.24, 0.28, 'sawtooth', 0.25);
-      playNote(277.18, 0.48, 0.85, 'sawtooth', 0.28);
-      playNote(138.59, 0.48, 0.85, 'triangle', 0.25);
+      if (!soundEnabled) return;
+      if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
+      if (wrongEl) {
+        wrongEl.currentTime = 0;
+        wrongEl.volume = 1.0;
+        const p = wrongEl.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            playFallbackNote(311.13, 0.00, 0.28, 'sawtooth', 0.25);
+            playFallbackNote(293.66, 0.24, 0.28, 'sawtooth', 0.25);
+            playFallbackNote(277.18, 0.48, 0.85, 'sawtooth', 0.28);
+          });
+        }
+      }
     }
 
-    // Nhạc hiệu Pháo hoa Chiến thắng khi hoàn thành toàn bộ đề thi
+    // Phát nhạc chúc mừng khi nổ pháo hoa hoàn thành bài thi
     function playFinishFanfare() {
-      playNote(523.25, 0.00, 0.18, 'triangle', 0.25);
-      playNote(659.25, 0.15, 0.18, 'triangle', 0.25);
-      playNote(783.99, 0.30, 0.18, 'triangle', 0.25);
-      playNote(1046.50, 0.45, 0.35, 'sawtooth', 0.28);
-      playNote(783.99, 0.75, 0.18, 'triangle', 0.25);
-      playNote(1046.50, 0.92, 0.90, 'sawtooth', 0.30);
-      playNote(523.25, 0.92, 0.90, 'triangle', 0.25);
+      playALTPCorrect();
     }
 
     function launchFireworks() {
@@ -540,7 +602,6 @@
     let currentQuizName = Object.keys(quizBank)[0] || "";
     let currentQIndex = -1;
 
-    // Mã định danh thiết bị duy nhất (1 Điện thoại = 1 Tài khoản)
     let myId = getPersistentData('fh_device_uid');
     if (!myId) {
       myId = 'dev_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
@@ -560,7 +621,6 @@
       try { localStorage.setItem('fh_answered_history_v16', JSON.stringify(answeredHistory)); } catch (e) {}
     }
 
-    // Lưu trữ lịch sử Bảng xếp hạng của bộ đề lần trước
     let prevQuizRecord = null;
     try {
       prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record'));
@@ -582,11 +642,10 @@
     let votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
     let seenMsgIds = new Set();
 
-    // Khôi phục ngay lập tức vào phòng thi nếu máy đã đăng ký tài khoản
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       if (myName) {
-        players[myId] = { name: myName, score: myScore };
+        players[myId] = { id: myId, name: myName, score: myScore };
         document.getElementById('screen-login').classList.add('hidden');
         document.getElementById('screen-game').classList.remove('hidden');
         document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -628,7 +687,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh16_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh17_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -697,7 +756,7 @@
 
     function announceMyPresence() {
       if (!myName) return;
-      players[myId] = { name: myName, score: myScore };
+      players[myId] = { id: myId, name: myName, score: myScore };
       publishPacket(`players/${myId}`, {
         type: 'PLAYER_JOIN',
         id: myId,
@@ -763,6 +822,7 @@
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || "";
         renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
+        stopAllMP3();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
@@ -792,7 +852,6 @@
       }
     }
 
-    // Hàm chụp nhanh kết quả hiện tại để lưu làm "Thứ hạng bộ đề lần trước"
     function buildCurrentStandingsRecord(title) {
       const sorted = Object.entries(players)
         .map(([id, p]) => ({ id, name: p.name, score: p.score || 0 }))
@@ -815,7 +874,6 @@
       const listEl = document.getElementById('prev-rank-list');
       modal.classList.remove('hidden');
 
-      // Nếu chưa có bản lưu đề trước nhưng hiện tại trong phòng đang có điểm thì hiển thị tạm bảng hiện tại
       const record = prevQuizRecord || buildCurrentStandingsRecord(currentQuizName + " (Đang diễn ra)");
 
       if (!record || !record.rankings || record.rankings.length === 0) {
@@ -829,7 +887,6 @@
       const rankings = record.rankings;
       const totalPlayers = rankings.length;
 
-      // Tìm vị trí của thí sinh hiện tại (theo ID hoặc theo Tên đăng nhập)
       const myIndex = rankings.findIndex(r => r.id === myId || (myName && r.name.toLowerCase() === myName.toLowerCase()));
 
       if (myIndex === -1) {
@@ -994,7 +1051,6 @@
     }
 
     function selectQuizWeek() {
-      // Lưu lại bảng xếp hạng của đề vừa thi trước khi chuyển sang đề mới
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) {
         savePrevQuizRecord(snap);
@@ -1098,7 +1154,6 @@
         return alert("Sai mật khẩu thí sinh! Mật khẩu cố định cho tất cả thí sinh là số 1.");
       }
 
-      // Kiểm tra chống trùng tên đăng nhập với các thí sinh khác đã vào phòng
       const normalizedTarget = nameInput.toLowerCase();
       const isDuplicate = Object.entries(players).some(([pid, pData]) => {
         return pid !== myId && pData && pData.name && pData.name.trim().toLowerCase() === normalizedTarget;
@@ -1118,8 +1173,8 @@
       document.getElementById('locked-player-badge').innerText = `🔒 TK: ${myName}`;
       document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
 
-      playNote(523.25, 0, 0.15, 'triangle', 0.2);
-      playNote(659.25, 0.12, 0.25, 'triangle', 0.2);
+      playFallbackNote(523.25, 0, 0.15, 'triangle', 0.2);
+      playFallbackNote(659.25, 0.12, 0.25, 'triangle', 0.2);
       renderLeaderboard();
       announceMyPresence();
     }
@@ -1132,7 +1187,6 @@
       const list = quizBank[currentQuizName] || [];
       currentQIndex++;
 
-      // Nếu đã hết câu hỏi cuối cùng -> Bắn pháo hoa & Hiện Top 10 cho toàn phòng
       if (currentQIndex >= list.length) {
         const finalRecord = buildCurrentStandingsRecord(currentQuizName);
         if (finalRecord) {
@@ -1174,7 +1228,6 @@
         publishPacket('events', revealPacket, false);
         highlightCorrectAnswer(q.correct);
 
-        // Nếu đây là câu hỏi cuối cùng của bộ đề, tự động nổ pháo hoa & hiện Top 10 sau 2.5 giây
         if (packet.qIndex === packet.total) {
           finishTimer = setTimeout(() => {
             const finalRecord = buildCurrentStandingsRecord(currentQuizName);
@@ -1195,8 +1248,8 @@
       clearTimeout(revealTimer);
       clearTimeout(finishTimer);
       clearInterval(countdownTimer);
+      stopAllMP3();
 
-      // Trước khi xóa điểm để thi lại, tự động lưu bảng xếp hạng vừa rồi làm "Thứ hạng đề trước"
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) {
         savePrevQuizRecord(snap);
@@ -1381,6 +1434,9 @@
 
     function highlightCorrectAnswer(correctKey) {
       clearInterval(countdownTimer);
+      if (bgmEl && !hasAnswered) {
+        try { bgmEl.pause(); } catch (e) {}
+      }
       hasAnswered = true;
       const btn = document.getElementById(`btn-${correctKey}`);
       if (btn) btn.classList.add('bg-emerald-200', 'border-emerald-600');
