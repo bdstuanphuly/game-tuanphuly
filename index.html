@@ -56,6 +56,15 @@
     <div class="flex gap-2 pt-1">
       <button onclick="hostResetGame()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-xs py-1.5 rounded-lg">🔄 Thi lại từ câu 1</button>
       <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold py-1.5 rounded-lg">📥 Tải Điểm Excel</button>
+      <!-- DANH SÁCH THÍ SINH ĐÃ VÀO PHÒNG CHO QUẢN TRÒ -->
+    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-700 mt-2">
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-[11px] font-bold text-amber-300">👥 Thí sinh đã vào phòng: <span id="admin-player-count">0</span> người</span>
+      </div>
+      <div id="admin-players-list" class="flex flex-wrap gap-1 max-h-[85px] overflow-y-auto text-[10px]">
+        <span class="text-slate-400 italic">Chưa có ai vào phòng...</span>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -407,10 +416,12 @@
     }
 
     function renderLeaderboard() {
-      const sorted = Object.values(players).sort((a, b) => b.score - a.score).slice(0, 10);
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      
+      // 1. Cập nhật Bảng xếp hạng Top 10
       const container = document.getElementById('leaderboard-list');
       container.innerHTML = '';
-      sorted.forEach((p, idx) => {
+      sorted.slice(0, 10).forEach((p, idx) => {
         const badge = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
         container.innerHTML += `
           <div class="flex items-center justify-between py-1.5 px-3 rounded-xl bg-white border border-slate-100 shadow-2xs">
@@ -419,6 +430,22 @@
           </div>
         `;
       });
+
+      // 2. Cập nhật danh sách thí sinh đã vào phòng cho Quản trò
+      const adminList = document.getElementById('admin-players-list');
+      const adminCount = document.getElementById('admin-player-count');
+      if (adminList && adminCount) {
+        const allPlayers = Object.values(players);
+        adminCount.innerText = allPlayers.length;
+        if (allPlayers.length === 0) {
+          adminList.innerHTML = '<span class="text-slate-400 italic">Chưa có ai vào phòng...</span>';
+        } else {
+          adminList.innerHTML = '';
+          allPlayers.forEach(p => {
+            adminList.innerHTML += `<span class="bg-slate-800 text-slate-200 px-2 py-0.5 rounded-md border border-slate-700">${p.name}</span>`;
+          });
+        }
+      }
     }
 
     function downloadExcel() {
