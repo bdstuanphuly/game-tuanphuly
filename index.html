@@ -200,10 +200,11 @@
     let players = {};
     let votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
 
-    // Kết nối sóng trực tuyến MQTT (Không cần cài đặt máy chủ)
+    // Kết nối sóng trực tuyến MQTT với mã định danh độc lập
     const TOPIC = 'fourhome_mega_sunurbancity_2026_room1';
-    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-
+    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
+      clientId: 'fourhome_client_' + Math.random().toString(16).substring(2, 10)
+    });
     client.on('connect', () => {
       document.getElementById('conn-status').innerText = '🟢 Đã kết nối phòng thi trực tuyến';
       client.subscribe(TOPIC);
