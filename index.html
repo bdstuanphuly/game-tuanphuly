@@ -17,25 +17,19 @@
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: #1a1025;
       background-image:
-        radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.28) 0%, transparent 45%),
-        radial-gradient(circle at 80% 30%, rgba(251, 191, 36, 0.22) 0%, transparent 45%),
-        radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.30) 0%, transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(251, 191, 36, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.22) 0%, transparent 50%),
         linear-gradient(160deg, #1f1635 0%, #3b1d38 45%, #1e293b 100%);
       background-attachment: fixed;
-    }
-    .ladder-active {
-      background: linear-gradient(90deg, #f59e0b 0%, #ea580c 100%) !important;
-      color: #ffffff !important;
-      border-color: #fde68a !important;
-      transform: scale(1.03);
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.55);
+      user-select: none;
+      -webkit-user-select: none;
     }
     .timer-ring-circle {
       transition: stroke-dashoffset 0.35s linear, stroke 0.3s ease;
       transform: rotate(-90deg);
       transform-origin: 50% 50%;
     }
-    /* Thanh cuộn mảnh gọn phong cách Mobile App */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 9999px; }
@@ -43,20 +37,23 @@
 </head>
 <body class="text-slate-800 flex flex-col justify-start items-center min-h-screen p-2 sm:p-3">
 
-  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM -->
-  <audio id="audio-bgm" preload="auto" playsinline>
+  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM (KẾT HỢP ĐỘNG CƠ HYBRID) -->
+  <audio id="audio-bgm" preload="auto" playsinline crossorigin="anonymous">
     <source src="https://tiengdong.com/wp-content/uploads/Nhac-nen-game-show-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
   </audio>
-  <audio id="audio-correct" preload="auto" playsinline>
+  <audio id="audio-correct" preload="auto" playsinline crossorigin="anonymous">
     <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
   </audio>
-  <audio id="audio-wrong" preload="auto" playsinline>
+  <audio id="audio-wrong" preload="auto" playsinline crossorigin="anonymous">
     <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- THANH CÔNG CỤ TRÊN CÙNG -->
+  <!-- THANH CÔNG CỤ TRÊN CÙNG (MẶC ĐỊNH LUÔN BẬT ÂM THANH 100%) -->
   <div class="w-full max-w-[440px] flex flex-wrap justify-between items-center gap-1 mb-2 px-1">
-    <span id="conn-status" class="text-[10px] text-amber-300 font-bold">🟡 Đang kết nối...</span>
+    <div class="flex items-center gap-1.5">
+      <span id="conn-status" class="text-[10px] text-amber-300 font-bold">🟡 Đang kết nối...</span>
+      <span class="text-[9px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded-full font-bold">🛡️ BKAV-Shield V21</span>
+    </div>
     <div class="flex items-center gap-1">
       <button onclick="openPrevRankModal()" class="text-[10px] text-emerald-300 hover:text-white bg-slate-900/85 px-2.5 py-1 rounded-full border border-emerald-500/40 shadow cursor-pointer font-bold">
         📊 Thứ hạng đề trước
@@ -80,6 +77,10 @@
         </button>
         <button onclick="deleteCurrentQuiz()" class="text-[10px] bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded-lg font-bold cursor-pointer">
           🗑️ Xóa đề
+        </button>
+        <!-- THƯ MỤC DANH SÁCH THÍ SINH THAM GIA NẰM NGAY CẠNH XÓA ĐỀ -->
+        <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2 py-1 rounded-lg font-black cursor-pointer shadow">
+          📁 DS Thí sinh (<span id="admin-dir-count-btn">0</span>)
         </button>
       </div>
     </div>
@@ -117,34 +118,34 @@
       <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold py-1.5 rounded-lg cursor-pointer">📥 Tải Điểm Excel</button>
     </div>
 
-    <!-- DANH SÁCH THÍ SINH & NÚT XÓA TÀI KHOẢN THÍ SINH (✖) -->
+    <!-- DANH SÁCH THÍ SINH NHANH & NÚT MỞ THƯ MỤC -->
     <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
       <div class="flex justify-between items-center mb-1.5">
-        <span class="text-[10px] font-bold text-amber-300">👥 Phòng chờ: <span id="admin-player-count">0</span> người <span class="text-[9px] text-slate-400 font-normal">(Bấm ✖ để xóa TK)</span></span>
+        <span class="text-[10px] font-bold text-amber-300">👥 Tổng tài khoản: <span id="admin-player-count">0</span> thí sinh</span>
         <div class="flex gap-1">
           <button id="btn-scan" onclick="requestPlayerPresence()" class="text-[9px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2 py-0.5 rounded border border-slate-600 cursor-pointer">
-            🔄 Quét
+            🔄 Quét đồng bộ
           </button>
-          <button onclick="clearRoomPlayers()" class="text-[9px] bg-rose-950/60 hover:bg-rose-900 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 cursor-pointer">
-            🗑️ Làm mới
+          <button onclick="openPlayerDirectoryModal()" class="text-[9px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-2 py-0.5 rounded border border-amber-500/40 cursor-pointer font-bold">
+            📁 Quản lý TK
           </button>
         </div>
       </div>
-      <div id="admin-players-list" class="flex flex-wrap gap-1.5 max-h-[85px] overflow-y-auto text-[10px]">
+      <div id="admin-players-list" class="flex flex-wrap gap-1.5 max-h-[75px] overflow-y-auto text-[10px]">
         <span class="text-slate-400 italic">Chưa có ai vào phòng...</span>
       </div>
     </div>
   </div>
 
   <!-- KHUNG MÀN HÌNH TRÒ CHƠI CHÍNH (CHUẨN TỶ LỆ TIKTOK LIVE 9:16) -->
-  <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[660px] border border-white/25 relative"
-       style="background: linear-gradient(180deg, rgba(255,240,245,0.22) 0%, rgba(254,215,170,0.18) 50%, rgba(15,23,42,0.55) 100%); backdrop-filter: blur(12px);">
+  <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[650px] border border-white/25 relative"
+       style="background: linear-gradient(180deg, rgba(255,240,245,0.24) 0%, rgba(254,215,170,0.20) 50%, rgba(15,23,42,0.55) 100%); backdrop-filter: blur(12px);">
 
     <!-- =================================================================== -->
-    <!-- MÀN HÌNH 1: ĐĂNG KÝ TÀI KHOẢN MỚI + BẮT BUỘC TẢI ẢNH ĐẠI DIỆN     -->
+    <!-- MÀN HÌNH 1: ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ    -->
     <!-- =================================================================== -->
-    <div id="screen-login" class="flex-1 flex flex-col justify-center items-center p-5 text-center bg-white/95 m-2.5 rounded-[24px] shadow-xl">
-      <div class="w-14 h-14 bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 text-white rounded-2xl flex items-center justify-center text-3xl font-black mb-2 shadow-lg border-2 border-amber-200">
+    <div id="screen-login" class="flex-1 flex flex-col justify-center items-center p-4 sm:p-5 text-center bg-white/95 m-2.5 rounded-[24px] shadow-xl">
+      <div class="w-14 h-14 bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 text-white rounded-2xl flex items-center justify-center text-3xl font-black mb-1.5 shadow-lg border-2 border-amber-200">
         🏆
       </div>
       <h1 class="text-xl font-black text-slate-800 tracking-tight">FOUR HOME MEGA</h1>
@@ -153,81 +154,91 @@
         Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
       </p>
 
-      <!-- BƯỚC 1: TẢI HÌNH ĐẠI DIỆN (AVATAR TRÒN BẮT BUỘC) -->
-      <div class="w-full bg-slate-50 border-2 border-dashed border-indigo-300 rounded-2xl p-3 mb-3 flex flex-col items-center">
-        <label class="text-[11px] font-extrabold text-slate-700 mb-2">📸 1. Tải ảnh đại diện (Avatar bắt buộc):</label>
+      <!-- HAI CHẾ ĐỘ: ĐĂNG KÝ MỚI & ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ (SANG MÁY KHÁC KHÔNG CẦN UP LẠI ẢNH) -->
+      <div class="w-full grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-2xl mb-3 border border-slate-200">
+        <button type="button" id="tab-btn-register" onclick="switchAuthTab('register')" class="py-2 rounded-xl text-[11px] font-black bg-indigo-600 text-white shadow cursor-pointer transition-all">
+          ✨ Đăng ký TK mới
+        </button>
+        <button type="button" id="tab-btn-login" onclick="switchAuthTab('login')" class="py-2 rounded-xl text-[11px] font-black text-slate-600 hover:text-slate-900 cursor-pointer transition-all">
+          📲 Đăng nhập TK đã có
+        </button>
+      </div>
+
+      <!-- KHUNG TẢI & CẮT ẢNH ĐẠI DIỆN (CHỈ HIỆN KHI ĐĂNG KÝ MỚI) -->
+      <div id="auth-avatar-section" class="w-full bg-slate-50 border-2 border-dashed border-indigo-300 rounded-2xl p-3 mb-3 flex flex-col items-center">
+        <label class="text-[11px] font-extrabold text-slate-700 mb-2">📸 1. Tải & Cắt ảnh đại diện (Avatar bắt buộc):</label>
         <div class="flex items-center gap-3">
-          <div class="w-14 h-14 rounded-full bg-slate-200 border-2 border-amber-500 flex items-center justify-center overflow-hidden shadow-md shrink-0">
+          <div onclick="reopenCropperIfAvailable()" class="w-16 h-16 rounded-full bg-slate-200 border-2 border-amber-500 flex items-center justify-center overflow-hidden shadow-md shrink-0 cursor-pointer relative group" title="Bấm để căn chỉnh/cắt lại ảnh">
             <span id="avatar-placeholder" class="text-[9px] text-slate-500 font-bold px-1">Chưa có ảnh</span>
             <img id="avatar-preview-img" src="" class="hidden w-full h-full object-cover" alt="Avatar">
           </div>
           <div class="text-left">
-            <label for="avatarInput" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl cursor-pointer shadow">
-              📁 Chọn ảnh từ máy
-            </label>
-            <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarUpload(event)" class="hidden">
+            <div class="flex flex-wrap gap-1.5">
+              <label for="avatarInput" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl cursor-pointer shadow">
+                📁 Chọn ảnh & Cắt ảnh
+              </label>
+              <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="hidden bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl cursor-pointer shadow">
+                ✂️ Cắt lại
+              </button>
+            </div>
+            <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
             <p id="avatar-status-text" class="text-[10px] text-rose-600 font-bold mt-1">
-              * Bắt buộc tải ảnh đại diện để vào thi.
+              * Bắt buộc chọn & cắt ảnh đại diện ưng ý để tạo TK.
             </p>
           </div>
         </div>
       </div>
+
+      <!-- HƯỚNG DẪN KHI CHỌN TAB ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ -->
+      <div id="auth-login-hint" class="hidden w-full bg-emerald-50 border border-emerald-200 rounded-2xl p-2.5 mb-3 text-[11px] text-emerald-800 font-bold text-left">
+        💡 Nếu bạn đã tạo tài khoản trước đó (hoặc chuyển sang điện thoại/máy tính khác), chỉ cần nhập đúng <strong>Tên tài khoản</strong> và <strong>Mật khẩu số 1</strong>. Hệ thống sẽ tự động tải lại Ảnh đại diện và Điểm số của bạn!
+      </div>
       
-      <!-- BƯỚC 2: TÊN ĐĂNG NHẬP TỐI ĐA 12 KÝ TỰ -->
+      <!-- NHẬP TÊN TÀI KHOẢN TỐI ĐA 12 KÝ TỰ -->
       <div class="w-full text-left mb-2.5">
         <div class="flex justify-between items-center mb-1">
-          <label class="text-[11px] font-extrabold text-slate-700">👤 2. Tên đăng nhập (Tối đa 12 ký tự):</label>
+          <label class="text-[11px] font-extrabold text-slate-700">👤 Tên tài khoản (Tối đa 12 ký tự):</label>
           <span id="char-count" class="text-[10px] font-bold text-indigo-600">0/12 ký tự</span>
         </div>
-        <input id="playerName" type="text" maxlength="12" oninput="updateCharCount()" placeholder="Tối đa 12 ký tự (cho phép @, #, _, *...)" 
+        <input id="playerName" type="text" maxlength="12" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (cho phép @, #, _, *...)" 
           class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600 font-bold text-sm text-center">
       </div>
 
-      <!-- BƯỚC 3: MẬT KHẨU CỐ ĐỊNH SỐ 1 -->
+      <!-- NHẬP MẬT KHẨU CỐ ĐỊNH SỐ 1 -->
       <div class="w-full text-left mb-3">
-        <label class="text-[11px] font-extrabold text-slate-700 block mb-1">🔑 3. Mật khẩu tham gia (Nhập số 1):</label>
+        <label class="text-[11px] font-extrabold text-slate-700 block mb-1">🔑 Mật khẩu tham gia (Nhập số 1):</label>
         <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu thí sinh (Số 1)..." 
           class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600 font-bold text-sm text-center">
       </div>
 
-      <p class="text-[10px] text-slate-500 font-semibold mb-3">
-        🔒 Mỗi máy gắn 1 tài khoản duy nhất. Tự động giữ nguyên điểm nếu rớt mạng 4G/5G.
+      <p class="text-[10px] text-slate-500 font-semibold mb-3 leading-snug">
+        🔒 Tự động nhớ tài khoản trên máy này (dù thoát ứng dụng hay mất sóng 4G/5G). Mỗi thời điểm chỉ 1 thiết bị được đăng nhập tài khoản.
       </p>
       
-      <button onclick="joinGame()" 
+      <button id="btn-submit-auth" onclick="joinGame()" 
         class="w-full bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 hover:opacity-95 active:scale-95 text-white font-black py-3.5 rounded-xl shadow-lg shadow-indigo-500/30 transition-all text-sm cursor-pointer">
         🚀 ĐĂNG KÝ & VÀO ĐẤU TRƯỜNG
       </button>
     </div>
 
     <!-- =================================================================== -->
-    <!-- MÀN HÌNH 2: GIAO DIỆN THI ĐẤU TIKTOK LIVE (GIỐNG 100% ẢNH MẪU)       -->
+    <!-- MÀN HÌNH 2: GIAO DIỆN THI ĐẤU TIKTOK LIVE                           -->
     <!-- =================================================================== -->
     <div id="screen-game" class="hidden flex-1 flex flex-col p-3 justify-between">
       
       <!-- 1. THANH HEADER TIKTOK LIVE -->
       <div>
-        <div class="flex items-start justify-between gap-1 mb-1">
-          <!-- Góc trái: Nhãn chuyên đề + ĐẤU TRƯỜNG TRI THỨC -->
+        <div class="flex items-start justify-between gap-2 mb-1">
           <div class="flex flex-col">
-            <div class="inline-flex items-center gap-1 bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-xs border border-white/60 w-fit">
+            <div class="inline-flex items-center gap-1 bg-white/90 backdrop-blur-xs px-3 py-1 rounded-full shadow-xs border border-white/60 w-fit">
               <span class="text-[11px]">❓</span>
-              <span id="live-topic-pill" class="text-[10px] font-extrabold text-slate-700 truncate max-w-[125px]">Sun Urban City</span>
+              <span id="live-topic-pill" class="text-[10px] font-extrabold text-slate-700 truncate max-w-[200px]">Sun Urban City</span>
             </div>
-            <span class="text-[9px] font-black text-slate-800/80 tracking-wider mt-0.5 ml-1 uppercase">ĐẤU TRƯỜNG TRI THỨC</span>
+            <span class="text-[9px] font-black text-white/90 drop-shadow tracking-wider mt-1 ml-1 uppercase">ĐẤU TRƯỜNG TRI THỨC</span>
           </div>
 
-          <!-- Chính giữa: Banner đỏ rực phong cách TikTok Live -->
-          <div class="bg-slate-900/65 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-white/15 shadow-md text-center">
-            <span class="text-[11px] sm:text-xs font-black text-rose-400 tracking-tight">› Thần Tốc: 20s = 20đ</span>
-          </div>
-
-          <!-- Góc phải: Nút Bật Âm Thanh vàng + Vòng thi -->
           <div class="flex flex-col items-end">
-            <button onclick="toggleSound()" id="btn-sound" class="bg-amber-400/90 hover:bg-amber-400 text-amber-950 font-black text-[10px] px-2.5 py-1 rounded-full shadow-xs border border-amber-300 cursor-pointer">
-              🔊 Bật Âm Thanh
-            </button>
-            <span id="question-index" class="text-[10px] font-extrabold text-white drop-shadow mt-0.5 mr-1">Phòng chờ</span>
+            <span id="question-index" class="bg-slate-900/75 text-amber-300 border border-amber-400/40 px-3 py-1 rounded-full text-[11px] font-extrabold shadow">Phòng chờ</span>
           </div>
         </div>
 
@@ -240,17 +251,14 @@
           <div id="transition-explanation-text" class="text-[11px] text-emerald-300 font-semibold leading-snug"></div>
         </div>
 
-        <!-- 2. ĐỒNG HỒ TRÒN SVG ĐÈ LÊN KHUNG CÂU HỎI TRẮNG (CHUẨN ẢNH 1 & 2) -->
+        <!-- 2. ĐỒNG HỒ TRÒN SVG ĐÈ LÊN KHUNG CÂU HỎI TRẮNG -->
         <div class="relative mt-7 mb-2.5">
-          <!-- Đồng hồ tròn nổi chính giữa cạnh trên -->
           <div class="absolute -top-7 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
-            <!-- Tia sáng vàng bên trái -->
             <div class="flex flex-col gap-1 items-end">
               <span class="w-2.5 h-1 bg-amber-400 rounded-full rotate-12 block shadow"></span>
               <span class="w-2.5 h-1 bg-amber-400 rounded-full -rotate-12 block shadow"></span>
             </div>
 
-            <!-- Vòng tròn đồng hồ SVG -->
             <div class="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center relative p-1">
               <svg class="w-full h-full" viewBox="0 0 60 60">
                 <circle cx="30" cy="30" r="25" stroke="#e2e8f0" stroke-width="4.5" fill="none"></circle>
@@ -262,14 +270,12 @@
               </div>
             </div>
 
-            <!-- Tia sáng vàng bên phải -->
             <div class="flex flex-col gap-1 items-start">
               <span class="w-2.5 h-1 bg-amber-400 rounded-full -rotate-12 block shadow"></span>
               <span class="w-2.5 h-1 bg-amber-400 rounded-full rotate-12 block shadow"></span>
             </div>
           </div>
 
-          <!-- Khung câu hỏi trắng bo góc lớn -->
           <div class="bg-white/95 rounded-[22px] pt-10 pb-4 px-4 shadow-lg border border-white min-h-[108px] flex flex-col items-center justify-center text-center">
             <div id="thinking-banner" class="hidden mb-1 bg-sky-100 text-sky-800 border border-sky-300 font-black text-[10px] px-3 py-0.5 rounded-full animate-pulse">
               🧠 Suy nghĩ 3 giây...
@@ -284,7 +290,6 @@
 
         <!-- 3. LƯỚI 4 ĐÁP ÁN 2x2 KÈM CHỒNG ẢNH ĐẠI DIỆN (AVATAR STACK) & TỶ LỆ % -->
         <div class="grid grid-cols-2 gap-2.5 mb-2.5">
-          <!-- ĐÁP ÁN A (Hồng Đỏ) -->
           <button onclick="pickAnswer('A')" id="btn-A" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">A</span>
@@ -296,7 +301,6 @@
             </div>
           </button>
 
-          <!-- ĐÁP ÁN B (Xanh Da Trời) -->
           <button onclick="pickAnswer('B')" id="btn-B" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-sky-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">B</span>
@@ -308,7 +312,6 @@
             </div>
           </button>
 
-          <!-- ĐÁP ÁN C (Vàng Cam) -->
           <button onclick="pickAnswer('C')" id="btn-C" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-amber-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">C</span>
@@ -320,7 +323,6 @@
             </div>
           </button>
 
-          <!-- ĐÁP ÁN D (Tím) -->
           <button onclick="pickAnswer('D')" id="btn-D" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[82px]">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-full bg-purple-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">D</span>
@@ -334,52 +336,26 @@
         </div>
       </div>
 
-      <!-- 4. KHU VỰC 2 CỘT PHÍA DƯỚI (GIỐNG BỐ CỤC TIKTOK LIVE ẢNH 1 & 2) -->
-      <div class="grid grid-cols-12 gap-2.5 items-stretch">
+      <!-- 4. KHU VỰC 2 CỘT PHÍA DƯỚI (GÓC TRÁI CÓ THẺ TÀI KHOẢN + NÚT ĐĂNG XUẤT CHuyển MÁY) -->
+      <div class="grid grid-cols-12 gap-2.5 items-start">
         
-        <!-- CỘT TRÁI (5/12): THẺ TÀI KHOẢN CỦA TÔI + THÁP ĐIỂM THỜI GIAN 20 -> 1 -->
+        <!-- CỘT TRÁI (5/12): THẺ TÀI KHOẢN ĐANG KHÓA + NÚT ĐĂNG XUẤT ĐỂ ĐĂNG NHẬP MÁY KHÁC -->
         <div class="col-span-5 flex flex-col gap-2">
-          <!-- Thẻ định danh người chơi & tổng điểm -->
-          <div class="bg-white/95 rounded-[18px] p-2.5 shadow-md flex flex-col justify-between">
-            <div id="locked-player-badge" class="flex items-center gap-1.5 text-[11px] font-extrabold text-slate-800 truncate">
+          <div class="bg-white/95 rounded-[18px] p-3 shadow-md flex flex-col justify-between">
+            <div id="locked-player-badge" class="flex items-center gap-2 text-xs font-extrabold text-slate-800 truncate">
               <span>👤 Đang tải...</span>
             </div>
-            <div class="flex items-center justify-between mt-1.5 pt-1.5 border-t border-slate-100">
-              <span class="text-[9px] font-bold text-slate-400 uppercase">Tổng tích lũy:</span>
+            <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-100">
+              <span class="text-[10px] font-bold text-slate-400">Điểm:</span>
               <span id="my-score-badge" class="text-xs font-black text-amber-500">0 ⭐</span>
             </div>
-          </div>
-
-          <!-- Tháp điểm tốc độ 20s -> 1s -->
-          <div class="bg-slate-900/95 text-white rounded-[18px] p-2 shadow-md border border-amber-500/30 flex-1 flex flex-col justify-between">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-1 mb-1">
-              <span class="text-[9px] font-bold text-amber-300 uppercase">⚡ Điểm bấm ngay</span>
-              <span id="live-potential-score" class="text-xs font-black text-emerald-400">20 ⭐</span>
-            </div>
-            <div class="space-y-1 text-[9px] font-bold">
-              <div id="tier-1" class="flex justify-between px-1.5 py-0.5 rounded bg-slate-800 text-amber-300 transition-all">
-                <span>🔥 Giây 20-17</span><span>20-17đ</span>
-              </div>
-              <div id="tier-2" class="flex justify-between px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 transition-all">
-                <span>⚡ Giây 16-13</span><span>16-13đ</span>
-              </div>
-              <div id="tier-3" class="flex justify-between px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 transition-all">
-                <span>🚀 Giây 12-9</span><span>12-9đ</span>
-              </div>
-              <div id="tier-4" class="flex justify-between px-1.5 py-0.5 rounded bg-slate-800 text-indigo-200 transition-all">
-                <span>⏱️ Giây 8-5</span><span>8-5đ</span>
-              </div>
-              <div id="tier-5" class="flex justify-between px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 transition-all">
-                <span>🐢 Giây 4-1</span><span>4-1đ</span>
-              </div>
-              <div id="tier-6" class="flex justify-between px-1.5 py-0.5 rounded bg-slate-800 text-rose-300 transition-all">
-                <span>🛡️ Hết giờ (0s)</span><span>0đ</span>
-              </div>
-            </div>
+            <button onclick="logoutAccount()" class="mt-2 w-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-extrabold text-[10px] py-1.5 rounded-xl cursor-pointer transition-all" title="Đăng xuất để chuyển sang điện thoại/máy tính khác">
+              🚪 Đăng xuất TK
+            </button>
           </div>
         </div>
 
-        <!-- CỘT PHẢI (7/12): THẺ BẢNG XẾP HẠNG TÍCH LŨY (CHUẨN ẢNH 1 & 2) -->
+        <!-- CỘT PHẢI (7/12): THẺ BẢNG XẾP HẠNG TÍCH LŨY -->
         <div class="col-span-7 bg-white/95 rounded-[18px] p-2.5 shadow-md flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-100">
@@ -388,9 +364,6 @@
             </div>
             <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto max-h-[195px] pr-0.5"></div>
           </div>
-          <div class="text-[9px] text-center text-slate-400 font-semibold pt-1 border-t border-slate-100 mt-1">
-            Điểm cộng sau khi hết 20 giây
-          </div>
         </div>
 
       </div>
@@ -398,41 +371,131 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU (ẢNH 3)   -->
+  <!-- MODAL CẮT ẢNH ĐẠI DIỆN (AVATAR CROPPER KIỂU FACEBOOK / GMAIL)          -->
   <!-- ===================================================================== -->
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-2.5">
-    <div class="w-full max-w-[410px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-300 p-3.5 pt-4 flex flex-col max-h-[92vh] relative">
-      
-      <!-- Nút đóng góc phải -->
-      <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer">
-        ✖
-      </button>
+  <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
+    <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl border-2 border-indigo-500 p-4 text-center space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+        <span class="text-xs font-black text-slate-800">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN</span>
+        <button onclick="closeAvatarCropper()" class="text-xs text-slate-500 hover:text-slate-800 font-bold cursor-pointer">✖ Đóng</button>
+      </div>
+      <p class="text-[11px] text-slate-600 font-semibold">
+        Dùng ngón tay (hoặc chuột) <strong>kéo di chuyển ảnh</strong> và trượt thanh <strong>Phóng to / Thu nhỏ</strong> để chọn khung hình tròn ưng ý nhất:
+      </p>
 
-      <!-- Huy hiệu 3D "10 THẬP ĐẠI THẦN TỐC" -->
-      <div class="flex flex-col items-center -mt-1 mb-2">
-        <div class="inline-flex items-center gap-1.5 bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 text-white px-4 py-1 rounded-full shadow-lg border-2 border-yellow-200">
-          <span class="text-base">⚡🏆⚡</span>
-          <span class="text-base font-black tracking-tight drop-shadow">10 THẬP ĐẠI</span>
-        </div>
-        <div class="bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-700 text-amber-300 font-black text-xs px-5 py-0.5 rounded-full -mt-1.5 shadow border border-amber-300 uppercase tracking-wider">
-          ★ THẦN TỐC ★
+      <div class="flex justify-center">
+        <div class="relative w-[220px] h-[220px] rounded-2xl overflow-hidden bg-slate-900 shadow-inner border-2 border-slate-300 touch-none">
+          <canvas id="cropper-canvas" width="220" height="220" class="w-full h-full cursor-move"></canvas>
         </div>
       </div>
 
-      <!-- Khung báo đáp án đúng & lời giải thích ngắn -->
-      <div id="speed-modal-answer-bar" class="bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl px-3 py-1.5 text-[11px] font-bold text-center mb-2.5"></div>
+      <div class="flex items-center gap-2 px-2">
+        <button type="button" onclick="adjustCropZoom(-0.15)" class="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 font-black text-xs cursor-pointer">➖</button>
+        <input id="cropper-zoom" type="range" min="1" max="3.2" step="0.02" value="1" oninput="onCropZoomChange()" class="flex-1 accent-indigo-600 cursor-pointer">
+        <button type="button" onclick="adjustCropZoom(0.15)" class="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 font-black text-xs cursor-pointer">➕</button>
+      </div>
 
-      <!-- BỤC VINH DANH TOP 3 (PODIUM: HẠNG 2 TRÁI - HẠNG 1 GIỮA - HẠNG 3 PHẢI) -->
-      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1"></div>
+      <div class="flex gap-2 pt-1">
+        <label for="avatarInput" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs py-2.5 rounded-xl cursor-pointer">
+          🔄 Chọn ảnh khác
+        </label>
+        <button type="button" onclick="applyAvatarCrop()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-2.5 rounded-xl shadow-lg cursor-pointer">
+          ✂️ Cắt & Chọn ảnh này
+        </button>
+      </div>
+    </div>
+  </div>
 
-      <!-- DANH SÁCH HẠNG 4 ĐẾN HẠNG 10 -->
-      <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2.5"></div>
+  <!-- ===================================================================== -->
+  <!-- MODAL THƯ MỤC DANH SÁCH THÍ SINH THAM GIA (DÀNH CHO ADMIN TUẤN PHỦ LÝ) -->
+  <!-- ===================================================================== -->
+  <div id="modal-player-directory" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
+    <div class="w-full max-w-md bg-slate-900 text-white rounded-3xl border-2 border-amber-500 shadow-2xl p-4 space-y-3 max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+        <div>
+          <h3 class="text-sm font-black text-amber-400">📁 THƯ MỤC DANH SÁCH THÍ SINH THAM GIA</h3>
+          <p class="text-[11px] text-slate-300 font-semibold">Tổng số: <span id="dir-total-count" class="text-emerald-400 font-black">0</span> tài khoản đã đăng ký</p>
+        </div>
+        <button onclick="closePlayerDirectoryModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1 rounded-full border border-slate-600 cursor-pointer font-bold">
+          ✖ Đóng
+        </button>
+      </div>
 
-      <!-- THANH ĐẾM NGƯỢC CHUYỂN CÂU Ở ĐÁY BẢNG (CHUẨN ẢNH 3) -->
+      <div class="flex gap-2">
+        <input id="dir-search-input" type="text" oninput="renderPlayerDirectoryList()" placeholder="🔍 Tìm tên thí sinh..." class="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+        <button onclick="requestPlayerPresence()" class="bg-sky-700 hover:bg-sky-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl cursor-pointer">
+          🔄 Đồng bộ
+        </button>
+        <button onclick="clearRoomPlayers()" class="bg-rose-800 hover:bg-rose-700 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer" title="Xóa toàn bộ danh sách hiện tại">
+          🗑️ Xóa hết
+        </button>
+      </div>
+
+      <div id="dir-players-container" class="flex-1 overflow-y-auto space-y-1.5 pr-1"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU (GIỐNG ẢNH 3)-->
+  <!-- ===================================================================== -->
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-2.5">
+    <div class="w-full max-w-[410px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-300 p-3.5 pt-2 flex flex-col max-h-[94vh] relative">
+      
+      <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer z-20">
+        ✖
+      </button>
+
+      <!-- HÌNH ẢNH ĐỒ HỌA 3D "10 THẬP ĐẠI THẦN TỐC" -->
+      <div class="flex justify-center -mt-6 mb-1 select-none pointer-events-none">
+        <svg class="w-[275px] h-[128px] drop-shadow-xl" viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFBEB"/>
+              <stop offset="35%" stop-color="#FDE047"/>
+              <stop offset="70%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#B45309"/>
+            </linearGradient>
+            <linearGradient id="cupGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FEF08A"/>
+              <stop offset="50%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#92400E"/>
+            </linearGradient>
+            <linearGradient id="blueRibbon" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1D4ED8"/>
+              <stop offset="50%" stop-color="#2563EB"/>
+              <stop offset="100%" stop-color="#1E3A8A"/>
+            </linearGradient>
+            <filter id="glowShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.45"/>
+            </filter>
+          </defs>
+          <polygon points="58,25 32,55 54,58 38,92 82,50 58,47" fill="url(#goldGrad)" stroke="#38BDF8" stroke-width="2" filter="url(#glowShadow)"/>
+          <polygon points="262,25 288,55 266,58 282,92 238,50 262,47" fill="url(#goldGrad)" stroke="#38BDF8" stroke-width="2" filter="url(#glowShadow)"/>
+          <path d="M88,88 C62,72 58,40 82,22 C75,42 78,65 98,80 Z" fill="url(#goldGrad)" stroke="#92400E" stroke-width="1"/>
+          <path d="M232,88 C258,72 262,40 238,22 C245,42 242,65 222,80 Z" fill="url(#goldGrad)" stroke="#92400E" stroke-width="1"/>
+          <path d="M115,36 C92,36 92,68 118,72" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M205,36 C228,36 228,68 202,72" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M112,26 L208,26 L196,82 C192,96 128,96 124,82 Z" fill="url(#cupGrad)" stroke="#FEF08A" stroke-width="2.5" filter="url(#glowShadow)"/>
+          <polygon points="126,26 134,8 148,18 160,4 172,18 186,8 194,26" fill="url(#goldGrad)" stroke="#92400E" stroke-width="1.5"/>
+          <polygon points="160,6 166,14 160,22 154,14" fill="#38BDF8" stroke="#E0F2FE" stroke-width="1"/>
+          <text x="160" y="67" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="40" fill="url(#goldGrad)" stroke="#78350F" stroke-width="3" filter="url(#glowShadow)">10</text>
+          <path d="M56,74 Q160,62 264,74 L256,102 Q160,90 64,102 Z" fill="url(#blueRibbon)" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glowShadow)"/>
+          <text x="160" y="93" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="21" fill="url(#goldGrad)" stroke="#78350F" stroke-width="1.5" letter-spacing="1">THẬP ĐẠI</text>
+          <path d="M42,102 Q160,92 278,102 L268,128 Q160,118 52,128 Z" fill="url(#blueRibbon)" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glowShadow)"/>
+          <text x="160" y="120" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="18" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="1" letter-spacing="1">★ THẦN TỐC ★</text>
+          <circle cx="160" cy="134" r="13" fill="url(#goldGrad)" stroke="#92400E" stroke-width="2" filter="url(#glowShadow)"/>
+          <polygon points="160,124 163,131 170,131 165,135 167,142 160,138 153,142 155,135 150,131 157,131" fill="#FFFBEB"/>
+        </svg>
+      </div>
+
+      <div id="speed-modal-answer-bar" class="bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl px-3 py-1.5 text-[10px] font-bold text-center mb-2"></div>
+      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2 px-1"></div>
+      <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
+
       <div class="pt-1.5 border-t border-slate-200">
         <div class="flex justify-between items-center text-[11px] font-bold text-slate-500 mb-1">
-          <span id="speed-footer-status">🕒 Chờ Admin Tuấn Phủ Lý phát câu tiếp...</span>
-          <span id="speed-footer-sec" class="bg-sky-100 text-sky-700 font-black px-2 py-0.5 rounded-full text-[10px]">20s</span>
+          <span id="speed-footer-status">🕒 Tự động chuyển câu sau</span>
+          <span id="speed-footer-sec" class="bg-sky-100 text-sky-700 font-black px-2 py-0.5 rounded-full text-[10px]">05s</span>
         </div>
         <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
           <div id="speed-footer-bar" class="h-full bg-indigo-500 transition-all duration-500" style="width: 100%;"></div>
@@ -495,35 +558,128 @@
 
   <script>
     // =========================================================================
-    // 1. XÓA TÀI KHOẢN CŨ (HARD WIPE) & LƯU TRỮ BẢO VỆ KÉP
+    // 0. HỆ THỐNG AN NINH MẠNG BKAV-SHIELD V21 (CHỐNG HACK, LỘ ĐÁP ÁN & SPAM)
     // =========================================================================
-    (function wipeLegacyAccountsOnce() {
+    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
+    const clientRateLimits = {};
+
+    function sanitizeText(str, maxLen = 200) {
+      if (typeof str !== 'string') return '';
+      return str
+        .replace(/[&<>"'`]/g, (ch) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;'
+        }[ch] || ch))
+        .trim()
+        .substring(0, maxLen);
+    }
+
+    function normalizeAccountKey(name) {
+      return String(name || '').trim().toLowerCase();
+    }
+
+    function computePacketSig(type, id, ts) {
+      const raw = `${type}|${id || 'sys'}|${ts || 0}|${SECURITY_SALT}`;
+      let hash = 2166136261;
+      for (let i = 0; i < raw.length; i++) {
+        hash ^= raw.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return (hash >>> 0).toString(36);
+    }
+
+    // Mã hóa đáp án đúng khi phát câu hỏi để không ai dùng F12 xem trước được
+    function encodeAnswerHash(correctKey, qUid) {
+      const raw = `ANS_${correctKey}_${qUid}_${SECURITY_SALT}`;
+      let hash = 5381;
+      for (let i = 0; i < raw.length; i++) {
+        hash = ((hash << 5) + hash) + raw.charCodeAt(i);
+      }
+      return (hash >>> 0).toString(16);
+    }
+
+    function isRateLimited(senderId) {
+      if (!senderId) return false;
+      const now = Date.now();
+      if (!clientRateLimits[senderId]) {
+        clientRateLimits[senderId] = { count: 1, resetAt: now + 3000 };
+        return false;
+      }
+      const bucket = clientRateLimits[senderId];
+      if (now > bucket.resetAt) {
+        bucket.count = 1;
+        bucket.resetAt = now + 3000;
+        return false;
+      }
+      bucket.count++;
+      return bucket.count > 15;
+    }
+
+    // =========================================================================
+    // 1. LƯU TRỮ 4 TẦNG (INDEXEDDB + LOCALSTORAGE + COOKIE + WINDOW.NAME)
+    //    ĐẢM BẢO ANDROID VUỐT RA VÀO LẠI HOẶC KHỞI ĐỘNG LẠI MÁY VẪN VÀO THẲNG GAME
+    // =========================================================================
+    const IDB_NAME = "FourHomeMegaArenaDB_V21";
+    const IDB_STORE = "kv_store";
+
+    function idbSet(key, val) {
       try {
-        if (!localStorage.getItem('fh_v18_clean_wipe_done')) {
-          const oldKeys = [
-            'fh_uid', 'fh_uname', 'fh_uscore', 'fh_device_uid',
-            'fh_locked_name', 'fh_saved_score', 'fh_reset_id', 'fh_answered_history',
-            'fh_locked_name_v16', 'fh_saved_score_v16', 'fh_reset_id_v16', 'fh_answered_history_v16'
-          ];
-          oldKeys.forEach(k => {
-            try { localStorage.removeItem(k); } catch (e) {}
-            try { document.cookie = k + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"; } catch (e) {}
-          });
-          localStorage.setItem('fh_v18_clean_wipe_done', 'true');
-        }
+        const req = indexedDB.open(IDB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+        };
+        req.onsuccess = (e) => {
+          const db = e.target.result;
+          const tx = db.transaction(IDB_STORE, "readwrite");
+          tx.objectStore(IDB_STORE).put(val, key);
+        };
       } catch (e) {}
-    })();
+    }
+
+    function idbGetAll(callback) {
+      try {
+        const req = indexedDB.open(IDB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+        };
+        req.onsuccess = (e) => {
+          const db = e.target.result;
+          const tx = db.transaction(IDB_STORE, "readonly");
+          const store = tx.objectStore(IDB_STORE);
+          const resultObj = {};
+          const keysReq = store.getAllKeys();
+          const valsReq = store.getAll();
+          keysReq.onsuccess = () => {
+            valsReq.onsuccess = () => {
+              keysReq.result.forEach((k, i) => { resultObj[k] = valsReq.result[i]; });
+              callback(resultObj);
+            };
+          };
+        };
+        req.onerror = () => callback({});
+      } catch (e) { callback({}); }
+    }
 
     function setPersistentData(key, value) {
       const strVal = String(value);
       try { localStorage.setItem(key, strVal); } catch (e) {}
-      if (strVal.length < 500) {
+      idbSet(key, strVal);
+      if (strVal.length < 600) {
         try {
           const d = new Date();
           d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
           document.cookie = `${key}=${encodeURIComponent(strVal)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
         } catch (e) {}
       }
+      try {
+        let wn = {};
+        if (window.name && window.name.startsWith('{')) wn = JSON.parse(window.name);
+        if (strVal.length < 15000) {
+          wn[key] = strVal;
+          window.name = JSON.stringify(wn);
+        }
+      } catch (e) {}
     }
 
     function getPersistentData(key) {
@@ -543,12 +699,29 @@
           }
         }
       } catch (e) {}
+      try {
+        if (window.name && window.name.startsWith('{')) {
+          const wn = JSON.parse(window.name);
+          if (wn[key]) {
+            try { localStorage.setItem(key, wn[key]); } catch (e) {}
+            return wn[key];
+          }
+        }
+      } catch (e) {}
       return null;
     }
 
     function removePersistentData(key) {
       try { localStorage.removeItem(key); } catch (e) {}
+      idbSet(key, '');
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
+      try {
+        if (window.name && window.name.startsWith('{')) {
+          const wn = JSON.parse(window.name);
+          delete wn[key];
+          window.name = JSON.stringify(wn);
+        }
+      } catch (e) {}
     }
 
     function updateCharCount() {
@@ -559,11 +732,47 @@
       }
     }
 
-    // Xử lý tải ảnh đại diện (Avatar) & Tự động cắt vuông nén siêu nhẹ 64x64px
+    // Chuyển đổi giữa Tab Đăng ký TK mới và Tab Đăng nhập TK đã có
+    let authMode = 'register'; // 'register' | 'login'
+    function switchAuthTab(mode) {
+      authMode = mode;
+      const btnReg = document.getElementById('tab-btn-register');
+      const btnLog = document.getElementById('tab-btn-login');
+      const avtSec = document.getElementById('auth-avatar-section');
+      const logHint = document.getElementById('auth-login-hint');
+      const submitBtn = document.getElementById('btn-submit-auth');
+
+      if (mode === 'register') {
+        btnReg.className = "py-2 rounded-xl text-[11px] font-black bg-indigo-600 text-white shadow cursor-pointer transition-all";
+        btnLog.className = "py-2 rounded-xl text-[11px] font-black text-slate-600 hover:text-slate-900 cursor-pointer transition-all";
+        avtSec.classList.remove('hidden');
+        logHint.classList.add('hidden');
+        submitBtn.innerText = "🚀 ĐĂNG KÝ & VÀO ĐẤU TRƯỜNG";
+      } else {
+        btnLog.className = "py-2 rounded-xl text-[11px] font-black bg-emerald-600 text-white shadow cursor-pointer transition-all";
+        btnReg.className = "py-2 rounded-xl text-[11px] font-black text-slate-600 hover:text-slate-900 cursor-pointer transition-all";
+        avtSec.classList.add('hidden');
+        logHint.classList.remove('hidden');
+        submitBtn.innerText = "📲 ĐĂNG NHẬP VÀO ĐẤU TRƯỜNG";
+      }
+    }
+
+    // =========================================================================
+    // 2. BỘ CẮT & CĂN CHỈNH ẢNH ĐẠI DIỆN KIỂU FACEBOOK / GMAIL (AVATAR CROPPER)
+    // =========================================================================
     let tempUploadedAvatar = '';
+    let rawSourceImage = null;
+    let cropScale = 1;
+    let cropBaseScale = 1;
+    let cropOffsetX = 0;
+    let cropOffsetY = 0;
+    let isDraggingCrop = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+
     const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#f59e0b"/><text x="32" y="42" font-size="30" text-anchor="middle" fill="#0f172a">👑</text></svg>');
 
-    function handleAvatarUpload(event) {
+    function handleAvatarFileSelect(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       if (!file.type.startsWith('image/')) {
@@ -574,74 +783,283 @@
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const size = 64;
-          canvas.width = size;
-          canvas.height = size;
-          const ctx = canvas.getContext('2d');
-
-          const minDim = Math.min(img.width, img.height);
-          const sx = (img.width - minDim) / 2;
-          const sy = (img.height - minDim) / 2;
-          ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
-
-          tempUploadedAvatar = canvas.toDataURL('image/jpeg', 0.72);
-          const previewImg = document.getElementById('avatar-preview-img');
-          const placeholder = document.getElementById('avatar-placeholder');
-          const statusTxt = document.getElementById('avatar-status-text');
-
-          if (previewImg && placeholder) {
-            previewImg.src = tempUploadedAvatar;
-            previewImg.classList.remove('hidden');
-            placeholder.classList.add('hidden');
-          }
-          if (statusTxt) {
-            statusTxt.innerText = "✅ Đã tải lên ảnh đại diện hợp lệ!";
-            statusTxt.className = "text-[10px] text-emerald-600 font-bold mt-1";
-          }
+          rawSourceImage = img;
+          openAvatarCropperWithImage(img);
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
+    function reopenCropperIfAvailable() {
+      if (rawSourceImage) {
+        openAvatarCropperWithImage(rawSourceImage);
+      } else {
+        document.getElementById('avatarInput').click();
+      }
+    }
+
+    function openAvatarCropperWithImage(img) {
+      const modal = document.getElementById('modal-avatar-cropper');
+      const zoomSlider = document.getElementById('cropper-zoom');
+      modal.classList.remove('hidden');
+
+      const stageSize = 220;
+      const circleDiameter = 184;
+      cropBaseScale = Math.max(circleDiameter / img.width, circleDiameter / img.height);
+      cropScale = 1;
+      if (zoomSlider) zoomSlider.value = "1";
+
+      cropOffsetX = (stageSize - img.width * cropBaseScale) / 2;
+      cropOffsetY = (stageSize - img.height * cropBaseScale) / 2;
+
+      drawCropperStage();
+    }
+
+    function closeAvatarCropper() {
+      document.getElementById('modal-avatar-cropper').classList.add('hidden');
+    }
+
+    function clampCropOffsets() {
+      if (!rawSourceImage) return;
+      const stageSize = 220;
+      const circleRadius = 92;
+      const center = stageSize / 2;
+      const totalScale = cropBaseScale * cropScale;
+      const drawW = rawSourceImage.width * totalScale;
+      const drawH = rawSourceImage.height * totalScale;
+
+      const minX = (center + circleRadius) - drawW;
+      const maxX = center - circleRadius;
+      const minY = (center + circleRadius) - drawH;
+      const maxY = center - circleRadius;
+
+      if (drawW >= circleRadius * 2) {
+        cropOffsetX = Math.min(maxX, Math.max(minX, cropOffsetX));
+      }
+      if (drawH >= circleRadius * 2) {
+        cropOffsetY = Math.min(maxY, Math.max(minY, cropOffsetY));
+      }
+    }
+
+    function drawCropperStage() {
+      const canvas = document.getElementById('cropper-canvas');
+      if (!canvas || !rawSourceImage) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const cx = W / 2;
+      const cy = H / 2;
+      const radius = 92;
+
+      ctx.clearRect(0, 0, W, H);
+      clampCropOffsets();
+
+      const totalScale = cropBaseScale * cropScale;
+      const drawW = rawSourceImage.width * totalScale;
+      const drawH = rawSourceImage.height * totalScale;
+
+      ctx.drawImage(rawSourceImage, cropOffsetX, cropOffsetY, drawW, drawH);
+
+      ctx.save();
+      ctx.fillStyle = "rgba(15, 23, 42, 0.62)";
+      ctx.beginPath();
+      ctx.rect(0, 0, W, H);
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2, true);
+      ctx.fill();
+
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function onCropZoomChange() {
+      if (!rawSourceImage) return;
+      const zoomSlider = document.getElementById('cropper-zoom');
+      const newScale = parseFloat(zoomSlider.value) || 1;
+      const prevTotal = cropBaseScale * cropScale;
+      const nextTotal = cropBaseScale * newScale;
+
+      const center = 110;
+      const relX = (center - cropOffsetX) / prevTotal;
+      const relY = (center - cropOffsetY) / prevTotal;
+
+      cropScale = newScale;
+      cropOffsetX = center - relX * nextTotal;
+      cropOffsetY = center - relY * nextTotal;
+      drawCropperStage();
+    }
+
+    function adjustCropZoom(delta) {
+      const zoomSlider = document.getElementById('cropper-zoom');
+      if (!zoomSlider) return;
+      let val = (parseFloat(zoomSlider.value) || 1) + delta;
+      val = Math.max(1, Math.min(3.2, val));
+      zoomSlider.value = val.toFixed(2);
+      onCropZoomChange();
+    }
+
+    (function initCropperDragEvents() {
+      window.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('cropper-canvas');
+        if (!canvas) return;
+
+        function getPoint(e) {
+          const rect = canvas.getBoundingClientRect();
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          return {
+            x: (clientX - rect.left) * (canvas.width / rect.width),
+            y: (clientY - rect.top) * (canvas.height / rect.height)
+          };
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+          isDraggingCrop = true;
+          const pt = getPoint(e);
+          dragStartX = pt.x - cropOffsetX;
+          dragStartY = pt.y - cropOffsetY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isDraggingCrop) return;
+          const pt = getPoint(e);
+          cropOffsetX = pt.x - dragStartX;
+          cropOffsetY = pt.y - dragStartY;
+          drawCropperStage();
+        });
+
+        window.addEventListener('mouseup', () => { isDraggingCrop = false; });
+
+        canvas.addEventListener('touchstart', (e) => {
+          if (e.touches.length !== 1) return;
+          isDraggingCrop = true;
+          const pt = getPoint(e);
+          dragStartX = pt.x - cropOffsetX;
+          dragStartY = pt.y - cropOffsetY;
+        }, { passive: true });
+
+        canvas.addEventListener('touchmove', (e) => {
+          if (!isDraggingCrop || e.touches.length !== 1) return;
+          e.preventDefault();
+          const pt = getPoint(e);
+          cropOffsetX = pt.x - dragStartX;
+          cropOffsetY = pt.y - dragStartY;
+          drawCropperStage();
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', () => { isDraggingCrop = false; });
+      });
+    })();
+
+    function applyAvatarCrop() {
+      if (!rawSourceImage) return;
+      const outCanvas = document.createElement('canvas');
+      const outSize = 72;
+      outCanvas.width = outSize;
+      outCanvas.height = outSize;
+      const outCtx = outCanvas.getContext('2d');
+
+      const cx = 110;
+      const cy = 110;
+      const radius = 92;
+      const cropBoxX = cx - radius;
+      const cropBoxY = cy - radius;
+      const cropBoxDim = radius * 2;
+
+      const totalScale = cropBaseScale * cropScale;
+      const sx = (cropBoxX - cropOffsetX) / totalScale;
+      const sy = (cropBoxY - cropOffsetY) / totalScale;
+      const sDim = cropBoxDim / totalScale;
+
+      outCtx.fillStyle = "#ffffff";
+      outCtx.fillRect(0, 0, outSize, outSize);
+      outCtx.drawImage(rawSourceImage, sx, sy, sDim, sDim, 0, 0, outSize, outSize);
+
+      tempUploadedAvatar = outCanvas.toDataURL('image/jpeg', 0.78);
+
+      const previewImg = document.getElementById('avatar-preview-img');
+      const placeholder = document.getElementById('avatar-placeholder');
+      const statusTxt = document.getElementById('avatar-status-text');
+      const recropBtn = document.getElementById('btn-recrop');
+
+      if (previewImg && placeholder) {
+        previewImg.src = tempUploadedAvatar;
+        previewImg.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+      }
+      if (recropBtn) recropBtn.classList.remove('hidden');
+      if (statusTxt) {
+        statusTxt.innerText = "✅ Đã cắt & lưu ảnh đại diện ưng ý!";
+        statusTxt.className = "text-[10px] text-emerald-600 font-bold mt-1";
+      }
+
+      closeAvatarCropper();
+    }
+
     function renderAvatarHTML(avatarUrl, sizeClass = "w-5 h-5", borderClass = "border border-amber-400") {
-      const src = avatarUrl || DEFAULT_ADMIN_AVATAR;
+      const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       return `<img src="${src}" class="${sizeClass} rounded-full object-cover ${borderClass} shrink-0 inline-block bg-slate-200" alt="avt">`;
     }
 
     // =========================================================================
-    // 2. HỆ THỐNG PHÁT NHẠC MP3 "AI LÀ TRIỆU PHÚ" TỪ TIẾNGĐỘNG.COM
+    // 3. ĐỘNG CƠ ÂM THANH KÉP (HYBRID KEEP-ALIVE AUDIO ENGINE) KHÔNG BAO GIỜ MẤT TIẾNG
     // =========================================================================
     let audioCtx = null;
-    let soundEnabled = true;
     let mp3Unlocked = false;
+    let keepAliveNode = null;
 
     const bgmEl = document.getElementById('audio-bgm');
     const correctEl = document.getElementById('audio-correct');
     const wrongEl = document.getElementById('audio-wrong');
 
     function initAudio() {
-      if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (AudioContextClass) audioCtx = new AudioContextClass();
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      if (!mp3Unlocked) {
-        mp3Unlocked = true;
-        [bgmEl, correctEl, wrongEl].forEach(el => {
-          if (el) {
-            el.volume = 1.0;
-            el.load();
-          }
-        });
-      }
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        if (audioCtx && !keepAliveNode) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          gain.gain.value = 0.00001;
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          keepAliveNode = osc;
+        }
+        if (!mp3Unlocked) {
+          mp3Unlocked = true;
+          [bgmEl, correctEl, wrongEl].forEach(el => {
+            if (el) {
+              el.muted = true;
+              const p = el.play();
+              if (p !== undefined) {
+                p.then(() => {
+                  el.pause();
+                  el.currentTime = 0;
+                  el.muted = false;
+                  el.volume = 1.0;
+                }).catch(() => {
+                  el.muted = false;
+                  el.volume = 1.0;
+                });
+              }
+            }
+          });
+        }
+      } catch (e) {}
     }
 
-    document.addEventListener('touchstart', initAudio, { once: true });
-    document.addEventListener('click', initAudio, { once: true });
+    ['touchstart', 'touchend', 'click', 'keydown'].forEach(evt => {
+      document.addEventListener(evt, initAudio, { passive: true });
+    });
 
     function stopAllMP3() {
       [bgmEl, correctEl, wrongEl].forEach(el => {
@@ -654,99 +1072,90 @@
       });
     }
 
-    function toggleSound() {
-      initAudio();
-      soundEnabled = !soundEnabled;
-      const btn = document.getElementById('btn-sound');
-      if (soundEnabled) {
-        btn.innerText = '🔊 Bật Âm Thanh';
-        btn.className = 'bg-amber-400/90 hover:bg-amber-400 text-amber-950 font-black text-[10px] px-2.5 py-1 rounded-full shadow-xs border border-amber-300 cursor-pointer';
-      } else {
-        stopAllMP3();
-        btn.innerText = '🔇 Đã Tắt Tiếng';
-        btn.className = 'bg-slate-700/80 text-slate-300 font-bold text-[10px] px-2.5 py-1 rounded-full shadow-xs border border-slate-500 cursor-pointer';
-      }
-    }
-
-    function playFallbackNote(freq, startOffset, duration, type = 'sawtooth', volume = 0.16) {
-      if (!soundEnabled) return;
+    function playSynthTone(freq, startOffset, duration, type = 'sawtooth', volume = 0.20) {
       initAudio();
       if (!audioCtx) return;
+      try {
+        const now = audioCtx.currentTime + startOffset;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
 
-      const now = audioCtx.currentTime + startOffset;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
 
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
 
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start(now);
-      osc.stop(now + duration + 0.02);
+        osc.start(now);
+        osc.stop(now + duration + 0.03);
+      } catch (e) {}
     }
 
     function playALTPQuestionStart() {
-      if (!soundEnabled) return;
+      initAudio();
       stopAllMP3();
+      playSynthTone(146.83, 0.00, 0.55, 'sawtooth', 0.14);
+      playSynthTone(220.00, 0.08, 0.55, 'sawtooth', 0.14);
+      playSynthTone(293.66, 0.16, 0.65, 'triangle', 0.18);
+      playSynthTone(349.23, 0.24, 0.80, 'triangle', 0.20);
+
       if (bgmEl) {
-        bgmEl.volume = 0.85;
+        bgmEl.muted = false;
+        bgmEl.volume = 0.9;
+        bgmEl.currentTime = 0;
         const p = bgmEl.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            playFallbackNote(146.83, 0.00, 0.65, 'sawtooth', 0.15);
-            playFallbackNote(220.00, 0.08, 0.60, 'sawtooth', 0.15);
-            playFallbackNote(293.66, 0.16, 0.70, 'triangle', 0.20);
-            playFallbackNote(349.23, 0.26, 0.85, 'triangle', 0.22);
-          });
-        }
+        if (p !== undefined) p.catch(() => {});
       }
     }
 
     function playALTPTick(timeLeft) {
-      if (!soundEnabled || timeLeft <= 0) return;
+      if (timeLeft <= 0) return;
       if (timeLeft <= 5) {
-        playFallbackNote(880, 0, 0.08, 'sine', 0.12);
+        playSynthTone(880, 0, 0.09, 'sine', 0.18);
+        playSynthTone(440, 0.04, 0.08, 'triangle', 0.12);
+      } else {
+        playSynthTone(320, 0, 0.05, 'sine', 0.09);
       }
     }
 
     function playALTPCorrect() {
-      if (!soundEnabled) return;
+      initAudio();
       if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
+
+      playSynthTone(523.25, 0.00, 0.16, 'triangle', 0.24);
+      playSynthTone(659.25, 0.12, 0.16, 'triangle', 0.24);
+      playSynthTone(783.99, 0.24, 0.18, 'triangle', 0.26);
+      playSynthTone(1046.50, 0.36, 0.80, 'sawtooth', 0.25);
+      playSynthTone(523.25, 0.36, 0.80, 'triangle', 0.20);
+
       if (correctEl) {
+        correctEl.muted = false;
         correctEl.currentTime = 0;
         correctEl.volume = 1.0;
         const p = correctEl.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            playFallbackNote(523.25, 0.00, 0.16, 'triangle', 0.25);
-            playFallbackNote(659.25, 0.13, 0.16, 'triangle', 0.25);
-            playFallbackNote(783.99, 0.26, 0.18, 'triangle', 0.28);
-            playFallbackNote(1046.50, 0.40, 0.75, 'sawtooth', 0.24);
-          });
-        }
+        if (p !== undefined) p.catch(() => {});
       }
     }
 
     function playALTPWrong() {
-      if (!soundEnabled) return;
+      initAudio();
       if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
+
+      playSynthTone(311.13, 0.00, 0.26, 'sawtooth', 0.24);
+      playSynthTone(293.66, 0.22, 0.26, 'sawtooth', 0.24);
+      playSynthTone(277.18, 0.44, 0.85, 'sawtooth', 0.28);
+      playSynthTone(138.59, 0.44, 0.85, 'triangle', 0.24);
+
       if (wrongEl) {
+        wrongEl.muted = false;
         wrongEl.currentTime = 0;
         wrongEl.volume = 1.0;
         const p = wrongEl.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            playFallbackNote(311.13, 0.00, 0.28, 'sawtooth', 0.25);
-            playFallbackNote(293.66, 0.24, 0.28, 'sawtooth', 0.25);
-            playFallbackNote(277.18, 0.48, 0.85, 'sawtooth', 0.28);
-          });
-        }
+        if (p !== undefined) p.catch(() => {});
       }
     }
 
@@ -757,26 +1166,14 @@
       const end = Date.now() + duration;
 
       (function frame() {
-        confetti({
-          particleCount: 6,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0, y: 0.65 }
-        });
-        confetti({
-          particleCount: 6,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1, y: 0.65 }
-        });
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
+        confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0, y: 0.65 } });
+        confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1, y: 0.65 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
       })();
     }
 
     // =========================================================================
-    // 3. NGÂN HÀNG CÂU HỎI KÈM LỜI GIẢI THÍCH ĐÁP ÁN ĐÚNG
+    // 4. NGÂN HÀNG CÂU HỎI & QUẢN LÝ TÀI KHOẢN ĐA THIẾT BỊ (CLOUD REGISTRY)
     // =========================================================================
     const defaultBank = {
       "Tuần 1 - Tổng quan & Quy mô Sun Urban City": [
@@ -824,36 +1221,51 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v18')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v20')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) {
       quizBank = JSON.parse(JSON.stringify(defaultBank));
     }
     let currentQuizName = Object.keys(quizBank)[0] || "";
     let currentQIndex = -1;
 
-    let myId = getPersistentData('fh_device_uid_v18');
-    if (!myId) {
-      myId = 'dev18_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
-      setPersistentData('fh_device_uid_v18', myId);
+    // Mã phần cứng của trình duyệt/điện thoại hiện tại (Dùng để khóa phiên 1 máy)
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v21');
+    if (!myDeviceHwId) {
+      myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
+      setPersistentData('fh_hw_device_id_v21', myDeviceHwId);
     }
 
-    let myName = getPersistentData('fh_locked_name_v18') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v18') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v18'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v18') || 'init_session';
+    // Hỗ trợ khôi phục từ cả V20 và V21 để nhân sự không bị mất tài khoản
+    let myId = getPersistentData('fh_account_uid_v21') || getPersistentData('fh_device_uid_v20') || '';
+    let myName = getPersistentData('fh_locked_name_v20') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v20') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v20'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v20') || 'init_session';
+    let isLoggedOutExplicitly = (getPersistentData('fh_logged_out_v21') === 'true');
     let isAdminMode = false;
 
-    if (!myAvatar) {
-      myName = '';
+    if (!myId && myName) {
+      myId = 'acc_' + normalizeAccountKey(myName);
+      setPersistentData('fh_account_uid_v21', myId);
+    }
+
+    // Kho lưu trữ toàn bộ tài khoản trên đám mây (Theo dõi khóa 1 thiết bị / 1 thời điểm)
+    let accountRegistry = {};
+    try {
+      accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v21')) || {};
+    } catch (e) { accountRegistry = {}; }
+
+    function saveAccountRegistryLocal() {
+      try { localStorage.setItem('fh_cloud_accounts_v21', JSON.stringify(accountRegistry)); } catch (e) {}
     }
 
     let answeredHistory = {};
     try {
-      answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v18')) || {};
+      answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v20')) || {};
     } catch (e) { answeredHistory = {}; }
 
     function saveAnsweredHistory() {
-      try { localStorage.setItem('fh_answered_history_v18', JSON.stringify(answeredHistory)); } catch (e) {}
+      try { localStorage.setItem('fh_answered_history_v20', JSON.stringify(answeredHistory)); } catch (e) {}
     }
 
     let prevQuizRecord = null;
@@ -867,7 +1279,6 @@
       try { localStorage.setItem('fh_prev_quiz_record', JSON.stringify(record)); } catch (e) {}
     }
 
-    // Trạng thái câu hỏi hiện tại
     let isThinkingPhase = false;
     let hasAnswered = true;
     let isQuestionRevealed = false;
@@ -886,7 +1297,6 @@
 
     let players = {};
     let votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
-    // Lưu danh sách người chọn từng đáp án A, B, C, D và bảng tốc độ của câu hiện tại
     let optionPickers = { A: [], B: [], C: [], D: [] };
     let currentRoundAnswers = {};
     let seenMsgIds = new Set();
@@ -904,9 +1314,9 @@
       const badgeEl = document.getElementById('locked-player-badge');
       if (!badgeEl) return;
       if (myName && myAvatar) {
-        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-6 h-6')} <span class="truncate">${myName}</span>`;
+        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-7 h-7')} <span class="truncate">${myName}</span>`;
       } else if (isAdminMode) {
-        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-6 h-6')} <span class="truncate">Admin Tuấn Phủ Lý</span>`;
+        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-7 h-7')} <span class="truncate">Admin Tuấn Phủ Lý</span>`;
       }
     }
 
@@ -925,24 +1335,53 @@
       }
     }
 
+    // Tự động khôi phục phiên chơi từ cả LocalStorage và IndexedDB (Chống mất tài khoản trên Android)
     function autoRestorePlayerSession() {
       renderQuizDropdown();
-      if (myName && myAvatar) {
-        players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore };
+      if (myName && myAvatar && !isLoggedOutExplicitly) {
+        if (!myId) myId = 'acc_' + normalizeAccountKey(myName);
+        players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true };
         document.getElementById('screen-login').classList.add('hidden');
         document.getElementById('screen-game').classList.remove('hidden');
         document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
         updateLockedPlayerBadgeUI();
         renderLeaderboard();
+      } else {
+        // Thử đọc sâu từ IndexedDB phòng trường hợp Android vừa xóa LocalStorage tạm thời
+        idbGetAll((stored) => {
+          if (stored['fh_logged_out_v21'] === 'true') return;
+          const idbName = stored['fh_locked_name_v20'];
+          const idbAvt = stored['fh_locked_avatar_v20'];
+          if (idbName && idbAvt && !myName) {
+            myName = idbName;
+            myAvatar = idbAvt;
+            myScore = parseInt(stored['fh_saved_score_v20'], 10) || 0;
+            myId = stored['fh_account_uid_v21'] || ('acc_' + normalizeAccountKey(myName));
+            if (stored['fh_hw_device_id_v21']) myDeviceHwId = stored['fh_hw_device_id_v21'];
+
+            setPersistentData('fh_locked_name_v20', myName);
+            setPersistentData('fh_locked_avatar_v20', myAvatar);
+            setPersistentData('fh_saved_score_v20', myScore);
+            setPersistentData('fh_account_uid_v21', myId);
+
+            players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true };
+            document.getElementById('screen-login').classList.add('hidden');
+            document.getElementById('screen-game').classList.remove('hidden');
+            document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
+            updateLockedPlayerBadgeUI();
+            renderLeaderboard();
+            announceMyPresence();
+          }
+        });
       }
     }
 
     autoRestorePlayerSession();
 
     // =========================================================================
-    // 4. HỆ THỐNG ĐA TỔNG ĐÀI SONG SONG & TỰ ĐỘNG HÀN GẮN KHI RỚT MẠNG 4G/5G
+    // 5. HỆ THỐNG ĐA TỔNG ĐÀI SONG SONG & BẢO MẬT GÓI TIN
     // =========================================================================
-    const BASE_TOPIC = 'fourhome_mega_suc_2026_v18';
+    const BASE_TOPIC = 'fourhome_mega_suc_2026_v20_secure';
     const BROKER_URLS = [
       'wss://broker.hivemq.com:8884/mqtt',
       'wss://test.mosquitto.org:8081/mqtt',
@@ -959,10 +1398,10 @@
     function updateConnectionUI() {
       const statusEl = document.getElementById('conn-status');
       if (connectedBrokerCount > 0) {
-        statusEl.innerText = `🟢 Trực tuyến (${connectedBrokerCount} trạm) - Đã bảo lưu điểm`;
+        statusEl.innerText = `🟢 Trực tuyến (${connectedBrokerCount} trạm)`;
         statusEl.className = 'text-[10px] text-emerald-300 font-bold';
       } else {
-        statusEl.innerText = '🟡 Đang nối lại sóng 4G/WiFi (Điểm an toàn)...';
+        statusEl.innerText = '🟡 Đang nối lại sóng...';
         statusEl.className = 'text-[10px] text-amber-300 font-bold';
       }
     }
@@ -970,7 +1409,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh19_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh21_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -983,7 +1422,7 @@
           connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length;
           updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
-          if (myName && myAvatar) announceMyPresence();
+          if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
         });
 
         c.on('close', () => {
@@ -994,7 +1433,7 @@
 
         c.on('message', (fullTopic, message) => {
           const str = message.toString();
-          if (!str) return;
+          if (!str || str.length > 65000) return;
           try {
             const data = JSON.parse(str);
             const subTopic = fullTopic.replace(`${BASE_TOPIC}/`, '');
@@ -1012,17 +1451,21 @@
       activeClients.forEach(c => {
         if (c && !c._isConnected && typeof c.reconnect === 'function') c.reconnect();
       });
-      if (myName && myAvatar) setTimeout(announceMyPresence, 500);
+      if (myName && myAvatar && !isLoggedOutExplicitly) setTimeout(announceMyPresence, 500);
     });
 
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && myName && myAvatar) {
-        announceMyPresence();
+      if (document.visibilityState === 'visible') {
+        initAudio();
+        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
       }
     });
 
     function publishPacket(subTopic, payload, retain = false) {
-      payload._mid = payload._mid || (myId + '_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6));
+      payload._ts = payload._ts || Date.now();
+      payload._mid = payload._mid || ((myId || 'anon') + '_' + payload._ts + '_' + Math.random().toString(36).substring(2, 6));
+      payload._sig = computePacketSig(payload.type, payload.id || 'sys', payload._ts);
+
       const fullTopic = `${BASE_TOPIC}/${subTopic}`;
       const jsonStr = JSON.stringify(payload);
 
@@ -1038,48 +1481,58 @@
     }
 
     function announceMyPresence() {
-      if (!myName || !myAvatar) return;
-      players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore };
-      publishPacket(`players/${myId}`, {
+      if (!myName || !myAvatar || isLoggedOutExplicitly) return;
+      const accKey = normalizeAccountKey(myName);
+      if (!myId) myId = 'acc_' + accKey;
+
+      const accData = {
         type: 'PLAYER_JOIN',
         id: myId,
         name: myName,
         avatar: myAvatar,
         score: myScore,
-        resetId: myResetId,
-        ts: Date.now()
-      }, true);
+        lockedByDevice: myDeviceHwId,
+        isOnline: true,
+        resetId: myResetId
+      };
+
+      players[myId] = accData;
+      accountRegistry[accKey] = accData;
+      saveAccountRegistryLocal();
+
+      publishPacket(`players/${myId}`, accData, true);
     }
 
     setInterval(() => {
-      if (myName && myAvatar) announceMyPresence();
+      if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
     }, 3500);
 
     // =========================================================================
-    // 5. XỬ LÝ ĐỒNG BỘ DỮ LIỆU, AVATAR STACK & BẢNG "10 THẬP ĐẠI THẦN TỐC"
+    // 6. XỬ LÝ GÓI TIN BẢO MẬT & ĐỒNG BỘ KHO TÀI KHOẢN ĐÁM MÂY
     // =========================================================================
     function recordRoundChoice(data) {
       if (!data || !data.id || !data.choice || !['A', 'B', 'C', 'D'].includes(data.choice)) return;
-      if (currentRoundAnswers[data.id]) return; // Mỗi người chỉ tính 1 lần trên mỗi câu
+      const safeName = sanitizeText(data.name || 'Thí sinh', 12);
+      const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : ((players[data.id] && players[data.id].avatar) || DEFAULT_ADMIN_AVATAR);
+      const tLeft = Math.max(1, Math.min(20, parseInt(data.timeLeft, 10) || 10));
+      const elap = typeof data.elapsedSec === 'number' ? Math.max(0.1, Math.min(20, data.elapsedSec)) : Math.max(0.5, 20 - tLeft);
 
-      const avt = data.avatar || (players[data.id] && players[data.id].avatar) || DEFAULT_ADMIN_AVATAR;
-      const tLeft = typeof data.timeLeft === 'number' ? data.timeLeft : 10;
-      const elap = typeof data.elapsedSec === 'number' ? data.elapsedSec : Math.max(0.5, 20 - tLeft);
+      if (!currentRoundAnswers[data.id]) {
+        optionPickers[data.choice].push({
+          id: data.id,
+          name: safeName,
+          avatar: avt
+        });
+      }
 
       currentRoundAnswers[data.id] = {
         id: data.id,
-        name: data.name || 'Thí sinh',
+        name: safeName,
         avatar: avt,
         choice: data.choice,
         timeLeft: tLeft,
         elapsedSec: elap
       };
-
-      optionPickers[data.choice].push({
-        id: data.id,
-        name: data.name || 'Thí sinh',
-        avatar: avt
-      });
 
       votes[data.choice] = optionPickers[data.choice].length;
       votes.total = optionPickers.A.length + optionPickers.B.length + optionPickers.C.length + optionPickers.D.length;
@@ -1089,42 +1542,80 @@
     function handleIncomingPacket(subTopic, data) {
       if (!data || !data.type) return;
 
+      const expectedSig = computePacketSig(data.type, data.id || 'sys', data._ts);
+      if (data._sig !== expectedSig) return;
+
+      if (data.id && isRateLimited(data.id)) return;
+
       if (data.type !== 'PLAYER_JOIN' && data.type !== 'START_QUESTION' && data.type !== 'PREV_QUIZ_RECORD' && data._mid) {
         if (seenMsgIds.has(data._mid)) return;
         seenMsgIds.add(data._mid);
       }
 
-      if (data.type === 'PLAYER_JOIN') {
+      if (data.type === 'PLAYER_JOIN' || data.type === 'PLAYER_LOGOUT') {
         if (data.id && data.name) {
-          if (data.id === myId && (!data.resetId || data.resetId === myResetId)) {
-            if ((data.score || 0) > myScore) {
-              myScore = data.score;
-              setPersistentData('fh_saved_score_v18', myScore);
+          const cleanName = sanitizeText(data.name, 12);
+          const accKey = normalizeAccountKey(cleanName);
+          const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
+
+          if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
+            if (validScore > myScore) {
+              myScore = validScore;
+              setPersistentData('fh_saved_score_v20', myScore);
               document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
             }
           }
-          const existing = players[data.id];
-          const bestScore = existing ? Math.max(existing.score, data.score || 0) : (data.score || 0);
-          players[data.id] = {
+
+          const existing = players[data.id] || accountRegistry[accKey];
+          const bestScore = existing ? Math.max(existing.score || 0, validScore) : validScore;
+          const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR);
+          const isOnlineNow = (data.type === 'PLAYER_LOGOUT') ? false : (data.isOnline !== false);
+          const lockDev = isOnlineNow ? (data.lockedByDevice || (existing && existing.lockedByDevice) || null) : null;
+
+          const updatedRecord = {
             id: data.id,
-            name: data.name,
-            avatar: data.avatar || (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR),
-            score: bestScore
+            name: cleanName,
+            avatar: avt,
+            score: bestScore,
+            lockedByDevice: lockDev,
+            isOnline: isOnlineNow
           };
+
+          players[data.id] = updatedRecord;
+          accountRegistry[accKey] = updatedRecord;
+          saveAccountRegistryLocal();
           renderLeaderboard();
+          renderPlayerDirectoryList();
         }
+      } else if (data.type === 'ADMIN_UNLOCK_DEVICE') {
+        const accKey = normalizeAccountKey(data.targetName || '');
+        if (accKey && accountRegistry[accKey]) {
+          accountRegistry[accKey].lockedByDevice = null;
+          accountRegistry[accKey].isOnline = false;
+          saveAccountRegistryLocal();
+        }
+        if (data.targetId && players[data.targetId]) {
+          players[data.targetId].lockedByDevice = null;
+          players[data.targetId].isOnline = false;
+        }
+        renderPlayerDirectoryList();
       } else if (data.type === 'KICK_RESET_PLAYER') {
+        const accKey = normalizeAccountKey(data.targetName || '');
+        if (accKey && accountRegistry[accKey]) {
+          delete accountRegistry[accKey];
+          saveAccountRegistryLocal();
+        }
         if (data.targetId && players[data.targetId]) {
           delete players[data.targetId];
           renderLeaderboard();
+          renderPlayerDirectoryList();
         }
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
           forceResetMyLocalAccount();
         }
       } else if (data.type === 'PING_PRESENCE') {
-        if (myName && myAvatar) announceMyPresence();
+        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
       } else if (data.type === 'LOCK_CHOICE') {
-        // Hiển thị Avatar tròn của người vừa chọn vào ô A, B, C, D (nhưng chưa lộ đúng/sai)
         recordRoundChoice(data);
       } else if (data.type === 'PRE_NEXT_COUNTDOWN') {
         showPreNextCountdownOnScreen(data);
@@ -1135,12 +1626,21 @@
       } else if (data.type === 'SUBMIT_ANSWER') {
         recordRoundChoice(data);
         const existing = players[data.id];
+        const cleanName = sanitizeText(data.name, 12);
+        const accKey = normalizeAccountKey(cleanName);
+        const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
+        const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR);
+
         players[data.id] = {
           id: data.id,
-          name: data.name,
-          avatar: data.avatar || (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR),
-          score: data.score
+          name: cleanName,
+          avatar: avt,
+          score: validScore,
+          lockedByDevice: existing ? existing.lockedByDevice : null,
+          isOnline: true
         };
+        accountRegistry[accKey] = players[data.id];
+        saveAccountRegistryLocal();
         renderLeaderboard();
         if (isQuestionRevealed) {
           renderRoundSpeedModalContent(window.currentCorrectAns, window.currentExplanation);
@@ -1155,7 +1655,7 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v18', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v20', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || "";
         renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
@@ -1165,70 +1665,213 @@
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
           myResetId = data.resetId;
-          setPersistentData('fh_reset_id_v18', myResetId);
+          setPersistentData('fh_reset_id_v20', myResetId);
           myScore = 0;
-          setPersistentData('fh_saved_score_v18', 0);
+          setPersistentData('fh_saved_score_v20', 0);
           answeredHistory = {};
           saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
+        for (let k in accountRegistry) accountRegistry[k].score = 0;
+        saveAccountRegistryLocal();
         document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
         document.getElementById('question-index').innerText = 'Phòng chờ';
         document.getElementById('question-text').innerText = 'Trận đấu mới đã sẵn sàng! Hãy chờ Admin Tuấn Phủ Lý bấm "Phát câu tiếp"...';
         document.getElementById('answer-feedback').classList.add('hidden');
         document.getElementById('explanation-inline').classList.add('hidden');
         document.getElementById('transition-Syntax-box').classList.add('hidden');
-        updateSpeedLadderUI(20);
         setTimerRingProgress(20, 20);
-        if (myName && myAvatar) announceMyPresence();
+        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
         renderLeaderboard();
       } else if (data.type === 'CLEAR_PLAYERS') {
         players = {};
-        if (myName && myAvatar) {
-          players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore };
+        accountRegistry = {};
+        saveAccountRegistryLocal();
+        if (myName && myAvatar && !isLoggedOutExplicitly) {
           announceMyPresence();
         }
         renderLeaderboard();
+        renderPlayerDirectoryList();
       }
+    }
+
+    // =========================================================================
+    // 7. ĐĂNG XUẤT TÀI KHOẢN (MỞ KHÓA ĐỂ ĐĂNG NHẬP TRÊN ĐIỆN THOẠI/MÁY TÍNH KHÁC)
+    // =========================================================================
+    function logoutAccount() {
+      if (!myName) return;
+      const ok = confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}" khỏi thiết bị này?\n\nSau khi đăng xuất, bạn có thể dùng tên tài khoản "${myName}" và mật khẩu số 1 để đăng nhập trên điện thoại hoặc máy tính khác (giữ nguyên Ảnh đại diện và Điểm số).`);
+      if (!ok) return;
+
+      stopAllMP3();
+      const accKey = normalizeAccountKey(myName);
+      isLoggedOutExplicitly = true;
+      setPersistentData('fh_logged_out_v21', 'true');
+
+      const logoutPacket = {
+        type: 'PLAYER_LOGOUT',
+        id: myId,
+        name: myName,
+        avatar: myAvatar,
+        score: myScore,
+        lockedByDevice: null,
+        isOnline: false
+      };
+
+      if (players[myId]) {
+        players[myId].lockedByDevice = null;
+        players[myId].isOnline = false;
+      }
+      if (accountRegistry[accKey]) {
+        accountRegistry[accKey].lockedByDevice = null;
+        accountRegistry[accKey].isOnline = false;
+        saveAccountRegistryLocal();
+      }
+
+      publishPacket(`players/${myId}`, logoutPacket, true);
+
+      // Chuyển về màn hình Đăng nhập TK đã có và điền sẵn tên tài khoản
+      document.getElementById('screen-game').classList.add('hidden');
+      document.getElementById('screen-login').classList.remove('hidden');
+      switchAuthTab('login');
+      document.getElementById('playerName').value = myName;
+      document.getElementById('playerPassword').value = '';
+      updateCharCount();
+    }
+
+    // =========================================================================
+    // 8. THƯ MỤC DANH SÁCH THÍ SINH & QUẢN LÝ KHÓA THIẾT BỊ CHO ADMIN TUẤN PHỦ LÝ
+    // =========================================================================
+    function openPlayerDirectoryModal() {
+      document.getElementById('modal-player-directory').classList.remove('hidden');
+      renderPlayerDirectoryList();
+    }
+
+    function closePlayerDirectoryModal() {
+      document.getElementById('modal-player-directory').classList.add('hidden');
+    }
+
+    function renderPlayerDirectoryList() {
+      const container = document.getElementById('dir-players-container');
+      const totalEl = document.getElementById('dir-total-count');
+      const searchInp = document.getElementById('dir-search-input');
+      if (!container) return;
+
+      const allList = Object.values(players).sort((a, b) => b.score - a.score);
+      if (totalEl) totalEl.innerText = allList.length;
+
+      const keyword = (searchInp ? searchInp.value.trim().toLowerCase() : '');
+      const filtered = keyword ? allList.filter(p => (p.name || '').toLowerCase().includes(keyword)) : allList;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Không tìm thấy thí sinh nào trong thư mục...</div>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      filtered.forEach((p, idx) => {
+        const safeName = (p.name || '').replace(/'/g, "\\'");
+        const isLocked = Boolean(p.lockedByDevice && p.isOnline !== false);
+        const statusBadge = isLocked
+          ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Đang khóa 1 máy</span>`
+          : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất (Cho phép đổi máy)</span>`;
+
+        container.innerHTML += `
+          <div class="flex items-center justify-between bg-slate-800/90 border border-slate-700 rounded-2xl px-3 py-2 text-xs gap-2">
+            <div class="flex items-center gap-2.5 truncate">
+              <span class="w-5 h-5 rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>
+              ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400')}
+              <div class="truncate">
+                <div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div>
+                ${statusBadge}
+              </div>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Mở khóa để thí sinh đăng nhập sang máy khác mà vẫn giữ nguyên điểm">
+                🔓 Mở khóa
+              </button>
+              <button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Xóa hoàn toàn tài khoản">
+                🗑️ Xóa TK
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function adminUnlockPlayerDevice(targetId, targetName) {
+      const accKey = normalizeAccountKey(targetName);
+      if (accountRegistry[accKey]) {
+        accountRegistry[accKey].lockedByDevice = null;
+        accountRegistry[accKey].isOnline = false;
+        saveAccountRegistryLocal();
+      }
+      if (players[targetId]) {
+        players[targetId].lockedByDevice = null;
+        players[targetId].isOnline = false;
+        publishPacket(`players/${targetId}`, {
+          ...players[targetId],
+          type: 'PLAYER_LOGOUT',
+          lockedByDevice: null,
+          isOnline: false
+        }, true);
+      }
+      publishPacket('events', {
+        type: 'ADMIN_UNLOCK_DEVICE',
+        id: 'admin',
+        targetId: targetId,
+        targetName: targetName
+      }, false);
+      renderPlayerDirectoryList();
+      alert(`✅ Đã mở khóa thiết bị cho tài khoản "${targetName}"! Bây giờ thí sinh có thể đăng nhập trên điện thoại/máy tính mới.`);
     }
 
     function forceResetMyLocalAccount() {
       stopAllMP3();
-      removePersistentData('fh_locked_name_v18');
-      removePersistentData('fh_locked_avatar_v18');
-      removePersistentData('fh_saved_score_v18');
-      removePersistentData('fh_answered_history_v18');
+      removePersistentData('fh_locked_name_v20');
+      removePersistentData('fh_locked_avatar_v20');
+      removePersistentData('fh_saved_score_v20');
+      removePersistentData('fh_answered_history_v20');
+      removePersistentData('fh_account_uid_v21');
+      removePersistentData('fh_logged_out_v21');
 
-      myId = 'dev18_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
-      setPersistentData('fh_device_uid_v18', myId);
+      myId = '';
       myName = '';
       myAvatar = '';
       tempUploadedAvatar = '';
+      rawSourceImage = null;
       myScore = 0;
       answeredHistory = {};
+      isLoggedOutExplicitly = false;
 
       document.getElementById('playerName').value = '';
       document.getElementById('playerPassword').value = '';
       document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden');
       document.getElementById('avatar-placeholder').classList.remove('hidden');
-      document.getElementById('avatar-status-text').innerText = '* Bắt buộc tải ảnh đại diện để vào thi.';
+      document.getElementById('btn-recrop').classList.add('hidden');
+      document.getElementById('avatar-status-text').innerText = '* Bắt buộc chọn & cắt ảnh đại diện ưng ý để tạo TK.';
       document.getElementById('avatar-status-text').className = 'text-[10px] text-rose-600 font-bold mt-1';
+      switchAuthTab('register');
       updateCharCount();
 
       closeRoundSpeedModal();
       document.getElementById('screen-game').classList.add('hidden');
       document.getElementById('screen-login').classList.remove('hidden');
-      alert("⚠️ Tài khoản của bạn đã được Admin Tuấn Phủ Lý xóa/đặt lại.\nBây giờ bạn có thể đăng ký tài khoản mới và tải ảnh đại diện mới!");
+      alert("⚠️ Tài khoản của bạn đã được Admin Tuấn Phủ Lý xóa/đặt lại.\nBây giờ bạn có thể đăng ký tài khoản mới!");
     }
 
     function adminDeletePlayerAccount(targetId, targetName) {
-      const ok = confirm(`Admin Tuấn Phủ Lý muốn XÓA tài khoản của thí sinh "${targetName}"?\n\nĐiện thoại/máy tính của "${targetName}" sẽ tự động reset về màn hình đăng ký mới.`);
+      const ok = confirm(`Admin Tuấn Phủ Lý muốn XÓA hoàn toàn tài khoản "${targetName}"?\n\nĐiện thoại/máy tính của "${targetName}" sẽ tự động reset về màn hình đăng ký mới.`);
       if (!ok) return;
 
+      const accKey = normalizeAccountKey(targetName);
+      delete accountRegistry[accKey];
+      saveAccountRegistryLocal();
       delete players[targetId];
       renderLeaderboard();
+      renderPlayerDirectoryList();
 
       activeClients.forEach(c => {
         if (c && c._isConnected) {
@@ -1238,6 +1881,7 @@
 
       publishPacket('events', {
         type: 'KICK_RESET_PLAYER',
+        id: 'admin',
         targetId: targetId,
         targetName: targetName
       }, false);
@@ -1256,7 +1900,7 @@
     }
 
     // =========================================================================
-    // 6. HIỂN THỊ BẢNG "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU HỎI (GIỐNG ẢNH 3)
+    // 9. HIỂN THỊ BẢNG "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU HỎI
     // =========================================================================
     function renderRoundSpeedModalContent(correctKey, explanationText) {
       const ansBar = document.getElementById('speed-modal-answer-bar');
@@ -1268,31 +1912,34 @@
         ansBar.innerHTML = `✅ <strong>Đáp án đúng: ${correctKey}</strong> — ${explanationText || ''}`;
       }
 
-      // Lọc ra các thí sinh trả lời ĐÚNG ở câu này và sắp xếp theo điểm tốc độ từ cao xuống thấp (hoặc thời gian phản hồi nhanh nhất)
-      const winners = Object.values(currentRoundAnswers)
-        .filter(item => item.choice === correctKey)
-        .map(item => ({
-          ...item,
-          points: Math.max(1, Math.min(20, item.timeLeft))
-        }))
+      const allParticipants = Object.values(currentRoundAnswers)
+        .map(item => {
+          const isCorrect = (item.choice === correctKey);
+          const pts = isCorrect ? Math.max(1, Math.min(20, item.timeLeft)) : 0;
+          return {
+            ...item,
+            isCorrect,
+            points: pts
+          };
+        })
         .sort((a, b) => {
           if (b.points !== a.points) return b.points - a.points;
           return a.elapsedSec - b.elapsedSec;
         })
         .slice(0, 10);
 
-      if (winners.length === 0) {
-        podiumBox.innerHTML = `<div class="col-span-3 text-center py-4 text-xs font-bold text-slate-400">Chưa có thí sinh nào trả lời đúng câu hỏi này!</div>`;
+      if (allParticipants.length === 0) {
+        podiumBox.innerHTML = `<div class="col-span-3 text-center py-4 text-xs font-bold text-slate-400">Chưa có thí sinh nào chốt đáp án ở câu hỏi này!</div>`;
         list4to10.innerHTML = '';
         return;
       }
 
-      const top1 = winners[0] || null;
-      const top2 = winners[1] || null;
-      const top3 = winners[2] || null;
+      const top1 = allParticipants[0] || null;
+      const top2 = allParticipants[1] || null;
+      const top3 = allParticipants[2] || null;
 
       function buildPodiumCol(item, rank) {
-        if (!item) return `<div class="flex flex-col items-center opacity-30"><div class="w-12 h-12 rounded-full bg-slate-200 mb-1"></div><div class="w-full h-10 bg-slate-100 rounded-t-xl"></div></div>`;
+        if (!item) return `<div class="flex flex-col items-center opacity-25"><div class="w-12 h-12 rounded-full bg-slate-200 mb-1"></div><div class="w-full h-10 bg-slate-100 rounded-t-xl"></div></div>`;
         const isFirst = rank === 1;
         const avtSize = isFirst ? 'w-16 h-16 border-4 border-amber-400' : 'w-12 h-12 border-2 border-slate-300';
         const badgeBg = rank === 1 ? 'bg-amber-400 text-slate-950' : rank === 2 ? 'bg-sky-200 text-sky-900' : 'bg-orange-300 text-orange-950';
@@ -1301,6 +1948,7 @@
           : rank === 2
             ? 'bg-gradient-to-b from-sky-100 to-sky-200 text-slate-800 h-11'
             : 'bg-gradient-to-b from-orange-100 to-orange-200 text-slate-800 h-10';
+        const choiceDotColor = item.isCorrect ? 'bg-amber-400 text-white' : 'bg-rose-500 text-white';
 
         return `
           <div class="flex flex-col items-center text-center">
@@ -1309,8 +1957,8 @@
               <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full ${badgeBg} font-black text-[10px] flex items-center justify-center shadow">${rank}</span>
             </div>
             <div class="text-[11px] font-black text-slate-800 truncate max-w-[95px]">${item.name}</div>
-            <div class="inline-flex items-center gap-0.5 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-600 my-1">
-              <span class="w-3 h-3 rounded-full bg-amber-400 text-white text-[8px] flex items-center justify-center font-black">${item.choice}</span>
+            <div class="inline-flex items-center gap-1 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-600 my-1">
+              <span class="w-3.5 h-3.5 rounded-full ${choiceDotColor} text-[8px] flex items-center justify-center font-black">${item.choice}</span>
               <span>⚡ ${item.elapsedSec.toFixed(1)}s</span>
             </div>
             <div class="w-full ${pedestalBg} rounded-t-xl flex items-center justify-center font-black text-xs shadow-inner">
@@ -1320,12 +1968,15 @@
         `;
       }
 
-      // Sắp xếp bục: Hạng 2 bên trái - Hạng 1 ở giữa - Hạng 3 bên phải
       podiumBox.innerHTML = buildPodiumCol(top2, 2) + buildPodiumCol(top1, 1) + buildPodiumCol(top3, 3);
 
       list4to10.innerHTML = '';
-      winners.slice(3, 10).forEach((item, idx) => {
+      allParticipants.slice(3, 10).forEach((item, idx) => {
         const rankNum = idx + 4;
+        const pointBadgeClass = item.points > 0
+          ? 'bg-sky-50 text-sky-600 border-sky-200'
+          : 'bg-rose-50 text-rose-500 border-rose-200';
+
         list4to10.innerHTML += `
           <div class="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-2.5 py-1.5 text-xs">
             <div class="flex items-center gap-2 truncate">
@@ -1336,7 +1987,7 @@
             <div class="flex items-center gap-1.5 shrink-0">
               <span class="bg-slate-200/70 text-slate-700 font-bold text-[10px] px-1.5 py-0.5 rounded">🟡 ${item.choice}</span>
               <span class="text-[10px] text-slate-500 font-bold">🕒 ${item.elapsedSec.toFixed(1)}s</span>
-              <span class="bg-sky-50 text-sky-600 font-black text-[10px] px-2 py-0.5 rounded-full border border-sky-200">+${item.points}đ</span>
+              <span class="${pointBadgeClass} font-black text-[10px] px-2 py-0.5 rounded-full border">+${item.points}đ</span>
             </div>
           </div>
         `;
@@ -1352,7 +2003,7 @@
     }
 
     // =========================================================================
-    // 7. TRA CỨU THỨ HẠNG BỘ ĐỀ LẦN TRƯỚC & PHÁO HOA CUỐI BÀI
+    // 10. TRA CỨU THỨ HẠNG BỘ ĐỀ LẦN TRƯỚC & PHÁO HOA CUỐI BÀI
     // =========================================================================
     function openPrevRankModal() {
       const modal = document.getElementById('modal-prev-rank');
@@ -1379,7 +2030,7 @@
       if (myIndex === -1) {
         summaryEl.innerHTML = `
           <div class="font-bold text-amber-300">👑 Chế độ xem tổng hợp (${totalPlayers} thí sinh)</div>
-          <div class="text-slate-300 text-[11px]">Bạn đang xem bảng tổng sắp của bộ đề trước:</div>
+          <div class="text-slate-300 text-[11px]">Bảng tổng sắp thứ hạng của bộ đề trước:</div>
         `;
       } else {
         const myRank = myIndex + 1;
@@ -1387,7 +2038,7 @@
         if (myRank === 1) {
           summaryEl.innerHTML = `
             <div class="text-sm font-black text-amber-400">🥇 Thứ hạng của bạn: Hạng 1 / ${totalPlayers} thí sinh (${myRec.score} ⭐)</div>
-            <div class="text-emerald-300 font-bold text-[11px]">🎉 Tuyệt đỉnh! Bạn đứng đầu bảng, không có ai đứng trên bạn!</div>
+            <div class="text-emerald-300 font-bold text-[11px]">🎉 Xuất sắc! Bạn dẫn đầu bảng, không có ai đứng trên bạn!</div>
           `;
         } else {
           const personJustAbove = rankings[myIndex - 1];
@@ -1483,7 +2134,7 @@
     }
 
     // =========================================================================
-    // 8. CÁC HÀM QUẢN TRÒ - ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 5525)
+    // 11. CÁC HÀM QUẢN TRÒ - ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 5525)
     // =========================================================================
     function renderQuizDropdown() {
       const sel = document.getElementById('admin-quiz-select');
@@ -1545,14 +2196,14 @@
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) {
         savePrevQuizRecord(snap);
-        publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', record: snap }, true);
+        publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true);
       }
       currentQuizName = document.getElementById('admin-quiz-select').value;
       currentQIndex = -1;
       document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
       const pill = document.getElementById('live-topic-pill');
       if (pill) pill.innerText = currentQuizName;
-      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', bank: quizBank, activeTitle: currentQuizName }, true);
+      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
 
     function deleteCurrentQuiz() {
@@ -1562,25 +2213,25 @@
       if (!ok) return;
 
       delete quizBank[currentQuizName];
-      try { localStorage.setItem('fourhome_quiz_bank_v18', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v20', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || "";
       renderQuizDropdown();
-      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', bank: quizBank, activeTitle: currentQuizName }, true);
+      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
       alert("Đã xóa bộ đề cũ thành công!");
     }
 
     function restoreDefaultQuiz() {
       const defaultTitle = Object.keys(defaultBank)[0];
       quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v18', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v20', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = defaultTitle;
       renderQuizDropdown();
-      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', bank: quizBank, activeTitle: currentQuizName }, true);
+      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
       alert("Đã khôi phục đề mẫu Tuần 1!");
     }
 
     function saveNewQuizFromNotebook() {
-      const title = document.getElementById('new-quiz-title').value.trim();
+      const title = sanitizeText(document.getElementById('new-quiz-title').value.trim(), 120);
       const rawJson = document.getElementById('new-quiz-json').value.trim();
       if (!title || !rawJson) return alert("Vui lòng nhập Tên bộ đề và dán nội dung JSON!");
       try {
@@ -1589,10 +2240,10 @@
           return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
         }
         quizBank[title] = parsed;
-        try { localStorage.setItem('fourhome_quiz_bank_v18', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v20', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = title;
         renderQuizDropdown();
-        publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', bank: quizBank, activeTitle: currentQuizName }, true);
+        publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
         document.getElementById('new-quiz-title').value = '';
         document.getElementById('new-quiz-json').value = '';
         document.getElementById('modal-new-quiz').classList.add('hidden');
@@ -1603,83 +2254,136 @@
     }
 
     function requestPlayerPresence() {
-      publishPacket('events', { type: 'PING_PRESENCE' }, false);
+      publishPacket('events', { type: 'PING_PRESENCE', id: 'admin' }, false);
       const btn = document.getElementById('btn-scan');
       if (btn) {
-        btn.innerText = '✅ Đã quét!';
-        setTimeout(() => { btn.innerText = '🔄 Quét'; }, 1500);
+        btn.innerText = '✅ Đã đồng bộ!';
+        setTimeout(() => { btn.innerText = '🔄 Quét đồng bộ'; }, 1500);
       }
       renderLeaderboard();
+      renderPlayerDirectoryList();
     }
 
     function clearRoomPlayers() {
+      const ok = confirm("Admin Tuấn Phủ Lý có chắc chắn muốn xóa toàn bộ danh sách tài khoản trong phòng hiện tại không?");
+      if (!ok) return;
       Object.keys(players).forEach(pid => {
         activeClients.forEach(c => {
           if (c && c._isConnected) c.publish(`${BASE_TOPIC}/players/${pid}`, '', { retain: true });
         });
       });
       players = {};
+      accountRegistry = {};
+      saveAccountRegistryLocal();
       renderLeaderboard();
-      publishPacket('events', { type: 'CLEAR_PLAYERS' }, false);
+      renderPlayerDirectoryList();
+      publishPacket('events', { type: 'CLEAR_PLAYERS', id: 'admin' }, false);
     }
 
     // =========================================================================
-    // 9. ĐĂNG KÝ TÀI KHOẢN MỚI (BẮT BUỘC AVATAR + 12 KÝ TỰ + MẬT KHẨU SỐ 1)
+    // 12. ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP ĐA THIẾT BỊ (KHÓA 1 MÁY / THỜI ĐIỂM)
     // =========================================================================
     function joinGame() {
       initAudio();
-      if (myName && myAvatar) {
-        autoRestorePlayerSession();
+
+      const rawName = document.getElementById('playerName').value.trim();
+      const nameInput = sanitizeText(rawName, 12);
+      const passInput = document.getElementById('playerPassword').value.trim();
+
+      if (!nameInput) {
+        return alert("Vui lòng nhập Tên tài khoản (tối đa 12 ký tự)!");
+      }
+      if (rawName.length > 12) {
+        return alert("Tên tài khoản không được vượt quá 12 ký tự!");
+      }
+      if (passInput !== "1") {
+        return alert("Sai mật khẩu! Mật khẩu cố định cho tất cả thí sinh là số 1.");
+      }
+
+      const accKey = normalizeAccountKey(nameInput);
+      const targetAccountId = 'acc_' + accKey;
+      const existingAcc = accountRegistry[accKey] || players[targetAccountId] ||
+        Object.values(players).find(p => p && p.name && normalizeAccountKey(p.name) === accKey);
+
+      // TRƯỜNG HỢP 1: NGƯỜI DÙNG CHỌN TAB "ĐĂNG NHẬP TK ĐÃ CÓ" (HOẶC NHẬP LẠI TÀI KHOẢN CỦA CHÍNH MÌNH)
+      if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
+        if (!existingAcc) {
+          return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}" trên hệ thống!\nNếu bạn chưa tạo tài khoản, vui lòng chuyển sang mục "✨ Đăng ký TK mới" để tải ảnh đại diện nhé.`);
+        }
+
+        // Kiểm tra khóa độc quyền 1 thiết bị tại 1 thời điểm
+        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) {
+          return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\n\nTài khoản "${existingAcc.name}" hiện đang được sử dụng trên một điện thoại/máy tính khác.\n👉 Vui lòng bấm nút "🚪 Đăng xuất TK" trên thiết bị cũ (hoặc nhờ Admin Tuấn Phủ Lý bấm "🔓 Mở khóa") trước khi đăng nhập vào máy này!`);
+        }
+
+        myId = existingAcc.id || targetAccountId;
+        myName = existingAcc.name;
+        myAvatar = existingAcc.avatar || DEFAULT_ADMIN_AVATAR;
+        myScore = existingAcc.score || 0;
+        isLoggedOutExplicitly = false;
+
+        setPersistentData('fh_account_uid_v21', myId);
+        setPersistentData('fh_locked_name_v20', myName);
+        setPersistentData('fh_locked_avatar_v20', myAvatar);
+        setPersistentData('fh_saved_score_v20', myScore);
+        setPersistentData('fh_logged_out_v21', 'false');
+
+        document.getElementById('screen-login').classList.add('hidden');
+        document.getElementById('screen-game').classList.remove('hidden');
+        updateLockedPlayerBadgeUI();
+        document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
+
+        playSynthTone(523.25, 0, 0.15, 'triangle', 0.2);
+        playSynthTone(659.25, 0.12, 0.25, 'triangle', 0.2);
         announceMyPresence();
+        renderLeaderboard();
         return;
       }
 
+      // TRƯỜNG HỢP 2: ĐĂNG KÝ TÀI KHOẢN MỚI
+      if (existingAcc) {
+        // Nếu tài khoản đã tồn tại nhưng đang ở trạng thái đã Đăng xuất -> Cho phép nhận diện đăng nhập luôn nếu người chơi quên chuyển tab
+        if (existingAcc.isOnline === false || !existingAcc.lockedByDevice) {
+          const useExisting = confirm(`Tài khoản "${existingAcc.name}" đã được tạo trước đó!\nBạn có muốn ĐĂNG NHẬP luôn vào tài khoản "${existingAcc.name}" (giữ nguyên Ảnh đại diện và ${existingAcc.score || 0} ⭐) không?`);
+          if (useExisting) {
+            switchAuthTab('login');
+            joinGame();
+            return;
+          }
+        }
+        return alert(`⚠️ Tên tài khoản "${nameInput}" đã có người đăng ký và đang sử dụng!\nBạn vui lòng thêm ký tự đặc biệt (như @, #, _, 1, 2...) hoặc đổi tên khác nhé!`);
+      }
+
       const avatarToUse = tempUploadedAvatar || myAvatar;
-      const nameInput = document.getElementById('playerName').value.trim();
-      const passInput = document.getElementById('playerPassword').value.trim();
-
       if (!avatarToUse) {
-        return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh từ máy' để tải Hình ảnh đại diện (Avatar) của bạn lên trước khi tham gia!");
-      }
-      if (!nameInput) {
-        return alert("Vui lòng nhập Tên đăng nhập (tối đa 12 ký tự)!");
-      }
-      if (nameInput.length > 12) {
-        return alert("Tên đăng nhập không được vượt quá 12 ký tự!");
-      }
-      if (passInput !== "1") {
-        return alert("Sai mật khẩu thí sinh! Mật khẩu cố định cho tất cả thí sinh là số 1.");
+        return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh & Cắt ảnh' để tải và cắt Hình ảnh đại diện (Avatar) ưng ý trước khi đăng ký!");
       }
 
-      const normalizedTarget = nameInput.toLowerCase();
-      const isDuplicate = Object.entries(players).some(([pid, pData]) => {
-        return pid !== myId && pData && pData.name && pData.name.trim().toLowerCase() === normalizedTarget;
-      });
-
-      if (isDuplicate) {
-        return alert(`⚠️ Tên đăng nhập "${nameInput}" đã có người đặt rồi!\nBạn vui lòng thêm ký tự đặc biệt (như @, #, _, 1, 2...) hoặc đổi ký tự khác để không trùng tên nhé!`);
-      }
-
+      myId = targetAccountId;
       myName = nameInput;
       myAvatar = avatarToUse;
-      setPersistentData('fh_locked_name_v18', myName);
-      setPersistentData('fh_locked_avatar_v18', myAvatar);
-      setPersistentData('fh_saved_score_v18', myScore);
+      myScore = 0;
+      isLoggedOutExplicitly = false;
 
-      players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore };
+      setPersistentData('fh_account_uid_v21', myId);
+      setPersistentData('fh_locked_name_v20', myName);
+      setPersistentData('fh_locked_avatar_v20', myAvatar);
+      setPersistentData('fh_saved_score_v20', myScore);
+      setPersistentData('fh_logged_out_v21', 'false');
+
       document.getElementById('screen-login').classList.add('hidden');
       document.getElementById('screen-game').classList.remove('hidden');
       updateLockedPlayerBadgeUI();
       document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
 
-      playFallbackNote(523.25, 0, 0.15, 'triangle', 0.2);
-      playFallbackNote(659.25, 0.12, 0.25, 'triangle', 0.2);
-      renderLeaderboard();
+      playSynthTone(523.25, 0, 0.15, 'triangle', 0.2);
+      playSynthTone(659.25, 0.12, 0.25, 'triangle', 0.2);
       announceMyPresence();
+      renderLeaderboard();
     }
 
     // =========================================================================
-    // 10. BỘ ĐẾM CHUYỂN CÂU 5,4,3,2,1 KÈM LỜI GIẢI THÍCH & 3 GIÂY SUY NGHĨ
+    // 13. BỘ ĐẾM CHUYỂN CÂU 5,4,3,2,1 KÈM LỜI GIẢI THÍCH & MÃ HÓA ĐÁP ÁN ĐÚNG
     // =========================================================================
     function hostNextQuestion() {
       initAudio();
@@ -1693,9 +2397,9 @@
         const finalRecord = buildCurrentStandingsRecord(currentQuizName);
         if (finalRecord) {
           savePrevQuizRecord(finalRecord);
-          publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', record: finalRecord }, true);
+          publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: finalRecord }, true);
         }
-        publishPacket('events', { type: 'FINISH_QUIZ', quizTitle: currentQuizName, record: finalRecord }, false);
+        publishPacket('events', { type: 'FINISH_QUIZ', id: 'admin', quizTitle: currentQuizName, record: finalRecord }, false);
         showFinishCelebration(currentQuizName);
         currentQIndex = -1;
         return;
@@ -1723,6 +2427,7 @@
 
       const prePacket = {
         type: 'PRE_NEXT_COUNTDOWN',
+        id: 'admin',
         countdown: 5,
         nextQuestionNumber: nextIdx + 1,
         explanation: explanationMsg
@@ -1752,7 +2457,6 @@
       const numEl = document.getElementById('player-transition-num');
       const expEl = document.getElementById('transition-explanation-text');
 
-      // Đồng bộ thanh đếm ngược 5s ngay bên dưới bảng "10 Thập Đại Thần Tốc" (giống hệt Ảnh 3)
       const footerStatus = document.getElementById('speed-footer-status');
       const footerSec = document.getElementById('speed-footer-sec');
       const footerBar = document.getElementById('speed-footer-bar');
@@ -1764,11 +2468,11 @@
 
       let sec = data.countdown || 5;
       if (numEl) numEl.innerText = sec;
-      if (footerStatus) footerStatus.innerText = `🕒 Tự động chuyển sang Câu ${data.nextQuestionNumber || ''} sau`;
+      if (footerStatus) footerStatus.innerText = `🕒 Tự động chuyển câu sau`;
       if (footerSec) footerSec.innerText = `0${sec}s`;
       if (footerBar) footerBar.style.width = '100%';
 
-      playFallbackNote(660, 0, 0.1, 'sine', 0.12);
+      playSynthTone(660, 0, 0.1, 'sine', 0.12);
 
       clearInterval(transitionInterval);
       transitionInterval = setInterval(() => {
@@ -1777,7 +2481,7 @@
           if (numEl) numEl.innerText = sec;
           if (footerSec) footerSec.innerText = `0${sec}s`;
           if (footerBar) footerBar.style.width = `${(sec / 5) * 100}%`;
-          playFallbackNote(660, 0, 0.1, 'sine', 0.12);
+          playSynthTone(660, 0, 0.1, 'sine', 0.12);
         } else {
           clearInterval(transitionInterval);
           if (box) box.classList.add('hidden');
@@ -1793,17 +2497,19 @@
       const q = list[currentQIndex];
       const qTime = 20;
       const expText = getExplanationForQuestion(q);
+      const qUid = currentQuizName + '_q' + (currentQIndex + 1) + '_' + myResetId + '_' + Date.now();
 
+      // Bảo mật: Không gửi trực tiếp chữ cái đáp án đúng trong gói START_QUESTION mà chỉ gửi mã băm (answerHash)
       const packet = {
         type: 'START_QUESTION',
-        qUid: currentQuizName + '_q' + (currentQIndex + 1) + '_' + myResetId + '_' + Date.now(),
+        id: 'admin',
+        qUid: qUid,
         qIndex: currentQIndex + 1,
         total: list.length,
         quizTitle: currentQuizName,
         question: q.question,
         options: q.options,
-        correct: q.correct,
-        explanation: expText,
+        answerHash: encodeAnswerHash(q.correct, qUid),
         thinkTime: 3,
         time: qTime,
         sentAt: Date.now()
@@ -1820,6 +2526,7 @@
       revealTimer = setTimeout(() => {
         const revealPacket = {
           type: 'REVEAL_CORRECT',
+          id: 'admin',
           correct: q.correct,
           explanation: expText
         };
@@ -1831,9 +2538,9 @@
             const finalRecord = buildCurrentStandingsRecord(currentQuizName);
             if (finalRecord) {
               savePrevQuizRecord(finalRecord);
-              publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', record: finalRecord }, true);
+              publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: finalRecord }, true);
             }
-            publishPacket('events', { type: 'FINISH_QUIZ', quizTitle: currentQuizName, record: finalRecord }, false);
+            publishPacket('events', { type: 'FINISH_QUIZ', id: 'admin', quizTitle: currentQuizName, record: finalRecord }, false);
             showFinishCelebration(currentQuizName);
             currentQIndex = -1;
           }, 5000);
@@ -1855,47 +2562,27 @@
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) {
         savePrevQuizRecord(snap);
-        publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', record: snap }, true);
+        publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true);
       }
 
       const newResetId = 'rst_' + Date.now();
       myResetId = newResetId;
-      setPersistentData('fh_reset_id_v18', newResetId);
+      setPersistentData('fh_reset_id_v20', newResetId);
 
       activeClients.forEach(c => {
         if (c && c._isConnected) c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true });
       });
 
       myScore = 0;
-      setPersistentData('fh_saved_score_v18', 0);
+      setPersistentData('fh_saved_score_v20', 0);
       answeredHistory = {};
       saveAnsweredHistory();
       document.getElementById('my-score-badge').innerText = `0 ⭐`;
       for (let k in players) players[k].score = 0;
+      for (let k in accountRegistry) accountRegistry[k].score = 0;
+      saveAccountRegistryLocal();
       renderLeaderboard();
-      publishPacket('state/reset', { type: 'RESET_GAME', resetId: newResetId, prevRecord: snap }, true);
-    }
-
-    function updateSpeedLadderUI(timeLeftSec) {
-      const potential = Math.max(0, Math.min(20, Math.round(timeLeftSec)));
-      const scoreEl = document.getElementById('live-potential-score');
-      if (scoreEl) scoreEl.innerText = `${potential} ⭐`;
-
-      let activeTier = 6;
-      if (potential >= 17) activeTier = 1;
-      else if (potential >= 13) activeTier = 2;
-      else if (potential >= 9) activeTier = 3;
-      else if (potential >= 5) activeTier = 4;
-      else if (potential >= 1) activeTier = 5;
-      else activeTier = 6;
-
-      for (let i = 1; i <= 6; i++) {
-        const el = document.getElementById(`tier-${i}`);
-        if (el) {
-          if (i === activeTier) el.classList.add('ladder-active');
-          else el.classList.remove('ladder-active');
-        }
-      }
+      publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
     }
 
     function showQuestionOnScreen(data) {
@@ -1911,8 +2598,9 @@
       votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
       optionPickers = { A: [], B: [], C: [], D: [] };
       currentRoundAnswers = {};
-      window.currentCorrectAns = data.correct;
-      window.currentExplanation = data.explanation || getExplanationForQuestion(data);
+      window.currentAnswerHash = data.answerHash || '';
+      window.currentCorrectAns = data.correct || '';
+      window.currentExplanation = data.explanation || '';
       isQuestionRevealed = false;
       myPendingChoice = null;
       myPendingTimeLeft = 0;
@@ -1959,7 +2647,6 @@
       timerCountEl.innerText = thinkLeft;
       timerLabelEl.innerText = 'suy nghĩ';
       setTimerRingProgress(thinkLeft, 3);
-      updateSpeedLadderUI(20);
 
       ['A', 'B', 'C', 'D'].forEach(k => document.getElementById(`btn-${k}`).classList.add('opacity-60'));
       playALTPQuestionStart();
@@ -1970,7 +2657,7 @@
           thinkBanner.innerText = `🧠 Suy nghĩ: ${thinkLeft} giây... (Chưa mở chọn)`;
           timerCountEl.innerText = thinkLeft;
           setTimerRingProgress(thinkLeft, 3);
-          playFallbackNote(440, 0, 0.08, 'sine', 0.12);
+          playSynthTone(440, 0, 0.08, 'sine', 0.12);
         } else {
           clearInterval(thinkingTimer);
           isThinkingPhase = false;
@@ -1979,6 +2666,13 @@
           start20SecondAnsweringPhase(data);
         }
       }, 1000);
+    }
+
+    function resolveCorrectAnswerFromHash(qUid, hash) {
+      for (const k of ['A', 'B', 'C', 'D']) {
+        if (encodeAnswerHash(k, qUid) === hash) return k;
+      }
+      return 'A';
     }
 
     function start20SecondAnsweringPhase(data) {
@@ -1990,7 +2684,6 @@
       timerCountEl.innerText = currentTimeLeft;
       timerLabelEl.innerText = 'giây';
       setTimerRingProgress(currentTimeLeft, 20);
-      updateSpeedLadderUI(currentTimeLeft);
 
       clearInterval(countdownTimer);
       countdownTimer = setInterval(() => {
@@ -1998,25 +2691,21 @@
         if (currentTimeLeft >= 1) {
           timerCountEl.innerText = currentTimeLeft;
           setTimerRingProgress(currentTimeLeft, 20);
-          if (!hasAnswered) {
-            updateSpeedLadderUI(currentTimeLeft);
-          }
           playALTPTick(currentTimeLeft);
         } else {
           clearInterval(countdownTimer);
           currentTimeLeft = 0;
           timerCountEl.innerText = 0;
           setTimerRingProgress(0, 20);
-          if (!hasAnswered) updateSpeedLadderUI(0);
-          revealAnswerAndPlaySound(data.correct, window.currentExplanation);
+          const resolvedAns = data.correct || resolveCorrectAnswerFromHash(data.qUid, data.answerHash);
+          revealAnswerAndPlaySound(resolvedAns, window.currentExplanation);
         }
       }, 1000);
     }
 
-    // Khi thí sinh chọn đáp án: Hiện Avatar vào ô A, B, C, D giống TikTok Live nhưng CHƯA lộ Đúng/Sai và CHƯA phát nhạc
     function pickAnswer(choice) {
       if (isThinkingPhase) return;
-      if (hasAnswered || isQuestionRevealed || currentTimeLeft <= 0 || !window.currentCorrectAns) return;
+      if (hasAnswered || isQuestionRevealed || currentTimeLeft <= 0) return;
       initAudio();
       hasAnswered = true;
 
@@ -2031,6 +2720,8 @@
       fb.classList.remove('hidden');
       fb.innerText = `🔒 Đã chốt ${choice} ở giây thứ ${myPendingTimeLeft} (Mốc +${myPendingTimeLeft}đ). Chờ hết 20s mở kết quả!`;
       fb.className = "mt-2 text-[10px] font-extrabold px-3 py-1 rounded-full bg-amber-400 text-slate-950 shadow";
+
+      playSynthTone(600, 0, 0.06, 'sine', 0.10);
 
       if (window.activeQuestionUid) {
         answeredHistory[window.activeQuestionUid] = {
@@ -2047,7 +2738,7 @@
       const displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
       const lockPacket = {
         type: 'LOCK_CHOICE',
-        id: myId,
+        id: myId || 'admin',
         name: displayName,
         avatar: displayAvt,
         choice: myPendingChoice,
@@ -2058,10 +2749,12 @@
       publishPacket('events', lockPacket, false);
     }
 
-    // KHI HẾT 20 GIÂY: Đồng loạt mở đáp án Đúng/Sai, phát nhạc MP3 Đúng/Sai và bật bảng "10 THẬP ĐẠI THẦN TỐC"
     function revealAnswerAndPlaySound(correctKey, explanationText) {
       if (isQuestionRevealed) return;
       isQuestionRevealed = true;
+      window.currentCorrectAns = correctKey;
+      if (explanationText) window.currentExplanation = explanationText;
+
       clearInterval(thinkingTimer);
       clearInterval(countdownTimer);
       hasAnswered = true;
@@ -2095,7 +2788,7 @@
           const earnedPoints = myPendingTimeLeft;
           if (!alreadyScored) {
             myScore += earnedPoints;
-            setPersistentData('fh_saved_score_v18', myScore);
+            setPersistentData('fh_saved_score_v20', myScore);
             if (qUid) {
               answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints };
               saveAnsweredHistory();
@@ -2131,12 +2824,12 @@
       const displayName = myName || 'Admin Tuấn Phủ Lý';
       const displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
       if (myName) {
-        players[myId] = { id: myId, name: displayName, avatar: displayAvt, score: myScore };
+        players[myId] = { id: myId, name: displayName, avatar: displayAvt, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true };
       }
 
       if (myPendingChoice) {
         recordRoundChoice({
-          id: myId,
+          id: myId || 'admin',
           name: displayName,
           avatar: displayAvt,
           choice: myPendingChoice,
@@ -2151,7 +2844,7 @@
       if (myName || myPendingChoice) {
         publishPacket('events', {
           type: 'SUBMIT_ANSWER',
-          id: myId,
+          id: myId || 'admin',
           name: displayName,
           avatar: displayAvt,
           choice: myPendingChoice,
@@ -2162,20 +2855,18 @@
         announceMyPresence();
       }
 
-      // Hiển thị bảng vinh danh "10 THẬP ĐẠI THẦN TỐC" sau 900ms để người chơi kịp nhìn đáp án
       renderRoundSpeedModalContent(correctKey, explanationText);
       const footerStatus = document.getElementById('speed-footer-status');
       const footerSec = document.getElementById('speed-footer-sec');
       const footerBar = document.getElementById('speed-footer-bar');
-      if (footerStatus) footerStatus.innerText = '🕒 Chờ Admin Tuấn Phủ Lý bấm Phát câu tiếp...';
-      if (footerSec) footerSec.innerText = 'Sẵn sàng';
+      if (footerStatus) footerStatus.innerText = '🕒 Tự động chuyển câu sau';
+      if (footerSec) footerSec.innerText = '05s';
       if (footerBar) footerBar.style.width = '100%';
       setTimeout(() => {
         if (isQuestionRevealed) openRoundSpeedModal();
-      }, 900);
+      }, 800);
     }
 
-    // Cập nhật Chồng ảnh đại diện (Avatar Stack) & Tỷ lệ % trong 4 ô A, B, C, D (Giống Ảnh 1 & 2)
     function updateVoteStatsUI() {
       ['A', 'B', 'C', 'D'].forEach(k => {
         const list = optionPickers[k] || [];
@@ -2200,8 +2891,8 @@
 
     function renderLeaderboard() {
       const sorted = Object.values(players).sort((a, b) => b.score - a.score);
-      
-      // 1. Bảng xếp hạng tích lũy (Thiết kế chuẩn Ảnh 1 & 2)
+      try { localStorage.setItem('fh_admin_backup_vault_v20', JSON.stringify(sorted)); } catch (e) {}
+
       const container = document.getElementById('leaderboard-list');
       container.innerHTML = '';
       sorted.slice(0, 10).forEach((p, idx) => {
@@ -2226,12 +2917,15 @@
         `;
       });
 
-      // 2. Danh sách thí sinh trong phòng của Admin Tuấn Phủ Lý (Có nút ✖ xóa tài khoản)
       const adminList = document.getElementById('admin-players-list');
       const adminCount = document.getElementById('admin-player-count');
-      if (adminList && adminCount) {
-        const allPlayers = Object.values(players);
-        adminCount.innerText = allPlayers.length;
+      const dirCountBtn = document.getElementById('admin-dir-count-btn');
+      const allPlayers = Object.values(players);
+
+      if (adminCount) adminCount.innerText = allPlayers.length;
+      if (dirCountBtn) dirCountBtn.innerText = allPlayers.length;
+
+      if (adminList) {
         if (allPlayers.length === 0) {
           adminList.innerHTML = '<span class="text-slate-400 italic">Chưa có ai vào phòng...</span>';
         } else {
