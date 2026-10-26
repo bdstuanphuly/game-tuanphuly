@@ -311,7 +311,8 @@
         return;
       }
       const q = list[currentQIndex];
-      client.publish(TOPIC, JSON.stringify({
+      
+      const packet = {
         type: 'START_QUESTION',
         qIndex: currentQIndex + 1,
         total: list.length,
@@ -319,10 +320,17 @@
         options: q.options,
         correct: q.correct,
         time: q.time || 20
-      }));
+      };
+
+      // 1. Phát sóng qua mạng cho nhân sự
+      client.publish(TOPIC, JSON.stringify(packet));
+      // 2. Kích hoạt hiển thị ngay lập tức trên máy Quản trò của anh
+      showQuestionOnScreen(packet);
 
       setTimeout(() => {
-        client.publish(TOPIC, JSON.stringify({ type: 'REVEAL_CORRECT', correct: q.correct }));
+        const revealPacket = { type: 'REVEAL_CORRECT', correct: q.correct };
+        client.publish(TOPIC, JSON.stringify(revealPacket));
+        highlightCorrectAnswer(q.correct);
       }, (q.time || 20) * 1000);
     }
 
