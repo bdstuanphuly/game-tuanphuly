@@ -321,4 +321,203 @@
     }
 
     function selectQuizWeek() {
-      currentQuiz
+      currentQuizName = document.getElementById('admin-quiz-select').value;
+      currentQIndex = -1;
+      document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
+    }
+
+    function saveNewQuizFromNotebook() {
+      const title = document.getElementById('new-quiz-title').value.trim();
+      const rawJson = document.getElementById('new-quiz-json').value.trim();
+      if (!title || !rawJson) return alert("Anh vui lòng nhập Tên tuần và dán nội dung JSON!");
+      try {
+        const parsed = JSON.parse(rawJson);
+        quizBank[title] = parsed;
+        localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
+        currentQuizName = title;
+        currentQIndex = -1;
+        renderQuizDropdown();
+        client.publish(TOPIC, JSON.stringify({ type: 'SYNC_NEW_QUIZ', title: title, questions: parsed }));
+        document.getElementById('modal-new-quiz').classList.add('hidden');
+        alert(`Đã lưu thành công bộ đề "${title}" (${parsed.length} câu)!`);
+      } catch (e) {
+        alert("Đoạn mã dán vào chưa đúng chuẩn JSON từ `[` đến `]`. Anh kiểm tra lại nhé!");
+      }
+    }
+
+    function joinGame() {
+      const nameInput = document.getElementById('playerName').value.trim();
+      if (!nameInput) return alert("Vui lòng nhập Họ tên + Phòng ban của bạn!");
+      myName = nameInput;
+      players[myId] = { name: myName, score: myScore };
+      document.getElementById('screen-login').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('hidden');
+      renderLeaderboard();
+      client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
+    }
+
+    function hostNextQuestion() {
+      const list = quizBank[currentQuizName] || [];
+      currentQIndex++;
+      if (currentQIndex >= list.length) {
+        alert("🎉 Đã hoàn thành toàn bộ câu hỏi của tuần này! Anh có thể bấm 'Tải Điểm Excel' để lưu kết quả.");
+        currentQIndex = -1;
+        return;
+      }
+      const q = list[currentQIndex];
+      const qTime = q.time || 20;
+
+      const packet = {
+        type: 'START_QUESTION',
+        qIndex: currentQIndex + 1,
+        total: list.length,
+        question: q.question,
+        options: q.options,
+        correct: q.correct,
+        time: qTime
+      };
+
+      // Đảm bảo Quản trò đang nhìn thấy màn hình câu hỏi
+      document.getElementById('screen-login').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('hidden');
+
+      // Phát sóng câu hỏi cho toàn bộ thí sinh và hiển thị trên màn hình
+      client.publish(TOPIC, JSON.stringify(packet));
+      showQuestionOnScreen(packet);
+
+      // Hẹn giờ công bố đáp án đúng khi hết thời gian
+      clearTimeout(revealTimer);
+      revealTimer = setTimeout(() => {
+        const revealPacket = { type: 'REVEAL_CORRECT', correct: q.correct };
+        client.publish(TOPIC, JSON.stringify(revealPacket));
+        highlightCorrectAnswer(q.correct);
+      }, qTime * 1000);
+    }
+
+    function hostResetGame() {
+      currentQIndex = -1;
+      clearTimeout(revealTimer);
+      clearInterval(countdownTimer);
+      client.publish(TOPIC, JSON.stringify({ type: 'RESET_GAME' }));
+    }
+
+    function showQuestionOnScreen(data) {
+      // Nếu câu hỏi này đang chạy rồi thì không khởi động lại đồng hồ (tránh lặp sóng trên máy Quản trò)
+      if (window.activeQuestionIndex === data.qIndex && !hasAnswered) return;
+      window.activeQuestionIndex = data.qIndex;
+
+      hasAnswered = false;
+      votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
+      questionStartTime = Date.now();
+      window.currentCorrectAns = data.correct;
+
+      document.getElementById('question-index').innerText = `Câu ${data.qIndex}/${data.total}`;
+      document.getElementById('question-text').innerText = data.question;
+
+      ['A', 'B', 'C', 'D'].forEach(k => {
+        const btn = document.getElementById(`btn-${k}`);
+        btn.classList.remove('ring-4', 'ring-slate-800', 'bg-emerald-200', 'border-emerald-600');
+        document.getElementById(`text-${k}`).innerText = data.options[k];
+        document.getElementById(`stat-${k}`).innerText = `0 (0%)`;
+      });
+
+      let timeLeft = data.time;
+      document.getElementById('timer-count').innerText = timeLeft;
+      clearInterval(countdownTimer);
+      countdownTimer = setInterval(() => {
+        timeLeft--;
+        if (timeLeft >= 0) document.getElementById('timer-count').innerText = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(countdownTimer);
+          hasAnswered = true;
+        }
+      }, 1000);
+    }
+
+    function pickAnswer(choice) {
+      if (hasAnswered || !window.currentCorrectAns) return;
+      hasAnswered = true;
+      document.getElementById(`btn-${choice}`).classList.add('ring-4', 'ring-slate-800');
+
+      if (choice === window.currentCorrectAns) {
+        const elapsedSec = (Date.now() - questionStartTime) / 1000;
+        const speedBonus = Math.max(5, Math.round(25 - elapsedSec));
+        myScore += speedBonus;
+        document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
+      }
+
+      client.publish(TOPIC, JSON.stringify({
+        type: 'SUBMIT_ANSWER',
+        id: myId,
+        name: myName || 'anh Tuấn Phủ Lý',
+        choice: choice,
+        score: myScore
+      }));
+    }
+
+    function updateVoteStatsUI() {
+      if (votes.total === 0) return;
+      ['A', 'B', 'C', 'D'].forEach(k => {
+        const count = votes[k];
+        const pct = Math.round((count / votes.total) * 100);
+        document.getElementById(`stat-${k}`).innerText = `${count} (${pct}%)`;
+      });
+    }
+
+    function highlightCorrectAnswer(correctKey) {
+      clearInterval(countdownTimer);
+      hasAnswered = true;
+      const btn = document.getElementById(`btn-${correctKey}`);
+      if (btn) btn.classList.add('bg-emerald-200', 'border-emerald-600');
+    }
+
+    function renderLeaderboard() {
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      
+      // 1. Cập nhật Bảng xếp hạng Top 10
+      const container = document.getElementById('leaderboard-list');
+      container.innerHTML = '';
+      sorted.slice(0, 10).forEach((p, idx) => {
+        const badge = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
+        container.innerHTML += `
+          <div class="flex items-center justify-between py-1.5 px-3 rounded-xl bg-white border border-slate-100 shadow-xs">
+            <span class="font-bold text-slate-700">${badge} ${p.name}</span>
+            <span class="font-black text-amber-500">${p.score} ⭐</span>
+          </div>
+        `;
+      });
+
+      // 2. Cập nhật danh sách thí sinh đã vào phòng cho Quản trò
+      const adminList = document.getElementById('admin-players-list');
+      const adminCount = document.getElementById('admin-player-count');
+      if (adminList && adminCount) {
+        const allPlayers = Object.values(players);
+        adminCount.innerText = allPlayers.length;
+        if (allPlayers.length === 0) {
+          adminList.innerHTML = '<span class="text-slate-400 italic">Chưa có ai vào phòng...</span>';
+        } else {
+          adminList.innerHTML = '';
+          allPlayers.forEach(p => {
+            adminList.innerHTML += `<span class="bg-slate-800 text-slate-200 px-2 py-0.5 rounded-md border border-slate-700">${p.name}</span>`;
+          });
+        }
+      }
+    }
+
+    function downloadExcel() {
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      if (sorted.length === 0) return alert("Chưa có dữ liệu người chơi!");
+      let csv = "\uFEFFHạng,Họ và Tên,Điểm số,Chuyên đề,Ngày kiểm tra\n";
+      const d = new Date().toLocaleDateString('vi-VN');
+      sorted.forEach((p, i) => {
+        csv += `${i + 1},"${p.name}",${p.score},"${currentQuizName}","${d}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Bang-Diem-FourHome-${d}.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
