@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Four Home Mega - Đấu Trí Sun Urban City</title>
   <script src="https://cdn.tailwindcss.com"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
+  <!-- Thư viện MQTT bản 5.16.1 chính thức trên Cloudflare CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <style>
     @keyframes pulse-ring {
       0%, 100% { transform: scale(0.96); }
@@ -17,19 +18,19 @@
 </head>
 <body class="text-slate-800 font-sans flex flex-col justify-center items-center min-h-screen p-2 sm:p-4">
 
-  <!-- THANH CÔNG CỤ QUẢN TRÒ DÀNH CHO ANH TUẤN -->
+  <!-- THANH CÔNG CỤ QUẢN TRÒ DÀNH CHO ANH TUẤN PHỦ LÝ -->
   <div class="w-full max-w-md flex justify-between items-center mb-2 px-1">
-    <span id="conn-status" class="text-[11px] text-emerald-400 font-semibold">🟢 Đang kết nối phòng thi...</span>
-    <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-xs text-amber-300 hover:text-white bg-slate-800 px-3 py-1.5 rounded-full border border-amber-500/40 shadow">
-      🔑 Quản trò (GĐ Tuấn)
+    <span id="conn-status" class="text-[11px] text-amber-400 font-semibold">🟡 Đang kết nối sóng trực tuyến...</span>
+    <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-xs text-amber-300 hover:text-white bg-slate-800 px-3 py-1.5 rounded-full border border-amber-500/40 shadow cursor-pointer">
+      🔑 Quản trò (anh Tuấn Phủ Lý)
     </button>
   </div>
 
-  <!-- BẢNG ĐIỀU KHIỂN CỦA GIÁM ĐỐC (MẬT KHẨU: 8538) -->
+  <!-- BẢNG ĐIỀU KHIỂN CỦA ANH TUẤN PHỦ LÝ (MẬT KHẨU: 5525) -->
   <div id="admin-panel" class="hidden w-full max-w-md bg-slate-800 text-white rounded-2xl p-3.5 mb-3 border-2 border-amber-500 shadow-xl space-y-2.5">
     <div class="flex items-center justify-between border-b border-slate-700 pb-2">
       <span class="text-xs font-extrabold text-amber-400">👑 BẢNG ĐIỀU KHIỂN QUẢN TRÒ</span>
-      <button onclick="toggleNewQuizModal()" class="text-[11px] bg-blue-600 hover:bg-blue-500 px-2.5 py-1 rounded-lg font-bold">
+      <button onclick="toggleNewQuizModal()" class="text-[11px] bg-blue-600 hover:bg-blue-500 px-2.5 py-1 rounded-lg font-bold cursor-pointer">
         ➕ Dán đề mới từ NotebookLM
       </button>
     </div>
@@ -39,7 +40,7 @@
         <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Chọn bộ đề 52 tuần:</label>
         <select id="admin-quiz-select" onchange="selectQuizWeek()" class="w-full bg-slate-900 border border-slate-600 rounded-lg text-xs py-2 px-2 text-white font-semibold"></select>
       </div>
-      <button onclick="hostNextQuestion()" class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-lg">
+      <button onclick="hostNextQuestion()" class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-lg cursor-pointer">
         ▶ Phát câu tiếp
       </button>
     </div>
@@ -48,23 +49,27 @@
     <div id="modal-new-quiz" class="hidden bg-slate-900 p-3 rounded-xl border border-slate-700 space-y-2">
       <input id="new-quiz-title" type="text" placeholder="Tên tuần (VD: Tuần 3 - Chính sách bán hàng)" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-2.5 py-1.5 text-xs text-white">
       <textarea id="new-quiz-json" rows="4" placeholder='Dán đoạn mã [ ... ] từ NotebookLM vào đây...' class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2 text-[11px] text-emerald-300 font-mono"></textarea>
-      <button onclick="saveNewQuizFromNotebook()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold text-xs py-2 rounded-lg">
+      <button onclick="saveNewQuizFromNotebook()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold text-xs py-2 rounded-lg cursor-pointer">
         💾 LƯU VÀO KHO & PHÁT CHO NHÂN SỰ
       </button>
     </div>
 
     <div class="flex gap-2 pt-1">
-      <button onclick="hostResetGame()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-xs py-1.5 rounded-lg">🔄 Thi lại từ câu 1</button>
-      <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold py-1.5 rounded-lg">📥 Tải Điểm Excel</button>
-      <!-- DANH SÁCH THÍ SINH ĐÃ VÀO PHÒNG CHO QUẢN TRÒ -->
-    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-700 mt-2">
-      <div class="flex justify-between items-center mb-1">
-        <span class="text-[11px] font-bold text-amber-300">👥 Thí sinh đã vào phòng: <span id="admin-player-count">0</span> người</span>
+      <button onclick="hostResetGame()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-xs py-1.5 rounded-lg cursor-pointer">🔄 Thi lại từ câu 1</button>
+      <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold py-1.5 rounded-lg cursor-pointer">📥 Tải Điểm Excel</button>
+    </div>
+
+    <!-- DANH SÁCH THÍ SINH ĐÃ VÀO PHÒNG CHO QUẢN TRÒ -->
+    <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-700">
+      <div class="flex justify-between items-center mb-1.5">
+        <span class="text-[11px] font-bold text-amber-300">👥 Thí sinh trong phòng: <span id="admin-player-count">0</span> người</span>
+        <button onclick="requestPlayerPresence()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2 py-0.5 rounded border border-slate-600 cursor-pointer">
+          🔄 Quét điểm danh
+        </button>
       </div>
       <div id="admin-players-list" class="flex flex-wrap gap-1 max-h-[85px] overflow-y-auto text-[10px]">
         <span class="text-slate-400 italic">Chưa có ai vào phòng...</span>
       </div>
-    </div>
     </div>
   </div>
 
@@ -86,12 +91,12 @@
         class="w-full px-4 py-3.5 border-2 border-slate-200 rounded-xl mb-4 focus:outline-none focus:border-blue-600 font-semibold text-sm text-center">
       
       <button onclick="joinGame()" 
-  class="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 transition-all text-sm cursor-pointer">
-  🚀 BẮT ĐẦU VÀO PHÒNG THI
-</button>
+        class="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 transition-all text-sm cursor-pointer">
+        🚀 BẮT ĐẦU VÀO PHÒNG THI
+      </button>
     </div>
 
-    <!-- MÀN HÌNH 2: THI ĐẤU TRẮC NGHIỆM (GIỐNG MẪU TIKTOK LIVE) -->
+    <!-- MÀN HÌNH 2: THI ĐẤU TRẮC NGHIỆM -->
     <div id="screen-game" class="hidden flex-1 flex flex-col p-4">
       
       <!-- Đồng hồ đếm ngược ở chính giữa -->
@@ -107,13 +112,13 @@
       <!-- Khung câu hỏi -->
       <div class="bg-white border-2 border-slate-100 rounded-2xl p-4 mb-3 shadow-sm min-h-[95px] flex items-center justify-center text-center">
         <h2 id="question-text" class="text-sm font-extrabold text-slate-800 leading-snug">
-          Đã vào phòng thành công! Hãy nhìn lên màn hình hoặc chờ Giám đốc bấm "Phát câu tiếp"...
+          Đã vào phòng thành công! Hãy nhìn lên màn hình hoặc chờ anh Tuấn Phủ Lý bấm "Phát câu tiếp"...
         </h2>
       </div>
 
       <!-- 4 Đáp án A, B, C, D chia 2 cột kèm % bình chọn -->
       <div class="grid grid-cols-2 gap-2.5 mb-3">
-        <button onclick="pickAnswer('A')" id="btn-A" class="text-left p-3 rounded-2xl border-2 border-rose-200 bg-rose-50/40 active:scale-95 transition-all">
+        <button onclick="pickAnswer('A')" id="btn-A" class="text-left p-3 rounded-2xl border-2 border-rose-200 bg-rose-50/40 active:scale-95 transition-all cursor-pointer">
           <div class="flex justify-between items-center mb-1">
             <span class="w-5 h-5 rounded-full bg-rose-500 text-white text-[11px] font-black flex items-center justify-center">A</span>
             <span id="stat-A" class="text-[10px] bg-rose-100 text-rose-600 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
@@ -121,7 +126,7 @@
           <div id="text-A" class="text-xs font-bold text-slate-700">Đáp án A</div>
         </button>
 
-        <button onclick="pickAnswer('B')" id="btn-B" class="text-left p-3 rounded-2xl border-2 border-sky-200 bg-sky-50/40 active:scale-95 transition-all">
+        <button onclick="pickAnswer('B')" id="btn-B" class="text-left p-3 rounded-2xl border-2 border-sky-200 bg-sky-50/40 active:scale-95 transition-all cursor-pointer">
           <div class="flex justify-between items-center mb-1">
             <span class="w-5 h-5 rounded-full bg-sky-500 text-white text-[11px] font-black flex items-center justify-center">B</span>
             <span id="stat-B" class="text-[10px] bg-sky-100 text-sky-600 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
@@ -129,7 +134,7 @@
           <div id="text-B" class="text-xs font-bold text-slate-700">Đáp án B</div>
         </button>
 
-        <button onclick="pickAnswer('C')" id="btn-C" class="text-left p-3 rounded-2xl border-2 border-amber-200 bg-amber-50/40 active:scale-95 transition-all">
+        <button onclick="pickAnswer('C')" id="btn-C" class="text-left p-3 rounded-2xl border-2 border-amber-200 bg-amber-50/40 active:scale-95 transition-all cursor-pointer">
           <div class="flex justify-between items-center mb-1">
             <span class="w-5 h-5 rounded-full bg-amber-500 text-white text-[11px] font-black flex items-center justify-center">C</span>
             <span id="stat-C" class="text-[10px] bg-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
@@ -137,7 +142,7 @@
           <div id="text-C" class="text-xs font-bold text-slate-700">Đáp án C</div>
         </button>
 
-        <button onclick="pickAnswer('D')" id="btn-D" class="text-left p-3 rounded-2xl border-2 border-purple-200 bg-purple-50/40 active:scale-95 transition-all">
+        <button onclick="pickAnswer('D')" id="btn-D" class="text-left p-3 rounded-2xl border-2 border-purple-200 bg-purple-50/40 active:scale-95 transition-all cursor-pointer">
           <div class="flex justify-between items-center mb-1">
             <span class="w-5 h-5 rounded-full bg-purple-500 text-white text-[11px] font-black flex items-center justify-center">D</span>
             <span id="stat-D" class="text-[10px] bg-purple-100 text-purple-600 font-bold px-1.5 py-0.5 rounded-full">0 (0%)</span>
@@ -198,12 +203,14 @@
     let quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank')) || defaultBank;
     let currentQuizName = Object.keys(quizBank)[0];
     let currentQIndex = -1;
-    let myId = 'u_' + Math.random().toString(36).substr(2, 6);
+    let myId = sessionStorage.getItem('fh_uid') || ('u_' + Math.random().toString(36).substring(2, 8));
+    sessionStorage.setItem('fh_uid', myId);
     let myName = '';
     let myScore = 0;
-    let hasAnswered = false;
+    let hasAnswered = true; // Khóa nút chọn khi đang ở Phòng chờ
     let questionStartTime = 0;
     let countdownTimer = null;
+    let revealTimer = null;
 
     // Dữ liệu phòng thi đồng bộ thời gian thực
     let players = {};
@@ -212,47 +219,68 @@
     // Kết nối sóng trực tuyến MQTT với mã định danh độc lập
     const TOPIC = 'fourhome_mega_sunurbancity_2026_room1';
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
-      clientId: 'fourhome_client_' + Math.random().toString(16).substring(2, 10)
+      clientId: 'fh_client_' + Math.random().toString(16).substring(2, 10),
+      keepalive: 30,
+      reconnectPeriod: 2000
     });
+
     client.on('connect', () => {
-      document.getElementById('conn-status').innerText = '🟢 Đã kết nối phòng thi trực tuyến';
+      const statusEl = document.getElementById('conn-status');
+      statusEl.innerText = '🟢 Đã kết nối phòng thi trực tuyến';
+      statusEl.className = 'text-[11px] text-emerald-400 font-semibold';
       client.subscribe(TOPIC);
-      
-      client.on('connect', () => {
-      document.getElementById('conn-status').innerText = '🟢 Đã kết nối phòng thi trực tuyến';
-      client.subscribe(TOPIC);
-    });
+
+      // Nếu thí sinh đã nhập tên trước khi mạng kết nối xong, tự động báo danh lại ngay
+      if (myName) {
+        client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
       }
     });
 
+    client.on('reconnect', () => {
+      const statusEl = document.getElementById('conn-status');
+      statusEl.innerText = '🟡 Đang tự động kết nối lại...';
+      statusEl.className = 'text-[11px] text-amber-400 font-semibold';
+    });
+
     client.on('message', (topic, message) => {
-      const data = JSON.parse(message.toString());
-      if (data.type === 'PLAYER_JOIN') {
-        players[data.id] = { name: data.name, score: data.score };
-        renderLeaderboard();
-      } else if (data.type === 'START_QUESTION') {
-        showQuestionOnScreen(data);
-      } else if (data.type === 'SUBMIT_ANSWER') {
-        players[data.id] = { name: data.name, score: data.score };
-        if (votes[data.choice] !== undefined) {
-          votes[data.choice]++;
-          votes.total++;
-          updateVoteStatsUI();
+      try {
+        const data = JSON.parse(message.toString());
+        if (data.type === 'PLAYER_JOIN') {
+          players[data.id] = { name: data.name, score: data.score };
+          renderLeaderboard();
+        } else if (data.type === 'PING_PRESENCE') {
+          // Khi Quản trò quét điểm danh, điện thoại thí sinh tự động gửi tên lên ngay
+          if (myName) {
+            client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
+          }
+        } else if (data.type === 'START_QUESTION') {
+          showQuestionOnScreen(data);
+        } else if (data.type === 'SUBMIT_ANSWER') {
+          players[data.id] = { name: data.name, score: data.score };
+          if (votes[data.choice] !== undefined) {
+            votes[data.choice]++;
+            votes.total++;
+            updateVoteStatsUI();
+          }
+          renderLeaderboard();
+        } else if (data.type === 'REVEAL_CORRECT') {
+          highlightCorrectAnswer(data.correct);
+        } else if (data.type === 'SYNC_NEW_QUIZ') {
+          quizBank[data.title] = data.questions;
+          localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
+          currentQuizName = data.title;
+          renderQuizDropdown();
+          document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
+        } else if (data.type === 'RESET_GAME') {
+          myScore = 0;
+          for (let k in players) players[k].score = 0;
+          document.getElementById('my-score-badge').innerText = `0 ⭐`;
+          document.getElementById('question-index').innerText = 'Phòng chờ';
+          document.getElementById('question-text').innerText = 'Trận đấu đã được đặt lại từ đầu! Hãy chờ anh Tuấn Phủ Lý bấm "Phát câu tiếp"...';
+          renderLeaderboard();
         }
-        renderLeaderboard();
-      } else if (data.type === 'REVEAL_CORRECT') {
-        highlightCorrectAnswer(data.correct);
-      } else if (data.type === 'SYNC_NEW_QUIZ') {
-        quizBank[data.title] = data.questions;
-        localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
-        currentQuizName = data.title;
-        renderQuizDropdown();
-        document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
-      } else if (data.type === 'RESET_GAME') {
-        myScore = 0;
-        for (let k in players) players[k].score = 0;
-        document.getElementById('my-score-badge').innerText = `0 ⭐`;
-        renderLeaderboard();
+      } catch (err) {
+        console.error(err);
       }
     });
 
@@ -270,13 +298,22 @@
     renderQuizDropdown();
 
     function unlockAdmin() {
-      const pin = prompt("Nhập mật khẩu Quản trò (4 số cuối SĐT anh Tuấn - 8538):");
-      if (pin === "8538") {
+      const pin = prompt("Nhập mật khẩu Quản trò (anh Tuấn Phủ Lý):");
+      if (pin === "5525") {
         document.getElementById('admin-panel').classList.remove('hidden');
         document.getElementById('btn-unlock-admin').classList.add('hidden');
+        // Tự động chuyển màn hình của Quản trò sang màn hình theo dõi trận đấu
+        document.getElementById('screen-login').classList.add('hidden');
+        document.getElementById('screen-game').classList.remove('hidden');
+        // Phát lệnh quét toàn bộ thí sinh đang có mặt trong phòng
+        requestPlayerPresence();
       } else if (pin !== null) {
         alert("Sai mật khẩu Quản trò!");
       }
+    }
+
+    function requestPlayerPresence() {
+      client.publish(TOPIC, JSON.stringify({ type: 'PING_PRESENCE' }));
     }
 
     function toggleNewQuizModal() {
@@ -284,190 +321,4 @@
     }
 
     function selectQuizWeek() {
-      currentQuizName = document.getElementById('admin-quiz-select').value;
-      currentQIndex = -1;
-      document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
-    }
-
-    function saveNewQuizFromNotebook() {
-      const title = document.getElementById('new-quiz-title').value.trim();
-      const rawJson = document.getElementById('new-quiz-json').value.trim();
-      if (!title || !rawJson) return alert("Anh vui lòng nhập Tên tuần và dán nội dung JSON!");
-      try {
-        const parsed = JSON.parse(rawJson);
-        quizBank[title] = parsed;
-        localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
-        currentQuizName = title;
-        currentQIndex = -1;
-        renderQuizDropdown();
-        client.publish(TOPIC, JSON.stringify({ type: 'SYNC_NEW_QUIZ', title: title, questions: parsed }));
-        document.getElementById('modal-new-quiz').classList.add('hidden');
-        alert(`Đã lưu thành công bộ đề "${title}" (${parsed.length} câu)!`);
-      } catch (e) {
-        alert("Đoạn mã dán vào chưa đúng chuẩn JSON từ `[` đến `]`. Anh kiểm tra lại nhé!");
-      }
-    }
-
-    function joinGame() {
-      const nameInput = document.getElementById('playerName').value.trim();
-      if (!nameInput) return alert("Vui lòng nhập Họ tên của bạn!");
-      myName = nameInput;
-      players[myId] = { name: myName, score: myScore };
-      document.getElementById('screen-login').classList.add('hidden');
-      document.getElementById('screen-game').classList.remove('hidden');
-      client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
-    }
-
-    function hostNextQuestion() {
-      const list = quizBank[currentQuizName] || [];
-      currentQIndex++;
-      if (currentQIndex >= list.length) {
-        alert("🎉 Đã hoàn thành toàn bộ câu hỏi của tuần này! Anh có thể bấm 'Tải Điểm Excel' để lưu kết quả.");
-        currentQIndex = -1;
-        return;
-      }
-      const q = list[currentQIndex];
-      
-      const packet = {
-        type: 'START_QUESTION',
-        qIndex: currentQIndex + 1,
-        total: list.length,
-        question: q.question,
-        options: q.options,
-        correct: q.correct,
-        time: q.time || 20
-      };
-
-      // 1. Phát sóng qua mạng cho nhân sự
-      client.publish(TOPIC, JSON.stringify(packet));
-      // 2. Kích hoạt hiển thị ngay lập tức trên máy Quản trò của anh
-      showQuestionOnScreen(packet);
-
-      setTimeout(() => {
-        const revealPacket = { type: 'REVEAL_CORRECT', correct: q.correct };
-        client.publish(TOPIC, JSON.stringify(revealPacket));
-        highlightCorrectAnswer(q.correct);
-      }, (q.time || 20) * 1000);
-    }
-
-    function hostResetGame() {
-      currentQIndex = -1;
-      client.publish(TOPIC, JSON.stringify({ type: 'RESET_GAME' }));
-    }
-
-    function showQuestionOnScreen(data) {
-      hasAnswered = false;
-      votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
-      questionStartTime = Date.now();
-      window.currentCorrectAns = data.correct;
-
-      document.getElementById('question-index').innerText = `Vòng ${data.qIndex}/${data.total}`;
-      document.getElementById('question-text').innerText = data.question;
-
-      ['A', 'B', 'C', 'D'].forEach(k => {
-        const btn = document.getElementById(`btn-${k}`);
-        btn.classList.remove('ring-4', 'ring-slate-800', 'bg-emerald-200', 'border-emerald-600');
-        document.getElementById(`text-${k}`).innerText = data.options[k];
-        document.getElementById(`stat-${k}`).innerText = `0 (0%)`;
-      });
-
-      let timeLeft = data.time;
-      document.getElementById('timer-count').innerText = timeLeft;
-      clearInterval(countdownTimer);
-      countdownTimer = setInterval(() => {
-        timeLeft--;
-        if (timeLeft >= 0) document.getElementById('timer-count').innerText = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(countdownTimer);
-          hasAnswered = true;
-        }
-      }, 1000);
-    }
-
-    function pickAnswer(choice) {
-      if (hasAnswered) return;
-      hasAnswered = true;
-      document.getElementById(`btn-${choice}`).classList.add('ring-4', 'ring-slate-800');
-
-      if (choice === window.currentCorrectAns) {
-        const elapsedSec = (Date.now() - questionStartTime) / 1000;
-        const speedBonus = Math.max(5, Math.round(25 - elapsedSec));
-        myScore += speedBonus;
-        document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
-      }
-
-      client.publish(TOPIC, JSON.stringify({
-        type: 'SUBMIT_ANSWER',
-        id: myId,
-        name: myName || 'Quản trò',
-        choice: choice,
-        score: myScore
-      }));
-    }
-
-    function updateVoteStatsUI() {
-      if (votes.total === 0) return;
-      ['A', 'B', 'C', 'D'].forEach(k => {
-        const count = votes[k];
-        const pct = Math.round((count / votes.total) * 100);
-        document.getElementById(`stat-${k}`).innerText = `${count} (${pct}%)`;
-      });
-    }
-
-    function highlightCorrectAnswer(correctKey) {
-      clearInterval(countdownTimer);
-      hasAnswered = true;
-      const btn = document.getElementById(`btn-${correctKey}`);
-      if (btn) btn.classList.add('bg-emerald-200', 'border-emerald-600');
-    }
-
-    function renderLeaderboard() {
-      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
-      
-      // 1. Cập nhật Bảng xếp hạng Top 10
-      const container = document.getElementById('leaderboard-list');
-      container.innerHTML = '';
-      sorted.slice(0, 10).forEach((p, idx) => {
-        const badge = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
-        container.innerHTML += `
-          <div class="flex items-center justify-between py-1.5 px-3 rounded-xl bg-white border border-slate-100 shadow-2xs">
-            <span class="font-bold text-slate-700">${badge} ${p.name}</span>
-            <span class="font-black text-amber-500">${p.score} ⭐</span>
-          </div>
-        `;
-      });
-
-      // 2. Cập nhật danh sách thí sinh đã vào phòng cho Quản trò
-      const adminList = document.getElementById('admin-players-list');
-      const adminCount = document.getElementById('admin-player-count');
-      if (adminList && adminCount) {
-        const allPlayers = Object.values(players);
-        adminCount.innerText = allPlayers.length;
-        if (allPlayers.length === 0) {
-          adminList.innerHTML = '<span class="text-slate-400 italic">Chưa có ai vào phòng...</span>';
-        } else {
-          adminList.innerHTML = '';
-          allPlayers.forEach(p => {
-            adminList.innerHTML += `<span class="bg-slate-800 text-slate-200 px-2 py-0.5 rounded-md border border-slate-700">${p.name}</span>`;
-          });
-        }
-      }
-    }
-
-    function downloadExcel() {
-      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
-      if (sorted.length === 0) return alert("Chưa có dữ liệu người chơi!");
-      let csv = "\uFEFFHạng,Họ và Tên,Điểm số,Chuyên đề,Ngày kiểm tra\n";
-      const d = new Date().toLocaleDateString('vi-VN');
-      sorted.forEach((p, i) => {
-        csv += `${i + 1},"${p.name}",${p.score},"${currentQuizName}","${d}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `Bang-Diem-FourHome-${d}.csv`;
-      a.click();
-    }
-  </script>
-</body>
-</html>
+      currentQuiz
