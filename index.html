@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Four Home Mega - Đấu Trí Sun Urban City</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Thư viện MQTT bản 5.16.1 chính thức trên Cloudflare CDN -->
+  <!-- Thư viện MQTT chính thức trên Cloudflare CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <style>
     @keyframes pulse-ring {
@@ -20,7 +20,7 @@
 
   <!-- THANH CÔNG CỤ QUẢN TRÒ DÀNH CHO ANH TUẤN PHỦ LÝ -->
   <div class="w-full max-w-md flex justify-between items-center mb-2 px-1">
-    <span id="conn-status" class="text-[11px] text-amber-400 font-semibold">🟡 Đang kết nối sóng trực tuyến...</span>
+    <span id="conn-status" class="text-[11px] text-amber-400 font-semibold">🟡 Đang kết nối đa tổng đài...</span>
     <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-xs text-amber-300 hover:text-white bg-slate-800 px-3 py-1.5 rounded-full border border-amber-500/40 shadow cursor-pointer">
       🔑 Quản trò (anh Tuấn Phủ Lý)
     </button>
@@ -63,9 +63,14 @@
     <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-700">
       <div class="flex justify-between items-center mb-1.5">
         <span class="text-[11px] font-bold text-amber-300">👥 Thí sinh trong phòng: <span id="admin-player-count">0</span> người</span>
-        <button onclick="requestPlayerPresence()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2 py-0.5 rounded border border-slate-600 cursor-pointer">
-          🔄 Quét điểm danh
-        </button>
+        <div class="flex gap-1">
+          <button id="btn-scan" onclick="requestPlayerPresence()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-sky-300 px-2 py-0.5 rounded border border-slate-600 cursor-pointer">
+            🔄 Quét điểm danh
+          </button>
+          <button onclick="clearRoomPlayers()" class="text-[10px] bg-rose-950/60 hover:bg-rose-900 text-rose-300 px-2 py-0.5 rounded border border-rose-800/60 cursor-pointer">
+            🗑️ Làm mới phòng
+          </button>
+        </div>
       </div>
       <div id="admin-players-list" class="flex flex-wrap gap-1 max-h-[85px] overflow-y-auto text-[10px]">
         <span class="text-slate-400 italic">Chưa có ai vào phòng...</span>
@@ -205,9 +210,9 @@
     let currentQIndex = -1;
     let myId = sessionStorage.getItem('fh_uid') || ('u_' + Math.random().toString(36).substring(2, 8));
     sessionStorage.setItem('fh_uid', myId);
-    let myName = '';
+    let myName = sessionStorage.getItem('fh_uname') || '';
     let myScore = 0;
-    let hasAnswered = true; // Khóa nút chọn khi đang ở Phòng chờ
+    let hasAnswered = true;
     let questionStartTime = 0;
     let countdownTimer = null;
     let revealTimer = null;
@@ -215,74 +220,168 @@
     // Dữ liệu phòng thi đồng bộ thời gian thực
     let players = {};
     let votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
+    let seenMsgIds = new Set();
 
-    // Kết nối sóng trực tuyến MQTT với mã định danh độc lập
-    const TOPIC = 'fourhome_mega_sunurbancity_2026_room1';
-    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
-      clientId: 'fh_client_' + Math.random().toString(16).substring(2, 10),
-      keepalive: 30,
-      reconnectPeriod: 2000
-    });
+    // =========================================================================
+    // HỆ THỐNG ĐA TỔNG ĐÀI SONG SONG (MULTI-BROKER MESH) CHỐNG NGHẼN MẠNG 100%
+    // =========================================================================
+    const BASE_TOPIC = 'fourhome_mega_suc_2026_v12';
+    const BROKER_URLS = [
+      'wss://broker.hivemq.com:8884/mqtt',
+      'wss://test.mosquitto.org:8081/mqtt',
+      'wss://broker.emqx.io:8084/mqtt'
+    ];
+    const activeClients = [];
+    let connectedBrokerCount = 0;
 
-    client.on('connect', () => {
+    // Kênh đồng bộ nội bộ giữa các tab trên cùng máy
+    const localChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(BASE_TOPIC) : null;
+    if (localChannel) {
+      localChannel.onmessage = (ev) => handleIncomingPacket(ev.data.subTopic, ev.data.payload);
+    }
+
+    function updateConnectionUI() {
       const statusEl = document.getElementById('conn-status');
-      statusEl.innerText = '🟢 Đã kết nối phòng thi trực tuyến';
-      statusEl.className = 'text-[11px] text-emerald-400 font-semibold';
-      client.subscribe(TOPIC);
-
-      // Nếu thí sinh đã nhập tên trước khi mạng kết nối xong, tự động báo danh lại ngay
-      if (myName) {
-        client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
+      if (connectedBrokerCount > 0) {
+        statusEl.innerText = `🟢 Đã kết nối phòng thi trực tuyến (${connectedBrokerCount} trạm)`;
+        statusEl.className = 'text-[11px] text-emerald-400 font-semibold';
+      } else {
+        statusEl.innerText = '🟡 Đang kết nối sóng trực tuyến...';
+        statusEl.className = 'text-[11px] text-amber-400 font-semibold';
       }
-    });
+    }
 
-    client.on('reconnect', () => {
-      const statusEl = document.getElementById('conn-status');
-      statusEl.innerText = '🟡 Đang tự động kết nối lại...';
-      statusEl.className = 'text-[11px] text-amber-400 font-semibold';
-    });
-
-    client.on('message', (topic, message) => {
+    BROKER_URLS.forEach((url, index) => {
       try {
-        const data = JSON.parse(message.toString());
-        if (data.type === 'PLAYER_JOIN') {
-          players[data.id] = { name: data.name, score: data.score };
-          renderLeaderboard();
-        } else if (data.type === 'PING_PRESENCE') {
-          // Khi Quản trò quét điểm danh, điện thoại thí sinh tự động gửi tên lên ngay
-          if (myName) {
-            client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
-          }
-        } else if (data.type === 'START_QUESTION') {
-          showQuestionOnScreen(data);
-        } else if (data.type === 'SUBMIT_ANSWER') {
-          players[data.id] = { name: data.name, score: data.score };
-          if (votes[data.choice] !== undefined) {
-            votes[data.choice]++;
-            votes.total++;
-            updateVoteStatsUI();
-          }
-          renderLeaderboard();
-        } else if (data.type === 'REVEAL_CORRECT') {
-          highlightCorrectAnswer(data.correct);
-        } else if (data.type === 'SYNC_NEW_QUIZ') {
-          quizBank[data.title] = data.questions;
-          localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
-          currentQuizName = data.title;
-          renderQuizDropdown();
-          document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
-        } else if (data.type === 'RESET_GAME') {
-          myScore = 0;
-          for (let k in players) players[k].score = 0;
-          document.getElementById('my-score-badge').innerText = `0 ⭐`;
-          document.getElementById('question-index').innerText = 'Phòng chờ';
-          document.getElementById('question-text').innerText = 'Trận đấu đã được đặt lại từ đầu! Hãy chờ anh Tuấn Phủ Lý bấm "Phát câu tiếp"...';
-          renderLeaderboard();
-        }
+        const c = mqtt.connect(url, {
+          clientId: 'fh_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          protocolVersion: 4,
+          clean: true,
+          keepalive: 30,
+          connectTimeout: 6000,
+          reconnectPeriod: 3000
+        });
+
+        c.on('connect', () => {
+          c._isConnected = true;
+          connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length;
+          updateConnectionUI();
+          // Đăng ký nhận toàn bộ tin nhắn và dữ liệu ghim (Retained) trong phòng
+          c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
+          if (myName) announceMyPresence();
+        });
+
+        c.on('close', () => {
+          c._isConnected = false;
+          connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length;
+          updateConnectionUI();
+        });
+
+        c.on('message', (fullTopic, message) => {
+          const str = message.toString();
+          if (!str) return;
+          try {
+            const data = JSON.parse(str);
+            const subTopic = fullTopic.replace(`${BASE_TOPIC}/`, '');
+            handleIncomingPacket(subTopic, data);
+          } catch (e) {}
+        });
+
+        activeClients.push(c);
       } catch (err) {
         console.error(err);
       }
     });
+
+    // Hàm phát sóng đồng loạt qua tất cả các tổng đài đang mở
+    function publishPacket(subTopic, payload, retain = false) {
+      payload._mid = payload._mid || (myId + '_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6));
+      const fullTopic = `${BASE_TOPIC}/${subTopic}`;
+      const jsonStr = JSON.stringify(payload);
+
+      activeClients.forEach(c => {
+        if (c && c._isConnected) {
+          c.publish(fullTopic, jsonStr, { qos: 0, retain: retain });
+        }
+      });
+
+      if (localChannel) {
+        localChannel.postMessage({ subTopic, payload });
+      }
+    }
+
+    // Hàm báo danh và ghim tên thí sinh lên đám mây (Retained = true)
+    function announceMyPresence() {
+      if (!myName) return;
+      publishPacket(`players/${myId}`, {
+        type: 'PLAYER_JOIN',
+        id: myId,
+        name: myName,
+        score: myScore,
+        ts: Date.now()
+      }, true);
+    }
+
+    // Nhịp tim tự động báo danh mỗi 4 giây để Quản trò luôn thấy mặt
+    setInterval(() => {
+      if (myName) announceMyPresence();
+    }, 4000);
+
+    // Xử lý mọi gói tin đến (Có lọc trùng lặp giữa các tổng đài)
+    function handleIncomingPacket(subTopic, data) {
+      if (!data || !data.type) return;
+
+      // Đối với các sự kiện phát lệnh trực tiếp, lọc trùng lặp bằng _mid
+      if (data.type !== 'PLAYER_JOIN' && data._mid) {
+        if (seenMsgIds.has(data._mid)) return;
+        seenMsgIds.add(data._mid);
+      }
+
+      if (data.type === 'PLAYER_JOIN') {
+        if (data.id && data.name) {
+          const existing = players[data.id];
+          const bestScore = existing ? Math.max(existing.score, data.score || 0) : (data.score || 0);
+          players[data.id] = { name: data.name, score: bestScore };
+          renderLeaderboard();
+        }
+      } else if (data.type === 'PING_PRESENCE') {
+        if (myName) announceMyPresence();
+      } else if (data.type === 'START_QUESTION') {
+        showQuestionOnScreen(data);
+      } else if (data.type === 'SUBMIT_ANSWER') {
+        players[data.id] = { name: data.name, score: data.score };
+        if (votes[data.choice] !== undefined) {
+          votes[data.choice]++;
+          votes.total++;
+          updateVoteStatsUI();
+        }
+        renderLeaderboard();
+      } else if (data.type === 'REVEAL_CORRECT') {
+        highlightCorrectAnswer(data.correct);
+      } else if (data.type === 'SYNC_NEW_QUIZ') {
+        quizBank[data.title] = data.questions;
+        localStorage.setItem('fourhome_quiz_bank', JSON.stringify(quizBank));
+        currentQuizName = data.title;
+        renderQuizDropdown();
+        document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
+      } else if (data.type === 'RESET_GAME') {
+        myScore = 0;
+        window.activeQuestionUid = null;
+        for (let k in players) players[k].score = 0;
+        document.getElementById('my-score-badge').innerText = `0 ⭐`;
+        document.getElementById('question-index').innerText = 'Phòng chờ';
+        document.getElementById('question-text').innerText = 'Trận đấu đã được đặt lại từ đầu! Hãy chờ anh Tuấn Phủ Lý bấm "Phát câu tiếp"...';
+        if (myName) announceMyPresence();
+        renderLeaderboard();
+      } else if (data.type === 'CLEAR_PLAYERS') {
+        players = {};
+        if (myName) {
+          players[myId] = { name: myName, score: myScore };
+          announceMyPresence();
+        }
+        renderLeaderboard();
+      }
+    }
 
     function renderQuizDropdown() {
       const sel = document.getElementById('admin-quiz-select');
@@ -302,10 +401,9 @@
       if (pin === "5525") {
         document.getElementById('admin-panel').classList.remove('hidden');
         document.getElementById('btn-unlock-admin').classList.add('hidden');
-        // Tự động chuyển màn hình của Quản trò sang màn hình theo dõi trận đấu
         document.getElementById('screen-login').classList.add('hidden');
         document.getElementById('screen-game').classList.remove('hidden');
-        // Phát lệnh quét toàn bộ thí sinh đang có mặt trong phòng
+        renderLeaderboard();
         requestPlayerPresence();
       } else if (pin !== null) {
         alert("Sai mật khẩu Quản trò!");
@@ -313,7 +411,25 @@
     }
 
     function requestPlayerPresence() {
-      client.publish(TOPIC, JSON.stringify({ type: 'PING_PRESENCE' }));
+      publishPacket('events', { type: 'PING_PRESENCE' }, false);
+      const btn = document.getElementById('btn-scan');
+      if (btn) {
+        btn.innerText = '✅ Đã quét!';
+        setTimeout(() => { btn.innerText = '🔄 Quét điểm danh'; }, 1500);
+      }
+      renderLeaderboard();
+    }
+
+    function clearRoomPlayers() {
+      // Xóa các bản ghi ghim cũ trên đám mây
+      Object.keys(players).forEach(pid => {
+        activeClients.forEach(c => {
+          if (c && c._isConnected) c.publish(`${BASE_TOPIC}/players/${pid}`, '', { retain: true });
+        });
+      });
+      players = {};
+      renderLeaderboard();
+      publishPacket('events', { type: 'CLEAR_PLAYERS' }, false);
     }
 
     function toggleNewQuizModal() {
@@ -337,7 +453,7 @@
         currentQuizName = title;
         currentQIndex = -1;
         renderQuizDropdown();
-        client.publish(TOPIC, JSON.stringify({ type: 'SYNC_NEW_QUIZ', title: title, questions: parsed }));
+        publishPacket('state/quiz', { type: 'SYNC_NEW_QUIZ', title: title, questions: parsed }, true);
         document.getElementById('modal-new-quiz').classList.add('hidden');
         alert(`Đã lưu thành công bộ đề "${title}" (${parsed.length} câu)!`);
       } catch (e) {
@@ -349,11 +465,12 @@
       const nameInput = document.getElementById('playerName').value.trim();
       if (!nameInput) return alert("Vui lòng nhập Họ tên + Phòng ban của bạn!");
       myName = nameInput;
+      sessionStorage.setItem('fh_uname', myName);
       players[myId] = { name: myName, score: myScore };
       document.getElementById('screen-login').classList.add('hidden');
       document.getElementById('screen-game').classList.remove('hidden');
       renderLeaderboard();
-      client.publish(TOPIC, JSON.stringify({ type: 'PLAYER_JOIN', id: myId, name: myName, score: myScore }));
+      announceMyPresence();
     }
 
     function hostNextQuestion() {
@@ -369,6 +486,7 @@
 
       const packet = {
         type: 'START_QUESTION',
+        qUid: currentQuizName + '_' + (currentQIndex + 1) + '_' + Date.now(),
         qIndex: currentQIndex + 1,
         total: list.length,
         question: q.question,
@@ -377,19 +495,17 @@
         time: qTime
       };
 
-      // Đảm bảo Quản trò đang nhìn thấy màn hình câu hỏi
       document.getElementById('screen-login').classList.add('hidden');
       document.getElementById('screen-game').classList.remove('hidden');
 
-      // Phát sóng câu hỏi cho toàn bộ thí sinh và hiển thị trên màn hình
-      client.publish(TOPIC, JSON.stringify(packet));
+      // Phát câu hỏi và ghim trên trạm để máy vào trễ vẫn nhận được
+      publishPacket('state/question', packet, true);
       showQuestionOnScreen(packet);
 
-      // Hẹn giờ công bố đáp án đúng khi hết thời gian
       clearTimeout(revealTimer);
       revealTimer = setTimeout(() => {
         const revealPacket = { type: 'REVEAL_CORRECT', correct: q.correct };
-        client.publish(TOPIC, JSON.stringify(revealPacket));
+        publishPacket('events', revealPacket, false);
         highlightCorrectAnswer(q.correct);
       }, qTime * 1000);
     }
@@ -398,13 +514,18 @@
       currentQIndex = -1;
       clearTimeout(revealTimer);
       clearInterval(countdownTimer);
-      client.publish(TOPIC, JSON.stringify({ type: 'RESET_GAME' }));
+      // Xóa câu hỏi đang ghim trên trạm
+      activeClients.forEach(c => {
+        if (c && c._isConnected) c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true });
+      });
+      for (let k in players) players[k].score = 0;
+      renderLeaderboard();
+      publishPacket('events', { type: 'RESET_GAME' }, false);
     }
 
     function showQuestionOnScreen(data) {
-      // Nếu câu hỏi này đang chạy rồi thì không khởi động lại đồng hồ (tránh lặp sóng trên máy Quản trò)
-      if (window.activeQuestionIndex === data.qIndex && !hasAnswered) return;
-      window.activeQuestionIndex = data.qIndex;
+      if (window.activeQuestionUid === data.qUid) return;
+      window.activeQuestionUid = data.qUid;
 
       hasAnswered = false;
       votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
@@ -446,13 +567,21 @@
         document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
       }
 
-      client.publish(TOPIC, JSON.stringify({
+      const displayName = myName || 'anh Tuấn Phủ Lý';
+      players[myId] = { name: displayName, score: myScore };
+      votes[choice]++;
+      votes.total++;
+      updateVoteStatsUI();
+      renderLeaderboard();
+
+      publishPacket('events', {
         type: 'SUBMIT_ANSWER',
         id: myId,
-        name: myName || 'anh Tuấn Phủ Lý',
+        name: displayName,
         choice: choice,
         score: myScore
-      }));
+      }, false);
+      announceMyPresence();
     }
 
     function updateVoteStatsUI() {
