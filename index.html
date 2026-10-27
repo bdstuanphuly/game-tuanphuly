@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Mega Arena V26</title>
+  <title>Four Home Mega - Mega Arena V27</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -34,6 +34,9 @@
       transform: translateZ(0);
       backface-visibility: hidden;
     }
+    .png-emblem-glow {
+      filter: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.45)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.35));
+    }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 9999px; }
@@ -50,7 +53,7 @@
   <div class="w-full max-w-[440px] flex flex-wrap justify-between items-center gap-1 mb-2 px-1">
     <div class="flex items-center gap-1.5">
       <span id="conn-status" class="text-[10px] text-amber-300 font-bold">🟡 Đang kết nối...</span>
-      <span class="text-[9px] bg-emerald-950/90 text-emerald-300 border border-emerald-400/50 px-2 py-0.5 rounded-full font-extrabold shadow">🛡️ 4K-Shield V26</span>
+      <span class="text-[9px] bg-emerald-950/90 text-emerald-300 border border-emerald-400/50 px-2 py-0.5 rounded-full font-extrabold shadow">🛡️ 4K-Shield V27</span>
     </div>
     <div class="flex items-center gap-1">
       <button onclick="openPrevRankModal()" class="text-[10px] text-emerald-300 hover:text-white bg-slate-900/85 px-2.5 py-1 rounded-full border border-emerald-500/40 shadow cursor-pointer font-bold">
@@ -67,11 +70,28 @@
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
       <span class="text-[11px] font-black text-amber-400">👑 ADMIN TUẤN PHỦ LÝ</span>
       <div class="flex flex-wrap gap-1">
-        <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow" title="Xem ngay bảng Thập Đại Thần Tốc">🏆 Xem Logo Thần Tốc</button>
+        <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow">🏆 Xem Logo</button>
         <button onclick="toggleNewQuizModal()" class="text-[10px] bg-blue-600 hover:bg-blue-500 px-2 py-1 rounded-lg font-bold cursor-pointer">➕ Thêm đề</button>
         <button onclick="deleteCurrentQuiz()" class="text-[10px] bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded-lg font-bold cursor-pointer">🗑️ Xóa đề</button>
         <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1 rounded-lg font-black cursor-pointer shadow">
           📁 Tổng tài khoản (<span id="admin-dir-count-btn">0</span>)
+        </button>
+      </div>
+    </div>
+
+    <!-- CÔNG CỤ PHOTOSHOP XÓA NỀN ĐEN ẢNH 3D SANG PNG TRONG SUỐT -->
+    <div class="flex flex-wrap items-center justify-between gap-1.5 bg-slate-800/90 px-2.5 py-1.5 rounded-xl border border-slate-700">
+      <span class="text-[10px] font-bold text-sky-300">🎨 Logo PNG Xóa Nền:</span>
+      <div class="flex gap-1.5">
+        <label for="adminLogoInput" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg cursor-pointer shadow">
+          🖼️ Nạp Logo 3D (Tự xóa nền)
+        </label>
+        <input id="adminLogoInput" type="file" accept="image/*" onchange="handleCustomLogoUpload(event)" class="hidden">
+        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 font-bold px-2 py-1 rounded-lg cursor-pointer">
+          📥 Tải file PNG
+        </button>
+        <button onclick="resetToDefaultStudioLogo()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold px-2 py-1 rounded-lg cursor-pointer" title="Khôi phục Logo 3D mặc định">
+          🔄 Mặc định
         </button>
       </div>
     </div>
@@ -281,7 +301,7 @@
         </div>
       </div>
 
-      <!-- PHẦN GIỮA: BẢNG XẾP HẠNG TO CHE KÍN CHỖ TRỐNG (ĐÃ ẨN NHÃN ẢNH 4K & ĐƯA TIÊU ĐỀ VÀO CHÍNH GIỮA) -->
+      <!-- PHẦN GIỮA: BẢNG XẾP HẠNG TO CHE KÍN CHỖ TRỐNG (ĐƯA TIÊU ĐỀ VÀO CHÍNH GIỮA) -->
       <div class="w-full flex-1 bg-white/95 rounded-[20px] p-3 shadow-md flex flex-col justify-between mb-2.5 border border-white">
         <div class="flex items-center justify-center pb-2 mb-2 border-b border-slate-100">
           <span class="text-sm sm:text-base font-black text-slate-800 tracking-wide">🏆 Bảng xếp hạng</span>
@@ -358,183 +378,15 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (LOGO VECTOR 3D V26 MỚI)-->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (ẢNH PNG XÓA NỀN 100%) -->
   <!-- ===================================================================== -->
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2.5">
-    <div class="w-full max-w-[415px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-400 p-3.5 pt-2 flex flex-col max-h-[95vh] relative">
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-2.5 pt-12">
+    <div class="w-full max-w-[410px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-300 p-3.5 pt-2 flex flex-col max-h-[88vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer z-20">✖</button>
 
-      <!-- LOGO VECTOR 3D SIÊU CHI TIẾT "10 THẬP ĐẠI THẦN TỐC" (CHUẨN MẪU MỚI 100%) -->
-      <div class="flex justify-center -mt-4 mb-1.5 select-none pointer-events-none">
-        <div class="relative rounded-3xl p-1.5 shadow-2xl border-2 border-amber-400/80" style="background: radial-gradient(circle at 50% 45%, #1e293b 0%, #090d1a 75%, #020617 100%);">
-          <svg class="w-[295px] h-[175px]" viewBox="0 0 380 225" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- Gradient Vàng Kim Loại PBR 3D -->
-              <linearGradient id="v26Gold" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#FFFBEB"/>
-                <stop offset="22%" stop-color="#FEF08A"/>
-                <stop offset="50%" stop-color="#F59E0B"/>
-                <stop offset="80%" stop-color="#B45309"/>
-                <stop offset="100%" stop-color="#78350F"/>
-              </linearGradient>
-              <linearGradient id="v26GoldHoriz" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#92400E"/>
-                <stop offset="25%" stop-color="#FDE047"/>
-                <stop offset="50%" stop-color="#FFFBEB"/>
-                <stop offset="75%" stop-color="#F59E0B"/>
-                <stop offset="100%" stop-color="#78350F"/>
-              </linearGradient>
-              <!-- Tâm Khiên Vàng Phát Sáng -->
-              <radialGradient id="v26ShieldGlow" cx="50%" cy="45%" r="55%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="28%" stop-color="#FEF08A"/>
-                <stop offset="65%" stop-color="#F59E0B"/>
-                <stop offset="100%" stop-color="#92400E"/>
-              </radialGradient>
-              <!-- Lụa Xanh Hoàng Gia 3D -->
-              <linearGradient id="v26RoyalSilk" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#1E3A8A"/>
-                <stop offset="30%" stop-color="#2563EB"/>
-                <stop offset="55%" stop-color="#60A5FA"/>
-                <stop offset="80%" stop-color="#1D4ED8"/>
-                <stop offset="100%" stop-color="#0F172A"/>
-              </linearGradient>
-              <!-- Men Xanh Dương Đậm Cho Chữ & Số 10 -->
-              <linearGradient id="v26BlueEnamel" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#93C5FD"/>
-                <stop offset="35%" stop-color="#2563EB"/>
-                <stop offset="75%" stop-color="#1E40AF"/>
-                <stop offset="100%" stop-color="#0F172A"/>
-              </linearGradient>
-              <!-- Nền Huy Chương Tròn Xanh Đen -->
-              <radialGradient id="v26Medallion" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#1E3A8A"/>
-                <stop offset="65%" stop-color="#0F172A"/>
-                <stop offset="100%" stop-color="#020617"/>
-              </radialGradient>
-              <filter id="v26Shadow" x="-15%" y="-15%" width="130%" height="130%">
-                <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.85"/>
-              </filter>
-              <filter id="v26Glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            <!-- Quầng sáng ma thuật & hạt lấp lánh 2 bên -->
-            <g filter="url(#v26Glow)">
-              <circle cx="34" cy="78" r="2.5" fill="#FEF08A"/>
-              <circle cx="22" cy="108" r="2" fill="#38BDF8"/>
-              <circle cx="45" cy="142" r="2.2" fill="#FDE047"/>
-              <circle cx="62" cy="52" r="1.8" fill="#60A5FA"/>
-              <circle cx="346" cy="78" r="2.5" fill="#FEF08A"/>
-              <circle cx="358" cy="108" r="2" fill="#38BDF8"/>
-              <circle cx="335" cy="142" r="2.2" fill="#FDE047"/>
-              <circle cx="318" cy="52" r="1.8" fill="#60A5FA"/>
-            </g>
-
-            <!-- Đôi cánh vàng kim loại sắc nét vươn lên phía sau dải lụa -->
-            <g fill="url(#v26Gold)" stroke="#78350F" stroke-width="0.9" filter="url(#v26Shadow)">
-              <path d="M105,72 C72,60 54,42 54,28 C70,38 88,48 112,58 Z"/>
-              <path d="M98,82 C64,72 44,56 42,40 C60,50 80,62 106,70 Z"/>
-              <path d="M94,92 C62,84 42,70 38,54 C56,64 76,74 102,80 Z"/>
-              <path d="M275,72 C308,60 326,42 326,28 C310,38 292,48 268,58 Z"/>
-              <path d="M282,82 C316,72 336,56 338,40 C320,50 300,62 274,70 Z"/>
-              <path d="M286,92 C318,84 338,70 342,54 C324,64 304,74 278,80 Z"/>
-            </g>
-
-            <!-- Huy chương tròn trung tâm viền Vàng kép + Xanh Royal -->
-            <circle cx="190" cy="126" r="76" fill="url(#v26Medallion)" stroke="url(#v26Gold)" stroke-width="4" filter="url(#v26Shadow)"/>
-            <circle cx="190" cy="126" r="70" fill="none" stroke="#1D4ED8" stroke-width="2"/>
-            <circle cx="190" cy="126" r="67" fill="none" stroke="url(#v26Gold)" stroke-width="1.2"/>
-
-            <!-- VÒNG NGUYỆT QUẾ VÀNG 3D ÔM TRỌN HUY HIỆU -->
-            <g fill="url(#v26Gold)" stroke="#78350F" stroke-width="0.8" filter="url(#v26Shadow)">
-              <!-- Thân cành nguyệt quế trái & phải -->
-              <path d="M190,208 C126,206 82,164 82,108 C82,72 100,40 130,24" fill="none" stroke="url(#v26Gold)" stroke-width="3"/>
-              <path d="M190,208 C254,206 298,164 298,108 C298,72 280,40 250,24" fill="none" stroke="url(#v26Gold)" stroke-width="3"/>
-              <!-- Các cặp lá nguyệt quế bên trái -->
-              <path d="M126,28 C114,22 106,14 110,8 C118,12 126,20 126,28 Z"/>
-              <path d="M114,42 C100,36 92,26 96,18 C106,22 114,32 114,42 Z"/>
-              <path d="M104,58 C88,52 80,40 84,32 C94,36 104,46 104,58 Z"/>
-              <path d="M92,136 C76,132 68,144 76,154 C84,150 92,144 92,136 Z"/>
-              <path d="M102,158 C86,154 80,168 90,178 C98,172 104,166 102,158 Z"/>
-              <path d="M118,178 C102,176 98,190 110,198 C118,192 122,186 118,178 Z"/>
-              <path d="M140,194 C124,194 122,206 136,212 C144,206 146,200 140,194 Z"/>
-              <path d="M166,204 C150,206 150,216 164,218 C170,214 172,208 166,204 Z"/>
-              <!-- Các cặp lá nguyệt quế bên phải -->
-              <path d="M254,28 C266,22 274,14 270,8 C262,12 254,20 254,28 Z"/>
-              <path d="M266,42 C280,36 288,26 284,18 C274,22 266,32 266,42 Z"/>
-              <path d="M276,58 C292,52 300,40 296,32 C286,36 276,46 276,58 Z"/>
-              <path d="M288,136 C304,132 312,144 304,154 C296,150 288,144 288,136 Z"/>
-              <path d="M278,158 C294,154 300,168 290,178 C282,172 276,166 278,158 Z"/>
-              <path d="M262,178 C278,176 282,190 270,198 C262,192 258,186 262,178 Z"/>
-              <path d="M240,194 C256,194 258,206 244,212 C236,206 234,200 240,194 Z"/>
-              <path d="M214,204 C230,206 230,216 216,218 C210,214 208,208 214,204 Z"/>
-            </g>
-
-            <!-- DẢI RUY-BĂNG LỤA XANH HOÀNG GIA UỐN LƯỢN 3D KÈM HOA VĂN CHỈ VÀNG -->
-            <g filter="url(#v26Shadow)">
-              <!-- Dải lụa trái -->
-              <path d="M138,68 C96,52 54,60 46,86 C40,104 76,110 68,126 C62,138 32,130 16,138 L34,120 L18,104 C42,96 64,98 80,88 C62,78 78,60 138,86 Z" fill="url(#v26RoyalSilk)" stroke="url(#v26Gold)" stroke-width="2.4"/>
-              <path d="M58,78 C76,68 102,70 124,78 M66,84 C82,76 102,78 118,84 M36,114 C52,108 66,112 74,120" stroke="#FDE047" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-              <!-- Dải lụa phải -->
-              <path d="M242,68 C284,52 326,60 334,86 C340,104 304,110 312,126 C318,138 348,130 364,138 L346,120 L362,104 C338,96 316,98 300,88 C318,78 302,60 242,86 Z" fill="url(#v26RoyalSilk)" stroke="url(#v26Gold)" stroke-width="2.4"/>
-              <path d="M322,78 C304,68 278,70 256,78 M314,84 C298,76 278,78 262,84 M344,114 C328,108 314,112 306,120" stroke="#FDE047" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-            </g>
-
-            <!-- VƯƠNG MIỆN VÀNG 5 ĐỈNH ĐÁNH BÓNG Ở TRÊN CÙNG -->
-            <g filter="url(#v26Shadow)">
-              <polygon points="158,34 150,14 168,24 178,9 190,22 202,9 212,24 230,14 222,34" fill="url(#v26Gold)" stroke="#78350F" stroke-width="1.3"/>
-              <rect x="157" y="33" width="66" height="6" rx="3" fill="url(#v26GoldHoriz)" stroke="#78350F" stroke-width="1.1"/>
-              <circle cx="150" cy="13" r="2.3" fill="#FFFBEB"/>
-              <circle cx="178" cy="8" r="2.6" fill="#FFFBEB"/>
-              <circle cx="190" cy="12" r="2.2" fill="#FEF08A"/>
-              <circle cx="202" cy="8" r="2.6" fill="#FFFBEB"/>
-              <circle cx="230" cy="13" r="2.3" fill="#FFFBEB"/>
-            </g>
-
-            <!-- KHIÊN VÀNG PHÁT SÁNG (GLOWING GOLD SHIELD) MANG CON SỐ 10 -->
-            <g filter="url(#v26Shadow)">
-              <!-- Khung khiên vàng 3D ngoài -->
-              <path d="M190,38 L242,50 L237,86 C232,112 190,126 190,126 C190,126 148,112 143,86 L138,50 Z" fill="url(#v26Gold)" stroke="#FFFBEB" stroke-width="1.8"/>
-              <!-- Viền men Xanh Hoàng Gia sâu bên trong Khiên -->
-              <path d="M190,43 L235,54 L231,85 C226,107 190,119 190,119 C190,119 154,107 149,85 L145,54 Z" fill="url(#v26ShieldGlow)" stroke="#1E3A8A" stroke-width="4.5"/>
-              <!-- Viền chỉ vàng phát sáng sát lõi Khiên -->
-              <path d="M190,47 L230,57 L226,84 C222,103 190,114 190,114 C190,114 158,103 154,84 L150,57 Z" fill="none" stroke="#FEF08A" stroke-width="1.5"/>
-              <!-- Con số 10 3D (Khối nổi vàng + Mặt men xanh Royal Blue) -->
-              <text x="190" y="99" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="48" fill="#78350F" dy="2.5">10</text>
-              <text x="190" y="99" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="48" fill="url(#v26BlueEnamel)" stroke="url(#v26Gold)" stroke-width="2.8">10</text>
-            </g>
-
-            <!-- 2 Ngôi sao vàng nhỏ dưới 2 cạnh đáy Khiên -->
-            <polygon points="134,104 136,109 142,109 137,112 139,118 134,114 129,118 131,112 126,109 132,109" fill="url(#v26Gold)"/>
-            <polygon points="246,104 248,109 254,109 249,112 251,118 246,114 241,118 243,112 238,109 244,109" fill="url(#v26Gold)"/>
-
-            <!-- DÒNG CHỮ 1: "THẬP ĐẠI" (CHỮ KHỐI 3D VÀNG + MẶT MEN XANH DƯƠNG ĐẬM) -->
-            <g filter="url(#v26Shadow)">
-              <text x="190" y="153" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="33" fill="#78350F" dx="1.5" dy="3" letter-spacing="1">THẬP ĐẠI</text>
-              <text x="190" y="153" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="33" fill="url(#v26BlueEnamel)" stroke="url(#v26Gold)" stroke-width="2.4" letter-spacing="1">THẬP ĐẠI</text>
-            </g>
-
-            <!-- DÒNG CHỮ 2: "THẦN TỐC" KÈM 2 NGÔI SAO VÀNG 3D LỚN HAI BÊN -->
-            <g filter="url(#v26Shadow)">
-              <!-- Ngôi sao 3D bên trái chữ THẦN TỐC -->
-              <polygon points="94,166 98,175 108,175 100,181 103,190 94,184 85,190 88,181 80,175 90,175" fill="url(#v26Gold)" stroke="#78350F" stroke-width="1"/>
-              <!-- Chữ THẦN TỐC 3D -->
-              <text x="190" y="185" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="27" fill="#78350F" dx="1.5" dy="2.5" letter-spacing="0.8">THẦN TỐC</text>
-              <text x="190" y="185" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="27" fill="url(#v26BlueEnamel)" stroke="url(#v26Gold)" stroke-width="2.2" letter-spacing="0.8">THẦN TỐC</text>
-              <!-- Ngôi sao 3D bên phải chữ THẦN TỐC -->
-              <polygon points="286,166 290,175 300,175 292,181 295,190 286,184 277,190 280,181 272,175 282,175" fill="url(#v26Gold)" stroke="#78350F" stroke-width="1"/>
-            </g>
-
-            <!-- Ngôi sao vàng 3D lớn khóa giao điểm đáy Vòng Nguyệt Quế -->
-            <polygon points="190,191 195,202 207,202 197,209 201,220 190,213 179,220 183,209 173,202 185,202" fill="url(#v26Gold)" stroke="#78350F" stroke-width="1.2" filter="url(#v26Shadow)"/>
-          </svg>
-        </div>
+      <!-- ẢNH PNG XÓA NỀN TRONG SUỐT NỔI TRÊN ĐỈNH BẢNG (KHÔNG CÓ HỘP ĐEN) -->
+      <div class="flex justify-center -mt-16 mb-1 select-none pointer-events-none relative z-10">
+        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc PNG" class="w-[280px] h-[165px] object-contain png-emblem-glow">
       </div>
 
       <div id="speed-modal-answer-bar" class="bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl px-3 py-1.5 text-[10px] font-bold text-center mb-2">
@@ -592,6 +444,317 @@
   </div>
 
   <script>
+    // =========================================================================
+    // 0. ĐỘNG CƠ ĐỒ HỌA PHOTOSHOP STUDIO: TẠO & XÓA NỀN LOGO PNG TRONG SUỐT 100%
+    // =========================================================================
+    let activeTransparentLogoPNG = '';
+
+    // 1. Kết xuất Huy hiệu 3D "10 THẬP ĐẠI THẦN TỐC" chuẩn AAA Game Studio ra ảnh PNG xóa nền (Alpha = 0)
+    function renderStudioTransparentLogoPNG() {
+      const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="450" viewBox="0 0 380 225">
+        <defs>
+          <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFFBEB"/>
+            <stop offset="22%" stop-color="#FEF08A"/>
+            <stop offset="50%" stop-color="#F59E0B"/>
+            <stop offset="82%" stop-color="#B45309"/>
+            <stop offset="100%" stop-color="#78350F"/>
+          </linearGradient>
+          <linearGradient id="gGoldBevel" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FEF08A"/>
+            <stop offset="40%" stop-color="#F59E0B"/>
+            <stop offset="75%" stop-color="#D97706"/>
+            <stop offset="100%" stop-color="#78350F"/>
+          </linearGradient>
+          <radialGradient id="gShieldCore" cx="50%" cy="42%" r="55%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="30%" stop-color="#FEF08A"/>
+            <stop offset="70%" stop-color="#F59E0B"/>
+            <stop offset="100%" stop-color="#92400E"/>
+          </radialGradient>
+          <linearGradient id="gRoyalRibbon" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0F172A"/>
+            <stop offset="18%" stop-color="#1E3A8A"/>
+            <stop offset="50%" stop-color="#2563EB"/>
+            <stop offset="82%" stop-color="#1E3A8A"/>
+            <stop offset="100%" stop-color="#0F172A"/>
+          </linearGradient>
+          <linearGradient id="gBlueEnamel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#93C5FD"/>
+            <stop offset="35%" stop-color="#2563EB"/>
+            <stop offset="80%" stop-color="#1E3A8A"/>
+            <stop offset="100%" stop-color="#0F172A"/>
+          </linearGradient>
+          <linearGradient id="gBolt" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#E0F2FE"/>
+            <stop offset="40%" stop-color="#38BDF8"/>
+            <stop offset="100%" stop-color="#1D4ED8"/>
+          </linearGradient>
+          <filter id="fDrop" x="-15%" y="-15%" width="130%" height="130%">
+            <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#020617" flood-opacity="0.72"/>
+          </filter>
+        </defs>
+
+        <!-- Tầng 1: Đôi cánh Vàng Hoàng Gia & Tia sét Điện Quang hai bên (Nền ngoài hoàn toàn trong suốt) -->
+        <g filter="url(#fDrop)">
+          <!-- Cánh vàng bên trái -->
+          <path d="M120,76 C75,64 46,44 36,24 C58,32 86,44 126,58 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
+          <path d="M114,90 C66,80 36,62 24,42 C50,50 82,62 120,74 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
+          <path d="M112,104 C68,98 38,84 26,66 C52,72 82,82 116,90 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
+          <!-- Cánh vàng bên phải -->
+          <path d="M260,76 C305,64 334,44 344,24 C322,32 294,44 254,58 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
+          <path d="M266,90 C314,80 344,62 356,42 C330,50 298,62 260,74 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
+          <path d="M268,104 C312,98 342,84 354,66 C328,72 298,82 264,90 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
+          <!-- 2 Tia sét xanh viền vàng tạo uy lực thần tốc -->
+          <polygon points="82,22 48,66 76,68 54,112 108,58 78,56" fill="url(#gGold)" stroke="url(#gBolt)" stroke-width="2.2"/>
+          <polygon points="298,22 332,66 304,68 326,112 272,58 302,56" fill="url(#gGold)" stroke="url(#gBolt)" stroke-width="2.2"/>
+        </g>
+
+        <!-- Tầng 2: Vòng Nguyệt Quế Vàng 3D xếp lớp dày dặn ôm quanh Khiên -->
+        <g fill="url(#gGold)" stroke="#78350F" stroke-width="1" filter="url(#fDrop)">
+          <path d="M122,118 C92,98 84,62 104,32 C98,58 106,86 132,104 Z"/>
+          <path d="M258,118 C288,98 296,62 276,32 C282,58 274,86 248,104 Z"/>
+          <path d="M112,86 C94,76 90,56 102,42 C102,58 108,72 120,82 Z"/>
+          <path d="M268,86 C286,76 290,56 278,42 C278,58 272,72 260,82 Z"/>
+          <path d="M116,108 C94,102 86,84 96,68 C98,84 106,96 122,102 Z"/>
+          <path d="M264,108 C286,102 294,84 284,68 C282,84 274,96 258,102 Z"/>
+        </g>
+
+        <!-- Tầng 3: Dải Ruy-băng Lụa Xanh Thêu Chỉ Vàng Uốn Lượn Hai Bên -->
+        <g filter="url(#fDrop)">
+          <path d="M72,118 L24,108 L38,126 L18,142 L68,146 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="2.5"/>
+          <path d="M308,118 L356,108 L342,126 L362,142 L312,146 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="2.5"/>
+        </g>
+
+        <!-- Tầng 4: Vương Miện Vàng 5 Đỉnh Đính Đá Quý Trên Đỉnh Khiên -->
+        <g filter="url(#fDrop)">
+          <polygon points="154,36 144,12 166,24 178,7 190,22 202,7 214,24 236,12 226,36" fill="url(#gGold)" stroke="#78350F" stroke-width="1.4"/>
+          <rect x="152" y="34" width="76" height="7" rx="3.5" fill="url(#gGoldBevel)" stroke="#78350F" stroke-width="1.2"/>
+          <circle cx="144" cy="11" r="2.8" fill="#FFFBEB"/>
+          <circle cx="178" cy="6" r="3.2" fill="#38BDF8"/>
+          <circle cx="190" cy="12" r="2.5" fill="#FEF08A"/>
+          <circle cx="202" cy="6" r="3.2" fill="#38BDF8"/>
+          <circle cx="236" cy="11" r="2.8" fill="#FFFBEB"/>
+        </g>
+
+        <!-- Tầng 5: Khiên Vàng 3D Phát Sáng (Glowing Gold Shield) & Con Số 10 -->
+        <g filter="url(#fDrop)">
+          <!-- Vành khiên kim loại vàng 3D -->
+          <path d="M190,40 L250,52 L244,94 C238,124 190,140 190,140 C190,140 142,124 136,94 L130,52 Z" fill="url(#gGold)" stroke="#FFFBEB" stroke-width="2"/>
+          <!-- Viền men Xanh Hoàng Gia sâu bên trong -->
+          <path d="M190,46 L242,57 L237,92 C232,118 190,132 190,132 C190,132 148,118 143,92 L138,57 Z" fill="url(#gShieldCore)" stroke="#1E3A8A" stroke-width="5"/>
+          <!-- Đường chỉ vàng phát sáng trong lòng Khiên -->
+          <path d="M190,51 L236,61 L231,90 C227,112 190,125 190,125 C190,125 153,112 149,90 L144,61 Z" fill="none" stroke="#FEF08A" stroke-width="1.6"/>
+          <!-- Con số 10 3D nổi bật chính giữa Khiên -->
+          <text x="190" y="106" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="54" fill="#78350F" dy="3">10</text>
+          <text x="190" y="106" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="54" fill="url(#gBlueEnamel)" stroke="url(#gGold)" stroke-width="3">10</text>
+        </g>
+
+        <!-- Tầng 6: Băng Ruy-băng Chính Tầng 1 ("THẬP ĐẠI") - Ôm trọn chữ, không đè chi tiết khác -->
+        <g filter="url(#fDrop)">
+          <path d="M62,116 Q190,102 318,116 L308,152 Q190,138 72,152 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="3.2"/>
+          <path d="M68,120 Q190,106 312,120" stroke="#FEF08A" stroke-width="1.2" fill="none" opacity="0.8"/>
+          <text x="190" y="141" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="30" fill="#090D16" dy="2.5" letter-spacing="1.5">THẬP ĐẠI</text>
+          <text x="190" y="141" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="30" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2" letter-spacing="1.5">THẬP ĐẠI</text>
+        </g>
+
+        <!-- Tầng 7: Băng Ruy-băng Chính Tầng 2 ("★ THẦN TỐC ★") -->
+        <g filter="url(#fDrop)">
+          <path d="M46,150 Q190,138 334,150 L322,184 Q190,172 58,184 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="3"/>
+          <text x="190" y="173" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="24" fill="#090D16" dy="2" letter-spacing="1.2">★ THẦN TỐC ★</text>
+          <text x="190" y="173" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="24" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="1" letter-spacing="1.2">★ THẦN TỐC ★</text>
+        </g>
+
+        <!-- Tầng 8: Huy Chương Ngôi Sao Vàng 3D Khóa Đáy Huy Hiệu -->
+        <g filter="url(#fDrop)">
+          <circle cx="190" cy="194" r="17" fill="url(#gGold)" stroke="#78350F" stroke-width="2"/>
+          <polygon points="190,180 194,189 204,189 196,195 199,205 190,199 181,205 184,195 176,189 186,189" fill="#FFFBEB" stroke="#92400E" stroke-width="0.8"/>
+        </g>
+      </svg>`;
+
+      const svgBlob = new Blob([svgMarkup], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 760;
+        canvas.height = 450;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, 760, 450);
+        URL.revokeObjectURL(url);
+        const pngDataUrl = canvas.toDataURL('image/png');
+        if (!activeTransparentLogoPNG) {
+          applyLogoPNGToUI(pngDataUrl);
+        }
+      };
+      img.src = url;
+    }
+
+    // 2. Thuật toán Photoshop AI Flood-Fill Alpha Matting: Tự động xóa nền đen + xóa watermark góc phải của ảnh 3D sang PNG trong suốt
+    function removeBlackBackgroundToTransparentPNG(imgElement, callback) {
+      const canvas = document.createElement('canvas');
+      const maxDim = 520;
+      const scale = Math.min(1, maxDim / Math.max(imgElement.width, imgElement.height));
+      const W = Math.round(imgElement.width * scale);
+      const H = Math.round(imgElement.height * scale);
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(imgElement, 0, 0, W, H);
+
+      const imgData = ctx.getImageData(0, 0, W, H);
+      const data = imgData.data;
+      const visited = new Uint8Array(W * H);
+      const isBg = new Uint8Array(W * H);
+      const queue = new Int32Array(W * H);
+      let head = 0, tail = 0;
+
+      // Xóa tự động ngôi sao watermark ở góc dưới bên phải (nếu có)
+      for (let y = Math.floor(H * 0.87); y < H; y++) {
+        for (let x = Math.floor(W * 0.87); x < W; x++) {
+          const p = y * W + x;
+          visited[p] = 1;
+          isBg[p] = 1;
+          queue[tail++] = p;
+        }
+      }
+
+      // Đưa toàn bộ viền ngoài của bức ảnh vào hàng đợi loang màu (Magic Wand Flood-Fill)
+      for (let x = 0; x < W; x++) {
+        let pTop = x, pBot = (H - 1) * W + x;
+        if (!visited[pTop]) { visited[pTop] = 1; isBg[pTop] = 1; queue[tail++] = pTop; }
+        if (!visited[pBot]) { visited[pBot] = 1; isBg[pBot] = 1; queue[tail++] = pBot; }
+      }
+      for (let y = 0; y < H; y++) {
+        let pLeft = y * W, pRight = y * W + (W - 1);
+        if (!visited[pLeft]) { visited[pLeft] = 1; isBg[pLeft] = 1; queue[tail++] = pLeft; }
+        if (!visited[pRight]) { visited[pRight] = 1; isBg[pRight] = 1; queue[tail++] = pRight; }
+      }
+
+      // Hàm kiểm tra điểm ảnh có phải nền tối hoặc quầng đen/xanh mờ bên ngoài huy hiệu không
+      function isOuterDarkBackground(idx) {
+        const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+        // Giữ lại tuyệt đối các chi tiết Vàng Kim (r > 95, g > 70) và Xanh Sáng của dải lụa
+        if (r > 90 && g > 68 && r > b * 1.15) return false;
+        if (b > 135 && luma > 65) return false;
+        return luma < 56;
+      }
+
+      const dirs = [-1, 1, -W, W];
+      while (head < tail) {
+        const curr = queue[head++];
+        const cx = curr % W;
+        for (let d = 0; d < 4; d++) {
+          const next = curr + dirs[d];
+          if (next < 0 || next >= W * H || visited[next]) continue;
+          const nx = next % W;
+          if (Math.abs( nx - cx ) > 1) continue;
+          visited[next] = 1;
+          if (isOuterDarkBackground(next * 4)) {
+            isBg[next] = 1;
+            queue[tail++] = next;
+          }
+        }
+      }
+
+      // Xóa nền sang Alpha = 0 và làm mềm viền (Feathering) chuẩn Photoshop
+      for (let i = 0; i < W * H; i++) {
+        const idx = i * 4;
+        if (isBg[i]) {
+          data[idx + 3] = 0;
+        } else {
+          // Kiểm tra nếu sát cạnh nền thì khử viền đen (Defringe / Feather)
+          const x = i % W, y = Math.floor(i / W);
+          if (x > 0 && x < W - 1 && y > 0 && y < H - 1) {
+            const bgNeighbors = isBg[i - 1] + isBg[i + 1] + isBg[i - W] + isBg[i + W];
+            if (bgNeighbors > 0) {
+              const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+              const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+              if (luma < 85) {
+                data[idx + 3] = Math.round((luma / 85) * 200);
+              }
+            }
+          }
+        }
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+      callback(canvas.toDataURL('image/png'));
+    }
+
+    function applyLogoPNGToUI(pngUrl) {
+      activeTransparentLogoPNG = pngUrl;
+      const logoImg = document.getElementById('speed-logo-png');
+      if (logoImg) logoImg.src = pngUrl;
+    }
+
+    function handleCustomLogoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          removeBlackBackgroundToTransparentPNG(img, (transparentPngUrl) => {
+            applyLogoPNGToUI(transparentPngUrl);
+            try { localStorage.setItem('fh_custom_logo_png_v27', transparentPngUrl); } catch (err) {}
+            publishPacket('state/logo', { type: 'SYNC_LOGO_PNG', id: 'admin', logoPng: transparentPngUrl }, true);
+            openRoundSpeedModal();
+            alert("✅ Đã tự động xóa nền đen và chuyển thành ảnh PNG trong suốt thành công!");
+          });
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetToDefaultStudioLogo() {
+      try { localStorage.removeItem('fh_custom_logo_png_v27'); } catch (e) {}
+      activeTransparentLogoPNG = '';
+      renderStudioTransparentLogoPNG();
+      setTimeout(() => {
+        publishPacket('state/logo', { type: 'SYNC_LOGO_PNG', id: 'admin', logoPng: activeTransparentLogoPNG }, true);
+        openRoundSpeedModal();
+      }, 150);
+    }
+
+    function downloadTransparentLogoPNG() {
+      if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh PNG...");
+      const a = document.createElement('a');
+      a.href = activeTransparentLogoPNG;
+      a.download = 'Logo-Thap-Dai-Than-Toc-Xoa-Nen.png';
+      a.click();
+    }
+
+    // Khởi tạo Logo PNG Xóa Nền ngay khi mở trang (Ưu tiên ảnh 3D đã lưu hoặc tự động tách nền file thap dai cao thu.png nếu có trên GitHub)
+    (function initLogoSystem() {
+      try {
+        const savedCustom = localStorage.getItem('fh_custom_logo_png_v27');
+        if (savedCustom && savedCustom.startsWith('data:image/png')) {
+          applyLogoPNGToUI(savedCustom);
+        } else {
+          renderStudioTransparentLogoPNG();
+        }
+      } catch (e) {
+        renderStudioTransparentLogoPNG();
+      }
+      // Tự động dò nếu anh Tuấn có tải file "thap dai cao thu.png" lên cùng thư mục GitHub thì tự động tách nền luôn
+      ['thap dai cao thu.png', 'thap-dai-cao-thu.png', 'logo.png'].forEach(fileName => {
+        const probe = new Image();
+        probe.onload = function() {
+          removeBlackBackgroundToTransparentPNG(probe, (pngUrl) => {
+            applyLogoPNGToUI(pngUrl);
+          });
+        };
+        probe.src = fileName;
+      });
+    })();
+
+    // =========================================================================
+    // 1. BẢO MẬT & LƯU TRỮ 4 TẦNG
+    // =========================================================================
     const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
     const clientRateLimits = {};
 
@@ -630,7 +793,6 @@
       return clientRateLimits[senderId].count > 15;
     }
 
-    // LƯU TRỮ 4 TẦNG
     const IDB_NAME = "FourHomeMegaArenaDB_V21";
     const IDB_STORE = "kv_store";
 
@@ -1267,7 +1429,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh26_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh27_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -1288,7 +1450,7 @@
         });
         c.on('message', (fullTopic, message) => {
           const str = message.toString();
-          if (!str || str.length > 95000) return;
+          if (!str || str.length > 180000) return;
           try {
             const data = JSON.parse(str);
             handleIncomingPacket(fullTopic.replace(`${BASE_TOPIC}/`, ''), data);
@@ -1356,7 +1518,12 @@
         seenMsgIds.add(data._mid);
       }
 
-      if (data.type === 'PLAYER_JOIN' || data.type === 'PLAYER_LOGOUT') {
+      if (data.type === 'SYNC_LOGO_PNG') {
+        if (data.logoPng && data.logoPng.startsWith('data:image/png')) {
+          applyLogoPNGToUI(data.logoPng);
+          try { localStorage.setItem('fh_custom_logo_png_v27', data.logoPng); } catch (e) {}
+        }
+      } else if (data.type === 'PLAYER_JOIN' || data.type === 'PLAYER_LOGOUT') {
         if (data.id && data.name) {
           const cleanName = sanitizeText(data.name, 12);
           const accKey = normalizeAccountKey(cleanName);
