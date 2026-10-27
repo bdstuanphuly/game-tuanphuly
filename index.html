@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Mega Arena V27</title>
+  <title>Four Home Mega - Mega Arena V28</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -34,8 +34,11 @@
       transform: translateZ(0);
       backface-visibility: hidden;
     }
-    .png-emblem-glow {
-      filter: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.45)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.35));
+    /* Đổ bóng sáng nhẹ làm nổi bật Logo PNG đã khử sạch viền đen */
+    .png-emblem-clean {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: high-quality;
+      filter: drop-shadow(0 6px 10px rgba(245, 158, 11, 0.28));
     }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -53,7 +56,7 @@
   <div class="w-full max-w-[440px] flex flex-wrap justify-between items-center gap-1 mb-2 px-1">
     <div class="flex items-center gap-1.5">
       <span id="conn-status" class="text-[10px] text-amber-300 font-bold">🟡 Đang kết nối...</span>
-      <span class="text-[9px] bg-emerald-950/90 text-emerald-300 border border-emerald-400/50 px-2 py-0.5 rounded-full font-extrabold shadow">🛡️ 4K-Shield V27</span>
+      <span class="text-[9px] bg-emerald-950/90 text-emerald-300 border border-emerald-400/50 px-2 py-0.5 rounded-full font-extrabold shadow">🛡️ 4K-Shield V28</span>
     </div>
     <div class="flex items-center gap-1">
       <button onclick="openPrevRankModal()" class="text-[10px] text-emerald-300 hover:text-white bg-slate-900/85 px-2.5 py-1 rounded-full border border-emerald-500/40 shadow cursor-pointer font-bold">
@@ -79,19 +82,19 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ PHOTOSHOP XÓA NỀN ĐEN ẢNH 3D SANG PNG TRONG SUỐT -->
+    <!-- CÔNG CỤ NẠP LOGO 3D SIÊU TỐC: TỰ KHỬ VIỀN ĐEN & ÉP ĐỒNG BỘ MỌI ĐIỆN THOẠI -->
     <div class="flex flex-wrap items-center justify-between gap-1.5 bg-slate-800/90 px-2.5 py-1.5 rounded-xl border border-slate-700">
-      <span class="text-[10px] font-bold text-sky-300">🎨 Logo PNG Xóa Nền:</span>
-      <div class="flex gap-1.5">
+      <span id="logo-sync-status" class="text-[10px] font-bold text-sky-300">🎨 Logo PNG (Khử sạch viền đen):</span>
+      <div class="flex gap-1">
         <label for="adminLogoInput" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg cursor-pointer shadow">
-          🖼️ Nạp Logo 3D (Tự xóa nền)
+          🖼️ Nạp Logo & Đồng bộ ĐT
         </label>
         <input id="adminLogoInput" type="file" accept="image/*" onchange="handleCustomLogoUpload(event)" class="hidden">
-        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 font-bold px-2 py-1 rounded-lg cursor-pointer">
-          📥 Tải file PNG
+        <button onclick="forceBroadcastLogoNow()" class="text-[10px] bg-sky-600 hover:bg-sky-500 text-white font-bold px-2 py-1 rounded-lg cursor-pointer shadow" title="Ép toàn bộ điện thoại cập nhật lại Logo ngay">
+          📡 Ép đồng bộ
         </button>
-        <button onclick="resetToDefaultStudioLogo()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold px-2 py-1 rounded-lg cursor-pointer" title="Khôi phục Logo 3D mặc định">
-          🔄 Mặc định
+        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 font-bold px-2 py-1 rounded-lg cursor-pointer">
+          📥 Tải PNG
         </button>
       </div>
     </div>
@@ -132,7 +135,7 @@
   <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[660px] border border-white/25 relative"
        style="background: linear-gradient(180deg, rgba(255,240,245,0.24) 0%, rgba(254,215,170,0.20) 50%, rgba(15,23,42,0.55) 100%); backdrop-filter: blur(12px);">
 
-    <!-- MÀN HÌNH 1: ĐĂNG KÝ / ĐĂNG NHẬP -->
+    <!-- MÀN HÌNH 1: ĐĂNG KÝ / ĐĂNG NHẬP (TỐI ĐA 20 KÝ TỰ) -->
     <div id="screen-login" class="flex-1 flex flex-col justify-center items-center p-4 sm:p-5 text-center bg-white/95 m-2.5 rounded-[24px] shadow-xl">
       <div class="w-14 h-14 bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 text-white rounded-2xl flex items-center justify-center text-3xl font-black mb-1.5 shadow-lg border-2 border-amber-200">🏆</div>
       <h1 class="text-xl font-black text-slate-800 tracking-tight">FOUR HOME MEGA</h1>
@@ -168,12 +171,13 @@
         💡 Nếu bạn đã tạo tài khoản trước đó (hoặc chuyển sang điện thoại/máy tính khác), chỉ cần nhập đúng <strong>Tên tài khoản</strong> và <strong>Mật khẩu số 1</strong>. Hệ thống sẽ tự động tải lại Ảnh đại diện 4K và Điểm số của bạn!
       </div>
 
+      <!-- ĐÃ NÂNG TỐI ĐA LÊN 20 KÝ TỰ THEO YÊU CẦU CỦA ANH TUẤN -->
       <div class="w-full text-left mb-2.5">
         <div class="flex justify-between items-center mb-1">
-          <label class="text-[11px] font-extrabold text-slate-700">👤 Tên tài khoản (Tối đa 12 ký tự):</label>
-          <span id="char-count" class="text-[10px] font-bold text-indigo-600">0/12 ký tự</span>
+          <label class="text-[11px] font-extrabold text-slate-700">👤 Tên tài khoản (Tối đa 20 ký tự):</label>
+          <span id="char-count" class="text-[10px] font-bold text-indigo-600">0/20 ký tự</span>
         </div>
-        <input id="playerName" type="text" maxlength="12" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (cho phép @, #, _, *...)" class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600 font-bold text-sm text-center">
+        <input id="playerName" type="text" maxlength="20" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (tối đa 20 ký tự)..." class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600 font-bold text-sm text-center">
       </div>
 
       <div class="w-full text-left mb-3">
@@ -378,15 +382,15 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (ẢNH PNG XÓA NỀN 100%) -->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (KHỬ SẠCH VIỀN ĐEN)     -->
   <!-- ===================================================================== -->
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-2.5 pt-12">
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-2.5 pt-14">
     <div class="w-full max-w-[410px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-300 p-3.5 pt-2 flex flex-col max-h-[88vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer z-20">✖</button>
 
-      <!-- ẢNH PNG XÓA NỀN TRONG SUỐT NỔI TRÊN ĐỈNH BẢNG (KHÔNG CÓ HỘP ĐEN) -->
+      <!-- LOGO TRONG SUỐT ĐÃ KHỬ SẠCH VIỀN ĐEN MỜ & ĐỒNG BỘ MỌI ĐIỆN THOẠI -->
       <div class="flex justify-center -mt-16 mb-1 select-none pointer-events-none relative z-10">
-        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc PNG" class="w-[280px] h-[165px] object-contain png-emblem-glow">
+        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[270px] h-[165px] object-contain png-emblem-clean">
       </div>
 
       <div id="speed-modal-answer-bar" class="bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl px-3 py-1.5 text-[10px] font-bold text-center mb-2">
@@ -445,25 +449,20 @@
 
   <script>
     // =========================================================================
-    // 0. ĐỘNG CƠ ĐỒ HỌA PHOTOSHOP STUDIO: TẠO & XÓA NỀN LOGO PNG TRONG SUỐT 100%
+    // 0. ĐỘNG CƠ PHOTOSHOP SIÊU TỐC V28: KHỬ SẠCH VIỀN ĐEN MỜ, CẮT SÁT KHUNG
+    //    & NÉN WEBP TRONG SUỐT SIÊU NHẸ ĐỂ ĐỒNG BỘ TỨC THỜI SANG ĐIỆN THOẠI
     // =========================================================================
     let activeTransparentLogoPNG = '';
 
-    // 1. Kết xuất Huy hiệu 3D "10 THẬP ĐẠI THẦN TỐC" chuẩn AAA Game Studio ra ảnh PNG xóa nền (Alpha = 0)
+    // 1. Huy hiệu mặc định (Không có shadow đen để không bị viền đen mờ trên nền trắng)
     function renderStudioTransparentLogoPNG() {
-      const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="450" viewBox="0 0 380 225">
+      const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" width="680" height="410" viewBox="0 0 380 225">
         <defs>
           <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#FFFBEB"/>
-            <stop offset="22%" stop-color="#FEF08A"/>
-            <stop offset="50%" stop-color="#F59E0B"/>
-            <stop offset="82%" stop-color="#B45309"/>
-            <stop offset="100%" stop-color="#78350F"/>
-          </linearGradient>
-          <linearGradient id="gGoldBevel" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#FEF08A"/>
-            <stop offset="40%" stop-color="#F59E0B"/>
-            <stop offset="75%" stop-color="#D97706"/>
+            <stop offset="25%" stop-color="#FEF08A"/>
+            <stop offset="55%" stop-color="#F59E0B"/>
+            <stop offset="85%" stop-color="#B45309"/>
             <stop offset="100%" stop-color="#78350F"/>
           </linearGradient>
           <radialGradient id="gShieldCore" cx="50%" cy="42%" r="55%">
@@ -473,101 +472,46 @@
             <stop offset="100%" stop-color="#92400E"/>
           </radialGradient>
           <linearGradient id="gRoyalRibbon" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#0F172A"/>
-            <stop offset="18%" stop-color="#1E3A8A"/>
-            <stop offset="50%" stop-color="#2563EB"/>
-            <stop offset="82%" stop-color="#1E3A8A"/>
-            <stop offset="100%" stop-color="#0F172A"/>
+            <stop offset="0%" stop-color="#1E3A8A"/>
+            <stop offset="25%" stop-color="#2563EB"/>
+            <stop offset="50%" stop-color="#3B82F6"/>
+            <stop offset="75%" stop-color="#2563EB"/>
+            <stop offset="100%" stop-color="#1E3A8A"/>
           </linearGradient>
           <linearGradient id="gBlueEnamel" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#93C5FD"/>
-            <stop offset="35%" stop-color="#2563EB"/>
-            <stop offset="80%" stop-color="#1E3A8A"/>
-            <stop offset="100%" stop-color="#0F172A"/>
+            <stop offset="40%" stop-color="#2563EB"/>
+            <stop offset="100%" stop-color="#1E3A8A"/>
           </linearGradient>
-          <linearGradient id="gBolt" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#E0F2FE"/>
-            <stop offset="40%" stop-color="#38BDF8"/>
-            <stop offset="100%" stop-color="#1D4ED8"/>
-          </linearGradient>
-          <filter id="fDrop" x="-15%" y="-15%" width="130%" height="130%">
-            <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#020617" flood-opacity="0.72"/>
-          </filter>
         </defs>
-
-        <!-- Tầng 1: Đôi cánh Vàng Hoàng Gia & Tia sét Điện Quang hai bên (Nền ngoài hoàn toàn trong suốt) -->
-        <g filter="url(#fDrop)">
-          <!-- Cánh vàng bên trái -->
-          <path d="M120,76 C75,64 46,44 36,24 C58,32 86,44 126,58 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
-          <path d="M114,90 C66,80 36,62 24,42 C50,50 82,62 120,74 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
-          <path d="M112,104 C68,98 38,84 26,66 C52,72 82,82 116,90 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
-          <!-- Cánh vàng bên phải -->
-          <path d="M260,76 C305,64 334,44 344,24 C322,32 294,44 254,58 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
-          <path d="M266,90 C314,80 344,62 356,42 C330,50 298,62 260,74 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
-          <path d="M268,104 C312,98 342,84 354,66 C328,72 298,82 264,90 Z" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2"/>
-          <!-- 2 Tia sét xanh viền vàng tạo uy lực thần tốc -->
-          <polygon points="82,22 48,66 76,68 54,112 108,58 78,56" fill="url(#gGold)" stroke="url(#gBolt)" stroke-width="2.2"/>
-          <polygon points="298,22 332,66 304,68 326,112 272,58 302,56" fill="url(#gGold)" stroke="url(#gBolt)" stroke-width="2.2"/>
-        </g>
-
-        <!-- Tầng 2: Vòng Nguyệt Quế Vàng 3D xếp lớp dày dặn ôm quanh Khiên -->
-        <g fill="url(#gGold)" stroke="#78350F" stroke-width="1" filter="url(#fDrop)">
-          <path d="M122,118 C92,98 84,62 104,32 C98,58 106,86 132,104 Z"/>
-          <path d="M258,118 C288,98 296,62 276,32 C282,58 274,86 248,104 Z"/>
-          <path d="M112,86 C94,76 90,56 102,42 C102,58 108,72 120,82 Z"/>
-          <path d="M268,86 C286,76 290,56 278,42 C278,58 272,72 260,82 Z"/>
-          <path d="M116,108 C94,102 86,84 96,68 C98,84 106,96 122,102 Z"/>
-          <path d="M264,108 C286,102 294,84 284,68 C282,84 274,96 258,102 Z"/>
-        </g>
-
-        <!-- Tầng 3: Dải Ruy-băng Lụa Xanh Thêu Chỉ Vàng Uốn Lượn Hai Bên -->
-        <g filter="url(#fDrop)">
+        <g>
+          <path d="M120,76 C75,64 46,44 36,24 C58,32 86,44 126,58 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
+          <path d="M114,90 C66,80 36,62 24,42 C50,50 82,62 120,74 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
+          <path d="M112,104 C68,98 38,84 26,66 C52,72 82,82 116,90 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
+          <path d="M260,76 C305,64 334,44 344,24 C322,32 294,44 254,58 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
+          <path d="M266,90 C314,80 344,62 356,42 C330,50 298,62 260,74 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
+          <path d="M268,104 C312,98 342,84 354,66 C328,72 298,82 264,90 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
+          <polygon points="82,22 48,66 76,68 54,112 108,58 78,56" fill="url(#gGold)" stroke="#38BDF8" stroke-width="2"/>
+          <polygon points="298,22 332,66 304,68 326,112 272,58 302,56" fill="url(#gGold)" stroke="#38BDF8" stroke-width="2"/>
+          <path d="M122,118 C92,98 84,62 104,32 C98,58 106,86 132,104 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1"/>
+          <path d="M258,118 C288,98 296,62 276,32 C282,58 274,86 248,104 Z" fill="url(#gGold)" stroke="#92400E" stroke-width="1"/>
           <path d="M72,118 L24,108 L38,126 L18,142 L68,146 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="2.5"/>
           <path d="M308,118 L356,108 L342,126 L362,142 L312,146 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="2.5"/>
-        </g>
-
-        <!-- Tầng 4: Vương Miện Vàng 5 Đỉnh Đính Đá Quý Trên Đỉnh Khiên -->
-        <g filter="url(#fDrop)">
-          <polygon points="154,36 144,12 166,24 178,7 190,22 202,7 214,24 236,12 226,36" fill="url(#gGold)" stroke="#78350F" stroke-width="1.4"/>
-          <rect x="152" y="34" width="76" height="7" rx="3.5" fill="url(#gGoldBevel)" stroke="#78350F" stroke-width="1.2"/>
+          <polygon points="154,36 144,12 166,24 178,7 190,22 202,7 214,24 236,12 226,36" fill="url(#gGold)" stroke="#92400E" stroke-width="1.4"/>
+          <rect x="152" y="34" width="76" height="7" rx="3.5" fill="url(#gGold)" stroke="#92400E" stroke-width="1.2"/>
           <circle cx="144" cy="11" r="2.8" fill="#FFFBEB"/>
           <circle cx="178" cy="6" r="3.2" fill="#38BDF8"/>
           <circle cx="190" cy="12" r="2.5" fill="#FEF08A"/>
           <circle cx="202" cy="6" r="3.2" fill="#38BDF8"/>
           <circle cx="236" cy="11" r="2.8" fill="#FFFBEB"/>
-        </g>
-
-        <!-- Tầng 5: Khiên Vàng 3D Phát Sáng (Glowing Gold Shield) & Con Số 10 -->
-        <g filter="url(#fDrop)">
-          <!-- Vành khiên kim loại vàng 3D -->
           <path d="M190,40 L250,52 L244,94 C238,124 190,140 190,140 C190,140 142,124 136,94 L130,52 Z" fill="url(#gGold)" stroke="#FFFBEB" stroke-width="2"/>
-          <!-- Viền men Xanh Hoàng Gia sâu bên trong -->
-          <path d="M190,46 L242,57 L237,92 C232,118 190,132 190,132 C190,132 148,118 143,92 L138,57 Z" fill="url(#gShieldCore)" stroke="#1E3A8A" stroke-width="5"/>
-          <!-- Đường chỉ vàng phát sáng trong lòng Khiên -->
-          <path d="M190,51 L236,61 L231,90 C227,112 190,125 190,125 C190,125 153,112 149,90 L144,61 Z" fill="none" stroke="#FEF08A" stroke-width="1.6"/>
-          <!-- Con số 10 3D nổi bật chính giữa Khiên -->
-          <text x="190" y="106" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="54" fill="#78350F" dy="3">10</text>
+          <path d="M190,46 L242,57 L237,92 C232,118 190,132 190,132 C190,132 148,118 143,92 L138,57 Z" fill="url(#gShieldCore)" stroke="#1E3A8A" stroke-width="4.5"/>
           <text x="190" y="106" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="54" fill="url(#gBlueEnamel)" stroke="url(#gGold)" stroke-width="3">10</text>
-        </g>
-
-        <!-- Tầng 6: Băng Ruy-băng Chính Tầng 1 ("THẬP ĐẠI") - Ôm trọn chữ, không đè chi tiết khác -->
-        <g filter="url(#fDrop)">
           <path d="M62,116 Q190,102 318,116 L308,152 Q190,138 72,152 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="3.2"/>
-          <path d="M68,120 Q190,106 312,120" stroke="#FEF08A" stroke-width="1.2" fill="none" opacity="0.8"/>
-          <text x="190" y="141" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="30" fill="#090D16" dy="2.5" letter-spacing="1.5">THẬP ĐẠI</text>
           <text x="190" y="141" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="30" fill="url(#gGold)" stroke="#78350F" stroke-width="1.2" letter-spacing="1.5">THẬP ĐẠI</text>
-        </g>
-
-        <!-- Tầng 7: Băng Ruy-băng Chính Tầng 2 ("★ THẦN TỐC ★") -->
-        <g filter="url(#fDrop)">
           <path d="M46,150 Q190,138 334,150 L322,184 Q190,172 58,184 Z" fill="url(#gRoyalRibbon)" stroke="url(#gGold)" stroke-width="3"/>
-          <text x="190" y="173" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="24" fill="#090D16" dy="2" letter-spacing="1.2">★ THẦN TỐC ★</text>
           <text x="190" y="173" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="24" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="1" letter-spacing="1.2">★ THẦN TỐC ★</text>
-        </g>
-
-        <!-- Tầng 8: Huy Chương Ngôi Sao Vàng 3D Khóa Đáy Huy Hiệu -->
-        <g filter="url(#fDrop)">
-          <circle cx="190" cy="194" r="17" fill="url(#gGold)" stroke="#78350F" stroke-width="2"/>
+          <circle cx="190" cy="194" r="17" fill="url(#gGold)" stroke="#92400E" stroke-width="2"/>
           <polygon points="190,180 194,189 204,189 196,195 199,205 190,199 181,205 184,195 176,189 186,189" fill="#FFFBEB" stroke="#92400E" stroke-width="0.8"/>
         </g>
       </svg>`;
@@ -577,30 +521,38 @@
       const img = new Image();
       img.onload = function() {
         const canvas = document.createElement('canvas');
-        canvas.width = 760;
-        canvas.height = 450;
+        canvas.width = 420;
+        canvas.height = 250;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, 760, 450);
+        ctx.drawImage(img, 0, 0, 420, 250);
         URL.revokeObjectURL(url);
-        const pngDataUrl = canvas.toDataURL('image/png');
-        if (!activeTransparentLogoPNG) {
-          applyLogoPNGToUI(pngDataUrl);
-        }
+        const dataUrl = exportCompressedTransparentDataURL(canvas);
+        if (!activeTransparentLogoPNG) applyLogoPNGToUI(dataUrl);
       };
       img.src = url;
     }
 
-    // 2. Thuật toán Photoshop AI Flood-Fill Alpha Matting: Tự động xóa nền đen + xóa watermark góc phải của ảnh 3D sang PNG trong suốt
+    // Xuất ảnh trong suốt siêu nhẹ (Ưu tiên WebP Alpha ~20KB để truyền MQTT tức thời sang điện thoại)
+    function exportCompressedTransparentDataURL(canvas) {
+      try {
+        const webp = canvas.toDataURL('image/webp', 0.84);
+        if (webp && webp.startsWith('data:image/webp')) return webp;
+      } catch (e) {}
+      return canvas.toDataURL('image/png');
+    }
+
+    // 2. THUẬT TOÁN PHOTOSHOP DEFRINGE & COLOR DECONTAMINATION:
+    //    Tách sạch nền đen + Khử 100% viền đen mờ quanh logo + Cắt sát khung + Nén siêu tốc
     function removeBlackBackgroundToTransparentPNG(imgElement, callback) {
-      const canvas = document.createElement('canvas');
-      const maxDim = 520;
-      const scale = Math.min(1, maxDim / Math.max(imgElement.width, imgElement.height));
+      const workCanvas = document.createElement('canvas');
+      const maxWorkDim = 440;
+      const scale = Math.min(1, maxWorkDim / Math.max(imgElement.width, imgElement.height));
       const W = Math.round(imgElement.width * scale);
       const H = Math.round(imgElement.height * scale);
-      canvas.width = W;
-      canvas.height = H;
-      const ctx = canvas.getContext('2d');
+      workCanvas.width = W;
+      workCanvas.height = H;
+      const ctx = workCanvas.getContext('2d');
       ctx.drawImage(imgElement, 0, 0, W, H);
 
       const imgData = ctx.getImageData(0, 0, W, H);
@@ -610,9 +562,9 @@
       const queue = new Int32Array(W * H);
       let head = 0, tail = 0;
 
-      // Xóa tự động ngôi sao watermark ở góc dưới bên phải (nếu có)
-      for (let y = Math.floor(H * 0.87); y < H; y++) {
-        for (let x = Math.floor(W * 0.87); x < W; x++) {
+      // Bước 1: Xóa sạch ngôi sao watermark ở góc dưới bên phải (15% góc phải dưới)
+      for (let y = Math.floor(H * 0.84); y < H; y++) {
+        for (let x = Math.floor(W * 0.84); x < W; x++) {
           const p = y * W + x;
           visited[p] = 1;
           isBg[p] = 1;
@@ -620,7 +572,7 @@
         }
       }
 
-      // Đưa toàn bộ viền ngoài của bức ảnh vào hàng đợi loang màu (Magic Wand Flood-Fill)
+      // Đưa 4 cạnh biên vào hàng đợi quét loang màu
       for (let x = 0; x < W; x++) {
         let pTop = x, pBot = (H - 1) * W + x;
         if (!visited[pTop]) { visited[pTop] = 1; isBg[pTop] = 1; queue[tail++] = pTop; }
@@ -632,77 +584,173 @@
         if (!visited[pRight]) { visited[pRight] = 1; isBg[pRight] = 1; queue[tail++] = pRight; }
       }
 
-      // Hàm kiểm tra điểm ảnh có phải nền tối hoặc quầng đen/xanh mờ bên ngoài huy hiệu không
-      function isOuterDarkBackground(idx) {
+      // Nhận diện nền đen VÀ quầng đen/nâu/xanh tối mờ bao quanh ngoài huy hiệu
+      function isOuterDarkOrHaloPixel(idx) {
         const r = data[idx], g = data[idx + 1], b = data[idx + 2];
         const luma = 0.299 * r + 0.587 * g + 0.114 * b;
-        // Giữ lại tuyệt đối các chi tiết Vàng Kim (r > 95, g > 70) và Xanh Sáng của dải lụa
-        if (r > 90 && g > 68 && r > b * 1.15) return false;
-        if (b > 135 && luma > 65) return false;
-        return luma < 56;
+        const maxC = Math.max(r, g, b), minC = Math.min(r, g, b);
+        const sat = maxC - minC;
+
+        // Bảo vệ tuyệt đối chi tiết Vàng Kim sáng (Gold) và Xanh Lam sáng (Royal Blue)
+        const isBrightGold = (r > 115 && g > 80 && r > b * 1.35 && sat > 35);
+        const isBrightBlue = (b > 125 && b > r * 1.35 && sat > 40);
+        if (isBrightGold || isBrightBlue) return false;
+
+        // Xóa toàn bộ nền đen và quầng tối mờ (luma < 92 hoặc màu xám/đen độ bão hòa thấp)
+        if (luma < 78) return true;
+        if (luma < 105 && sat < 32) return true;
+        return false;
       }
 
-      const dirs = [-1, 1, -W, W];
+      const dirs = [-1, 1, -W, W, -W - 1, -W + 1, W - 1, W + 1];
       while (head < tail) {
         const curr = queue[head++];
         const cx = curr % W;
-        for (let d = 0; d < 4; d++) {
+        for (let d = 0; d < 8; d++) {
           const next = curr + dirs[d];
           if (next < 0 || next >= W * H || visited[next]) continue;
           const nx = next % W;
-          if (Math.abs( nx - cx ) > 1) continue;
+          if (Math.abs(nx - cx) > 1) continue;
           visited[next] = 1;
-          if (isOuterDarkBackground(next * 4)) {
+          if (isOuterDarkOrHaloPixel(next * 4)) {
             isBg[next] = 1;
             queue[tail++] = next;
           }
         }
       }
 
-      // Xóa nền sang Alpha = 0 và làm mềm viền (Feathering) chuẩn Photoshop
+      // Bước 2: Gọt viền đen (Morphological Edge Erosion 2 lớp) & Khử ám đen (Color Decontamination)
+      const distToBg = new Uint8Array(W * H);
+      distToBg.fill(255);
       for (let i = 0; i < W * H; i++) {
-        const idx = i * 4;
-        if (isBg[i]) {
-          data[idx + 3] = 0;
-        } else {
-          // Kiểm tra nếu sát cạnh nền thì khử viền đen (Defringe / Feather)
-          const x = i % W, y = Math.floor(i / W);
-          if (x > 0 && x < W - 1 && y > 0 && y < H - 1) {
-            const bgNeighbors = isBg[i - 1] + isBg[i + 1] + isBg[i - W] + isBg[i + W];
-            if (bgNeighbors > 0) {
-              const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-              const luma = 0.299 * r + 0.587 * g + 0.114 * b;
-              if (luma < 85) {
-                data[idx + 3] = Math.round((luma / 85) * 200);
+        if (isBg[i]) distToBg[i] = 0;
+      }
+      for (let pass = 1; pass <= 3; pass++) {
+        for (let y = 1; y < H - 1; y++) {
+          for (let x = 1; x < W - 1; x++) {
+            const i = y * W + x;
+            if (distToBg[i] > pass) {
+              if (distToBg[i - 1] === pass - 1 || distToBg[i + 1] === pass - 1 || distToBg[i - W] === pass - 1 || distToBg[i + W] === pass - 1) {
+                distToBg[i] = pass;
               }
             }
           }
         }
       }
 
+      let minX = W, minY = H, maxX = 0, maxY = 0;
+
+      for (let i = 0; i < W * H; i++) {
+        const idx = i * 4;
+        const d = distToBg[i];
+        if (d === 0) {
+          data[idx + 3] = 0;
+          continue;
+        }
+
+        let r = data[idx], g = data[idx + 1], b = data[idx + 2];
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        // Với các điểm ảnh nằm sát rìa (cách nền 1 - 3 pixel): Khử sạch viền đen mờ
+        if (d <= 3) {
+          if (luma < 95) {
+            data[idx + 3] = 0;
+            continue;
+          }
+          // Khử ám đen ở viền (Color Decontamination): Tăng độ sáng màu viền để không bị viền xám trên nền trắng
+          const boost = d === 1 ? 1.35 : (d === 2 ? 1.20 : 1.10);
+          data[idx] = Math.min(255, Math.round(r * boost));
+          data[idx + 1] = Math.min(255, Math.round(g * boost));
+          data[idx + 2] = Math.min(255, Math.round(b * boost));
+          data[idx + 3] = d === 1 ? Math.min(220, Math.round((luma - 80) * 2.2)) : 255;
+        }
+
+        if (data[idx + 3] > 20) {
+          const x = i % W, y = Math.floor(i / W);
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
+      }
+
       ctx.putImageData(imgData, 0, 0);
-      callback(canvas.toDataURL('image/png'));
+
+      // Bước 3: Tự động cắt sát khung (Auto-Trim) và nén siêu tốc sang WebP Alpha (~20KB)
+      if (maxX <= minX || maxY <= minY) {
+        minX = 0; minY = 0; maxX = W - 1; maxY = H - 1;
+      }
+      const pad = 4;
+      const cropX = Math.max(0, minX - pad);
+      const cropY = Math.max(0, minY - pad);
+      const cropW = Math.min(W - cropX, (maxX - minX + 1) + pad * 2);
+      const cropH = Math.min(H - cropY, (maxY - minY + 1) + pad * 2);
+
+      const outCanvas = document.createElement('canvas');
+      const targetMax = 350;
+      const outScale = Math.min(1, targetMax / Math.max(cropW, cropH));
+      outCanvas.width = Math.round(cropW * outScale);
+      outCanvas.height = Math.round(cropH * outScale);
+      const outCtx = outCanvas.getContext('2d');
+      outCtx.imageSmoothingEnabled = true;
+      outCtx.imageSmoothingQuality = 'high';
+      outCtx.clearRect(0, 0, outCanvas.width, outCanvas.height);
+      outCtx.drawImage(workCanvas, cropX, cropY, cropW, cropH, 0, 0, outCanvas.width, outCanvas.height);
+
+      callback(exportCompressedTransparentDataURL(outCanvas));
     }
 
-    function applyLogoPNGToUI(pngUrl) {
-      activeTransparentLogoPNG = pngUrl;
+    function applyLogoPNGToUI(dataUrl) {
+      if (!dataUrl) return;
+      activeTransparentLogoPNG = dataUrl;
       const logoImg = document.getElementById('speed-logo-png');
-      if (logoImg) logoImg.src = pngUrl;
+      if (logoImg) logoImg.src = dataUrl;
+    }
+
+    // Tự động ép đồng bộ Logo từ máy tính của Admin sang toàn bộ điện thoại thí sinh
+    function forceBroadcastLogoNow(showNotification = true) {
+      if (!activeTransparentLogoPNG) return;
+      // 1. Lưu giữ trên kênh Retained của tất cả các trạm MQTT (Cho người vào sau)
+      publishPacket('state/logo', {
+        type: 'SYNC_LOGO_PNG',
+        id: 'admin',
+        logoPng: activeTransparentLogoPNG
+      }, true);
+      // 2. Phát lệnh cưỡng bức trực tiếp trên kênh Events (Cho tất cả điện thoại đang mở cập nhật ngay lập tức)
+      publishPacket('events', {
+        type: 'FORCE_SYNC_LOGO',
+        id: 'admin',
+        logoPng: activeTransparentLogoPNG
+      }, false);
+
+      const statusEl = document.getElementById('logo-sync-status');
+      if (statusEl) {
+        const sizeKB = Math.round((activeTransparentLogoPNG.length * 3) / 4 / 1024);
+        statusEl.innerText = `✅ Đã đồng bộ ĐT (${sizeKB}KB)`;
+        statusEl.className = 'text-[10px] font-extrabold text-emerald-400';
+      }
+      if (showNotification) {
+        alert("📡 Đã ép đồng bộ Logo mới sang toàn bộ điện thoại của các thí sinh!");
+      }
     }
 
     function handleCustomLogoUpload(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
+      const statusEl = document.getElementById('logo-sync-status');
+      if (statusEl) statusEl.innerText = "⏳ Đang khử viền đen & nén...";
+
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
-          removeBlackBackgroundToTransparentPNG(img, (transparentPngUrl) => {
-            applyLogoPNGToUI(transparentPngUrl);
-            try { localStorage.setItem('fh_custom_logo_png_v27', transparentPngUrl); } catch (err) {}
-            publishPacket('state/logo', { type: 'SYNC_LOGO_PNG', id: 'admin', logoPng: transparentPngUrl }, true);
+          removeBlackBackgroundToTransparentPNG(img, (cleanCompressedDataUrl) => {
+            applyLogoPNGToUI(cleanCompressedDataUrl);
+            setPersistentData('fh_custom_logo_v28', cleanCompressedDataUrl);
+            forceBroadcastLogoNow(false);
             openRoundSpeedModal();
-            alert("✅ Đã tự động xóa nền đen và chuyển thành ảnh PNG trong suốt thành công!");
+            const sizeKB = Math.round((cleanCompressedDataUrl.length * 3) / 4 / 1024);
+            alert(`✅ Đã khử sạch viền đen mờ, nén siêu tốc (${sizeKB}KB) và tự động ép đồng bộ sang toàn bộ điện thoại thí sinh!`);
           });
         };
         img.src = e.target.result;
@@ -710,50 +758,16 @@
       reader.readAsDataURL(file);
     }
 
-    function resetToDefaultStudioLogo() {
-      try { localStorage.removeItem('fh_custom_logo_png_v27'); } catch (e) {}
-      activeTransparentLogoPNG = '';
-      renderStudioTransparentLogoPNG();
-      setTimeout(() => {
-        publishPacket('state/logo', { type: 'SYNC_LOGO_PNG', id: 'admin', logoPng: activeTransparentLogoPNG }, true);
-        openRoundSpeedModal();
-      }, 150);
-    }
-
     function downloadTransparentLogoPNG() {
-      if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh PNG...");
+      if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh...");
       const a = document.createElement('a');
       a.href = activeTransparentLogoPNG;
-      a.download = 'Logo-Thap-Dai-Than-Toc-Xoa-Nen.png';
+      a.download = 'Logo-Thap-Dai-Than-Toc-Sach-Vien.png';
       a.click();
     }
 
-    // Khởi tạo Logo PNG Xóa Nền ngay khi mở trang (Ưu tiên ảnh 3D đã lưu hoặc tự động tách nền file thap dai cao thu.png nếu có trên GitHub)
-    (function initLogoSystem() {
-      try {
-        const savedCustom = localStorage.getItem('fh_custom_logo_png_v27');
-        if (savedCustom && savedCustom.startsWith('data:image/png')) {
-          applyLogoPNGToUI(savedCustom);
-        } else {
-          renderStudioTransparentLogoPNG();
-        }
-      } catch (e) {
-        renderStudioTransparentLogoPNG();
-      }
-      // Tự động dò nếu anh Tuấn có tải file "thap dai cao thu.png" lên cùng thư mục GitHub thì tự động tách nền luôn
-      ['thap dai cao thu.png', 'thap-dai-cao-thu.png', 'logo.png'].forEach(fileName => {
-        const probe = new Image();
-        probe.onload = function() {
-          removeBlackBackgroundToTransparentPNG(probe, (pngUrl) => {
-            applyLogoPNGToUI(pngUrl);
-          });
-        };
-        probe.src = fileName;
-      });
-    })();
-
     // =========================================================================
-    // 1. BẢO MẬT & LƯU TRỮ 4 TẦNG
+    // 1. BẢO MẬT & LƯU TRỮ 4 TẦNG (NÂNG GIỚI HẠN TÊN TÀI KHOẢN LÊN 20 KÝ TỰ)
     // =========================================================================
     const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
     const clientRateLimits = {};
@@ -790,7 +804,7 @@
         return false;
       }
       clientRateLimits[senderId].count++;
-      return clientRateLimits[senderId].count > 15;
+      return clientRateLimits[senderId].count > 18;
     }
 
     const IDB_NAME = "FourHomeMegaArenaDB_V21";
@@ -849,7 +863,7 @@
       }
       try {
         let wn = (window.name && window.name.startsWith('{')) ? JSON.parse(window.name) : {};
-        if (strVal.length < 35000) {
+        if (strVal.length < 65000) {
           wn[key] = strVal;
           window.name = JSON.stringify(wn);
         }
@@ -898,10 +912,31 @@
       } catch (e) {}
     }
 
+    // Khởi tạo Logo khi tải trang (Khôi phục từ bộ nhớ 4 tầng hoặc tự động tách nền file thap dai cao thu.png)
+    (function initLogoSystem() {
+      const savedLogo = getPersistentData('fh_custom_logo_v28');
+      if (savedLogo && savedLogo.startsWith('data:image/')) {
+        applyLogoPNGToUI(savedLogo);
+      } else {
+        renderStudioTransparentLogoPNG();
+      }
+      ['thap dai cao thu.png', 'thap-dai-cao-thu.png', 'logo.png'].forEach(fileName => {
+        const probe = new Image();
+        probe.onload = function() {
+          removeBlackBackgroundToTransparentPNG(probe, (cleanUrl) => {
+            applyLogoPNGToUI(cleanUrl);
+            setPersistentData('fh_custom_logo_v28', cleanUrl);
+          });
+        };
+        probe.src = fileName;
+      });
+    })();
+
+    // Bộ đếm ký tự tối đa 20 ký tự
     function updateCharCount() {
       const inp = document.getElementById('playerName');
       const countEl = document.getElementById('char-count');
-      if (inp && countEl) countEl.innerText = `${inp.value.length}/12 ký tự`;
+      if (inp && countEl) countEl.innerText = `${inp.value.length}/20 ký tự`;
     }
 
     let authMode = 'register';
@@ -1375,6 +1410,9 @@
         renderLeaderboard();
       } else {
         idbGetAll((stored) => {
+          if (stored['fh_custom_logo_v28'] && stored['fh_custom_logo_v28'].startsWith('data:image/')) {
+            applyLogoPNGToUI(stored['fh_custom_logo_v28']);
+          }
           if (stored['fh_logged_out_v21'] === 'true') return;
           const idbName = stored['fh_locked_name_v20'], idbAvt = stored['fh_locked_avatar_v20'];
           if (idbName && idbAvt && !myName) {
@@ -1402,7 +1440,7 @@
 
     autoRestorePlayerSession();
 
-    // KẾT NỐI ĐA TỔNG ĐÀI MQTT
+    // KẾT NỐI ĐA TỔNG ĐÀI MQTT (NÂNG GIỚI HẠN GÓI TIN LÊN 500KB ĐỂ KHÔNG BAO GIỜ CHẶN LOGO)
     const BASE_TOPIC = 'fourhome_mega_suc_2026_v20_secure';
     const BROKER_URLS = [
       'wss://broker.hivemq.com:8884/mqtt',
@@ -1429,7 +1467,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh27_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh28_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -1442,6 +1480,16 @@
           updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
           if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
+          // Nếu đang là máy Admin và đã có Logo tùy chỉnh, tự động đẩy lên trạm vừa kết nối
+          if (isAdminMode && activeTransparentLogoPNG) {
+            c.publish(`${BASE_TOPIC}/state/logo`, JSON.stringify({
+              type: 'SYNC_LOGO_PNG',
+              id: 'admin',
+              logoPng: activeTransparentLogoPNG,
+              _ts: Date.now(),
+              _sig: computePacketSig('SYNC_LOGO_PNG', 'admin', Date.now())
+            }), { qos: 0, retain: true });
+          }
         });
         c.on('close', () => {
           c._isConnected = false;
@@ -1450,7 +1498,7 @@
         });
         c.on('message', (fullTopic, message) => {
           const str = message.toString();
-          if (!str || str.length > 180000) return;
+          if (!str || str.length > 500000) return;
           try {
             const data = JSON.parse(str);
             handleIncomingPacket(fullTopic.replace(`${BASE_TOPIC}/`, ''), data);
@@ -1497,7 +1545,7 @@
 
     function recordRoundChoice(data) {
       if (!data || !data.id || !data.choice || !['A', 'B', 'C', 'D'].includes(data.choice)) return;
-      const safeName = sanitizeText(data.name || 'Thí sinh', 12);
+      const safeName = sanitizeText(data.name || 'Thí sinh', 20);
       const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : ((players[data.id] && players[data.id].avatar) || DEFAULT_ADMIN_AVATAR);
       const tLeft = Math.max(1, Math.min(20, parseInt(data.timeLeft, 10) || 10));
       const elap = typeof data.elapsedSec === 'number' ? Math.max(0.1, Math.min(20, data.elapsedSec)) : Math.max(0.5, 20 - tLeft);
@@ -1513,19 +1561,20 @@
       if (data._sig !== computePacketSig(data.type, data.id || 'sys', data._ts)) return;
       if (data.id && isRateLimited(data.id)) return;
 
-      if (data.type !== 'PLAYER_JOIN' && data.type !== 'START_QUESTION' && data.type !== 'PREV_QUIZ_RECORD' && data._mid) {
+      if (data.type !== 'PLAYER_JOIN' && data.type !== 'START_QUESTION' && data.type !== 'PREV_QUIZ_RECORD' && data.type !== 'SYNC_LOGO_PNG' && data._mid) {
         if (seenMsgIds.has(data._mid)) return;
         seenMsgIds.add(data._mid);
       }
 
-      if (data.type === 'SYNC_LOGO_PNG') {
-        if (data.logoPng && data.logoPng.startsWith('data:image/png')) {
+      // NHẬN LỆNH ÉP ĐỒNG BỘ LOGO TỪ ADMIN TRÊN MỌI ĐIỆN THOẠI
+      if (data.type === 'SYNC_LOGO_PNG' || data.type === 'FORCE_SYNC_LOGO') {
+        if (data.logoPng && data.logoPng.startsWith('data:image/')) {
           applyLogoPNGToUI(data.logoPng);
-          try { localStorage.setItem('fh_custom_logo_png_v27', data.logoPng); } catch (e) {}
+          setPersistentData('fh_custom_logo_v28', data.logoPng);
         }
       } else if (data.type === 'PLAYER_JOIN' || data.type === 'PLAYER_LOGOUT') {
         if (data.id && data.name) {
-          const cleanName = sanitizeText(data.name, 12);
+          const cleanName = sanitizeText(data.name, 20);
           const accKey = normalizeAccountKey(cleanName);
           const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
           const existing = players[data.id] || accountRegistry[accKey];
@@ -1586,13 +1635,17 @@
       } else if (data.type === 'PRE_NEXT_COUNTDOWN') {
         showPreNextCountdownOnScreen(data);
       } else if (data.type === 'START_QUESTION') {
+        if (data.logoPng && data.logoPng.startsWith('data:image/')) {
+          applyLogoPNGToUI(data.logoPng);
+          setPersistentData('fh_custom_logo_v28', data.logoPng);
+        }
         closeFinishModal();
         closeRoundSpeedModal();
         showQuestionOnScreen(data);
       } else if (data.type === 'SUBMIT_ANSWER') {
         recordRoundChoice(data);
         const existing = players[data.id];
-        const cleanName = sanitizeText(data.name, 12);
+        const cleanName = sanitizeText(data.name, 20);
         const accKey = normalizeAccountKey(cleanName);
         const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
         const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR);
@@ -1602,6 +1655,11 @@
         renderLeaderboard();
         if (isQuestionRevealed) renderRoundSpeedModalContent(window.currentCorrectAns, window.currentExplanation);
       } else if (data.type === 'REVEAL_CORRECT') {
+        // Tự động đồng bộ Logo đính kèm khi mở bảng Thập Đại Thần Tốc
+        if (data.logoPng && data.logoPng.startsWith('data:image/')) {
+          applyLogoPNGToUI(data.logoPng);
+          setPersistentData('fh_custom_logo_v28', data.logoPng);
+        }
         revealAnswerAndPlaySound(data.correct, data.explanation);
       } else if (data.type === 'FINISH_QUIZ') {
         closeRoundSpeedModal();
@@ -1974,6 +2032,7 @@
         updateLockedPlayerBadgeUI();
         renderLeaderboard();
         requestPlayerPresence();
+        if (activeTransparentLogoPNG) forceBroadcastLogoNow(false);
       } else if (pin !== null) alert("Sai mật khẩu Quản trò!");
     }
 
@@ -2049,14 +2108,15 @@
       publishPacket('events', { type: 'CLEAR_PLAYERS', id: 'admin' }, false);
     }
 
+    // ĐĂNG KÝ / ĐĂNG NHẬP VỚI TÊN TỐI ĐA 20 KÝ TỰ
     function joinGame() {
       initAudio();
       const rawName = document.getElementById('playerName').value.trim();
-      const nameInput = sanitizeText(rawName, 12);
+      const nameInput = sanitizeText(rawName, 20);
       const passInput = document.getElementById('playerPassword').value.trim();
 
-      if (!nameInput) return alert("Vui lòng nhập Tên tài khoản (tối đa 12 ký tự)!");
-      if (rawName.length > 12) return alert("Tên tài khoản không được vượt quá 12 ký tự!");
+      if (!nameInput) return alert("Vui lòng nhập Tên tài khoản (tối đa 20 ký tự)!");
+      if (rawName.length > 20) return alert("Tên tài khoản không được vượt quá 20 ký tự!");
       if (passInput !== "1") return alert("Sai mật khẩu! Mật khẩu cố định cho tất cả thí sinh là số 1.");
 
       const accKey = normalizeAccountKey(nameInput);
@@ -2212,6 +2272,7 @@
         question: q.question,
         options: q.options,
         answerHash: encodeAnswerHash(q.correct, qUid),
+        logoPng: activeTransparentLogoPNG || '',
         thinkTime: 3,
         time: qTime,
         sentAt: Date.now()
@@ -2226,7 +2287,13 @@
       clearTimeout(revealTimer);
       clearTimeout(finishTimer);
       revealTimer = setTimeout(() => {
-        const revealPacket = { type: 'REVEAL_CORRECT', id: 'admin', correct: q.correct, explanation: expText };
+        const revealPacket = {
+          type: 'REVEAL_CORRECT',
+          id: 'admin',
+          correct: q.correct,
+          explanation: expText,
+          logoPng: activeTransparentLogoPNG || ''
+        };
         publishPacket('events', revealPacket, false);
         revealAnswerAndPlaySound(q.correct, expText);
 
@@ -2555,7 +2622,7 @@
               <div class="flex items-center gap-2.5 truncate">
                 <span class="w-5 h-5 rounded-full ${rankBadgeClass} font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
                 ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-2xs')}
-                <span class="font-extrabold text-slate-800 text-xs truncate max-w-[170px]">${p.name}</span>
+                <span class="font-extrabold text-slate-800 text-xs truncate max-w-[185px]">${p.name}</span>
                 ${suspTag}
               </div>
               <span class="font-black text-slate-800 text-xs shrink-0">${p.score} <span class="text-amber-400">⭐</span></span>
