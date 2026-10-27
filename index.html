@@ -15,88 +15,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap');
     body {
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #060913;
-      /* Phông nền Sân khấu Gameshow Hoàng Gia (Deep Blue & Gold Stage Lighting) */
+      background-color: #1a1025;
       background-image:
-        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.35) 0%, transparent 50%),
-        radial-gradient(circle at 15% 25%, rgba(37, 99, 235, 0.32) 0%, transparent 45%),
-        radial-gradient(circle at 85% 25%, rgba(37, 99, 235, 0.32) 0%, transparent 45%),
-        radial-gradient(circle at 50% 100%, rgba(217, 119, 6, 0.25) 0%, transparent 55%),
-        linear-gradient(180deg, #070b19 0%, #0f172a 45%, #090d1a 100%);
+        radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.30) 0%, transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(251, 191, 36, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.22) 0%, transparent 50%),
+        linear-gradient(160deg, #1f1635 0%, #3b1d38 45%, #1e293b 100%);
       background-attachment: fixed;
       user-select: none;
       -webkit-user-select: none;
     }
-
-    /* Phong cách Kính mờ Hoàng Gia + Viền Vàng 3D (Dark Glassmorphism + 3D Gold Border) */
-    .royal-glass-card {
-      background: linear-gradient(165deg, rgba(15, 23, 42, 0.88) 0%, rgba(9, 13, 26, 0.94) 100%);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1.5px solid rgba(251, 191, 36, 0.65);
-      box-shadow:
-        0 10px 28px rgba(0, 0, 0, 0.75),
-        inset 0 0 18px rgba(245, 158, 11, 0.14),
-        0 0 12px rgba(245, 158, 11, 0.18);
-    }
-
-    /* Nút bấm Đá quý Pha lê Xanh & Viền Kim loại Vàng 3D (BẮT ĐẦU / XÁC NHẬN) */
-    .royal-crystal-btn {
-      background: linear-gradient(180deg, #1e3a8a 0%, #0f172a 55%, #172554 100%);
-      border: 2px solid #fbbf24;
-      box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.7),
-        inset 0 1px 2px rgba(254, 240, 138, 0.75),
-        inset 0 0 14px rgba(56, 189, 248, 0.45),
-        0 0 12px rgba(245, 158, 11, 0.35);
-      color: #fde68a;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
-      transition: all 0.2s ease;
-    }
-    .royal-crystal-btn:hover {
-      border-color: #fef08a;
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.8),
-        inset 0 0 20px rgba(56, 189, 248, 0.7),
-        0 0 18px rgba(251, 191, 36, 0.6);
-      color: #ffffff;
-    }
-    .royal-crystal-btn:active {
-      transform: scale(0.96);
-    }
-
-    /* Chữ Vàng 3D Dập Nổi Phát Sáng cho Tiêu đề BẢNG XẾP HẠNG */
-    .gold-3d-title {
-      background: linear-gradient(180deg, #fffbeb 0%, #fde047 35%, #f59e0b 75%, #b45309 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(245, 158, 11, 0.55));
-      letter-spacing: 0.06em;
-    }
-
-    /* Khung Đáp án A, B, C, D Kính mờ Viền Vàng */
-    .royal-answer-btn {
-      background: linear-gradient(145deg, rgba(30, 41, 59, 0.88) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border: 1.5px solid rgba(251, 191, 36, 0.42);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55), inset 0 0 12px rgba(56, 189, 248, 0.08);
-      transition: all 0.2s ease;
-    }
-    .royal-answer-btn:hover {
-      border-color: rgba(251, 191, 36, 0.85);
-    }
-
-    /* Khung Avatar Viền Vàng Hoàng Gia Đính Đá Xanh */
-    .royal-avatar-ring {
-      border: 2px solid #fbbf24;
-      box-shadow: 0 0 8px rgba(251, 191, 36, 0.65), inset 0 0 4px rgba(56, 189, 248, 0.5);
-    }
-
     .timer-ring-circle {
       transition: stroke-dashoffset 0.35s linear, stroke 0.3s ease;
       transform: rotate(-90deg);
       transform-origin: 50% 50%;
     }
-
     /* Bộ lọc đồ họa làm nét ảnh đại diện chuẩn 4K Ultra-Sharp */
     .avatar-4k {
       image-rendering: -webkit-optimize-contrast;
@@ -105,44 +38,37 @@
       transform: translateZ(0);
       backface-visibility: hidden;
     }
-
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 9999px; }
   </style>
 </head>
-<body class="text-slate-100 flex flex-col justify-start items-center min-h-screen p-2 sm:p-3">
+<body class="text-slate-800 flex flex-col justify-start items-center min-h-screen p-2 sm:p-3">
 
-  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM -->
-  <audio id="audio-bgm" preload="auto" playsinline crossorigin="anonymous">
-    <source src="https://tiengdong.com/wp-content/uploads/Nhac-nen-game-show-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="audio-correct" preload="auto" playsinline crossorigin="anonymous">
-    <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="audio-wrong" preload="auto" playsinline crossorigin="anonymous">
-    <source src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" type="audio/mpeg">
-  </audio>
+  <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM (ĐÃ BỎ CROSSORIGIN ĐỂ KHÔNG BỊ CHẶN STREAM) -->
+  <audio id="audio-bgm" src="https://tiengdong.com/wp-content/uploads/Nhac-nen-game-show-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" loop playsinline></audio>
+  <audio id="audio-correct" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" playsinline></audio>
+  <audio id="audio-wrong" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" playsinline></audio>
 
   <!-- THANH CÔNG CỤ TRÊN CÙNG -->
   <div class="w-full max-w-[440px] flex flex-wrap justify-between items-center gap-1 mb-2 px-1">
     <div class="flex items-center gap-1.5">
       <span id="conn-status" class="text-[10px] text-amber-300 font-bold">🟡 Đang kết nối...</span>
-      <span class="text-[9px] bg-slate-900/90 text-amber-300 border border-amber-500/50 px-2 py-0.5 rounded-full font-bold shadow">🛡️ Royal-Shield V23</span>
+      <span class="text-[9px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.5 rounded-full font-bold">🛡️ 4K-Shield V24</span>
     </div>
     <div class="flex items-center gap-1">
-      <button onclick="openPrevRankModal()" class="text-[10px] text-sky-300 hover:text-white bg-slate-900/90 px-2.5 py-1 rounded-full border border-sky-500/40 shadow cursor-pointer font-bold">
+      <button onclick="openPrevRankModal()" class="text-[10px] text-emerald-300 hover:text-white bg-slate-900/85 px-2.5 py-1 rounded-full border border-emerald-500/40 shadow cursor-pointer font-bold">
         📊 Thứ hạng đề trước
       </button>
-      <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-[10px] text-amber-300 hover:text-white bg-slate-900/90 px-2.5 py-1 rounded-full border border-amber-500/50 shadow cursor-pointer font-bold">
+      <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-[10px] text-amber-300 hover:text-white bg-slate-900/85 px-2.5 py-1 rounded-full border border-amber-500/40 shadow cursor-pointer font-bold">
         🔑 Admin Tuấn Phủ Lý
       </button>
     </div>
   </div>
 
-  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 5525) -->
-  <div id="admin-panel" class="hidden w-full max-w-[440px] royal-glass-card text-white rounded-2xl p-3 mb-3 space-y-2.5 z-30">
-    <div class="flex flex-wrap items-center justify-between gap-1 border-b border-amber-500/30 pb-2">
+  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 5525 - ĐÃ ẨN DÒNG CUỐI THỪA) -->
+  <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-3 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30">
+    <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
       <span class="text-[11px] font-black text-amber-400">👑 ADMIN TUẤN PHỦ LÝ</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openPrevRankModal()" class="text-[10px] bg-emerald-700 hover:bg-emerald-600 px-2 py-1 rounded-lg font-bold cursor-pointer">
@@ -154,6 +80,7 @@
         <button onclick="deleteCurrentQuiz()" class="text-[10px] bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded-lg font-bold cursor-pointer">
           🗑️ Xóa đề
         </button>
+        <!-- THƯ MỤC TỔNG TÀI KHOẢN NẰM NGAY CẠNH XÓA ĐỀ -->
         <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1 rounded-lg font-black cursor-pointer shadow">
           📁 Tổng tài khoản (<span id="admin-dir-count-btn">0</span>)
         </button>
@@ -162,10 +89,10 @@
 
     <div class="flex items-end gap-2">
       <div class="flex-1">
-        <label class="text-[9px] uppercase font-bold text-amber-200/80 block mb-1">Chọn bộ đề (<span id="quiz-count-label">1</span> đề):</label>
-        <select id="admin-quiz-select" onchange="selectQuizWeek()" class="w-full bg-slate-900 border border-amber-500/40 rounded-lg text-xs py-2 px-2 text-white font-semibold"></select>
+        <label class="text-[9px] uppercase font-bold text-slate-400 block mb-1">Chọn bộ đề (<span id="quiz-count-label">1</span> đề):</label>
+        <select id="admin-quiz-select" onchange="selectQuizWeek()" class="w-full bg-slate-800 border border-slate-600 rounded-lg text-xs py-2 px-2 text-white font-semibold"></select>
       </div>
-      <button id="btn-host-next" onclick="hostNextQuestion()" class="royal-crystal-btn font-black text-xs py-2 px-3.5 rounded-xl cursor-pointer">
+      <button id="btn-host-next" onclick="hostNextQuestion()" class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-black text-xs py-2 px-3.5 rounded-xl shadow-lg cursor-pointer transition-all">
         ▶ Phát câu tiếp
       </button>
     </div>
@@ -176,62 +103,62 @@
     </div>
 
     <!-- Ô THÊM ĐỀ MỚI TỪ NOTEBOOK LM -->
-    <div id="modal-new-quiz" class="hidden bg-slate-900/95 p-2.5 rounded-xl border border-amber-500/50 space-y-2">
+    <div id="modal-new-quiz" class="hidden bg-slate-800 p-2.5 rounded-xl border border-blue-500/50 space-y-2">
       <div class="flex justify-between items-center">
-        <span class="text-[11px] font-bold text-amber-300">📥 Dán bộ đề mới từ NotebookLM</span>
-        <button onclick="restoreDefaultQuiz()" class="text-[10px] text-sky-300 underline cursor-pointer">Khôi phục đề mẫu</button>
+        <span class="text-[11px] font-bold text-sky-300">📥 Dán bộ đề mới từ NotebookLM</span>
+        <button onclick="restoreDefaultQuiz()" class="text-[10px] text-amber-300 underline cursor-pointer">Khôi phục đề mẫu</button>
       </div>
-      <input id="new-quiz-title" type="text" placeholder="Tên bộ đề (VD: Tuần 2 - Chính sách bán hàng)" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white">
-      <textarea id="new-quiz-json" rows="4" placeholder='[ { "question": "...", "options": {"A":"...","B":"...","C":"...","D":"..."}, "correct": "A", "explanation": "Giải thích..." } ]' class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-[11px] text-emerald-300 font-mono"></textarea>
-      <button onclick="saveNewQuizFromNotebook()" class="w-full royal-crystal-btn font-black text-xs py-2 rounded-xl cursor-pointer">
-        💎 XÁC NHẬN LƯU ĐỀ MỚI 💎
+      <input id="new-quiz-title" type="text" placeholder="Tên bộ đề (VD: Tuần 2 - Chính sách bán hàng)" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-1.5 text-xs text-white">
+      <textarea id="new-quiz-json" rows="4" placeholder='[ { "question": "...", "options": {"A":"...","B":"...","C":"...","D":"..."}, "correct": "A", "explanation": "Giải thích..." } ]' class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2 text-[11px] text-emerald-300 font-mono"></textarea>
+      <button onclick="saveNewQuizFromNotebook()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-extrabold text-xs py-2 rounded-lg cursor-pointer shadow">
+        💾 LƯU ĐỀ MỚI & ĐỒNG BỘ TOÀN PHÒNG
       </button>
     </div>
 
     <div class="flex gap-2 pt-0.5">
-      <button onclick="hostResetGame()" class="flex-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-[11px] py-1.5 rounded-lg cursor-pointer font-bold">🔄 Thi lại từ câu 1</button>
-      <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/50 text-[11px] font-bold py-1.5 rounded-lg cursor-pointer">📥 Tải Điểm Excel</button>
+      <button onclick="hostResetGame()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-[11px] py-1.5 rounded-lg cursor-pointer font-bold">🔄 Thi lại từ câu 1</button>
+      <button onclick="downloadExcel()" class="flex-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold py-1.5 rounded-lg cursor-pointer">📥 Tải Điểm Excel</button>
     </div>
   </div>
 
-  <!-- KHUNG MÀN HÌNH TRÒ CHƠI CHÍNH (PHONG CÁCH SÂN KHẤU HOÀNG GIA 4K) -->
-  <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[665px] border-2 border-amber-500/50 relative"
-       style="background: radial-gradient(circle at 50% 12%, rgba(251, 191, 36, 0.16) 0%, rgba(30, 58, 138, 0.25) 45%, rgba(9, 13, 26, 0.92) 100%); box-shadow: 0 0 35px rgba(0,0,0,0.85), inset 0 0 25px rgba(251, 191, 36, 0.12);">
+  <!-- KHUNG MÀN HÌNH TRÒ CHƠI CHÍNH (CHUẨN TỶ LỆ TIKTOK LIVE 9:16) -->
+  <div class="w-full max-w-[440px] rounded-[28px] shadow-2xl overflow-hidden flex flex-col min-h-[660px] border border-white/25 relative"
+       style="background: linear-gradient(180deg, rgba(255,240,245,0.24) 0%, rgba(254,215,170,0.20) 50%, rgba(15,23,42,0.55) 100%); backdrop-filter: blur(12px);">
 
     <!-- =================================================================== -->
-    <!-- MÀN HÌNH 1: ĐĂNG KÝ / ĐĂNG NHẬP PHONG CÁCH HOÀNG GIA (NÚT BẮT ĐẦU)   -->
+    <!-- MÀN HÌNH 1: ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ    -->
     <!-- =================================================================== -->
-    <div id="screen-login" class="flex-1 flex flex-col justify-center items-center p-4 sm:p-5 text-center royal-glass-card m-2.5 rounded-[24px]">
-      <div class="w-16 h-16 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-amber-700 text-slate-950 flex items-center justify-center text-3xl font-black mb-2 shadow-lg border-2 border-yellow-200">
-        👑
+    <div id="screen-login" class="flex-1 flex flex-col justify-center items-center p-4 sm:p-5 text-center bg-white/95 m-2.5 rounded-[24px] shadow-xl">
+      <div class="w-14 h-14 bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 text-white rounded-2xl flex items-center justify-center text-3xl font-black mb-1.5 shadow-lg border-2 border-amber-200">
+        🏆
       </div>
-      <h1 class="text-xl font-black gold-3d-title tracking-wider">FOUR HOME MEGA</h1>
-      <p class="text-xs font-black text-sky-300 tracking-widest mb-2 uppercase">ĐẤU TRƯỜNG TRI THỨC</p>
-      <p id="login-quiz-badge" class="text-[11px] text-amber-200 font-bold mb-3 bg-slate-900/90 py-1 px-3.5 rounded-full border border-amber-500/40 shadow">
+      <h1 class="text-xl font-black text-slate-800 tracking-tight">FOUR HOME MEGA</h1>
+      <p class="text-xs font-black text-amber-600 tracking-wider mb-2">ĐẤU TRƯỜNG TRI THỨC</p>
+      <p id="login-quiz-badge" class="text-[11px] text-indigo-700 font-bold mb-3 bg-indigo-50 py-1 px-3 rounded-full border border-indigo-200">
         Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
       </p>
 
       <!-- HAI CHẾ ĐỘ: ĐĂNG KÝ MỚI & ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ -->
-      <div class="w-full grid grid-cols-2 gap-1.5 bg-slate-950/90 p-1 rounded-2xl mb-3 border border-amber-500/30">
-        <button type="button" id="tab-btn-register" onclick="switchAuthTab('register')" class="py-2 rounded-xl text-[11px] font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow cursor-pointer transition-all">
+      <div class="w-full grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-2xl mb-3 border border-slate-200">
+        <button type="button" id="tab-btn-register" onclick="switchAuthTab('register')" class="py-2 rounded-xl text-[11px] font-black bg-indigo-600 text-white shadow cursor-pointer transition-all">
           ✨ Đăng ký TK mới
         </button>
-        <button type="button" id="tab-btn-login" onclick="switchAuthTab('login')" class="py-2 rounded-xl text-[11px] font-black text-slate-400 hover:text-white cursor-pointer transition-all">
+        <button type="button" id="tab-btn-login" onclick="switchAuthTab('login')" class="py-2 rounded-xl text-[11px] font-black text-slate-600 hover:text-slate-900 cursor-pointer transition-all">
           📲 Đăng nhập TK đã có
         </button>
       </div>
 
       <!-- KHUNG TẢI & CẮT ẢNH ĐẠI DIỆN CHUẨN 4K -->
-      <div id="auth-avatar-section" class="w-full bg-slate-900/80 border border-amber-500/40 rounded-2xl p-3 mb-3 flex flex-col items-center">
-        <label class="text-[11px] font-extrabold text-amber-300 mb-2">📸 1. Tải & Cắt ảnh đại diện 4K (Avatar bắt buộc):</label>
+      <div id="auth-avatar-section" class="w-full bg-slate-50 border-2 border-dashed border-indigo-300 rounded-2xl p-3 mb-3 flex flex-col items-center">
+        <label class="text-[11px] font-extrabold text-slate-700 mb-2">📸 1. Tải & Cắt ảnh đại diện 4K (Avatar bắt buộc):</label>
         <div class="flex items-center gap-3">
-          <div onclick="reopenCropperIfAvailable()" class="w-16 h-16 rounded-full bg-slate-950 royal-avatar-ring flex items-center justify-center overflow-hidden shrink-0 cursor-pointer relative group" title="Bấm để căn chỉnh/cắt lại ảnh">
-            <span id="avatar-placeholder" class="text-[9px] text-slate-400 font-bold px-1">Chưa có ảnh</span>
+          <div onclick="reopenCropperIfAvailable()" class="w-16 h-16 rounded-full bg-slate-200 border-2 border-amber-500 flex items-center justify-center overflow-hidden shadow-md shrink-0 cursor-pointer relative group" title="Bấm để căn chỉnh/cắt lại ảnh">
+            <span id="avatar-placeholder" class="text-[9px] text-slate-500 font-bold px-1">Chưa có ảnh</span>
             <img id="avatar-preview-img" src="" class="hidden w-full h-full object-cover avatar-4k" alt="Avatar">
           </div>
           <div class="text-left">
             <div class="flex flex-wrap gap-1.5">
-              <label for="avatarInput" class="inline-block royal-crystal-btn text-[11px] font-extrabold px-3 py-1.5 rounded-xl cursor-pointer">
+              <label for="avatarInput" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl cursor-pointer shadow">
                 📁 Chọn ảnh & Cắt 4K
               </label>
               <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="hidden bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-extrabold px-2.5 py-1.5 rounded-xl cursor-pointer shadow">
@@ -239,7 +166,7 @@
               </button>
             </div>
             <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
-            <p id="avatar-status-text" class="text-[10px] text-rose-400 font-bold mt-1">
+            <p id="avatar-status-text" class="text-[10px] text-rose-600 font-bold mt-1">
               * Bắt buộc chọn & cắt ảnh đại diện 4K rõ nét.
             </p>
           </div>
@@ -247,200 +174,175 @@
       </div>
 
       <!-- HƯỚNG DẪN KHI CHỌN TAB ĐĂNG NHẬP TÀI KHOẢN ĐÃ CÓ -->
-      <div id="auth-login-hint" class="hidden w-full bg-slate-900/90 border border-sky-500/40 rounded-2xl p-2.5 mb-3 text-[11px] text-sky-200 font-bold text-left">
-        💡 Nếu bạn đã tạo tài khoản trước đó (hoặc chuyển sang điện thoại/máy tính khác), chỉ cần nhập đúng <strong>Tên tài khoản</strong> và <strong>Mật khẩu số 1</strong> rồi bấm <strong>BẮT ĐẦU</strong>!
+      <div id="auth-login-hint" class="hidden w-full bg-emerald-50 border border-emerald-200 rounded-2xl p-2.5 mb-3 text-[11px] text-emerald-800 font-bold text-left">
+        💡 Nếu bạn đã tạo tài khoản trước đó (hoặc chuyển sang điện thoại/máy tính khác), chỉ cần nhập đúng <strong>Tên tài khoản</strong> và <strong>Mật khẩu số 1</strong>. Hệ thống sẽ tự động tải lại Ảnh đại diện 4K và Điểm số của bạn!
       </div>
       
       <!-- NHẬP TÊN TÀI KHOẢN TỐI ĐA 12 KÝ TỰ -->
       <div class="w-full text-left mb-2.5">
         <div class="flex justify-between items-center mb-1">
-          <label class="text-[11px] font-extrabold text-amber-200">👤 Tên tài khoản (Tối đa 12 ký tự):</label>
-          <span id="char-count" class="text-[10px] font-bold text-sky-400">0/12 ký tự</span>
+          <label class="text-[11px] font-extrabold text-slate-700">👤 Tên tài khoản (Tối đa 12 ký tự):</label>
+          <span id="char-count" class="text-[10px] font-bold text-indigo-600">0/12 ký tự</span>
         </div>
         <input id="playerName" type="text" maxlength="12" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (cho phép @, #, _, *...)" 
-          class="w-full px-4 py-2.5 bg-slate-950/90 border border-amber-500/40 rounded-xl focus:outline-none focus:border-amber-400 font-bold text-sm text-white text-center">
+          class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600 font-bold text-sm text-center">
       </div>
 
       <!-- NHẬP MẬT KHẨU CỐ ĐỊNH SỐ 1 -->
       <div class="w-full text-left mb-3">
-        <label class="text-[11px] font-extrabold text-amber-200 block mb-1">🔑 Mật khẩu tham gia (Nhập số 1):</label>
+        <label class="text-[11px] font-extrabold text-slate-700 block mb-1">🔑 Mật khẩu tham gia (Nhập số 1):</label>
         <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu thí sinh (Số 1)..." 
-          class="w-full px-4 py-2.5 bg-slate-950/90 border border-amber-500/40 rounded-xl focus:outline-none focus:border-amber-400 font-bold text-sm text-white text-center">
+          class="w-full px-4 py-2.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600 font-bold text-sm text-center">
       </div>
 
-      <p class="text-[10px] text-slate-400 font-semibold mb-3 leading-snug">
-        🔒 Tự động lưu tài khoản trên thiết bị này. Mỗi thời điểm chỉ 1 máy được đăng nhập tài khoản.
+      <p class="text-[10px] text-slate-500 font-semibold mb-3 leading-snug">
+        🔒 Tự động nhớ tài khoản trên máy này (dù thoát ứng dụng hay mất sóng 4G/5G). Mỗi thời điểm chỉ 1 thiết bị được đăng nhập tài khoản.
       </p>
       
-      <!-- NÚT "BẮT ĐẦU" PHONG CÁCH ĐÁ QUÝ PHA LÊ XANH & VIỀN VÀNG 3D -->
       <button id="btn-submit-auth" onclick="joinGame()" 
-        class="w-full royal-crystal-btn font-black py-3.5 rounded-2xl text-sm tracking-wider uppercase cursor-pointer flex items-center justify-center gap-2">
-        <span>💎</span>
-        <span id="btn-submit-auth-text">BẮT ĐẦU</span>
-        <span>💎</span>
+        class="w-full bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 hover:opacity-95 active:scale-95 text-white font-black py-3.5 rounded-xl shadow-lg shadow-indigo-500/30 transition-all text-sm cursor-pointer">
+        🚀 ĐĂNG KÝ & VÀO ĐẤU TRƯỜNG
       </button>
     </div>
 
     <!-- =================================================================== -->
-    <!-- MÀN HÌNH 2: GIAO DIỆN THI ĐẤU HOÀNG GIA (DARK GLASSMORPHISM + 3D GOLD)-->
+    <!-- MÀN HÌNH 2: GIAO DIỆN THI ĐẤU TIKTOK LIVE                           -->
     <!-- =================================================================== -->
     <div id="screen-game" class="hidden flex-1 flex flex-col p-3 justify-between">
       
-      <!-- PHẦN TRÊN: HEADER + ĐỒNG HỒ ROYAL HUD + CÂU HỎI KÍNH MỜ + 4 ĐÁP ÁN -->
+      <!-- PHẦN TRÊN: HEADER + ĐỒNG HỒ + CÂU HỎI + 4 ĐÁP ÁN -->
       <div>
         <div class="flex items-start justify-between gap-2 mb-1">
           <div class="flex flex-col">
-            <div class="inline-flex items-center gap-1.5 bg-slate-900/90 px-3 py-1 rounded-full shadow border border-amber-500/50 w-fit">
-              <span class="text-[11px]">👑</span>
-              <span id="live-topic-pill" class="text-[10px] font-extrabold text-amber-300 truncate max-w-[200px]">Sun Urban City</span>
+            <div class="inline-flex items-center gap-1 bg-white/90 backdrop-blur-xs px-3 py-1 rounded-full shadow-xs border border-white/60 w-fit">
+              <span class="text-[11px]">❓</span>
+              <span id="live-topic-pill" class="text-[10px] font-extrabold text-slate-700 truncate max-w-[200px]">Sun Urban City</span>
             </div>
-            <span class="text-[9px] font-black text-sky-300/90 drop-shadow tracking-widest mt-1 ml-1 uppercase">ĐẤU TRƯỜNG TRI THỨC</span>
+            <span class="text-[9px] font-black text-white/90 drop-shadow tracking-wider mt-1 ml-1 uppercase">ĐẤU TRƯỜNG TRI THỨC</span>
           </div>
 
           <div class="flex flex-col items-end">
-            <span id="question-index" class="bg-slate-900/90 text-amber-300 border border-amber-400/60 px-3 py-1 rounded-full text-[11px] font-extrabold shadow">Phòng chờ</span>
+            <span id="question-index" class="bg-slate-900/75 text-amber-300 border border-amber-400/40 px-3 py-1 rounded-full text-[11px] font-extrabold shadow">Phòng chờ</span>
           </div>
         </div>
 
         <!-- CẢNH BÁO NẾU THÍ SINH ĐANG BỊ ADMIN ĐÌNH CHỈ -->
-        <div id="suspended-alert-banner" class="hidden mb-2 bg-rose-700 text-white border-2 border-amber-300 rounded-2xl px-3 py-2 text-center text-xs font-black shadow-lg animate-pulse">
+        <div id="suspended-alert-banner" class="hidden mb-2 bg-rose-600 text-white border-2 border-rose-300 rounded-2xl px-3 py-2 text-center text-xs font-black shadow-lg animate-pulse">
           ⛔ TÀI KHOẢN CỦA BẠN ĐANG BỊ ADMIN TUẤN PHỦ LÝ TẠM ĐÌNH CHỈ THI ĐẤU!
         </div>
 
         <!-- Băng rôn đếm ngược 5,4,3,2,1 kèm lời giải thích khi Admin bấm chuyển câu -->
-        <div id="transition-Syntax-box" class="hidden mb-2 royal-glass-card text-white rounded-2xl p-2.5">
-          <div class="flex items-center justify-between border-b border-amber-500/30 pb-1 mb-1">
+        <div id="transition-Syntax-box" class="hidden mb-2 bg-slate-900/95 text-white border-2 border-amber-400 rounded-2xl p-2.5 shadow-xl">
+          <div class="flex items-center justify-between border-b border-slate-700 pb-1 mb-1">
             <span class="text-[11px] font-black text-amber-300 uppercase">⏳ Chuyển câu tiếp theo sau:</span>
             <span id="player-transition-num" class="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center">5</span>
           </div>
           <div id="transition-explanation-text" class="text-[11px] text-emerald-300 font-semibold leading-snug"></div>
         </div>
 
-        <!-- ĐỒNG HỒ TRÒN ROYAL HUD (VIỀN VÀNG 3D & ÁNH SÁNG XANH NEON) ĐÈ LÊN THẺ CÂU HỎI -->
-        <div class="relative mt-7 mb-2.5">
-          <div class="absolute -top-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
-            <!-- Tia sáng vàng bên trái -->
+        <!-- ĐỒNG HỒ TRÒN SVG ĐÈ LÊN KHUNG CÂU HỎI TRẮNG -->
+        <div class="relative mt-6 mb-2.5">
+          <div class="absolute -top-7 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
             <div class="flex flex-col gap-1 items-end">
-              <span class="w-2.5 h-1 bg-amber-400 rounded-full rotate-12 block shadow-[0_0_8px_#fbbf24]"></span>
-              <span class="w-2.5 h-1 bg-sky-400 rounded-full -rotate-12 block shadow-[0_0_8px_#38bdf8]"></span>
+              <span class="w-2.5 h-1 bg-amber-400 rounded-full rotate-12 block shadow"></span>
+              <span class="w-2.5 h-1 bg-amber-400 rounded-full -rotate-12 block shadow"></span>
             </div>
 
-            <!-- Đồng hồ Sci-Fi Royal HUD -->
-            <div class="w-[68px] h-[68px] rounded-full bg-slate-950 flex items-center justify-center relative p-1 border-2 border-amber-400 shadow-[0_0_18px_rgba(56,189,248,0.55),inset_0_0_12px_rgba(245,158,11,0.4)]">
+            <div class="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center relative p-1">
               <svg class="w-full h-full" viewBox="0 0 60 60">
-                <circle cx="30" cy="30" r="25" stroke="#1e293b" stroke-width="4.5" fill="none"></circle>
-                <circle id="timer-svg-circle" class="timer-ring-circle" cx="30" cy="30" r="25" stroke="#38bdf8" stroke-width="4.5" stroke-dasharray="157" stroke-dashoffset="0" stroke-linecap="round" fill="none"></circle>
+                <circle cx="30" cy="30" r="25" stroke="#e2e8f0" stroke-width="4.5" fill="none"></circle>
+                <circle id="timer-svg-circle" class="timer-ring-circle" cx="30" cy="30" r="25" stroke="#22c55e" stroke-width="4.5" stroke-dasharray="157" stroke-dashoffset="0" stroke-linecap="round" fill="none"></circle>
               </svg>
               <div class="absolute inset-0 flex flex-col items-center justify-center leading-none">
-                <span id="timer-count" class="text-xl font-black gold-3d-title">20</span>
-                <span id="timer-label" class="text-[8px] font-bold text-sky-300 uppercase mt-0.5">giây</span>
+                <span id="timer-count" class="text-xl font-black text-slate-800">20</span>
+                <span id="timer-label" class="text-[9px] font-bold text-slate-400 mt-0.5">giây</span>
               </div>
             </div>
 
-            <!-- Tia sáng vàng bên phải -->
             <div class="flex flex-col gap-1 items-start">
-              <span class="w-2.5 h-1 bg-amber-400 rounded-full -rotate-12 block shadow-[0_0_8px_#fbbf24]"></span>
-              <span class="w-2.5 h-1 bg-sky-400 rounded-full rotate-12 block shadow-[0_0_8px_#38bdf8]"></span>
+              <span class="w-2.5 h-1 bg-amber-400 rounded-full -rotate-12 block shadow"></span>
+              <span class="w-2.5 h-1 bg-amber-400 rounded-full rotate-12 block shadow"></span>
             </div>
           </div>
 
-          <!-- Khung câu hỏi Kính mờ tối Viền Vàng 3D (Dark Glassmorphism Quiz Card) -->
-          <div class="royal-glass-card rounded-[22px] pt-10 pb-3.5 px-4 min-h-[106px] flex flex-col items-center justify-center text-center relative">
-            <!-- Hoa văn góc vàng trang trí -->
-            <span class="absolute top-1.5 left-2 text-[10px] text-amber-400/70">❖</span>
-            <span class="absolute top-1.5 right-2 text-[10px] text-amber-400/70">❖</span>
-            <span class="absolute bottom-1.5 left-2 text-[10px] text-amber-400/70">❖</span>
-            <span class="absolute bottom-1.5 right-2 text-[10px] text-amber-400/70">❖</span>
-
-            <div id="thinking-banner" class="hidden mb-1 bg-sky-950 text-sky-300 border border-sky-400/50 font-black text-[10px] px-3 py-0.5 rounded-full animate-pulse">
+          <div class="bg-white/95 rounded-[22px] pt-10 pb-3.5 px-4 shadow-lg border border-white min-h-[104px] flex flex-col items-center justify-center text-center">
+            <div id="thinking-banner" class="hidden mb-1 bg-sky-100 text-sky-800 border border-sky-300 font-black text-[10px] px-3 py-0.5 rounded-full animate-pulse">
               🧠 Suy nghĩ 3 giây...
             </div>
-            <h2 id="question-text" class="text-xs sm:text-sm font-extrabold text-amber-50 leading-snug drop-shadow">
+            <h2 id="question-text" class="text-xs sm:text-sm font-extrabold text-slate-800 leading-snug">
               Đã vào phòng thành công! Hãy nhìn lên màn hình hoặc chờ Admin Tuấn Phủ Lý bấm "Phát câu tiếp"...
             </h2>
             <div id="answer-feedback" class="hidden mt-2 text-[10px] font-extrabold px-3 py-1 rounded-full"></div>
-            <div id="explanation-inline" class="hidden mt-1.5 text-[10px] text-amber-100 bg-slate-900/95 border border-amber-400/40 rounded-xl px-2.5 py-1 text-left w-full"></div>
+            <div id="explanation-inline" class="hidden mt-1.5 text-[10px] text-slate-700 bg-amber-50 border border-amber-200 rounded-xl px-2.5 py-1 text-left w-full"></div>
           </div>
         </div>
 
-        <!-- LƯỚI 4 ĐÁP ÁN 2x2 PHONG CÁCH HOÀNG GIA KÈM CHỒNG ẢNH ĐẠI DIỆN 4K -->
-        <div class="grid grid-cols-2 gap-2 mb-3">
-          <button onclick="pickAnswer('A')" id="btn-A" class="royal-answer-btn rounded-[18px] p-2.5 text-left active:scale-95 cursor-pointer flex flex-col justify-between min-h-[80px]">
+        <!-- LƯỚI 4 ĐÁP ÁN 2x2 KÈM CHỒNG ẢNH ĐẠI DIỆN 4K & TỶ LỆ % -->
+        <div class="grid grid-cols-2 gap-2 mb-2.5">
+          <button onclick="pickAnswer('A')" id="btn-A" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-gradient-to-b from-rose-400 to-rose-600 text-white text-xs font-black flex items-center justify-center shrink-0 border border-amber-300 shadow">A</span>
-              <span id="text-A" class="text-xs font-extrabold text-white leading-tight line-clamp-2">Đáp án A</span>
+              <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">A</span>
+              <span id="text-A" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án A</span>
             </div>
-            <div class="flex items-center justify-between mt-2 pt-1 border-t border-white/10">
+            <div class="flex items-center justify-between mt-2 pt-1">
               <div id="avatars-A" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
-              <span id="stat-A" class="text-[10px] bg-rose-950/90 text-rose-300 border border-rose-500/40 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
+              <span id="stat-A" class="text-[10px] bg-rose-50 text-rose-500 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
 
-          <button onclick="pickAnswer('B')" id="btn-B" class="royal-answer-btn rounded-[18px] p-2.5 text-left active:scale-95 cursor-pointer flex flex-col justify-between min-h-[80px]">
+          <button onclick="pickAnswer('B')" id="btn-B" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-gradient-to-b from-sky-400 to-blue-600 text-white text-xs font-black flex items-center justify-center shrink-0 border border-amber-300 shadow">B</span>
-              <span id="text-B" class="text-xs font-extrabold text-white leading-tight line-clamp-2">Đáp án B</span>
+              <span class="w-6 h-6 rounded-full bg-sky-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">B</span>
+              <span id="text-B" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án B</span>
             </div>
-            <div class="flex items-center justify-between mt-2 pt-1 border-t border-white/10">
+            <div class="flex items-center justify-between mt-2 pt-1">
               <div id="avatars-B" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
-              <span id="stat-B" class="text-[10px] bg-sky-950/90 text-sky-300 border border-sky-500/40 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
+              <span id="stat-B" class="text-[10px] bg-sky-50 text-sky-500 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
 
-          <button onclick="pickAnswer('C')" id="btn-C" class="royal-answer-btn rounded-[18px] p-2.5 text-left active:scale-95 cursor-pointer flex flex-col justify-between min-h-[80px]">
+          <button onclick="pickAnswer('C')" id="btn-C" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-gradient-to-b from-amber-300 to-amber-600 text-slate-950 text-xs font-black flex items-center justify-center shrink-0 border border-yellow-200 shadow">C</span>
-              <span id="text-C" class="text-xs font-extrabold text-white leading-tight line-clamp-2">Đáp án C</span>
+              <span class="w-6 h-6 rounded-full bg-amber-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">C</span>
+              <span id="text-C" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án C</span>
             </div>
-            <div class="flex items-center justify-between mt-2 pt-1 border-t border-white/10">
+            <div class="flex items-center justify-between mt-2 pt-1">
               <div id="avatars-C" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
-              <span id="stat-C" class="text-[10px] bg-amber-950/90 text-amber-300 border border-amber-500/40 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
+              <span id="stat-C" class="text-[10px] bg-amber-50 text-amber-600 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
 
-          <button onclick="pickAnswer('D')" id="btn-D" class="royal-answer-btn rounded-[18px] p-2.5 text-left active:scale-95 cursor-pointer flex flex-col justify-between min-h-[80px]">
+          <button onclick="pickAnswer('D')" id="btn-D" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-gradient-to-b from-purple-400 to-purple-700 text-white text-xs font-black flex items-center justify-center shrink-0 border border-amber-300 shadow">D</span>
-              <span id="text-D" class="text-xs font-extrabold text-white leading-tight line-clamp-2">Đáp án D</span>
+              <span class="w-6 h-6 rounded-full bg-purple-400 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">D</span>
+              <span id="text-D" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án D</span>
             </div>
-            <div class="flex items-center justify-between mt-2 pt-1 border-t border-white/10">
+            <div class="flex items-center justify-between mt-2 pt-1">
               <div id="avatars-D" class="flex items-center -space-x-1.5 overflow-hidden min-h-[22px]"></div>
-              <span id="stat-D" class="text-[10px] bg-purple-950/90 text-purple-300 border border-purple-500/40 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
+              <span id="stat-D" class="text-[10px] bg-purple-50 text-purple-600 font-extrabold px-2 py-0.5 rounded-full shrink-0">0 (0%)</span>
             </div>
           </button>
         </div>
       </div>
 
-      <!-- ================================================================= -->
-      <!-- PHẦN GIỮA: BẢNG XẾP HẠNG HOÀNG GIA (TIÊU ĐỀ CĂN GIỮA NỔI 3D,      -->
-      <!-- ĐÃ ẨN HOÀN TOÀN CÁC CHỮ PHỤ NHỎ HAI BÊN ĐÚNG NHƯ THIẾT KẾ SỐ 4)    -->
-      <!-- ================================================================= -->
-      <div class="w-full flex-1 royal-glass-card rounded-[22px] p-3 flex flex-col justify-between mb-2.5 relative">
-        <!-- Tiêu đề "🏆 BẢNG XẾP HẠNG" căn giữa tuyệt đối với chữ vàng 3D phát sáng -->
-        <div class="flex flex-col items-center justify-center pb-2 mb-2 border-b border-amber-500/30">
-          <div class="inline-flex items-center justify-center gap-2 px-5 py-1 rounded-full bg-gradient-to-r from-amber-950/40 via-amber-500/20 to-amber-950/40 border border-amber-400/60 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
-            <span class="text-xs text-amber-300">✨</span>
-            <span class="text-sm sm:text-base font-black gold-3d-title uppercase">👑 BẢNG XẾP HẠNG 👑</span>
-            <span class="text-xs text-amber-300">✨</span>
-          </div>
+      <!-- PHẦN GIỮA: Ô BẢNG XẾP HẠNG TO CHE KÍN CHỖ TRỐNG (ĐÃ ẨN DÒNG ẢNH 4K & CHUYỂN TIÊU ĐỀ BẢNG XẾP HẠNG VÀO GIỮA) -->
+      <div class="w-full flex-1 bg-white/95 rounded-[20px] p-3 shadow-md flex flex-col justify-between mb-2.5 border border-white">
+        <div class="flex items-center justify-center pb-2 mb-2 border-b border-slate-100">
+          <span class="text-sm sm:text-base font-black text-slate-800 tracking-wide">🏆 Bảng xếp hạng</span>
         </div>
-
-        <!-- Danh sách thí sinh dẫn đầu -->
         <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto max-h-[210px] flex-1 pr-0.5"></div>
       </div>
 
-      <!-- ================================================================= -->
-      <!-- PHẦN DƯỚI CÙNG: THANH CHỮ NHẬT KÍNH MỜ VIỀN VÀNG 3D Ở ĐÁY         -->
-      <!-- ================================================================= -->
-      <div class="w-full royal-glass-card rounded-[18px] px-3.5 py-2.5 flex items-center justify-between gap-2">
-        <div id="locked-player-badge" class="flex items-center gap-2 text-xs font-extrabold text-amber-100 truncate min-w-0 flex-1">
+      <!-- PHẦN DƯỚI CÙNG: THANH CHỮ NHẬT NẰM DÀI CUỐI CÙNG (TÊN TÀI KHOẢN - ĐIỂM SỐ - NÚT ĐĂNG XUẤT) -->
+      <div class="w-full bg-white/95 rounded-[18px] px-3.5 py-2.5 shadow-lg border border-indigo-100 flex items-center justify-between gap-2">
+        <div id="locked-player-badge" class="flex items-center gap-2 text-xs font-extrabold text-slate-800 truncate min-w-0 flex-1">
           <span>👤 Đang tải...</span>
         </div>
-        <div class="flex items-center gap-1 bg-slate-950/90 border border-amber-400/60 px-2.5 py-1 rounded-xl shrink-0 shadow-inner">
-          <span class="text-[10px] font-bold text-amber-200/80">Điểm:</span>
-          <span id="my-score-badge" class="text-xs font-black text-amber-400">0 ⭐</span>
+        <div class="flex items-center gap-1 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-xl shrink-0">
+          <span class="text-[10px] font-bold text-slate-600">Điểm:</span>
+          <span id="my-score-badge" class="text-xs font-black text-amber-600">0 ⭐</span>
         </div>
-        <button onclick="logoutAccount()" class="bg-rose-950/80 hover:bg-rose-900 active:scale-95 text-rose-200 border border-rose-500/50 font-extrabold text-[10px] px-2.5 py-1.5 rounded-xl cursor-pointer transition-all shrink-0">
+        <button onclick="logoutAccount()" class="bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-600 border border-rose-200 font-extrabold text-[10px] px-2.5 py-1.5 rounded-xl cursor-pointer transition-all shrink-0">
           🚪 Đăng xuất
         </button>
       </div>
@@ -449,38 +351,37 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL CẮT ẢNH ĐẠI DIỆN 4K ULTRA-SHARP (NÚT "XÁC NHẬN" PHA LÊ VÀNG)     -->
+  <!-- MODAL CẮT ẢNH ĐẠI DIỆN 4K ULTRA-SHARP (KIỂU FACEBOOK / GMAIL)          -->
   <!-- ===================================================================== -->
   <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
-    <div class="w-full max-w-sm royal-glass-card text-white rounded-3xl p-4 text-center space-y-3">
-      <div class="flex justify-between items-center border-b border-amber-500/30 pb-2">
-        <span class="text-xs font-black gold-3d-title">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN 4K</span>
-        <button onclick="closeAvatarCropper()" class="text-xs text-slate-300 hover:text-white font-bold cursor-pointer">✖ Đóng</button>
+    <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl border-2 border-indigo-500 p-4 text-center space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+        <span class="text-xs font-black text-slate-800">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN 4K</span>
+        <button onclick="closeAvatarCropper()" class="text-xs text-slate-500 hover:text-slate-800 font-bold cursor-pointer">✖ Đóng</button>
       </div>
-      <p class="text-[11px] text-slate-300 font-semibold">
+      <p class="text-[11px] text-slate-600 font-semibold">
         Dùng ngón tay (hoặc chuột) <strong>kéo di chuyển ảnh</strong> và trượt thanh <strong>Phóng to / Thu nhỏ</strong> để lấy góc nét nhất:
       </p>
 
       <div class="flex justify-center">
-        <div class="relative w-[220px] h-[220px] rounded-2xl overflow-hidden bg-slate-950 shadow-inner border-2 border-amber-400 touch-none">
+        <div class="relative w-[220px] h-[220px] rounded-2xl overflow-hidden bg-slate-900 shadow-inner border-2 border-slate-300 touch-none">
+          <!-- Khung vẽ độ phân giải gấp đôi (440x440) chuẩn Retina 4K -->
           <canvas id="cropper-canvas" width="440" height="440" class="w-[220px] h-[220px] cursor-move"></canvas>
         </div>
       </div>
 
       <div class="flex items-center gap-2 px-2">
-        <button type="button" onclick="adjustCropZoom(-0.15)" class="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 border border-amber-500/40 text-amber-300 font-black text-xs cursor-pointer">➖</button>
-        <input id="cropper-zoom" type="range" min="1" max="3.5" step="0.02" value="1" oninput="onCropZoomChange()" class="flex-1 accent-amber-400 cursor-pointer">
-        <button type="button" onclick="adjustCropZoom(0.15)" class="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 border border-amber-500/40 text-amber-300 font-black text-xs cursor-pointer">➕</button>
+        <button type="button" onclick="adjustCropZoom(-0.15)" class="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 font-black text-xs cursor-pointer">➖</button>
+        <input id="cropper-zoom" type="range" min="1" max="3.5" step="0.02" value="1" oninput="onCropZoomChange()" class="flex-1 accent-indigo-600 cursor-pointer">
+        <button type="button" onclick="adjustCropZoom(0.15)" class="w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 font-black text-xs cursor-pointer">➕</button>
       </div>
 
       <div class="flex gap-2 pt-1">
-        <label for="avatarInput" class="flex-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 font-bold text-xs py-2.5 rounded-xl cursor-pointer flex items-center justify-center">
+        <label for="avatarInput" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs py-2.5 rounded-xl cursor-pointer">
           🔄 Chọn ảnh khác
         </label>
-        <button type="button" onclick="applyAvatarCrop()" class="flex-1 royal-crystal-btn font-black text-xs py-2.5 rounded-xl cursor-pointer flex items-center justify-center gap-1">
-          <span>💎</span>
-          <span>XÁC NHẬN</span>
-          <span>💎</span>
+        <button type="button" onclick="applyAvatarCrop()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-2.5 rounded-xl shadow-lg cursor-pointer">
+          ✂️ Cắt chuẩn 4K
         </button>
       </div>
     </div>
@@ -490,10 +391,10 @@
   <!-- MODAL THƯ MỤC "TỔNG TÀI KHOẢN" (THEO DÕI, ĐÌNH CHỈ & BỎ ĐÌNH CHỈ)      -->
   <!-- ===================================================================== -->
   <div id="modal-player-directory" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
-    <div class="w-full max-w-md royal-glass-card text-white rounded-3xl p-4 space-y-3 max-h-[90vh] flex flex-col">
-      <div class="flex justify-between items-center border-b border-amber-500/30 pb-2">
+    <div class="w-full max-w-md bg-slate-900 text-white rounded-3xl border-2 border-amber-500 shadow-2xl p-4 space-y-3 max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-2">
         <div>
-          <h3 class="text-sm font-black gold-3d-title">📁 THƯ MỤC TỔNG TÀI KHOẢN</h3>
+          <h3 class="text-sm font-black text-amber-400">📁 THƯ MỤC TỔNG TÀI KHOẢN</h3>
           <p class="text-[11px] text-slate-300 font-semibold">
             Đã vào phòng: <span id="dir-total-count" class="text-emerald-400 font-black">0</span> thí sinh
             (Đang online: <span id="dir-online-count" class="text-sky-400 font-black">0</span>)
@@ -505,7 +406,7 @@
       </div>
 
       <div class="flex gap-1.5">
-        <input id="dir-search-input" type="text" oninput="renderPlayerDirectoryList()" placeholder="🔍 Tìm tên tài khoản..." class="flex-1 bg-slate-900 border border-amber-500/40 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+        <input id="dir-search-input" type="text" oninput="renderPlayerDirectoryList()" placeholder="🔍 Tìm tên tài khoản..." class="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
         <button onclick="requestPlayerPresence()" class="bg-sky-700 hover:bg-sky-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0">
           🔄 Quét phòng
         </button>
@@ -514,8 +415,8 @@
         </button>
       </div>
 
-      <div class="text-[10px] text-slate-300 bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-amber-500/30">
-        💡 <strong>Điều khiển:</strong> Bấm <span class="text-amber-300 font-bold">⛔ Đình chỉ</span> để tạm khóa quyền trả lời của thí sinh, hoặc bấm <span class="text-emerald-300 font-bold">✅ Bỏ đình chỉ</span> để cho phép thi tiếp.
+      <div class="text-[10px] text-slate-400 bg-slate-800/60 px-2.5 py-1.5 rounded-xl border border-slate-700">
+        💡 <strong>Ký tự điều khiển:</strong> Bấm <span class="text-amber-300 font-bold">⛔ Đình chỉ</span> để tạm khóa quyền trả lời của thí sinh, hoặc bấm <span class="text-emerald-300 font-bold">✅ Bỏ đình chỉ</span> để cho phép thi tiếp.
       </div>
 
       <div id="dir-players-container" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
@@ -523,82 +424,69 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (HUY HIỆU KHIÊN VÀNG 3D)-->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU (GIỐNG ẢNH 3)-->
   <!-- ===================================================================== -->
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2.5">
-    <div class="w-full max-w-[415px] royal-glass-card text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[94vh] relative">
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-2.5">
+    <div class="w-full max-w-[410px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-300 p-3.5 pt-2 flex flex-col max-h-[94vh] relative">
       
-      <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 font-black text-xs flex items-center justify-center cursor-pointer z-20">
+      <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer z-20">
         ✖
       </button>
 
-      <!-- HUY HIỆU LOGO 3D "10 THẬP ĐẠI THẦN TỐC" (VƯƠNG MIỆN VÀNG + KHIÊN VÀNG SỐ 10 + RUY BĂNG LỤA XANH) -->
-      <div class="flex justify-center -mt-5 mb-1 select-none pointer-events-none">
-        <svg class="w-[285px] h-[136px] drop-shadow-2xl" viewBox="0 0 320 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- HÌNH ẢNH ĐỒ HỌA 3D "10 THẬP ĐẠI THẦN TỐC" -->
+      <div class="flex justify-center -mt-6 mb-1 select-none pointer-events-none">
+        <svg class="w-[275px] h-[128px] drop-shadow-xl" viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#FFFBEB"/>
               <stop offset="35%" stop-color="#FDE047"/>
               <stop offset="70%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#B45309"/>
+            </linearGradient>
+            <linearGradient id="cupGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FEF08A"/>
+              <stop offset="50%" stop-color="#F59E0B"/>
               <stop offset="100%" stop-color="#92400E"/>
             </linearGradient>
-            <linearGradient id="shieldGold" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#FEF08A"/>
-              <stop offset="45%" stop-color="#F59E0B"/>
-              <stop offset="100%" stop-color="#78350F"/>
-            </linearGradient>
-            <linearGradient id="royalSilk" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#1E3A8A"/>
+            <linearGradient id="blueRibbon" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1D4ED8"/>
               <stop offset="50%" stop-color="#2563EB"/>
-              <stop offset="100%" stop-color="#172554"/>
+              <stop offset="100%" stop-color="#1E3A8A"/>
             </linearGradient>
             <filter id="glowShadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.7"/>
+              <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.45"/>
             </filter>
           </defs>
-
-          <!-- Vòng nguyệt quế vàng hai bên -->
-          <path d="M84,96 C54,78 50,42 78,22 C70,45 74,70 96,86 Z" fill="url(#goldGrad)" stroke="#78350F" stroke-width="1"/>
-          <path d="M236,96 C266,78 270,42 242,22 C250,45 246,70 224,86 Z" fill="url(#goldGrad)" stroke="#78350F" stroke-width="1"/>
-
-          <!-- Dải lụa xanh Royal Blue thêu chỉ vàng uốn lượn hai bên -->
-          <path d="M28,74 C52,58 78,62 108,72 L98,96 C72,88 48,88 22,98 L34,84 Z" fill="url(#royalSilk)" stroke="url(#goldGrad)" stroke-width="2" filter="url(#glowShadow)"/>
-          <path d="M292,74 C268,58 242,62 212,72 L222,96 C248,88 272,88 298,98 L286,84 Z" fill="url(#royalSilk)" stroke="url(#goldGrad)" stroke-width="2" filter="url(#glowShadow)"/>
-
-          <!-- Vương miện vàng đánh bóng trên đỉnh -->
-          <polygon points="134,24 140,7 151,16 160,3 169,16 180,7 186,24" fill="url(#goldGrad)" stroke="#78350F" stroke-width="1.5" filter="url(#glowShadow)"/>
-          <circle cx="160" cy="3" r="2.2" fill="#FEF08A"/>
-          <circle cx="140" cy="7" r="2" fill="#38BDF8"/>
-          <circle cx="180" cy="7" r="2" fill="#38BDF8"/>
-
-          <!-- Khiên Vàng Phát Sáng (Glowing Gold Shield) viền xanh đậm -->
-          <path d="M118,26 L202,26 L202,58 C202,82 160,96 160,96 C160,96 118,82 118,58 Z" fill="url(#shieldGold)" stroke="#1E3A8A" stroke-width="3.5" filter="url(#glowShadow)"/>
-          <path d="M124,31 L196,31 L196,57 C196,77 160,89 160,89 C160,89 124,77 124,57 Z" fill="none" stroke="#FEF08A" stroke-width="1.5"/>
-
-          <!-- Số 10 viền xanh đậm phát sáng trong Khiên Vàng -->
-          <text x="160" y="72" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="42" fill="url(#goldGrad)" stroke="#1E3A8A" stroke-width="3.5" filter="url(#glowShadow)">10</text>
-
-          <!-- Dòng 1: THẬP ĐẠI (Chữ vàng viền men xanh Royal Blue) -->
-          <path d="M54,84 Q160,74 266,84 L258,110 Q160,100 62,110 Z" fill="url(#royalSilk)" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glowShadow)"/>
-          <text x="160" y="102" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="21" fill="url(#goldGrad)" stroke="#172554" stroke-width="1.5" letter-spacing="1.5">THẬP ĐẠI</text>
-
-          <!-- Dòng 2: ★ THẦN TỐC ★ -->
-          <path d="M40,111 Q160,102 280,111 L270,137 Q160,128 50,137 Z" fill="url(#royalSilk)" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glowShadow)"/>
-          <text x="160" y="129" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="18" fill="url(#goldGrad)" stroke="#172554" stroke-width="1.2" letter-spacing="1.2">★ THẦN TỐC ★</text>
+          <polygon points="58,25 32,55 54,58 38,92 82,50 58,47" fill="url(#goldGrad)" stroke="#38BDF8" stroke-width="2" filter="url(#glowShadow)"/>
+          <polygon points="262,25 288,55 266,58 282,92 238,50 262,47" fill="url(#goldGrad)" stroke="#38BDF8" stroke-width="2" filter="url(#glowShadow)"/>
+          <path d="M88,88 C62,72 58,40 82,22 C75,42 78,65 98,80 Z" fill="url(#goldGrad)" stroke="#92400E" stroke-width="1"/>
+          <path d="M232,88 C258,72 262,40 238,22 C245,42 242,65 222,80 Z" fill="url(#goldGrad)" stroke="#92400E" stroke-width="1"/>
+          <path d="M115,36 C92,36 92,68 118,72" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M205,36 C228,36 228,68 202,72" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M112,26 L208,26 L196,82 C192,96 128,96 124,82 Z" fill="url(#cupGrad)" stroke="#FEF08A" stroke-width="2.5" filter="url(#glowShadow)"/>
+          <polygon points="126,26 134,8 148,18 160,4 172,18 186,8 194,26" fill="url(#goldGrad)" stroke="#92400E" stroke-width="1.5"/>
+          <polygon points="160,6 166,14 160,22 154,14" fill="#38BDF8" stroke="#E0F2FE" stroke-width="1"/>
+          <text x="160" y="67" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="40" fill="url(#goldGrad)" stroke="#78350F" stroke-width="3" filter="url(#glowShadow)">10</text>
+          <path d="M56,74 Q160,62 264,74 L256,102 Q160,90 64,102 Z" fill="url(#blueRibbon)" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glowShadow)"/>
+          <text x="160" y="93" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="21" fill="url(#goldGrad)" stroke="#78350F" stroke-width="1.5" letter-spacing="1">THẬP ĐẠI</text>
+          <path d="M42,102 Q160,92 278,102 L268,128 Q160,118 52,128 Z" fill="url(#blueRibbon)" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glowShadow)"/>
+          <text x="160" y="120" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="18" fill="#FFFFFF" stroke="#1E3A8A" stroke-width="1" letter-spacing="1">★ THẦN TỐC ★</text>
+          <circle cx="160" cy="134" r="13" fill="url(#goldGrad)" stroke="#92400E" stroke-width="2" filter="url(#glowShadow)"/>
+          <polygon points="160,124 163,131 170,131 165,135 167,142 160,138 153,142 155,135 150,131 157,131" fill="#FFFBEB"/>
         </svg>
       </div>
 
-      <div id="speed-modal-answer-bar" class="bg-slate-900/95 border border-amber-400/50 text-amber-200 rounded-xl px-3 py-1.5 text-[10px] font-bold text-center mb-2"></div>
+      <div id="speed-modal-answer-bar" class="bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl px-3 py-1.5 text-[10px] font-bold text-center mb-2"></div>
       <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2 px-1"></div>
       <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
 
-      <div class="pt-1.5 border-t border-amber-500/30">
-        <div class="flex justify-between items-center text-[11px] font-bold text-slate-300 mb-1">
+      <div class="pt-1.5 border-t border-slate-200">
+        <div class="flex justify-between items-center text-[11px] font-bold text-slate-500 mb-1">
           <span id="speed-footer-status">🕒 Tự động chuyển câu sau</span>
-          <span id="speed-footer-sec" class="bg-amber-500/20 text-amber-300 border border-amber-400/50 font-black px-2 py-0.5 rounded-full text-[10px]">05s</span>
+          <span id="speed-footer-sec" class="bg-sky-100 text-sky-700 font-black px-2 py-0.5 rounded-full text-[10px]">05s</span>
         </div>
-        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-          <div id="speed-footer-bar" class="h-full bg-gradient-to-r from-amber-400 to-sky-400 transition-all duration-500" style="width: 100%;"></div>
+        <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+          <div id="speed-footer-bar" class="h-full bg-indigo-500 transition-all duration-500" style="width: 100%;"></div>
         </div>
       </div>
 
@@ -608,11 +496,11 @@
   <!-- ===================================================================== -->
   <!-- MODAL 2: TRA CỨU THỨ HẠNG BỘ ĐỀ LẦN TRƯỚC & AI ĐỨNG TRÊN MÌNH         -->
   <!-- ===================================================================== -->
-  <div id="modal-prev-rank" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
-    <div class="w-full max-w-md royal-glass-card text-white rounded-3xl p-4 space-y-3 max-h-[90vh] flex flex-col">
-      <div class="flex justify-between items-center border-b border-amber-500/30 pb-2">
+  <div id="modal-prev-rank" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-3">
+    <div class="w-full max-w-md bg-slate-900 text-white rounded-3xl border-2 border-emerald-500 shadow-2xl p-4 space-y-3 max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center border-b border-slate-700 pb-2">
         <div>
-          <h3 class="text-sm font-black gold-3d-title">📊 THỨ HẠNG BỘ ĐỀ LẦN TRƯỚC</h3>
+          <h3 class="text-sm font-black text-emerald-400">📊 THỨ HẠNG BỘ ĐỀ LẦN TRƯỚC</h3>
           <p id="prev-quiz-title" class="text-[11px] text-slate-300 font-semibold">Chưa có dữ liệu bộ đề trước</p>
         </div>
         <button onclick="closePrevRankModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1 rounded-full border border-slate-600 cursor-pointer font-bold">
@@ -620,7 +508,7 @@
         </button>
       </div>
 
-      <div id="prev-my-summary" class="bg-slate-900/90 border border-amber-500/40 rounded-2xl p-3 text-xs space-y-1.5"></div>
+      <div id="prev-my-summary" class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 text-xs space-y-1.5"></div>
       <div class="flex-1 overflow-y-auto space-y-1.5 pr-1" id="prev-rank-list"></div>
     </div>
   </div>
@@ -629,27 +517,28 @@
   <!-- MODAL 3: PHÁO HOA CHÚC MỪNG HOÀN THÀNH BÀI THI & TOP 10 CHUNG CUỘC    -->
   <!-- ===================================================================== -->
   <div id="modal-finish-celebration" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
-    <div class="w-full max-w-md royal-glass-card text-white rounded-3xl p-5 text-center space-y-3 max-h-[92vh] flex flex-col">
-      <div class="text-4xl animate-bounce">🎆👑🎆</div>
-      <h2 class="text-base sm:text-lg font-black gold-3d-title tracking-wide uppercase">
+    <div class="w-full max-w-md bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-950 text-white rounded-3xl border-2 border-amber-400 shadow-2xl p-5 text-center space-y-3 max-h-[92vh] flex flex-col">
+      <div class="text-4xl animate-bounce">🎆🏆🎆</div>
+      <h2 class="text-base sm:text-lg font-black text-amber-300 tracking-wide uppercase">
         Chúc mừng bạn đã hoàn thành bài thi
       </h2>
-      <p id="finish-quiz-name" class="text-xs font-bold text-sky-300 bg-slate-900/90 border border-sky-500/40 py-1 px-3 rounded-full mx-auto w-fit"></p>
+      <p id="finish-quiz-name" class="text-xs font-bold text-sky-300 bg-sky-950/60 border border-sky-500/30 py-1 px-3 rounded-full mx-auto w-fit"></p>
       <div id="finish-my-rank-box" class="bg-amber-500/15 border border-amber-400/50 rounded-2xl p-2.5 text-xs font-bold text-amber-200"></div>
 
-      <div class="text-left flex-1 flex flex-col overflow-hidden bg-slate-950/90 border border-amber-500/40 rounded-2xl p-3">
-        <div class="flex justify-center items-center border-b border-amber-500/30 pb-1.5 mb-2">
-          <span class="text-xs font-black gold-3d-title">👑 BẢNG XẾP HẠNG TOP 10 CHUNG CUỘC 👑</span>
+      <div class="text-left flex-1 flex flex-col overflow-hidden bg-slate-900/90 border border-slate-700 rounded-2xl p-3">
+        <div class="flex justify-between items-center border-b border-slate-700 pb-1.5 mb-2">
+          <span class="text-xs font-black text-amber-400">👑 TOP 10 ĐIỂM CAO NHẤT ĐỀ THI NÀY</span>
+          <span class="text-[10px] text-slate-400 font-semibold">Điểm chung cuộc</span>
         </div>
         <div id="finish-top10-list" class="space-y-1.5 overflow-y-auto flex-1 text-xs pr-1"></div>
       </div>
 
       <div class="flex gap-2 pt-1">
-        <button onclick="launchFireworks()" class="flex-1 royal-crystal-btn font-extrabold text-xs py-2.5 rounded-xl cursor-pointer">
-          🎇 Bắn pháo hoa
+        <button onclick="launchFireworks()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs py-2.5 rounded-xl cursor-pointer shadow">
+          🎇 Bắn thêm pháo hoa
         </button>
         <button onclick="closeFinishModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-2.5 rounded-xl border border-slate-600 cursor-pointer">
-          💎 XÁC NHẬN 💎
+          Đóng bảng vinh danh
         </button>
       </div>
     </div>
@@ -836,20 +725,20 @@
       const btnLog = document.getElementById('tab-btn-login');
       const avtSec = document.getElementById('auth-avatar-section');
       const logHint = document.getElementById('auth-login-hint');
-      const submitBtnText = document.getElementById('btn-submit-auth-text');
+      const submitBtn = document.getElementById('btn-submit-auth');
 
       if (mode === 'register') {
-        btnReg.className = "py-2 rounded-xl text-[11px] font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow cursor-pointer transition-all";
-        btnLog.className = "py-2 rounded-xl text-[11px] font-black text-slate-400 hover:text-white cursor-pointer transition-all";
+        btnReg.className = "py-2 rounded-xl text-[11px] font-black bg-indigo-600 text-white shadow cursor-pointer transition-all";
+        btnLog.className = "py-2 rounded-xl text-[11px] font-black text-slate-600 hover:text-slate-900 cursor-pointer transition-all";
         avtSec.classList.remove('hidden');
         logHint.classList.add('hidden');
-        if (submitBtnText) submitBtnText.innerText = "BẮT ĐẦU";
+        submitBtn.innerText = "🚀 ĐĂNG KÝ & VÀO ĐẤU TRƯỜNG";
       } else {
-        btnLog.className = "py-2 rounded-xl text-[11px] font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow cursor-pointer transition-all";
-        btnReg.className = "py-2 rounded-xl text-[11px] font-black text-slate-400 hover:text-white cursor-pointer transition-all";
+        btnLog.className = "py-2 rounded-xl text-[11px] font-black bg-emerald-600 text-white shadow cursor-pointer transition-all";
+        btnReg.className = "py-2 rounded-xl text-[11px] font-black text-slate-600 hover:text-slate-900 cursor-pointer transition-all";
         avtSec.classList.add('hidden');
         logHint.classList.remove('hidden');
-        if (submitBtnText) submitBtnText.innerText = "BẮT ĐẦU";
+        submitBtn.innerText = "📲 ĐĂNG NHẬP VÀO ĐẤU TRƯỜNG";
       }
     }
 
@@ -960,14 +849,14 @@
       ctx.drawImage(rawSourceImage, cropOffsetX, cropOffsetY, drawW, drawH);
 
       ctx.save();
-      ctx.fillStyle = "rgba(9, 13, 26, 0.68)";
+      ctx.fillStyle = "rgba(15, 23, 42, 0.62)";
       ctx.beginPath();
       ctx.rect(0, 0, W, H);
       ctx.arc(cx, cy, radius, 0, Math.PI * 2, true);
       ctx.fill();
 
-      ctx.strokeStyle = "#fbbf24";
-      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx.stroke();
@@ -1053,6 +942,7 @@
       });
     })();
 
+    // Thuật toán Photoshop Unsharp Mask (Tăng độ sắc nét viền điểm ảnh chuẩn 4K)
     function applyPhotoshopSharpenFilter(ctx, w, h) {
       try {
         const imgData = ctx.getImageData(0, 0, w, h);
@@ -1104,7 +994,7 @@
       const sy = (cropBoxY - cropOffsetY) / totalScale;
       const sDim = cropBoxDim / totalScale;
 
-      outCtx.fillStyle = "#0f172a";
+      outCtx.fillStyle = "#ffffff";
       outCtx.fillRect(0, 0, outSize, outSize);
       outCtx.filter = 'contrast(1.05) saturate(1.08)';
       outCtx.drawImage(rawSourceImage, sx, sy, sDim, sDim, 0, 0, outSize, outSize);
@@ -1126,28 +1016,37 @@
       }
       if (recropBtn) recropBtn.classList.remove('hidden');
       if (statusTxt) {
-        statusTxt.innerText = "✅ Đã xác nhận ảnh đại diện chuẩn 4K!";
-        statusTxt.className = "text-[10px] text-emerald-400 font-bold mt-1";
+        statusTxt.innerText = "✅ Đã cắt & làm nét ảnh đại diện chuẩn 4K!";
+        statusTxt.className = "text-[10px] text-emerald-600 font-bold mt-1";
       }
 
       closeAvatarCropper();
     }
 
-    function renderAvatarHTML(avatarUrl, sizeClass = "w-7 h-7", borderClass = "royal-avatar-ring") {
+    function renderAvatarHTML(avatarUrl, sizeClass = "w-7 h-7", borderClass = "border border-amber-400") {
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
-      return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-900" alt="avt">`;
+      return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-200" alt="avt">`;
     }
 
     // =========================================================================
-    // 3. ĐỘNG CƠ ÂM THANH KÉP (HYBRID KEEP-ALIVE AUDIO ENGINE)
+    // 3. HỆ THỐNG ÂM THANH V24 MƯỢT 100% (KHÔNG CHẬP CHỜN, KHÔNG XUNG ĐỘT NGẮT NHẠC)
     // =========================================================================
     let audioCtx = null;
     let mp3Unlocked = false;
     let keepAliveNode = null;
+    let isBgmActive = false;
 
     const bgmEl = document.getElementById('audio-bgm');
     const correctEl = document.getElementById('audio-correct');
     const wrongEl = document.getElementById('audio-wrong');
+
+    // Tải trước (Preload) cả 3 file MP3 ngay khi mở trang
+    [bgmEl, correctEl, wrongEl].forEach(el => {
+      if (el) {
+        el.volume = 1.0;
+        try { el.load(); } catch (e) {}
+      }
+    });
 
     function initAudio() {
       try {
@@ -1167,18 +1066,25 @@
           osc.start();
           keepAliveNode = osc;
         }
+        // Chỉ mở khóa MP3 trên iOS/Android đúng 1 lần đầu tiên khi chưa có nhạc phát
         if (!mp3Unlocked) {
           mp3Unlocked = true;
           [bgmEl, correctEl, wrongEl].forEach(el => {
-            if (el) {
+            if (el && el.paused) {
               el.muted = true;
               const p = el.play();
               if (p !== undefined) {
                 p.then(() => {
-                  el.pause();
-                  el.currentTime = 0;
-                  el.muted = false;
-                  el.volume = 1.0;
+                  // Chỉ pause nếu lúc đó chưa vào câu hỏi thật (tránh làm ngắt nhạc nền đang kêu)
+                  if (el === bgmEl && isBgmActive) {
+                    el.muted = false;
+                    el.volume = 0.9;
+                  } else {
+                    el.pause();
+                    el.currentTime = 0;
+                    el.muted = false;
+                    el.volume = 1.0;
+                  }
                 }).catch(() => {
                   el.muted = false;
                   el.volume = 1.0;
@@ -1190,11 +1096,12 @@
       } catch (e) {}
     }
 
-    ['touchstart', 'touchend', 'click', 'keydown'].forEach(evt => {
-      document.addEventListener(evt, initAudio, { passive: true });
+    ['touchstart', 'click'].forEach(evt => {
+      document.addEventListener(evt, initAudio, { once: true, passive: true });
     });
 
     function stopAllMP3() {
+      isBgmActive = false;
       [bgmEl, correctEl, wrongEl].forEach(el => {
         if (el) {
           try {
@@ -1205,7 +1112,7 @@
       });
     }
 
-    function playSynthTone(freq, startOffset, duration, type = 'sawtooth', volume = 0.20) {
+    function playSynthTone(freq, startOffset, duration, type = 'triangle', volume = 0.16) {
       initAudio();
       if (!audioCtx) return;
       try {
@@ -1228,67 +1135,81 @@
       } catch (e) {}
     }
 
+    // 1. Phát Nhạc nền Ai Là Triệu Phú (MP3 gốc mượt xuyên suốt, chỉ dùng Synth nếu mất mạng)
     function playALTPQuestionStart() {
       initAudio();
-      stopAllMP3();
-      playSynthTone(146.83, 0.00, 0.55, 'sawtooth', 0.14);
-      playSynthTone(220.00, 0.08, 0.55, 'sawtooth', 0.14);
-      playSynthTone(293.66, 0.16, 0.65, 'triangle', 0.18);
-      playSynthTone(349.23, 0.24, 0.80, 'triangle', 0.20);
+      if (correctEl) { try { correctEl.pause(); correctEl.currentTime = 0; } catch (e) {} }
+      if (wrongEl) { try { wrongEl.pause(); wrongEl.currentTime = 0; } catch (e) {} }
 
+      isBgmActive = true;
       if (bgmEl) {
         bgmEl.muted = false;
         bgmEl.volume = 0.9;
-        bgmEl.currentTime = 0;
+        try { bgmEl.currentTime = 0; } catch (e) {}
         const p = bgmEl.play();
-        if (p !== undefined) p.catch(() => {});
+        if (p !== undefined) {
+          p.catch(() => {
+            // Dự phòng khi mạng 4G yếu chưa tải kịp MP3
+            playSynthTone(146.83, 0.00, 0.55, 'sawtooth', 0.14);
+            playSynthTone(220.00, 0.08, 0.55, 'sawtooth', 0.14);
+            playSynthTone(293.66, 0.16, 0.65, 'triangle', 0.18);
+            playSynthTone(349.23, 0.24, 0.80, 'triangle', 0.20);
+          });
+        }
       }
     }
 
+    // Không phát tiếng bíp đè lên nhạc nền MP3 đang chạy để tránh chập chờn loa điện thoại
     function playALTPTick(timeLeft) {
       if (timeLeft <= 0) return;
-      if (timeLeft <= 5) {
-        playSynthTone(880, 0, 0.09, 'sine', 0.18);
-        playSynthTone(440, 0.04, 0.08, 'triangle', 0.12);
-      } else {
-        playSynthTone(320, 0, 0.05, 'sine', 0.09);
+      const bgmPlaying = bgmEl && !bgmEl.paused && !bgmEl.ended;
+      if (!bgmPlaying && timeLeft <= 5) {
+        playSynthTone(880, 0, 0.07, 'sine', 0.12);
       }
     }
 
+    // 2. Phát Nhạc Trả lời ĐÚNG Ai Là Triệu Phú (MP3 gốc nguyên bản, không bị trộn tạp âm)
     function playALTPCorrect() {
       initAudio();
+      isBgmActive = false;
       if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
-
-      playSynthTone(523.25, 0.00, 0.16, 'triangle', 0.24);
-      playSynthTone(659.25, 0.12, 0.16, 'triangle', 0.24);
-      playSynthTone(783.99, 0.24, 0.18, 'triangle', 0.26);
-      playSynthTone(1046.50, 0.36, 0.80, 'sawtooth', 0.25);
-      playSynthTone(523.25, 0.36, 0.80, 'triangle', 0.20);
+      if (wrongEl) { try { wrongEl.pause(); wrongEl.currentTime = 0; } catch (e) {} }
 
       if (correctEl) {
         correctEl.muted = false;
-        correctEl.currentTime = 0;
         correctEl.volume = 1.0;
+        try { correctEl.currentTime = 0; } catch (e) {}
         const p = correctEl.play();
-        if (p !== undefined) p.catch(() => {});
+        if (p !== undefined) {
+          p.catch(() => {
+            playSynthTone(523.25, 0.00, 0.16, 'triangle', 0.24);
+            playSynthTone(659.25, 0.12, 0.16, 'triangle', 0.24);
+            playSynthTone(783.99, 0.24, 0.18, 'triangle', 0.26);
+            playSynthTone(1046.50, 0.36, 0.80, 'triangle', 0.25);
+          });
+        }
       }
     }
 
+    // 3. Phát Nhạc Trả lời SAI Ai Là Triệu Phú (MP3 gốc nguyên bản, không bị trộn tạp âm)
     function playALTPWrong() {
       initAudio();
+      isBgmActive = false;
       if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
-
-      playSynthTone(311.13, 0.00, 0.26, 'sawtooth', 0.24);
-      playSynthTone(293.66, 0.22, 0.26, 'sawtooth', 0.24);
-      playSynthTone(277.18, 0.44, 0.85, 'sawtooth', 0.28);
-      playSynthTone(138.59, 0.44, 0.85, 'triangle', 0.24);
+      if (correctEl) { try { correctEl.pause(); correctEl.currentTime = 0; } catch (e) {} }
 
       if (wrongEl) {
         wrongEl.muted = false;
-        wrongEl.currentTime = 0;
         wrongEl.volume = 1.0;
+        try { wrongEl.currentTime = 0; } catch (e) {}
         const p = wrongEl.play();
-        if (p !== undefined) p.catch(() => {});
+        if (p !== undefined) {
+          p.catch(() => {
+            playSynthTone(311.13, 0.00, 0.26, 'sawtooth', 0.24);
+            playSynthTone(293.66, 0.22, 0.26, 'sawtooth', 0.24);
+            playSynthTone(277.18, 0.44, 0.85, 'sawtooth', 0.28);
+          });
+        }
       }
     }
 
@@ -1457,9 +1378,9 @@
       if (!badgeEl) return;
       if (myName && myAvatar) {
         const suspTag = isMyAccountSuspended ? `<span class="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : '';
-        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'royal-avatar-ring')} <span class="truncate font-black text-amber-100">${myName}</span> ${suspTag}`;
+        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-xs')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
       } else if (isAdminMode) {
-        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'royal-avatar-ring')} <span class="truncate font-black text-amber-300">Admin Tuấn Phủ Lý</span>`;
+        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-xs')} <span class="truncate font-black text-slate-800">Admin Tuấn Phủ Lý</span>`;
       }
     }
 
@@ -1472,9 +1393,9 @@
       if (currentSec <= 5) {
         circle.setAttribute('stroke', '#f43f5e');
       } else if (currentSec <= 10) {
-        circle.setAttribute('stroke', '#fbbf24');
+        circle.setAttribute('stroke', '#f59e0b');
       } else {
-        circle.setAttribute('stroke', '#38bdf8');
+        circle.setAttribute('stroke', '#22c55e');
       }
     }
 
@@ -1567,7 +1488,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh23_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh24_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -1614,7 +1535,9 @@
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
-        initAudio();
+        if (audioCtx && audioCtx.state === 'suspended') {
+          try { audioCtx.resume(); } catch (e) {}
+        }
         if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
       }
     });
@@ -1982,10 +1905,10 @@
           : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Đình chỉ quyền trả lời của thí sinh này">⛔ Đình chỉ</button>`;
 
         container.innerHTML += `
-          <div class="flex items-center justify-between bg-slate-900/95 border ${isSusp ? 'border-rose-500' : 'border-amber-500/30'} rounded-2xl px-3 py-2 text-xs gap-2">
+          <div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2">
             <div class="flex items-center gap-2.5 truncate">
-              <span class="w-5 h-5 rounded-full bg-slate-800 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0 border border-amber-500/40">${idx + 1}</span>
-              ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'royal-avatar-ring')}
+              <span class="w-5 h-5 rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>
+              ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}
               <div class="truncate">
                 <div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div>
                 <div class="mt-0.5">${statusBadge}</div>
@@ -2090,7 +2013,7 @@
       document.getElementById('avatar-placeholder').classList.remove('hidden');
       document.getElementById('btn-recrop').classList.add('hidden');
       document.getElementById('avatar-status-text').innerText = '* Bắt buộc chọn & cắt ảnh đại diện 4K rõ nét.';
-      document.getElementById('avatar-status-text').className = 'text-[10px] text-rose-400 font-bold mt-1';
+      document.getElementById('avatar-status-text').className = 'text-[10px] text-rose-600 font-bold mt-1';
       switchAuthTab('register');
       updateCharCount();
 
@@ -2177,16 +2100,16 @@
       const top3 = allParticipants[2] || null;
 
       function buildPodiumCol(item, rank) {
-        if (!item) return `<div class="flex flex-col items-center opacity-25"><div class="w-12 h-12 rounded-full bg-slate-800 mb-1"></div><div class="w-full h-10 bg-slate-900 rounded-t-xl"></div></div>`;
+        if (!item) return `<div class="flex flex-col items-center opacity-25"><div class="w-12 h-12 rounded-full bg-slate-200 mb-1"></div><div class="w-full h-10 bg-slate-100 rounded-t-xl"></div></div>`;
         const isFirst = rank === 1;
-        const avtSize = isFirst ? 'w-16 h-16 royal-avatar-ring' : 'w-12 h-12 border-2 border-slate-400';
-        const badgeBg = rank === 1 ? 'bg-amber-400 text-slate-950' : rank === 2 ? 'bg-slate-300 text-slate-950' : 'bg-amber-600 text-white';
+        const avtSize = isFirst ? 'w-16 h-16 border-4 border-amber-400' : 'w-12 h-12 border-2 border-slate-300';
+        const badgeBg = rank === 1 ? 'bg-amber-400 text-slate-950' : rank === 2 ? 'bg-sky-200 text-sky-900' : 'bg-orange-300 text-orange-950';
         const pedestalBg = rank === 1
-          ? 'bg-gradient-to-b from-amber-300 via-amber-500 to-amber-700 text-slate-950 h-14 border-t-2 border-yellow-200'
+          ? 'bg-gradient-to-b from-amber-200 to-amber-400 text-slate-900 h-14'
           : rank === 2
-            ? 'bg-gradient-to-b from-slate-300 to-slate-500 text-slate-950 h-11'
-            : 'bg-gradient-to-b from-amber-600 to-amber-800 text-white h-10';
-        const choiceDotColor = item.isCorrect ? 'bg-amber-400 text-slate-950' : 'bg-rose-500 text-white';
+            ? 'bg-gradient-to-b from-sky-100 to-sky-200 text-slate-800 h-11'
+            : 'bg-gradient-to-b from-orange-100 to-orange-200 text-slate-800 h-10';
+        const choiceDotColor = item.isCorrect ? 'bg-amber-400 text-white' : 'bg-rose-500 text-white';
 
         return `
           <div class="flex flex-col items-center text-center">
@@ -2194,8 +2117,8 @@
               ${renderAvatarHTML(item.avatar, avtSize, '')}
               <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full ${badgeBg} font-black text-[10px] flex items-center justify-center shadow">${rank}</span>
             </div>
-            <div class="text-[11px] font-black text-amber-100 truncate max-w-[95px]">${item.name}</div>
-            <div class="inline-flex items-center gap-1 bg-slate-900 border border-amber-500/40 rounded-full px-2 py-0.5 text-[9px] font-bold text-amber-200 my-1">
+            <div class="text-[11px] font-black text-slate-800 truncate max-w-[95px]">${item.name}</div>
+            <div class="inline-flex items-center gap-1 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-600 my-1">
               <span class="w-3.5 h-3.5 rounded-full ${choiceDotColor} text-[8px] flex items-center justify-center font-black">${item.choice}</span>
               <span>⚡ ${item.elapsedSec.toFixed(1)}s</span>
             </div>
@@ -2212,19 +2135,19 @@
       allParticipants.slice(3, 10).forEach((item, idx) => {
         const rankNum = idx + 4;
         const pointBadgeClass = item.points > 0
-          ? 'bg-amber-500/20 text-amber-300 border-amber-400/50'
-          : 'bg-rose-950 text-rose-400 border-rose-500/40';
+          ? 'bg-sky-50 text-sky-600 border-sky-200'
+          : 'bg-rose-50 text-rose-500 border-rose-200';
 
         list4to10.innerHTML += `
-          <div class="flex items-center justify-between bg-slate-900/90 border border-amber-500/30 rounded-xl px-2.5 py-1.5 text-xs">
+          <div class="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-2.5 py-1.5 text-xs">
             <div class="flex items-center gap-2 truncate">
-              <span class="w-5 h-5 rounded-full bg-slate-800 text-amber-300 border border-amber-500/40 font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
-              ${renderAvatarHTML(item.avatar, 'w-7 h-7', 'royal-avatar-ring')}
-              <span class="font-extrabold text-white truncate">${item.name}</span>
+              <span class="w-5 h-5 rounded-full bg-sky-100 text-sky-700 font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
+              ${renderAvatarHTML(item.avatar, 'w-7 h-7', 'border border-slate-300')}
+              <span class="font-extrabold text-slate-800 truncate">${item.name}</span>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
-              <span class="bg-slate-800 text-amber-300 font-bold text-[10px] px-1.5 py-0.5 rounded border border-amber-500/30">🟡 ${item.choice}</span>
-              <span class="text-[10px] text-sky-300 font-bold">🕒 ${item.elapsedSec.toFixed(1)}s</span>
+              <span class="bg-slate-200/70 text-slate-700 font-bold text-[10px] px-1.5 py-0.5 rounded">🟡 ${item.choice}</span>
+              <span class="text-[10px] text-slate-500 font-bold">🕒 ${item.elapsedSec.toFixed(1)}s</span>
               <span class="${pointBadgeClass} font-black text-[10px] px-2 py-0.5 rounded-full border">+${item.points}đ</span>
             </div>
           </div>
@@ -2285,7 +2208,7 @@
           summaryEl.innerHTML = `
             <div class="text-sm font-black text-amber-400">🎯 Thứ hạng của bạn: Hạng ${myRank} / ${totalPlayers} thí sinh (${myRec.score} ⭐)</div>
             <div class="text-sky-300 font-bold text-[11px]">🔼 Người đứng ngay trên bạn (Hạng ${myRank - 1}): <span class="text-white underline">${personJustAbove.name}</span> (${personJustAbove.score} ⭐ - hơn bạn ${gapScore} ⭐)</div>
-            <div class="text-slate-300 text-[10px] bg-slate-950/80 p-2 rounded-xl border border-slate-700 mt-1">
+            <div class="text-slate-300 text-[10px] bg-slate-900/80 p-2 rounded-xl border border-slate-700 mt-1">
               <strong class="text-amber-300">Danh sách ${myIndex} người đứng trên bạn:</strong><br>${allAboveNames}
             </div>
           `;
@@ -2298,10 +2221,10 @@
         const isAboveMe = (myIndex > 0 && idx < myIndex);
         const badge = idx === 0 ? '🥇 Hạng 1' : idx === 1 ? '🥈 Hạng 2' : idx === 2 ? '🥉 Hạng 3' : `Hạng ${idx + 1}`;
         const rowClass = isMe
-          ? 'bg-emerald-950/70 border-emerald-400 text-white'
+          ? 'bg-emerald-900/60 border-emerald-400 text-white'
           : isAboveMe
-            ? 'bg-amber-950/50 border-amber-500/50 text-amber-100'
-            : 'bg-slate-900/80 border-slate-700 text-slate-200';
+            ? 'bg-amber-950/40 border-amber-500/40 text-amber-100'
+            : 'bg-slate-800/60 border-slate-700 text-slate-200';
 
         listEl.innerHTML += `
           <div class="flex items-center justify-between py-1.5 px-3 rounded-xl border ${rowClass} text-xs">
@@ -2352,7 +2275,7 @@
         const badge = idx === 0 ? '🥇 Top 1' : idx === 1 ? '🥈 Top 2' : idx === 2 ? '🥉 Top 3' : `Hạng ${idx + 1}`;
         const isMe = (p.id === myId);
         top10El.innerHTML += `
-          <div class="flex items-center justify-between py-1.5 px-3 rounded-xl ${isMe ? 'bg-amber-500/30 border border-amber-400' : 'bg-slate-900 border border-amber-500/30'}">
+          <div class="flex items-center justify-between py-1.5 px-3 rounded-xl ${isMe ? 'bg-amber-500/30 border border-amber-400' : 'bg-slate-800 border border-slate-700'}">
             <div class="flex items-center gap-2">
               <span class="font-bold text-amber-300">${badge}</span>
               ${renderAvatarHTML(p.avatar, 'w-7 h-7')}
@@ -2485,7 +2408,7 @@
         document.getElementById('new-quiz-title').value = '';
         document.getElementById('new-quiz-json').value = '';
         document.getElementById('modal-new-quiz').classList.add('hidden');
-        alert(`🎉 Đã xác nhận thêm bộ đề "${title}" thành công!`);
+        alert(`🎉 Đã thêm bộ đề "${title}" thành công!`);
       } catch (e) {
         alert("Đoạn mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!");
       }
@@ -2514,7 +2437,7 @@
     }
 
     // =========================================================================
-    // 12. ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP ĐA THIẾT BỊ (NÚT "BẮT ĐẦU")
+    // 12. ĐĂNG KÝ TÀI KHOẢN MỚI HOẶC ĐĂNG NHẬP ĐA THIẾT BỊ
     // =========================================================================
     function joinGame() {
       initAudio();
@@ -2587,7 +2510,7 @@
 
       const avatarToUse = tempUploadedAvatar || myAvatar;
       if (!avatarToUse) {
-        return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh & Cắt 4K' rồi bấm 'XÁC NHẬN' trước khi bắt đầu!");
+        return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh & Cắt 4K' để tải và cắt Hình ảnh đại diện (Avatar) ưng ý trước khi đăng ký!");
       }
 
       myId = targetAccountId;
@@ -2705,7 +2628,7 @@
       if (footerSec) footerSec.innerText = `0${sec}s`;
       if (footerBar) footerBar.style.width = '100%';
 
-      playSynthTone(660, 0, 0.1, 'sine', 0.12);
+      playSynthTone(660, 0, 0.08, 'sine', 0.10);
 
       clearInterval(transitionInterval);
       transitionInterval = setInterval(() => {
@@ -2714,7 +2637,7 @@
           if (numEl) numEl.innerText = sec;
           if (footerSec) footerSec.innerText = `0${sec}s`;
           if (footerBar) footerBar.style.width = `${(sec / 5) * 100}%`;
-          playSynthTone(660, 0, 0.1, 'sine', 0.12);
+          playSynthTone(660, 0, 0.08, 'sine', 0.10);
         } else {
           clearInterval(transitionInterval);
           if (box) box.classList.add('hidden');
@@ -2849,7 +2772,7 @@
 
       ['A', 'B', 'C', 'D'].forEach(k => {
         const btn = document.getElementById(`btn-${k}`);
-        btn.classList.remove('ring-4', 'ring-amber-400', 'bg-emerald-950/90', 'border-emerald-400', 'bg-rose-950/90', 'border-rose-500', 'opacity-60');
+        btn.classList.remove('ring-4', 'ring-amber-400', 'bg-amber-50', 'bg-emerald-100', 'border-emerald-500', 'bg-rose-100', 'border-rose-500', 'opacity-60');
         document.getElementById(`text-${k}`).innerText = data.options[k];
         document.getElementById(`avatars-${k}`).innerHTML = '';
         document.getElementById(`stat-${k}`).innerText = `0 (0%)`;
@@ -2862,7 +2785,7 @@
         myPendingElapsedSec = prevAns.elapsedSec || (20 - prevAns.timeLeft);
         hasAnswered = true;
         const selectedBtn = document.getElementById(`btn-${myPendingChoice}`);
-        if (selectedBtn) selectedBtn.classList.add('ring-4', 'ring-amber-400');
+        if (selectedBtn) selectedBtn.classList.add('ring-4', 'ring-amber-400', 'bg-amber-50');
       } else {
         hasAnswered = false;
       }
@@ -2888,7 +2811,6 @@
           thinkBanner.innerText = `🧠 Suy nghĩ: ${thinkLeft} giây... (Chưa mở chọn)`;
           timerCountEl.innerText = thinkLeft;
           setTimerRingProgress(thinkLeft, 3);
-          playSynthTone(440, 0, 0.08, 'sine', 0.12);
         } else {
           clearInterval(thinkingTimer);
           isThinkingPhase = false;
@@ -2948,14 +2870,12 @@
       myPendingElapsedSec = Math.max(0.1, Math.min(19.9, (Date.now() - answerPhaseStartMs) / 1000));
 
       const selectedBtn = document.getElementById(`btn-${choice}`);
-      selectedBtn.classList.add('ring-4', 'ring-amber-400');
+      selectedBtn.classList.add('ring-4', 'ring-amber-400', 'bg-amber-50');
 
       const fb = document.getElementById('answer-feedback');
       fb.classList.remove('hidden');
       fb.innerText = `🔒 Đã chốt ${choice} ở giây thứ ${myPendingTimeLeft} (Mốc +${myPendingTimeLeft}đ). Chờ hết 20s mở kết quả!`;
       fb.className = "mt-2 text-[10px] font-extrabold px-3 py-1 rounded-full bg-amber-400 text-slate-950 shadow";
-
-      playSynthTone(600, 0, 0.06, 'sine', 0.10);
 
       if (window.activeQuestionUid) {
         answeredHistory[window.activeQuestionUid] = {
@@ -2999,7 +2919,8 @@
 
       const correctBtn = document.getElementById(`btn-${correctKey}`);
       if (correctBtn) {
-        correctBtn.classList.add('bg-emerald-950/90', 'border-emerald-400', 'ring-2', 'ring-emerald-400');
+        correctBtn.classList.remove('bg-amber-50');
+        correctBtn.classList.add('bg-emerald-100', 'border-emerald-500');
       }
 
       const fb = document.getElementById('answer-feedback');
@@ -3033,7 +2954,8 @@
           playALTPCorrect();
         } else {
           if (chosenBtn) {
-            chosenBtn.classList.add('bg-rose-950/90', 'border-rose-500');
+            chosenBtn.classList.remove('bg-amber-50');
+            chosenBtn.classList.add('bg-rose-100', 'border-rose-500');
           }
           if (!alreadyScored && qUid) {
             answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: 0 };
@@ -3045,7 +2967,7 @@
         }
       } else {
         fb.innerText = `⏰ HẾT 20 GIÂY! Bạn chưa chọn đáp án (+0 ⭐). Đáp án đúng là ${correctKey}!`;
-        fb.className = "mt-2 text-[10px] font-extrabold px-3 py-1 rounded-full bg-slate-800 text-amber-300 border border-amber-500/40 shadow";
+        fb.className = "mt-2 text-[10px] font-extrabold px-3 py-1 rounded-full bg-slate-700 text-amber-300 shadow";
         if (!isAdminMode) {
           playALTPWrong();
         } else {
@@ -3111,10 +3033,10 @@
         if (avtContainer) {
           let html = '';
           list.slice(0, 5).forEach(p => {
-            html += renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-amber-300 shadow-2xs');
+            html += renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-white shadow-2xs');
           });
           if (list.length > 5) {
-            html += `<span class="w-5 h-5 rounded-full bg-slate-800 text-amber-300 font-black text-[9px] flex items-center justify-center border border-amber-400">+${list.length - 5}</span>`;
+            html += `<span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-black text-[9px] flex items-center justify-center border border-white">+${list.length - 5}</span>`;
           }
           avtContainer.innerHTML = html;
         }
@@ -3133,31 +3055,29 @@
         sorted.slice(0, 15).forEach((p, idx) => {
           const rankNum = idx + 1;
           const rankBadgeClass = rankNum === 1
-            ? 'bg-gradient-to-b from-amber-300 to-amber-500 text-slate-950 border border-yellow-200 shadow'
+            ? 'bg-amber-400 text-white shadow-xs'
             : rankNum === 2
-              ? 'bg-gradient-to-b from-slate-200 to-slate-400 text-slate-950 border border-white'
+              ? 'bg-slate-400 text-white'
               : rankNum === 3
-                ? 'bg-gradient-to-b from-amber-500 to-amber-700 text-white border border-amber-300'
-                : 'bg-slate-800 text-amber-200 border border-slate-600';
-          const rowBorderClass = rankNum === 1
-            ? 'border-amber-400/80 bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-amber-950/30'
-            : 'border-amber-500/25 bg-slate-900/75';
-          const suspTag = p.isSuspended ? `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 font-black px-1.5 py-0.5 rounded-full ml-1">⛔ Đình chỉ</span>` : '';
+                ? 'bg-amber-600 text-white'
+                : 'bg-slate-200 text-slate-600';
+          const suspTag = p.isSuspended ? `<span class="text-[9px] bg-rose-100 text-rose-600 font-black px-1.5 py-0.5 rounded-full ml-1">⛔ Đình chỉ</span>` : '';
 
           container.innerHTML += `
-            <div class="flex items-center justify-between py-1.5 px-3 rounded-2xl border ${rowBorderClass} transition-all">
+            <div class="flex items-center justify-between py-1.5 px-3 rounded-2xl bg-slate-50/95 border border-slate-200/70 hover:bg-white transition-all">
               <div class="flex items-center gap-2.5 truncate">
-                <span class="w-6 h-6 rounded-full ${rankBadgeClass} font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
-                ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'royal-avatar-ring')}
-                <span class="font-extrabold text-amber-50 text-xs truncate max-w-[175px]">${p.name}</span>
+                <span class="w-5 h-5 rounded-full ${rankBadgeClass} font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
+                ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-2xs')}
+                <span class="font-extrabold text-slate-800 text-xs truncate max-w-[170px]">${p.name}</span>
                 ${suspTag}
               </div>
-              <span class="font-black text-amber-400 text-xs shrink-0">${p.score} ⭐</span>
+              <span class="font-black text-slate-800 text-xs shrink-0">${p.score} <span class="text-amber-400">⭐</span></span>
             </div>
           `;
         });
       }
 
+      // Cập nhật con số trên nút "📁 Tổng tài khoản (X)" của Admin Tuấn Phủ Lý
       const dirCountBtn = document.getElementById('admin-dir-count-btn');
       if (dirCountBtn) dirCountBtn.innerText = Object.keys(players).length;
     }
