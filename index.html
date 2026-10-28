@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V33</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V34</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -110,7 +110,7 @@
     }
 
     /* ===================================================================== */
-    /* 5. NÂNG CẤP ĐỒ HỌA MODAL VINH DANH CHUNG CUỘC (LUXURY DARK & GOLD)    */
+    /* 5. ĐỒ HỌA MODAL VINH DANH CHUNG CUỘC (LUXURY DARK & GOLD)             */
     /* ===================================================================== */
     .victory-backdrop-overlay {
       background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.28) 0%, rgba(15, 23, 42, 0.88) 52%, rgba(2, 6, 23, 0.96) 100%);
@@ -141,7 +141,6 @@
       pointer-events: none;
     }
 
-    /* Hiệu ứng Hào quang xoay & Cúp vàng nhịp đập */
     @keyframes auraSpin {
       0% { transform: rotate(0deg) scale(1); }
       50% { transform: rotate(180deg) scale(1.06); }
@@ -166,7 +165,6 @@
     .sparkle-2 { animation: starTwinkle 2.2s ease-in-out infinite 0.5s; }
     .sparkle-3 { animation: starTwinkle 1.6s ease-in-out infinite 1s; }
 
-    /* Chữ Mạ Vàng Kim Loại 3D (Gold Metallic Text Gradient) */
     .victory-gold-title {
       background: linear-gradient(180deg, #FFFFFF 0%, #FEF08A 26%, #F59E0B 64%, #B45309 100%);
       -webkit-background-clip: text;
@@ -175,7 +173,6 @@
       letter-spacing: 0.04em;
     }
 
-    /* Phân cấp Bảng Xếp Hạng Top 1, Top 2, Top 3 */
     .rank-top1-card {
       background: linear-gradient(135deg, rgba(120, 53, 15, 0.65) 0%, rgba(245, 158, 11, 0.28) 48%, rgba(69, 26, 3, 0.75) 100%);
       border: 1.5px solid #fde047;
@@ -210,13 +207,11 @@
       border: 1px solid rgba(71, 85, 105, 0.55);
     }
 
-    /* Điểm số Ngôi sao phát sáng vàng rực */
     .score-star-glow {
       color: #fef08a;
       text-shadow: 0 0 10px rgba(250, 204, 21, 0.9), 0 0 20px rgba(245, 158, 11, 0.65), 0 2px 3px rgba(0, 0, 0, 0.95);
     }
 
-    /* Nút 3D Bắn thêm pháo hoa Vàng Cam rực rỡ */
     .btn-3d-fireworks {
       background: linear-gradient(180deg, #fef08a 0%, #f59e0b 45%, #ea580c 100%);
       border: 1.5px solid #ffffff;
@@ -260,26 +255,26 @@
   <audio id="audio-wrong" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" playsinline></audio>
 
   <!-- ===================================================================== -->
-  <!-- THANH HEADER KÍNH MỜ GOM GỌN TINH TẾ                                   -->
+  <!-- THANH HEADER KÍNH MỜ GOM GỌN TINH TẾ                                  -->
   <!-- ===================================================================== -->
   <header class="w-full max-w-[440px] exec-glass-header rounded-2xl px-3 py-2 mb-2.5 flex items-center justify-between gap-1.5 z-30">
     <div class="flex items-center gap-1.5 min-w-0">
       <span id="conn-status" class="text-[10px] text-amber-300 font-extrabold truncate">🟡 Đang kết nối...</span>
       <span class="text-[9px] bg-amber-500/15 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full font-extrabold shrink-0">
-        💎 8K-Victory V33
+        💎 8K-Victory V34
       </span>
     </div>
     <div class="flex items-center gap-1.5 shrink-0">
       <button onclick="openPrevRankModal()" class="text-[10px] text-slate-200 hover:text-amber-300 bg-slate-800/80 hover:bg-slate-800 px-2.5 py-1 rounded-xl border border-slate-600/80 transition-all cursor-pointer font-bold">
         📊 Hạng trước
       </button>
-      <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-[10px] text-amber-300 hover:text-white bg-gradient-to-r from-amber-500/20 to-amber-600/20 px-2.5 py-1 rounded-xl border border-amber-400/50 shadow-xs transition-all cursor-pointer font-extrabold">
+      <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-[10px] text-amber-300 hover:text-white bg-gradient-to-r from-amber-500/20 to-amber-600/20 px-2.5 py-1 rounded-xl border border-amber-400/50 shadow-sm transition-all cursor-pointer font-extrabold">
         🔑 Admin Tuấn Phủ Lý
       </button>
     </div>
   </header>
 
-  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 181139) -->
+  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ -->
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-3 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
       <span class="text-[11px] font-black text-amber-400">👑 ADMIN TUẤN PHỦ LÝ</span>
@@ -367,7 +362,7 @@
           <span class="h-[1.5px] w-6 bg-gradient-to-l from-transparent to-amber-500"></span>
         </div>
 
-        <div id="login-quiz-badge" class="mt-1.5 text-[11px] text-slate-800 font-bold bg-gradient-to-r from-amber-50 via-yellow-50/80 to-amber-50 py-1.5 px-3.5 rounded-full border border-amber-300/80 shadow-2xs">
+        <div id="login-quiz-badge" class="mt-1.5 text-[11px] text-slate-800 font-bold bg-gradient-to-r from-amber-50 via-yellow-50/80 to-amber-50 py-1.5 px-3.5 rounded-full border border-amber-300/80 shadow-sm">
           Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
         </div>
       </div>
@@ -382,7 +377,7 @@
           </button>
         </div>
 
-        <div id="auth-avatar-section" class="w-full bg-gradient-to-b from-slate-50 to-amber-50/30 border-2 border-dashed border-amber-400/70 rounded-2xl p-3 flex flex-col items-center shadow-2xs">
+        <div id="auth-avatar-section" class="w-full bg-gradient-to-b from-slate-50 to-amber-50/30 border-2 border-dashed border-amber-400/70 rounded-2xl p-3 flex flex-col items-center shadow-sm">
           <label class="text-[11px] font-extrabold text-slate-800 mb-2 flex items-center gap-1">
             <span>📸</span> <span>1. Tải & Cắt ảnh đại diện 4K (Avatar bắt buộc):</span>
           </label>
@@ -417,12 +412,12 @@
             <label class="text-[11px] font-extrabold text-slate-800">👤 Tên tài khoản (Tối đa 20 ký tự):</label>
             <span id="char-count" class="text-[10px] font-extrabold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">0/20 ký tự</span>
           </div>
-          <input id="playerName" type="text" maxlength="20" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (VD: TuanPhuLy_FHM)..." class="w-full px-4 py-2.5 bg-slate-50/80 border-2 border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 font-bold text-sm text-slate-900 text-center transition-all">
+          <input id="playerName" type="text" maxlength="20" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (VD: TuanPhuLy_FHM)..." class="w-full px-4 py-2.5 bg-slate-50/80 border-2 border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-bold text-sm text-slate-900 text-center transition-all">
         </div>
 
         <div class="w-full text-left">
           <label class="text-[11px] font-extrabold text-slate-800 block mb-1 px-0.5">🔑 Mật khẩu tham gia (Nhập số 1):</label>
-          <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu thí sinh (Số 1)..." class="w-full px-4 py-2.5 bg-slate-50/80 border-2 border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 font-bold text-sm text-slate-900 text-center transition-all">
+          <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu thí sinh (Số 1)..." class="w-full px-4 py-2.5 bg-slate-50/80 border-2 border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 font-bold text-sm text-slate-900 text-center transition-all">
         </div>
       </div>
 
@@ -542,7 +537,7 @@
         <div class="grid grid-cols-2 gap-2 mb-2.5">
           <button onclick="pickAnswer('A')" id="btn-A" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">A</span>
+              <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-sm">A</span>
               <span id="text-A" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án A</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
@@ -553,7 +548,7 @@
 
           <button onclick="pickAnswer('B')" id="btn-B" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-sky-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">B</span>
+              <span class="w-6 h-6 rounded-full bg-sky-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-sm">B</span>
               <span id="text-B" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án B</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
@@ -564,7 +559,7 @@
 
           <button onclick="pickAnswer('C')" id="btn-C" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">C</span>
+              <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-sm">C</span>
               <span id="text-C" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án C</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
@@ -575,7 +570,7 @@
 
           <button onclick="pickAnswer('D')" id="btn-D" class="bg-white/95 rounded-[18px] p-2.5 text-left shadow-md border-2 border-transparent active:scale-95 transition-all cursor-pointer flex flex-col justify-between min-h-[80px]">
             <div class="flex items-start gap-2">
-              <span class="w-6 h-6 rounded-full bg-indigo-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">D</span>
+              <span class="w-6 h-6 rounded-full bg-indigo-500 text-white text-xs font-black flex items-center justify-center shrink-0 shadow-sm">D</span>
               <span id="text-D" class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">Đáp án D</span>
             </div>
             <div class="flex items-center justify-between mt-2 pt-1">
@@ -611,7 +606,7 @@
   </div>
 
   <!-- MODAL CẮT ẢNH ĐẠI DIỆN 4K -->
-  <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
+  <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-3">
     <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl border-2 border-amber-500 p-4 text-center space-y-3">
       <div class="flex justify-between items-center border-b border-slate-200 pb-2">
         <span class="text-xs font-black text-slate-800">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN 4K</span>
@@ -638,7 +633,7 @@
   </div>
 
   <!-- MODAL THƯ MỤC TỔNG TÀI KHOẢN -->
-  <div id="modal-player-directory" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
+  <div id="modal-player-directory" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-3">
     <div class="w-full max-w-md bg-slate-900 text-white rounded-3xl border-2 border-amber-500 shadow-2xl p-4 space-y-3 max-h-[90vh] flex flex-col">
       <div class="flex justify-between items-center border-b border-slate-700 pb-2">
         <div>
@@ -651,7 +646,7 @@
         <button onclick="closePlayerDirectoryModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1 rounded-full border border-slate-600 cursor-pointer font-bold">✖ Đóng</button>
       </div>
       <div class="flex gap-1.5">
-        <input id="dir-search-input" type="text" oninput="renderPlayerDirectoryList()" placeholder="🔍 Tìm tên tài khoản..." class="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
+        <input id="dir-search-input" type="text" oninput="scheduleRenderDirectory()" placeholder="🔍 Tìm tên tài khoản..." class="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400">
         <button onclick="requestPlayerPresence()" class="bg-sky-700 hover:bg-sky-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0">🔄 Quét phòng</button>
         <button onclick="clearRoomPlayers()" class="bg-rose-800 hover:bg-rose-700 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer shrink-0">🗑️ Xóa hết</button>
       </div>
@@ -663,9 +658,9 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU HỎI        -->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU HỎI         -->
   <!-- ===================================================================== -->
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2.5 pt-16">
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2.5 pt-16">
     <div class="w-full max-w-[412px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-400 p-3.5 pt-2 flex flex-col max-h-[86vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer z-20">✖</button>
 
@@ -692,7 +687,7 @@
   </div>
 
   <!-- MODAL 2: TRA CỨU THỨ HẠNG BỘ ĐỀ LẦN TRƯỚC -->
-  <div id="modal-prev-rank" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-3">
+  <div id="modal-prev-rank" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3">
     <div class="w-full max-w-md bg-slate-900 text-white rounded-3xl border-2 border-emerald-500 shadow-2xl p-4 space-y-3 max-h-[90vh] flex flex-col">
       <div class="flex justify-between items-center border-b border-slate-700 pb-2">
         <div>
@@ -707,17 +702,15 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 (V33)   -->
+  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 (V34)   -->
   <!-- ===================================================================== -->
   <div id="modal-finish-celebration" class="hidden fixed inset-0 z-50 victory-backdrop-overlay flex items-center justify-center p-3">
     <div class="w-full max-w-[430px] victory-luxury-modal text-white rounded-[26px] p-4 sm:p-5 text-center space-y-3 max-h-[93vh] flex flex-col">
 
       <!-- CỤM ĐỒ HỌA CÚP VÀNG 3D + VÒNG HÀO QUANG XOAY + NGÔI SAO LẤP LÁNH -->
       <div class="relative w-24 h-24 mx-auto flex items-center justify-center select-none pointer-events-none -mt-1">
-        <!-- Quầng sáng vàng mềm phía sau -->
         <div class="absolute inset-0 rounded-full bg-amber-400/25 blur-xl"></div>
 
-        <!-- Vòng Hào Quang Mặt Trời Xoay Nhẹ (Rotating Glowing Aura) -->
         <svg class="absolute inset-0 w-full h-full trophy-aura-ring opacity-85" viewBox="0 0 120 120" fill="none">
           <defs>
             <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
@@ -736,7 +729,6 @@
           <circle cx="60" cy="60" r="42" stroke="#FEF08A" stroke-width="1.2" stroke-dasharray="4 6"/>
         </svg>
 
-        <!-- Cúp Vàng Chiến Thắng 3D Nhịp Đập (Pulsing 3D Golden Trophy) -->
         <svg class="relative z-10 w-16 h-16 trophy-center-anim" viewBox="0 0 100 100" fill="none">
           <defs>
             <linearGradient id="cupGold3D" x1="0" y1="0" x2="1" y2="1">
@@ -752,20 +744,15 @@
               <stop offset="100%" stop-color="#451A03"/>
             </linearGradient>
           </defs>
-          <!-- Quai cúp 2 bên -->
           <path d="M28,26 C12,26 12,50 30,54" stroke="url(#cupGold3D)" stroke-width="5.5" stroke-linecap="round" fill="none"/>
           <path d="M72,26 C88,26 88,50 70,54" stroke="url(#cupGold3D)" stroke-width="5.5" stroke-linecap="round" fill="none"/>
-          <!-- Thân cúp vàng -->
           <path d="M26,18 L74,18 L68,52 C65,66 35,66 32,52 Z" fill="url(#cupGold3D)" stroke="#FFFBEB" stroke-width="2"/>
-          <!-- Ngôi sao nổi giữa cúp -->
           <polygon points="50,27 53,35 62,35 55,40 57,48 50,43 43,48 45,40 38,35 47,35" fill="#FFFBEB" stroke="#B45309" stroke-width="0.8"/>
-          <!-- Chân đế cúp -->
           <rect x="45" y="62" width="10" height="14" rx="2" fill="url(#cupGold3D)"/>
           <path d="M32,76 L68,76 L72,86 L28,86 Z" fill="url(#cupBase)" stroke="#FDE047" stroke-width="1.5"/>
           <rect x="24" y="86" width="52" height="6" rx="3" fill="url(#cupGold3D)"/>
         </svg>
 
-        <!-- Các hạt kim tuyến lấp lánh quanh cúp -->
         <span class="absolute top-1 left-3 text-xs text-yellow-200 sparkle-1">✦</span>
         <span class="absolute top-2 right-2 text-sm text-amber-300 sparkle-2">★</span>
         <span class="absolute bottom-2 left-2 text-xs text-sky-300 sparkle-3">✦</span>
@@ -780,7 +767,7 @@
         <p id="finish-quiz-name" class="text-[11px] font-extrabold text-amber-200 bg-gradient-to-r from-amber-950/80 via-slate-900 to-amber-950/80 border border-amber-400/50 py-1 px-3.5 rounded-full mx-auto w-fit shadow-sm"></p>
       </div>
 
-      <!-- HỘP THÔNG BÁO THứ HẠNG CÁ NHÂN CỦA BẠN -->
+      <!-- HỘP THÔNG BÁO THỨ HẠNG CÁ NHÂN CỦA BẠN -->
       <div id="finish-my-rank-box" class="bg-gradient-to-r from-amber-500/15 via-yellow-500/20 to-amber-500/15 border border-amber-400/60 rounded-2xl p-2.5 text-xs font-bold text-amber-100 shadow-inner"></div>
 
       <!-- BẢNG XẾP HẠNG PHÂN CẤP TOP 1 - TOP 2 - TOP 3 - TOP 10 -->
@@ -808,7 +795,7 @@
 
   <script>
     // =========================================================================
-    // 1. ĐỘNG CƠ ĐỒ HỌA V33:
+    // 1. ĐỘNG CƠ ĐỒ HỌA V34:
     //    - KHUNG AVATAR BAROQUE 8K CHO TOP 3
     //    - BỘ XỬ LÝ LOGO 8K NGUYÊN BẢN (LOSSLESS HIGH-RES KHÔNG VỠ HẠT)
     // =========================================================================
@@ -1118,15 +1105,16 @@
       if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh...");
       const a = document.createElement('a');
       a.href = activeTransparentLogoPNG;
-      a.download = 'Logo-10-Thap-Dai-Than-Toc-8K-V33.png';
+      a.download = 'Logo-10-Thap-Dai-Than-Toc-8K-V34.png';
       a.click();
     }
 
     // =========================================================================
-    // 2. BẢO MẬT & LƯU TRỮ 4 TẦNG
+    // 2. BẢO MẬT ĐÁP ÁN CHỐNG F12 & LƯU TRỮ 4 TẦNG (V34)
     // =========================================================================
     const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
     const clientRateLimits = {};
+    let adminActiveSecret = null; // Lưu đáp án riêng trên máy Admin cho tới khi hết 20s
 
     function sanitizeText(str, maxLen = 200) {
       if (typeof str !== 'string') return '';
@@ -1145,11 +1133,11 @@
       return (hash >>> 0).toString(36);
     }
 
-    function encodeAnswerHash(correctKey, qUid) {
-      const raw = `ANS_${correctKey}_${qUid}_${SECURITY_SALT}`;
-      let hash = 5381;
-      for (let i = 0; i < raw.length; i++) hash = ((hash << 5) + hash) + raw.charCodeAt(i);
-      return (hash >>> 0).toString(16);
+    // Kiểm tra mã khóa Quản trò thông qua chuỗi mã hóa ký tự (chống dò trực tiếp Ctrl+F)
+    function verifyAdminPin(pinInput) {
+      if (!pinInput) return false;
+      const expected = String.fromCharCode(49, 56, 49, 49, 51, 57);
+      return String(pinInput).trim() === expected;
     }
 
     function isRateLimited(senderId) {
@@ -1160,7 +1148,7 @@
         return false;
       }
       clientRateLimits[senderId].count++;
-      return clientRateLimits[senderId].count > 25;
+      return clientRateLimits[senderId].count > 30;
     }
 
     const IDB_NAME = "FourHomeMegaArenaDB_V21";
@@ -1268,7 +1256,7 @@
       } catch (e) {}
     }
 
-    (function initMasterLogoV33() {
+    (function initMasterLogoV34() {
       let savedV32 = null;
       try { savedV32 = localStorage.getItem('fh_master_logo_v32'); } catch (e) {}
       if (savedV32 && savedV32.startsWith('data:image/')) {
@@ -1472,7 +1460,7 @@
       outCtx.drawImage(rawSourceImage, sx, sy, sDim, sDim, 0, 0, outSize, outSize);
       outCtx.filter = 'none';
       applyPhotoshopSharpenFilter(outCtx, outSize, outSize);
-      tempUploadedAvatar = outCanvas.toDataURL('image/jpeg', 0.86);
+      tempUploadedAvatar = outCanvas.toDataURL('image/jpeg', 0.84);
 
       const previewImg = document.getElementById('avatar-preview-img');
       const placeholder = document.getElementById('avatar-placeholder');
@@ -1652,7 +1640,6 @@
 
       const luxuryColors = ['#FFD700', '#FDE047', '#F59E0B', '#FFFBEB', '#38BDF8', '#FB7185'];
 
-      // Đợt 1: Nổ bung pháo hoa trung tâm ngay lập tức
       confetti({
         particleCount: 80,
         spread: 100,
@@ -1662,7 +1649,6 @@
         zIndex: 9999
       });
 
-      // Đợt 2: Mưa kim tuyến vàng bắn chéo từ 2 bên cánh gà
       const end = Date.now() + 3600;
       (function frame() {
         confetti({
@@ -1684,7 +1670,6 @@
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
 
-      // Đợt 3: Các chùm pháo hoa hạt sáng 360 độ nổ nối tiếp trên cao
       [550, 1250, 2100].forEach((delay, idx) => {
         setTimeout(() => {
           confetti({
@@ -1739,7 +1724,14 @@
 
     let accountRegistry = {};
     try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v21')) || {}; } catch (e) { accountRegistry = {}; }
-    function saveAccountRegistryLocal() { try { localStorage.setItem('fh_cloud_accounts_v21', JSON.stringify(accountRegistry)); } catch (e) {} }
+    let registrySaveTimer = null;
+    function saveAccountRegistryLocal() {
+      if (registrySaveTimer) return;
+      registrySaveTimer = setTimeout(() => {
+        registrySaveTimer = null;
+        try { localStorage.setItem('fh_cloud_accounts_v21', JSON.stringify(accountRegistry)); } catch (e) {}
+      }, 300);
+    }
 
     let answeredHistory = {};
     try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v20')) || {}; } catch (e) { answeredHistory = {}; }
@@ -1755,7 +1747,7 @@
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
-    let thinkingTimer = null, countdownTimer = null, revealTimer = null, finishTimer = null, transitionInterval = null, adminTransitionTimeout = null;
+    let thinkingTimer = null, countdownTimer = null, revealTimer = null, finishTimer = null, transitionInterval = null, adminTransitionTimeout = null, soloFallbackRevealTimer = null;
     let activeQuestionPacketCache = null;
 
     let players = {};
@@ -1763,6 +1755,26 @@
     let optionPickers = { A: [], B: [], C: [], D: [] };
     let currentRoundAnswers = {};
     let seenMsgIds = new Set();
+
+    // CƠ CHẾ DEBOUNCE RENDER GIAO DIỆN MƯỢT MÀ TRÊN MOBILE (CHỐNG GIẬT LAG KHI 100+ NGƯỜI CHƠI)
+    let leaderboardRenderTimer = null;
+    let directoryRenderTimer = null;
+
+    function scheduleRenderLeaderboard() {
+      if (leaderboardRenderTimer) return;
+      leaderboardRenderTimer = setTimeout(() => {
+        leaderboardRenderTimer = null;
+        renderLeaderboard();
+      }, 120);
+    }
+
+    function scheduleRenderDirectory() {
+      if (directoryRenderTimer) return;
+      directoryRenderTimer = setTimeout(() => {
+        directoryRenderTimer = null;
+        renderPlayerDirectoryList();
+      }, 150);
+    }
 
     function getExplanationForQuestion(qObj) {
       if (!qObj) return "";
@@ -1783,9 +1795,9 @@
       if (!badgeEl) return;
       if (myName && myAvatar) {
         const suspTag = isMyAccountSuspended ? `<span class="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : '';
-        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-xs')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
+        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
       } else if (isAdminMode) {
-        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-xs')} <span class="truncate font-black text-slate-800">Admin Tuấn Phủ Lý</span>`;
+        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">Admin Tuấn Phủ Lý</span>`;
       }
     }
 
@@ -1827,7 +1839,7 @@
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
           updateSuspensionUI();
           renderLeaderboard();
-          announceMyPresence();
+          announceMyPresence(true);
         }
       });
 
@@ -1844,7 +1856,9 @@
 
     autoRestorePlayerSession();
 
-    // KẾT NỐI ĐA TỔNG ĐÀI MQTT SIÊU TỐC
+    // =========================================================================
+    // KẾT NỐI ĐA TỔNG ĐÀI MQTT SIÊU TỐC & TỐI ƯU BĂNG THÔNG V34
+    // =========================================================================
     const BASE_TOPIC = 'fourhome_mega_suc_2026_v20_secure';
     const BROKER_URLS = [
       'wss://broker.hivemq.com:8884/mqtt',
@@ -1871,7 +1885,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh33_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh34_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -1883,7 +1897,7 @@
           connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length;
           updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
-          if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
+          if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence(true);
           if (isAdminMode && hasCustomLogoLocked && activeTransparentLogoPNG) {
             c.publish(`${BASE_TOPIC}/state/logo_v32`, JSON.stringify({
               type: 'SYNC_LOGO_PNG',
@@ -1913,13 +1927,13 @@
 
     window.addEventListener('online', () => {
       activeClients.forEach(c => { if (c && !c._isConnected && typeof c.reconnect === 'function') c.reconnect(); });
-      if (myName && myAvatar && !isLoggedOutExplicitly) setTimeout(announceMyPresence, 400);
+      if (myName && myAvatar && !isLoggedOutExplicitly) setTimeout(() => announceMyPresence(true), 400);
     });
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
         if (audioCtx && audioCtx.state === 'suspended') { try { audioCtx.resume(); } catch (e) {} }
-        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
+        if (myName && myAvatar && !isLoggedOutExplicitly) sendLightweightHeartbeat();
       }
     });
 
@@ -1933,23 +1947,62 @@
       if (localChannel) localChannel.postMessage({ subTopic, payload });
     }
 
-    function announceMyPresence() {
+    // Gửi hồ sơ đầy đủ (kèm Avatar 4K) khi mới vào phòng hoặc khi có lệnh quét từ Admin
+    function announceMyPresence(includeAvatar = true) {
       if (!myName || !myAvatar || isLoggedOutExplicitly) return;
       const accKey = normalizeAccountKey(myName);
       if (!myId) myId = 'acc_' + accKey;
-      const accData = { type: 'PLAYER_JOIN', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended, resetId: myResetId };
-      players[myId] = accData;
-      accountRegistry[accKey] = accData;
+      const fullRecord = {
+        type: 'PLAYER_JOIN',
+        id: myId,
+        name: myName,
+        avatar: myAvatar,
+        score: myScore,
+        lockedByDevice: myDeviceHwId,
+        isOnline: true,
+        isSuspended: isMyAccountSuspended,
+        resetId: myResetId
+      };
+      players[myId] = fullRecord;
+      accountRegistry[accKey] = fullRecord;
       saveAccountRegistryLocal();
-      publishPacket(`players/${myId}`, accData, true);
+
+      if (includeAvatar) {
+        publishPacket(`players/${myId}`, fullRecord, true);
+      } else {
+        sendLightweightHeartbeat();
+      }
     }
 
-    setInterval(() => { if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence(); }, 3500);
+    // Gói tin Heartbeat siêu nhẹ (~150 bytes, KHÔNG gửi kèm chuỗi ảnh Base64) giúp phòng 100+ máy không bị nghẽn mạng
+    function sendLightweightHeartbeat() {
+      if (!myName || !myAvatar || isLoggedOutExplicitly) return;
+      const accKey = normalizeAccountKey(myName);
+      if (!myId) myId = 'acc_' + accKey;
+      publishPacket('events', {
+        type: 'PLAYER_HEARTBEAT',
+        id: myId,
+        name: myName,
+        score: myScore,
+        lockedByDevice: myDeviceHwId,
+        isOnline: true,
+        isSuspended: isMyAccountSuspended,
+        resetId: myResetId
+      }, false);
+    }
+
+    setInterval(() => {
+      if (myName && myAvatar && !isLoggedOutExplicitly) sendLightweightHeartbeat();
+    }, 10000);
 
     function recordRoundChoice(data) {
       if (!data || !data.id || !data.choice || !['A', 'B', 'C', 'D'].includes(data.choice)) return;
       const safeName = sanitizeText(data.name || 'Thí sinh', 20);
-      const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : ((players[data.id] && players[data.id].avatar) || DEFAULT_ADMIN_AVATAR);
+      const accKey = normalizeAccountKey(safeName);
+      const cachedPlayer = players[data.id] || accountRegistry[accKey];
+      const avt = (data.avatar && data.avatar.startsWith('data:image/'))
+        ? data.avatar
+        : ((cachedPlayer && cachedPlayer.avatar) || DEFAULT_ADMIN_AVATAR);
       const tLeft = Math.max(1, Math.min(20, parseInt(data.timeLeft, 10) || 10));
       const elap = typeof data.elapsedSec === 'number' ? Math.max(0.1, Math.min(20, data.elapsedSec)) : Math.max(0.5, 20 - tLeft);
       if (!currentRoundAnswers[data.id]) optionPickers[data.choice].push({ id: data.id, name: safeName, avatar: avt });
@@ -1966,7 +2019,8 @@
 
       if (subTopic === 'state/logo' || subTopic === 'state/logo_v29' || subTopic === 'state/logo_v30') return;
 
-      if (data.type !== 'PLAYER_JOIN' && data.type !== 'START_QUESTION' && data.type !== 'MASTER_TICK' && data.type !== 'PREV_QUIZ_RECORD' && data.type !== 'SYNC_LOGO_PNG' && data._mid) {
+      if (seenMsgIds.size > 4000) seenMsgIds.clear();
+      if (data.type !== 'PLAYER_JOIN' && data.type !== 'PLAYER_HEARTBEAT' && data.type !== 'START_QUESTION' && data.type !== 'MASTER_TICK' && data.type !== 'PREV_QUIZ_RECORD' && data.type !== 'SYNC_LOGO_PNG' && data.type !== 'REVEAL_CORRECT' && data._mid) {
         if (seenMsgIds.has(data._mid)) return;
         seenMsgIds.add(data._mid);
       }
@@ -2009,7 +2063,7 @@
             setTimerRingProgress(currentTimeLeft, 20);
           }
         }
-      } else if (data.type === 'PLAYER_JOIN' || data.type === 'PLAYER_LOGOUT') {
+      } else if (data.type === 'PLAYER_JOIN' || data.type === 'PLAYER_HEARTBEAT' || data.type === 'PLAYER_LOGOUT') {
         if (data.id && data.name) {
           const cleanName = sanitizeText(data.name, 20);
           const accKey = normalizeAccountKey(cleanName);
@@ -2030,8 +2084,8 @@
             }
           }
 
-          const bestScore = existing ? Math.max(existing.score || 0, validScore) : validScore;
-          const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR);
+          const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
+          const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
           const isOnlineNow = (data.type === 'PLAYER_LOGOUT') ? false : (data.isOnline !== false);
           const lockDev = isOnlineNow ? (data.lockedByDevice || (existing && existing.lockedByDevice) || null) : null;
 
@@ -2039,8 +2093,8 @@
           players[data.id] = updatedRecord;
           accountRegistry[accKey] = updatedRecord;
           saveAccountRegistryLocal();
-          renderLeaderboard();
-          renderPlayerDirectoryList();
+          scheduleRenderLeaderboard();
+          scheduleRenderDirectory();
         }
       } else if (data.type === 'ADMIN_SUSPEND_PLAYER') {
         const accKey = normalizeAccountKey(data.targetName || '');
@@ -2053,20 +2107,20 @@
           updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản của bạn vừa bị Admin Tuấn Phủ Lý tạm đình chỉ thi đấu!" : "✅ THÔNG BÁO: Admin Tuấn Phủ Lý đã BỎ ĐÌNH CHỈ cho tài khoản của bạn!");
         }
-        renderLeaderboard();
-        renderPlayerDirectoryList();
+        scheduleRenderLeaderboard();
+        scheduleRenderDirectory();
       } else if (data.type === 'ADMIN_UNLOCK_DEVICE') {
         const accKey = normalizeAccountKey(data.targetName || '');
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[data.targetId].isOnline = false; }
-        renderPlayerDirectoryList();
+        scheduleRenderDirectory();
       } else if (data.type === 'KICK_RESET_PLAYER') {
         const accKey = normalizeAccountKey(data.targetName || '');
         if (accKey && accountRegistry[accKey]) { delete accountRegistry[accKey]; saveAccountRegistryLocal(); }
-        if (data.targetId && players[data.targetId]) { delete players[data.targetId]; renderLeaderboard(); renderPlayerDirectoryList(); }
+        if (data.targetId && players[data.targetId]) { delete players[data.targetId]; scheduleRenderLeaderboard(); scheduleRenderDirectory(); }
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) forceResetMyLocalAccount();
       } else if (data.type === 'PING_PRESENCE') {
-        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
+        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence(true);
       } else if (data.type === 'LOCK_CHOICE') {
         recordRoundChoice(data);
       } else if (data.type === 'PRE_NEXT_COUNTDOWN') {
@@ -2081,14 +2135,17 @@
         const cleanName = sanitizeText(data.name, 20);
         const accKey = normalizeAccountKey(cleanName);
         const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
-        const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing ? existing.avatar : DEFAULT_ADMIN_AVATAR);
+        const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
         players[data.id] = { id: data.id, name: cleanName, avatar: avt, score: validScore, lockedByDevice: existing ? existing.lockedByDevice : null, isOnline: true, isSuspended: existing ? Boolean(existing.isSuspended) : false };
         accountRegistry[accKey] = players[data.id];
         saveAccountRegistryLocal();
-        renderLeaderboard();
+        scheduleRenderLeaderboard();
         if (isQuestionRevealed) renderRoundSpeedModalContent(window.currentCorrectAns, window.currentExplanation);
       } else if (data.type === 'REVEAL_CORRECT') {
-        revealAnswerAndPlaySound(data.correct, data.explanation);
+        if (!data.qUid || data.qUid === window.activeQuestionUid) {
+          clearTimeout(soloFallbackRevealTimer);
+          revealAnswerAndPlaySound(data.correct, data.explanation);
+        }
       } else if (data.type === 'FINISH_QUIZ') {
         closeRoundSpeedModal();
         if (data.record) savePrevQuizRecord(data.record);
@@ -2124,15 +2181,15 @@
         document.getElementById('explanation-inline').classList.add('hidden');
         document.getElementById('transition-Syntax-box').classList.add('hidden');
         setTimerRingProgress(20, 20);
-        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
-        renderLeaderboard();
+        if (myName && myAvatar && !isLoggedOutExplicitly) sendLightweightHeartbeat();
+        scheduleRenderLeaderboard();
       } else if (data.type === 'CLEAR_PLAYERS') {
         players = {};
         accountRegistry = {};
         saveAccountRegistryLocal();
-        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence();
-        renderLeaderboard();
-        renderPlayerDirectoryList();
+        if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence(true);
+        scheduleRenderLeaderboard();
+        scheduleRenderDirectory();
       }
     }
 
@@ -2181,8 +2238,7 @@
         return;
       }
 
-      container.innerHTML = '';
-      filtered.forEach((p, idx) => {
+      container.innerHTML = filtered.map((p, idx) => {
         const safeName = (p.name || '').replace(/'/g, "\\'");
         const isLocked = Boolean(p.lockedByDevice && p.isOnline !== false);
         const isSusp = Boolean(p.isSuspended);
@@ -2196,7 +2252,7 @@
           ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">✅ Bỏ đình chỉ</button>`
           : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">⛔ Đình chỉ</button>`;
 
-        container.innerHTML += `
+        return `
           <div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2">
             <div class="flex items-center gap-2.5 truncate">
               <span class="w-5 h-5 rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>
@@ -2212,7 +2268,7 @@
               <button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow" title="Xóa tài khoản">🗑️</button>
             </div>
           </div>`;
-      });
+      }).join('');
     }
 
     function adminToggleSuspendPlayer(targetId, targetName, suspendState) {
@@ -2330,14 +2386,13 @@
       }
 
       podiumBox.innerHTML = buildPodiumCol(allParticipants[1], 2) + buildPodiumCol(allParticipants[0], 1) + buildPodiumCol(allParticipants[2], 3);
-      list4to10.innerHTML = '';
-      allParticipants.slice(3, 10).forEach((item, idx) => {
+      list4to10.innerHTML = allParticipants.slice(3, 10).map((item, idx) => {
         const pointBadgeClass = item.points > 0 ? 'bg-sky-50 text-sky-600 border-sky-200' : 'bg-rose-50 text-rose-500 border-rose-200';
-        list4to10.innerHTML += `
+        return `
           <div class="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-2.5 py-1.5 text-xs">
             <div class="flex items-center gap-2 truncate">
               <span class="w-5 h-5 rounded-full bg-sky-100 text-sky-700 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 4}</span>
-              ${renderAvatarHTML(item.avatar, 'w-7 h-7', 'border-2 border-amber-400 shadow-2xs')}
+              ${renderAvatarHTML(item.avatar, 'w-7 h-7', 'border-2 border-amber-400 shadow-sm')}
               <span class="font-extrabold text-slate-800 truncate">${item.name}</span>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
@@ -2346,7 +2401,7 @@
               <span class="${pointBadgeClass} font-black text-[10px] px-2 py-0.5 rounded-full border">+${item.points}đ</span>
             </div>
           </div>`;
-      });
+      }).join('');
     }
 
     function openRoundSpeedModal() {
@@ -2389,11 +2444,10 @@
         }
       }
 
-      listEl.innerHTML = '';
-      rankings.forEach((p, idx) => {
+      listEl.innerHTML = rankings.map((p, idx) => {
         const isMe = (idx === myIndex);
         const badge = idx === 0 ? '🥇 Hạng 1' : idx === 1 ? '🥈 Hạng 2' : idx === 2 ? '🥉 Hạng 3' : `Hạng ${idx + 1}`;
-        listEl.innerHTML += `
+        return `
           <div class="flex items-center justify-between py-1.5 px-3 rounded-xl border ${isMe ? 'bg-emerald-900/60 border-emerald-400 text-white' : 'bg-slate-800/60 border-slate-700 text-slate-200'} text-xs">
             <div class="flex items-center gap-2">
               <span class="font-extrabold text-amber-400">${badge}:</span>
@@ -2402,13 +2456,13 @@
             </div>
             <span class="font-black text-amber-300">${p.score} ⭐</span>
           </div>`;
-      });
+      }).join('');
     }
 
     function closePrevRankModal() { document.getElementById('modal-prev-rank').classList.add('hidden'); }
 
     // =========================================================================
-    // HIỂN THỊ BẢNG VINH DANH CHUNG CUỘC PHÂN CẤP TOP 1 - TOP 2 - TOP 3 (V33)
+    // HIỂN THỊ BẢNG VINH DANH CHUNG CUỘC PHÂN CẤP TOP 1 - TOP 2 - TOP 3 (V34)
     // =========================================================================
     function showFinishCelebration(quizTitle) {
       closeRoundSpeedModal();
@@ -2433,16 +2487,14 @@
         myBoxEl.innerHTML = `✨ Tổng số thí sinh tham gia vinh danh: <strong class="text-amber-300">${sorted.length} người</strong>`;
       }
 
-      top10El.innerHTML = '';
       if (sorted.length === 0) {
         top10El.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Đang chờ dữ liệu điểm số của các thí sinh...</div>`;
       } else {
-        sorted.slice(0, 10).forEach((p, idx) => {
+        top10El.innerHTML = sorted.slice(0, 10).map((p, idx) => {
           const isMeTag = (p.id === myId) ? `<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded-full ml-1">Bạn</span>` : '';
 
           if (idx === 0) {
-            // VỊ TRÍ TOP 1: KHUNG ÁNH KIM VÀNG + VỆT SÁNG SHIMMER + AVATAR PHÓNG TO ĐỘI VƯƠNG MIỆN
-            top10El.innerHTML += `
+            return `
               <div class="rank-top1-card py-2.5 px-3 rounded-2xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3 min-w-0 z-10">
                   <span class="bg-gradient-to-b from-yellow-200 via-amber-400 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-1 rounded-xl shadow border border-yellow-100 shrink-0">
@@ -2460,8 +2512,7 @@
                 <span class="font-black text-base score-star-glow shrink-0 z-10">${p.score} ⭐</span>
               </div>`;
           } else if (idx === 1) {
-            // VỊ TRÍ TOP 2: TÔNG MÀU BẠC (SILVER GLOW)
-            top10El.innerHTML += `
+            return `
               <div class="rank-top2-card py-2 px-3 rounded-xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 min-w-0">
                   <span class="bg-gradient-to-b from-white to-slate-300 text-slate-900 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">
@@ -2473,8 +2524,7 @@
                 <span class="font-black text-sm score-star-glow shrink-0">${p.score} ⭐</span>
               </div>`;
           } else if (idx === 2) {
-            // VỊ TRÍ TOP 3: TÔNG MÀU ĐỒNG (BRONZE GLOW)
-            top10El.innerHTML += `
+            return `
               <div class="rank-top3-card py-2 px-3 rounded-xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 min-w-0">
                   <span class="bg-gradient-to-b from-orange-200 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">
@@ -2486,8 +2536,7 @@
                 <span class="font-black text-sm score-star-glow shrink-0">${p.score} ⭐</span>
               </div>`;
           } else {
-            // CÁC HẠNG TỪ 4 ĐẾN 10
-            top10El.innerHTML += `
+            return `
               <div class="rank-normal-card py-1.5 px-3 rounded-xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 min-w-0">
                   <span class="w-12 text-center bg-slate-800 text-amber-300/90 border border-slate-600 font-extrabold text-[10px] py-0.5 rounded-lg shrink-0">
@@ -2499,7 +2548,7 @@
                 <span class="font-black text-xs score-star-glow shrink-0">${p.score} ⭐</span>
               </div>`;
           }
-        });
+        }).join('');
       }
 
       document.getElementById('modal-finish-celebration').classList.remove('hidden');
@@ -2509,7 +2558,7 @@
     function closeFinishModal() { document.getElementById('modal-finish-celebration').classList.add('hidden'); }
 
     // =========================================================================
-    // 4. QUẢN TRÒ - ADMIN TUẤN PHỦ LÝ (MẬT KHẨU: 181139)
+    // 4. QUẢN TRÒ - ADMIN TUẤN PHỦ LÝ
     // =========================================================================
     function renderQuizDropdown() {
       const sel = document.getElementById('admin-quiz-select');
@@ -2539,7 +2588,7 @@
     function unlockAdmin() {
       initAudio();
       const pin = prompt("Nhập mật khẩu Quản trò (Admin Tuấn Phủ Lý):");
-      if (pin === "181139") {
+      if (verifyAdminPin(pin)) {
         isAdminMode = true;
         document.getElementById('admin-panel').classList.remove('hidden');
         document.getElementById('btn-unlock-admin').classList.add('hidden');
@@ -2634,7 +2683,7 @@
 
       if (!nameInput) return alert("Vui lòng nhập Tên tài khoản (tối đa 20 ký tự)!");
       if (rawName.length > 20) return alert("Tên tài khoản không được vượt quá 20 ký tự!");
-      if (passInput !== "1") return alert("Sai mật khẩu! Mật khẩu cố định cho tất cả thí sinh là số 1.");
+      if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! Mật khẩu cố định cho tất cả thí sinh là số 1.");
 
       const accKey = normalizeAccountKey(nameInput);
       const targetAccountId = 'acc_' + accKey;
@@ -2683,12 +2732,12 @@
       document.getElementById('screen-game').classList.remove('hidden');
       updateSuspensionUI();
       document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
-      announceMyPresence();
+      announceMyPresence(true);
       renderLeaderboard();
     }
 
     // =========================================================================
-    // 5. ĐỒNG BỘ CÂU HỎI & THỜI GIAN THỰC KHÔNG ĐỘ TRỄ (ZERO-DRIFT MASTER CLOCK)
+    // 5. ĐỒNG BỘ CÂU HỎI & BẢO MẬT ĐÁP ÁN TUYỆT ĐỐI (ZERO-LEAK QUESTION PACKET)
     // =========================================================================
     function hostNextQuestion() {
       initAudio();
@@ -2784,6 +2833,13 @@
       const expText = getExplanationForQuestion(q);
       const qUid = currentQuizName + '_q' + (currentQIndex + 1) + '_' + myResetId + '_' + Date.now();
 
+      // Lưu bí mật đáp án trên máy Admin, KHÔNG phát đáp án hay mã băm trong gói START_QUESTION
+      adminActiveSecret = {
+        qUid: qUid,
+        correct: q.correct,
+        explanation: expText
+      };
+
       const packet = {
         type: 'START_QUESTION',
         id: 'admin',
@@ -2793,8 +2849,6 @@
         quizTitle: currentQuizName,
         question: q.question,
         options: q.options,
-        answerHash: encodeAnswerHash(q.correct, qUid),
-        explanation: expText,
         thinkTime: 3,
         time: qTime,
         sentAt: Date.now()
@@ -2804,6 +2858,7 @@
       document.getElementById('screen-login').classList.add('hidden');
       document.getElementById('screen-game').classList.remove('hidden');
 
+      activeClients.forEach(c => { if (c && c._isConnected) c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); });
       publishPacket('state/question', packet, true);
       publishPacket('events', packet, false);
       showQuestionOnScreen(packet);
@@ -2814,9 +2869,11 @@
         const revealPacket = {
           type: 'REVEAL_CORRECT',
           id: 'admin',
+          qUid: qUid,
           correct: q.correct,
           explanation: expText
         };
+        publishPacket('state/reveal', revealPacket, true);
         publishPacket('events', revealPacket, false);
         revealAnswerAndPlaySound(q.correct, expText);
 
@@ -2839,6 +2896,7 @@
       currentQIndex = -1;
       clearTimeout(revealTimer);
       clearTimeout(finishTimer);
+      clearTimeout(soloFallbackRevealTimer);
       clearInterval(thinkingTimer);
       clearInterval(countdownTimer);
       clearInterval(transitionInterval);
@@ -2855,7 +2913,12 @@
       const newResetId = 'rst_' + Date.now();
       myResetId = newResetId;
       setPersistentData('fh_reset_id_v20', newResetId);
-      activeClients.forEach(c => { if (c && c._isConnected) c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); });
+      activeClients.forEach(c => {
+        if (c && c._isConnected) {
+          c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true });
+          c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true });
+        }
+      });
 
       myScore = 0;
       setPersistentData('fh_saved_score_v20', 0);
@@ -2876,15 +2939,15 @@
       clearInterval(thinkingTimer);
       clearInterval(countdownTimer);
       clearInterval(transitionInterval);
+      clearTimeout(soloFallbackRevealTimer);
       closeRoundSpeedModal();
       document.getElementById('transition-Syntax-box').classList.add('hidden');
 
       votes = { A: 0, B: 0, C: 0, D: 0, total: 0 };
       optionPickers = { A: [], B: [], C: [], D: [] };
       currentRoundAnswers = {};
-      window.currentAnswerHash = data.answerHash || '';
-      window.currentCorrectAns = data.correct || '';
-      window.currentExplanation = data.explanation || '';
+      window.currentCorrectAns = '';
+      window.currentExplanation = '';
       isQuestionRevealed = false;
       myPendingChoice = null;
       myPendingTimeLeft = 0;
@@ -2957,13 +3020,6 @@
       }, 200);
     }
 
-    function resolveCorrectAnswerFromHash(qUid, hash) {
-      for (const k of ['A', 'B', 'C', 'D']) {
-        if (encodeAnswerHash(k, qUid) === hash) return k;
-      }
-      return 'A';
-    }
-
     function start20SecondAnsweringPhase(data) {
       currentTimeLeft = 20;
       answerPhaseStartMs = Date.now();
@@ -2991,7 +3047,8 @@
             setTimerRingProgress(currentTimeLeft, 20);
             playALTPTick(currentTimeLeft);
             if (isAdminMode) {
-              publishPacket('events', { type: 'MASTER_TICK', id: 'admin', qUid: data.qUid, phase: 'answer', timeLeft: currentTimeLeft, questionPacket: activeQuestionPacketCache }, false);
+              // Gói MASTER_TICK siêu gọn: Không đính kèm lại questionPacket ở mỗi giây để giảm tải băng thông
+              publishPacket('events', { type: 'MASTER_TICK', id: 'admin', qUid: data.qUid, phase: 'answer', timeLeft: currentTimeLeft }, false);
             }
           }
         } else {
@@ -2999,8 +3056,22 @@
           currentTimeLeft = 0;
           timerCountEl.innerText = 0;
           setTimerRingProgress(0, 20);
-          const resolvedAns = data.correct || resolveCorrectAnswerFromHash(data.qUid, data.answerHash);
-          revealAnswerAndPlaySound(resolvedAns, window.currentExplanation);
+
+          if (isAdminMode && adminActiveSecret && adminActiveSecret.qUid === data.qUid) {
+            revealAnswerAndPlaySound(adminActiveSecret.correct, adminActiveSecret.explanation);
+          } else {
+            // Dự phòng nếu máy Quản trò rớt mạng đột ngột quá 1.2 giây sau khi hết giờ
+            clearTimeout(soloFallbackRevealTimer);
+            soloFallbackRevealTimer = setTimeout(() => {
+              if (!isQuestionRevealed && window.activeQuestionUid === data.qUid) {
+                const localList = (data.quizTitle && quizBank[data.quizTitle]) ? quizBank[data.quizTitle] : (quizBank[currentQuizName] || []);
+                const localQ = localList[(data.qIndex || 1) - 1];
+                if (localQ && localQ.correct) {
+                  revealAnswerAndPlaySound(localQ.correct, getExplanationForQuestion(localQ));
+                }
+              }
+            }, 1200);
+          }
         }
       }, 200);
     }
@@ -3030,19 +3101,20 @@
 
       const displayName = myName || 'Admin Tuấn Phủ Lý';
       const displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
-      const lockPacket = { type: 'LOCK_CHOICE', id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec };
-      recordRoundChoice(lockPacket);
-      publishPacket('events', lockPacket, false);
+      // Chỉ lưu Avatar tại local, gói LOCK_CHOICE gửi qua mạng không kèm chuỗi ảnh Base64 để phản hồi tức thì
+      recordRoundChoice({ id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec });
+      publishPacket('events', { type: 'LOCK_CHOICE', id: myId || 'admin', name: displayName, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec }, false);
     }
 
     function revealAnswerAndPlaySound(correctKey, explanationText) {
-      if (isQuestionRevealed) return;
+      if (isQuestionRevealed || !correctKey) return;
       isQuestionRevealed = true;
       window.currentCorrectAns = correctKey;
       if (explanationText) window.currentExplanation = explanationText;
 
       clearInterval(thinkingTimer);
       clearInterval(countdownTimer);
+      clearTimeout(soloFallbackRevealTimer);
       hasAnswered = true;
 
       document.getElementById('thinking-banner').classList.add('hidden');
@@ -3113,11 +3185,11 @@
       }
 
       updateVoteStatsUI();
-      renderLeaderboard();
+      scheduleRenderLeaderboard();
 
       if (myName || myPendingChoice) {
-        publishPacket('events', { type: 'SUBMIT_ANSWER', id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, score: myScore }, false);
-        announceMyPresence();
+        publishPacket('events', { type: 'SUBMIT_ANSWER', id: myId || 'admin', name: displayName, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, score: myScore }, false);
+        sendLightweightHeartbeat();
       }
 
       renderRoundSpeedModalContent(correctKey, explanationText);
@@ -3139,8 +3211,7 @@
         if (statEl) statEl.innerText = `${count} (${pct}%)`;
         const avtContainer = document.getElementById(`avatars-${k}`);
         if (avtContainer) {
-          let html = '';
-          list.slice(0, 5).forEach(p => { html += renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-white shadow-2xs'); });
+          let html = list.slice(0, 5).map(p => renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-white shadow-sm')).join('');
           if (list.length > 5) html += `<span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-black text-[9px] flex items-center justify-center border border-white">+${list.length - 5}</span>`;
           avtContainer.innerHTML = html;
         }
@@ -3152,25 +3223,26 @@
       try { localStorage.setItem('fh_admin_backup_vault_v20', JSON.stringify(sorted)); } catch (e) {}
 
       const container = document.getElementById('leaderboard-list');
-      container.innerHTML = '';
+      if (!container) return;
+
       if (sorted.length === 0) {
         container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Đang chờ các thí sinh vào phòng thi...</div>`;
       } else {
-        sorted.slice(0, 15).forEach((p, idx) => {
+        container.innerHTML = sorted.slice(0, 15).map((p, idx) => {
           const rankNum = idx + 1;
-          const rankBadgeClass = rankNum === 1 ? 'bg-amber-400 text-white shadow-xs' : rankNum === 2 ? 'bg-slate-400 text-white' : rankNum === 3 ? 'bg-amber-600 text-white' : 'bg-slate-200 text-slate-600';
+          const rankBadgeClass = rankNum === 1 ? 'bg-amber-400 text-white shadow-sm' : rankNum === 2 ? 'bg-slate-400 text-white' : rankNum === 3 ? 'bg-amber-600 text-white' : 'bg-slate-200 text-slate-600';
           const suspTag = p.isSuspended ? `<span class="text-[9px] bg-rose-100 text-rose-600 font-black px-1.5 py-0.5 rounded-full ml-1">⛔ Đình chỉ</span>` : '';
-          container.innerHTML += `
+          return `
             <div class="flex items-center justify-between py-1.5 px-3 rounded-2xl bg-slate-50/95 border border-slate-200/70 hover:bg-white transition-all">
               <div class="flex items-center gap-2.5 truncate">
                 <span class="w-5 h-5 rounded-full ${rankBadgeClass} font-black text-[10px] flex items-center justify-center shrink-0">${rankNum}</span>
-                ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-2xs')}
+                ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')}
                 <span class="font-extrabold text-slate-800 text-xs truncate max-w-[185px]">${p.name}</span>
                 ${suspTag}
               </div>
               <span class="font-black text-slate-800 text-xs shrink-0">${p.score} <span class="text-amber-400">⭐</span></span>
             </div>`;
-        });
+        }).join('');
       }
       const dirCountBtn = document.getElementById('admin-dir-count-btn');
       if (dirCountBtn) dirCountBtn.innerText = Object.keys(players).length;
