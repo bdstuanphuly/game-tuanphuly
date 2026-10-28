@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V32</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V33</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;600;700;800;900&display=swap');
 
-    /* 1. NỀN DARK NAVY / CHARCOAL + LƯỚI CÔNG NGHỆ MỜ + DẢI SÁNG VÀNG KIM (GOLD STREAK) */
+    /* 1. NỀN DARK NAVY / CHARCOAL + LƯỚI CÔNG NGHỆ MỜ + DẢI SÁNG VÀNG KIM */
     body {
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: #060a14;
@@ -29,7 +29,7 @@
       -webkit-user-select: none;
     }
 
-    /* 2. THANH HEADER KÍNH MỜ TINH GỌN (GLASSMORPHISM TOP BAR) */
+    /* 2. THANH HEADER KÍNH MỜ TINH GỌN */
     .exec-glass-header {
       background: rgba(15, 23, 42, 0.78);
       backdrop-filter: blur(16px);
@@ -59,7 +59,7 @@
         inset 0 2px 0 #ffffff;
     }
 
-    /* 4. NÚT BẤM ĐẲNG CẤP LÃNH ĐẠO BĐS (ROYAL NAVY & LUXURY GOLD) */
+    /* 4. NÚT BẤM ĐẲNG CẤP LÃNH ĐẠO BĐS */
     .btn-exec-primary {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 52%, #0f172a 100%);
       border: 1.5px solid #fbbf24;
@@ -75,9 +75,7 @@
       color: #ffffff;
       box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.8), 0 0 20px rgba(251, 191, 36, 0.45);
     }
-    .btn-exec-primary:active {
-      transform: scale(0.97);
-    }
+    .btn-exec-primary:active { transform: scale(0.97); }
 
     .btn-exec-gold-tab {
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
@@ -110,9 +108,148 @@
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.95));
     }
+
+    /* ===================================================================== */
+    /* 5. NÂNG CẤP ĐỒ HỌA MODAL VINH DANH CHUNG CUỘC (LUXURY DARK & GOLD)    */
+    /* ===================================================================== */
+    .victory-backdrop-overlay {
+      background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.28) 0%, rgba(15, 23, 42, 0.88) 52%, rgba(2, 6, 23, 0.96) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .victory-luxury-modal {
+      background: linear-gradient(165deg, #111a30 0%, #090d1a 48%, #161124 100%);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      box-shadow:
+        0 0 50px rgba(255, 215, 0, 0.25),
+        0 25px 60px rgba(0, 0, 0, 0.9),
+        inset 0 0 32px rgba(245, 158, 11, 0.14);
+    }
+    .victory-luxury-modal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 26px;
+      padding: 2px;
+      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 35%, #92400e 50%, #fde047 75%, #fffbeb 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Hiệu ứng Hào quang xoay & Cúp vàng nhịp đập */
+    @keyframes auraSpin {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.06); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    @keyframes trophyPulse {
+      0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 6px 14px rgba(245, 158, 11, 0.55)); }
+      50% { transform: scale(1.08) translateY(-3px); filter: drop-shadow(0 10px 24px rgba(253, 224, 71, 0.85)); }
+    }
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.35; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
+    @keyframes shimmerSweep {
+      0% { transform: translateX(-140%) skewX(-22deg); }
+      100% { transform: translateX(240%) skewX(-22deg); }
+    }
+
+    .trophy-aura-ring { animation: auraSpin 14s linear infinite; }
+    .trophy-center-anim { animation: trophyPulse 2.6s ease-in-out infinite; }
+    .sparkle-1 { animation: starTwinkle 1.8s ease-in-out infinite; }
+    .sparkle-2 { animation: starTwinkle 2.2s ease-in-out infinite 0.5s; }
+    .sparkle-3 { animation: starTwinkle 1.6s ease-in-out infinite 1s; }
+
+    /* Chữ Mạ Vàng Kim Loại 3D (Gold Metallic Text Gradient) */
+    .victory-gold-title {
+      background: linear-gradient(180deg, #FFFFFF 0%, #FEF08A 26%, #F59E0B 64%, #B45309 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 14px rgba(245, 158, 11, 0.45));
+      letter-spacing: 0.04em;
+    }
+
+    /* Phân cấp Bảng Xếp Hạng Top 1, Top 2, Top 3 */
+    .rank-top1-card {
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.65) 0%, rgba(245, 158, 11, 0.28) 48%, rgba(69, 26, 3, 0.75) 100%);
+      border: 1.5px solid #fde047;
+      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.32), inset 0 0 18px rgba(254, 240, 138, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+    .rank-top1-card::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 45%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      animation: shimmerSweep 3.2s infinite;
+      pointer-events: none;
+    }
+
+    .rank-top2-card {
+      background: linear-gradient(135deg, rgba(51, 65, 85, 0.72) 0%, rgba(148, 163, 184, 0.22) 50%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1.5px solid #e2e8f0;
+      box-shadow: 0 4px 16px rgba(226, 232, 240, 0.20), inset 0 0 12px rgba(255, 255, 255, 0.12);
+    }
+
+    .rank-top3-card {
+      background: linear-gradient(135deg, rgba(124, 45, 18, 0.65) 0%, rgba(234, 88, 12, 0.22) 50%, rgba(23, 15, 12, 0.85) 100%);
+      border: 1.5px solid #fdba74;
+      box-shadow: 0 4px 16px rgba(251, 146, 60, 0.22), inset 0 0 12px rgba(253, 186, 116, 0.14);
+    }
+
+    .rank-normal-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(71, 85, 105, 0.55);
+    }
+
+    /* Điểm số Ngôi sao phát sáng vàng rực */
+    .score-star-glow {
+      color: #fef08a;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.9), 0 0 20px rgba(245, 158, 11, 0.65), 0 2px 3px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Nút 3D Bắn thêm pháo hoa Vàng Cam rực rỡ */
+    .btn-3d-fireworks {
+      background: linear-gradient(180deg, #fef08a 0%, #f59e0b 45%, #ea580c 100%);
+      border: 1.5px solid #ffffff;
+      color: #090d16;
+      box-shadow:
+        0 4px 0 #9a3412,
+        0 8px 22px rgba(245, 158, 11, 0.55),
+        inset 0 1px 1px #ffffff;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.18s ease;
+    }
+    .btn-3d-fireworks::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 40%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      animation: shimmerSweep 2.6s infinite;
+      pointer-events: none;
+    }
+    .btn-3d-fireworks:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 4px 0 #9a3412, 0 0 28px rgba(253, 224, 71, 0.85);
+    }
+    .btn-3d-fireworks:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #9a3412, 0 4px 12px rgba(245, 158, 11, 0.45);
+    }
+
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
   </style>
 </head>
 <body class="text-slate-800 flex flex-col justify-start items-center min-h-screen p-2 sm:p-3">
@@ -123,13 +260,13 @@
   <audio id="audio-wrong" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" playsinline></audio>
 
   <!-- ===================================================================== -->
-  <!-- THANH HEADER KÍNH MỜ GOM GỌN TINH TẾ (GLASSMORPHISM TOP HEADER BAR)   -->
+  <!-- THANH HEADER KÍNH MỜ GOM GỌN TINH TẾ                                   -->
   <!-- ===================================================================== -->
   <header class="w-full max-w-[440px] exec-glass-header rounded-2xl px-3 py-2 mb-2.5 flex items-center justify-between gap-1.5 z-30">
     <div class="flex items-center gap-1.5 min-w-0">
       <span id="conn-status" class="text-[10px] text-amber-300 font-extrabold truncate">🟡 Đang kết nối...</span>
       <span class="text-[9px] bg-amber-500/15 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full font-extrabold shrink-0">
-        💎 8K-Baroque
+        💎 8K-Victory V33
       </span>
     </div>
     <div class="flex items-center gap-1.5 shrink-0">
@@ -147,16 +284,17 @@
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
       <span class="text-[11px] font-black text-amber-400">👑 ADMIN TUẤN PHỦ LÝ</span>
       <div class="flex flex-wrap gap-1">
-        <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow">🏆 Xem Logo 8K</button>
+        <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow">🏆 Logo 8K</button>
+        <button onclick="showFinishCelebration(currentQuizName)" class="text-[10px] bg-amber-600 hover:bg-amber-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow" title="Xem thử Bảng Vinh Danh Chung Cuộc">🎆 Xem Vinh Danh</button>
         <button onclick="toggleNewQuizModal()" class="text-[10px] bg-blue-600 hover:bg-blue-500 px-2 py-1 rounded-lg font-bold cursor-pointer">➕ Thêm đề</button>
         <button onclick="deleteCurrentQuiz()" class="text-[10px] bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded-lg font-bold cursor-pointer">🗑️ Xóa đề</button>
-        <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1 rounded-lg font-black cursor-pointer shadow">
-          📁 Tổng tài khoản (<span id="admin-dir-count-btn">0</span>)
+        <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2 py-1 rounded-lg font-black cursor-pointer shadow">
+          📁 Tổng TK (<span id="admin-dir-count-btn">0</span>)
         </button>
       </div>
     </div>
 
-    <!-- CÔNG CỤ NẠP LOGO 8K NGUYÊN BẢN SẮC NÉT (KHÔNG NÉN VỠ HẠT) -->
+    <!-- CÔNG CỤ NẠP LOGO 8K NGUYÊN BẢN SẮC NÉT -->
     <div class="flex flex-wrap items-center justify-between gap-1.5 bg-slate-800/90 px-2.5 py-1.5 rounded-xl border border-slate-700">
       <span id="logo-sync-status" class="text-[10px] font-bold text-emerald-300">🎨 Logo 8K Ultra-HD:</span>
       <div class="flex gap-1">
@@ -212,10 +350,8 @@
 
     <!-- MÀN HÌNH 1: THẺ ĐĂNG NHẬP NỔI KHỐI SANG TRỌNG -->
     <div id="screen-login" class="flex-1 flex flex-col justify-between items-center p-5 text-center exec-login-card rounded-[24px] relative overflow-hidden">
-      <!-- Đường viền ánh kim trang trí trên đỉnh thẻ -->
       <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600"></div>
 
-      <!-- Phần Đầu Thẻ: Biểu tượng Cúp Vàng Hoàng Gia & Thương hiệu Four Home Mega -->
       <div class="w-full flex flex-col items-center pt-1">
         <div class="relative mb-2">
           <div class="w-16 h-16 bg-gradient-to-b from-amber-400 via-amber-500 to-amber-700 text-white rounded-2xl flex items-center justify-center text-3xl shadow-[0_10px_25px_-5px_rgba(217,119,6,0.55)] border-2 border-amber-200">
@@ -236,9 +372,7 @@
         </div>
       </div>
 
-      <!-- Phần Giữa Thẻ: Chuyển Tab, Khung Avatar 4K & Ô Nhập Liệu -->
       <div class="w-full my-3 space-y-3">
-        <!-- Thanh chuyển Tab đồng bộ phong cách Lãnh đạo -->
         <div class="w-full grid grid-cols-2 gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200/90 shadow-inner">
           <button type="button" id="tab-btn-register" onclick="switchAuthTab('register')" class="py-2 rounded-xl text-[11px] font-black btn-exec-gold-tab cursor-pointer transition-all">
             ✨ Đăng ký TK mới
@@ -248,7 +382,6 @@
           </button>
         </div>
 
-        <!-- Khung Tải & Cắt Ảnh Đại Diện 4K -->
         <div id="auth-avatar-section" class="w-full bg-gradient-to-b from-slate-50 to-amber-50/30 border-2 border-dashed border-amber-400/70 rounded-2xl p-3 flex flex-col items-center shadow-2xs">
           <label class="text-[11px] font-extrabold text-slate-800 mb-2 flex items-center gap-1">
             <span>📸</span> <span>1. Tải & Cắt ảnh đại diện 4K (Avatar bắt buộc):</span>
@@ -279,7 +412,6 @@
           💡 Nếu bạn đã tạo tài khoản trước đó (hoặc đổi điện thoại/máy tính), chỉ cần nhập đúng <strong class="text-slate-950">Tên tài khoản</strong> và <strong class="text-slate-950">Mật khẩu số 1</strong>. Hệ thống tự động khôi phục Ảnh đại diện 4K và Điểm số!
         </div>
 
-        <!-- Ô nhập Tên Tài Khoản (Tối đa 20 ký tự) -->
         <div class="w-full text-left">
           <div class="flex justify-between items-center mb-1 px-0.5">
             <label class="text-[11px] font-extrabold text-slate-800">👤 Tên tài khoản (Tối đa 20 ký tự):</label>
@@ -288,14 +420,12 @@
           <input id="playerName" type="text" maxlength="20" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (VD: TuanPhuLy_FHM)..." class="w-full px-4 py-2.5 bg-slate-50/80 border-2 border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 font-bold text-sm text-slate-900 text-center transition-all">
         </div>
 
-        <!-- Ô nhập Mật Khẩu Tham Gia -->
         <div class="w-full text-left">
           <label class="text-[11px] font-extrabold text-slate-800 block mb-1 px-0.5">🔑 Mật khẩu tham gia (Nhập số 1):</label>
           <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu thí sinh (Số 1)..." class="w-full px-4 py-2.5 bg-slate-50/80 border-2 border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-3 focus:ring-amber-500/15 font-bold text-sm text-slate-900 text-center transition-all">
         </div>
       </div>
 
-      <!-- Phần Cuối Thẻ: Cam kết bảo mật & Nút CTA Đẳng cấp Lãnh đạo -->
       <div class="w-full space-y-2.5">
         <p class="text-[10px] text-slate-500 font-semibold leading-snug bg-slate-100/80 py-1.5 px-2.5 rounded-xl border border-slate-200/60">
           🔒 Tự động ghi nhớ tài khoản trên thiết bị (dù thoát trình duyệt hay rớt mạng 4G/5G). Bảo mật 1 thiết bị/tài khoản.
@@ -533,13 +663,12 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (KHUNG BAROQUE 8K)     -->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" SAU MỖI CÂU HỎI        -->
   <!-- ===================================================================== -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2.5 pt-16">
     <div class="w-full max-w-[412px] bg-white/95 rounded-[28px] shadow-2xl border-2 border-amber-400 p-3.5 pt-2 flex flex-col max-h-[86vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-black text-xs flex items-center justify-center cursor-pointer z-20">✖</button>
 
-      <!-- LOGO 8K ĐỘ PHÂN GIẢI NGUYÊN BẢN SẮC NÉT -->
       <div class="flex justify-center -mt-20 mb-1 select-none pointer-events-none relative z-10">
         <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc 8K" class="w-[250px] h-[200px] object-contain logo-8k-pure">
       </div>
@@ -577,32 +706,110 @@
     </div>
   </div>
 
-  <!-- MODAL 3: PHÁO HOA CHÚC MỪNG HOÀN THÀNH BÀI THI -->
-  <div id="modal-finish-celebration" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-3">
-    <div class="w-full max-w-md bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-950 text-white rounded-3xl border-2 border-amber-400 shadow-2xl p-5 text-center space-y-3 max-h-[92vh] flex flex-col">
-      <div class="text-4xl animate-bounce">🎆🏆🎆</div>
-      <h2 class="text-base sm:text-lg font-black text-amber-300 tracking-wide uppercase">Chúc mừng bạn đã hoàn thành bài thi</h2>
-      <p id="finish-quiz-name" class="text-xs font-bold text-sky-300 bg-sky-950/60 border border-sky-500/30 py-1 px-3 rounded-full mx-auto w-fit"></p>
-      <div id="finish-my-rank-box" class="bg-amber-500/15 border border-amber-400/50 rounded-2xl p-2.5 text-xs font-bold text-amber-200"></div>
-      <div class="text-left flex-1 flex flex-col overflow-hidden bg-slate-900/90 border border-slate-700 rounded-2xl p-3">
-        <div class="flex justify-between items-center border-b border-slate-700 pb-1.5 mb-2">
-          <span class="text-xs font-black text-amber-400">👑 TOP 10 ĐIỂM CAO NHẤT ĐỀ THI NÀY</span>
-          <span class="text-[10px] text-slate-400 font-semibold">Điểm chung cuộc</span>
-        </div>
-        <div id="finish-top10-list" class="space-y-1.5 overflow-y-auto flex-1 text-xs pr-1"></div>
+  <!-- ===================================================================== -->
+  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 (V33)   -->
+  <!-- ===================================================================== -->
+  <div id="modal-finish-celebration" class="hidden fixed inset-0 z-50 victory-backdrop-overlay flex items-center justify-center p-3">
+    <div class="w-full max-w-[430px] victory-luxury-modal text-white rounded-[26px] p-4 sm:p-5 text-center space-y-3 max-h-[93vh] flex flex-col">
+
+      <!-- CỤM ĐỒ HỌA CÚP VÀNG 3D + VÒNG HÀO QUANG XOAY + NGÔI SAO LẤP LÁNH -->
+      <div class="relative w-24 h-24 mx-auto flex items-center justify-center select-none pointer-events-none -mt-1">
+        <!-- Quầng sáng vàng mềm phía sau -->
+        <div class="absolute inset-0 rounded-full bg-amber-400/25 blur-xl"></div>
+
+        <!-- Vòng Hào Quang Mặt Trời Xoay Nhẹ (Rotating Glowing Aura) -->
+        <svg class="absolute inset-0 w-full h-full trophy-aura-ring opacity-85" viewBox="0 0 120 120" fill="none">
+          <defs>
+            <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.9"/>
+              <stop offset="55%" stop-color="#F59E0B" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="60" cy="60" r="52" fill="url(#auraGrad)"/>
+          <g stroke="#FDE047" stroke-width="1.5" stroke-linecap="round" opacity="0.65">
+            <line x1="60" y1="4" x2="60" y2="18"/><line x1="60" y1="102" x2="60" y2="116"/>
+            <line x1="4" y1="60" x2="18" y2="60"/><line x1="102" y1="60" x2="116" y2="60"/>
+            <line x1="20" y1="20" x2="30" y2="30"/><line x1="90" y1="90" x2="100" y2="100"/>
+            <line x1="100" y1="20" x2="90" y2="30"/><line x1="30" y1="90" x2="20" y2="100"/>
+          </g>
+          <circle cx="60" cy="60" r="42" stroke="#FEF08A" stroke-width="1.2" stroke-dasharray="4 6"/>
+        </svg>
+
+        <!-- Cúp Vàng Chiến Thắng 3D Nhịp Đập (Pulsing 3D Golden Trophy) -->
+        <svg class="relative z-10 w-16 h-16 trophy-center-anim" viewBox="0 0 100 100" fill="none">
+          <defs>
+            <linearGradient id="cupGold3D" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="22%" stop-color="#FEF08A"/>
+              <stop offset="55%" stop-color="#F59E0B"/>
+              <stop offset="85%" stop-color="#B45309"/>
+              <stop offset="100%" stop-color="#78350F"/>
+            </linearGradient>
+            <linearGradient id="cupBase" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#78350F"/>
+              <stop offset="50%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#451A03"/>
+            </linearGradient>
+          </defs>
+          <!-- Quai cúp 2 bên -->
+          <path d="M28,26 C12,26 12,50 30,54" stroke="url(#cupGold3D)" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+          <path d="M72,26 C88,26 88,50 70,54" stroke="url(#cupGold3D)" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+          <!-- Thân cúp vàng -->
+          <path d="M26,18 L74,18 L68,52 C65,66 35,66 32,52 Z" fill="url(#cupGold3D)" stroke="#FFFBEB" stroke-width="2"/>
+          <!-- Ngôi sao nổi giữa cúp -->
+          <polygon points="50,27 53,35 62,35 55,40 57,48 50,43 43,48 45,40 38,35 47,35" fill="#FFFBEB" stroke="#B45309" stroke-width="0.8"/>
+          <!-- Chân đế cúp -->
+          <rect x="45" y="62" width="10" height="14" rx="2" fill="url(#cupGold3D)"/>
+          <path d="M32,76 L68,76 L72,86 L28,86 Z" fill="url(#cupBase)" stroke="#FDE047" stroke-width="1.5"/>
+          <rect x="24" y="86" width="52" height="6" rx="3" fill="url(#cupGold3D)"/>
+        </svg>
+
+        <!-- Các hạt kim tuyến lấp lánh quanh cúp -->
+        <span class="absolute top-1 left-3 text-xs text-yellow-200 sparkle-1">✦</span>
+        <span class="absolute top-2 right-2 text-sm text-amber-300 sparkle-2">★</span>
+        <span class="absolute bottom-2 left-2 text-xs text-sky-300 sparkle-3">✦</span>
+        <span class="absolute bottom-1 right-3 text-xs text-yellow-100 sparkle-1">✦</span>
       </div>
-      <div class="flex gap-2 pt-1">
-        <button onclick="launchFireworks()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs py-2.5 rounded-xl cursor-pointer shadow">🎇 Bắn thêm pháo hoa</button>
-        <button onclick="closeFinishModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-2.5 rounded-xl border border-slate-600 cursor-pointer">Đóng bảng vinh danh</button>
+
+      <!-- TIÊU ĐỀ MẠ VÀNG KIM LOẠI 3D -->
+      <div class="space-y-1.5">
+        <h2 class="text-base sm:text-[19px] font-black victory-gold-title uppercase leading-tight">
+          Chúc mừng bạn đã hoàn thành bài thi
+        </h2>
+        <p id="finish-quiz-name" class="text-[11px] font-extrabold text-amber-200 bg-gradient-to-r from-amber-950/80 via-slate-900 to-amber-950/80 border border-amber-400/50 py-1 px-3.5 rounded-full mx-auto w-fit shadow-sm"></p>
+      </div>
+
+      <!-- HỘP THÔNG BÁO THứ HẠNG CÁ NHÂN CỦA BẠN -->
+      <div id="finish-my-rank-box" class="bg-gradient-to-r from-amber-500/15 via-yellow-500/20 to-amber-500/15 border border-amber-400/60 rounded-2xl p-2.5 text-xs font-bold text-amber-100 shadow-inner"></div>
+
+      <!-- BẢNG XẾP HẠNG PHÂN CẤP TOP 1 - TOP 2 - TOP 3 - TOP 10 -->
+      <div class="text-left flex-1 flex flex-col overflow-hidden bg-slate-950/85 border border-amber-500/40 rounded-2xl p-3 shadow-inner">
+        <div class="flex justify-between items-center border-b border-amber-500/30 pb-2 mb-2.5">
+          <span class="text-xs font-black text-amber-300 tracking-wide flex items-center gap-1">
+            <span>👑</span> <span>BẢNG VINH DANH TOP 10 CHUNG CUỘC</span>
+          </span>
+          <span class="text-[10px] text-amber-200/80 font-bold uppercase">Tổng điểm</span>
+        </div>
+        <div id="finish-top10-list" class="space-y-2 overflow-y-auto flex-1 text-xs pr-1"></div>
+      </div>
+
+      <!-- CỤM NÚT ĐIỀU KHIỂN 3D -->
+      <div class="flex gap-2.5 pt-1">
+        <button onclick="launchFireworks()" class="flex-1 btn-3d-fireworks font-black text-xs py-3 rounded-xl cursor-pointer flex items-center justify-center gap-1.5">
+          <span>🎇</span> <span>Bắn thêm pháo hoa</span>
+        </button>
+        <button onclick="closeFinishModal()" class="flex-1 bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-amber-100 font-extrabold text-xs py-3 rounded-xl border border-amber-500/40 cursor-pointer transition-all">
+          Đóng bảng vinh danh
+        </button>
       </div>
     </div>
   </div>
 
   <script>
     // =========================================================================
-    // 1. ĐỘNG CƠ ĐỒ HỌA V32:
-    //    - KHUNG AVATAR BAROQUE 8K CHO TOP 3 (HOA VĂN CHẠM TRỔ, VÒNG KIM CƯƠNG,
-    //      4 ĐÁ SAPPHIRE BẦU DỤC HƯỚNG CHÍNH & 4 ĐÁ CYAN GÓC CHÉO)
+    // 1. ĐỘNG CƠ ĐỒ HỌA V33:
+    //    - KHUNG AVATAR BAROQUE 8K CHO TOP 3
     //    - BỘ XỬ LÝ LOGO 8K NGUYÊN BẢN (LOSSLESS HIGH-RES KHÔNG VỠ HẠT)
     // =========================================================================
     let activeTransparentLogoPNG = '';
@@ -612,11 +819,8 @@
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       return `
         <div class="relative ${boxSizeClass} flex items-center justify-center shrink-0 select-none">
-          <!-- Quầng sáng vàng thể tích tỏa ra từ khung (Volumetric Golden Glow) -->
           <div class="absolute inset-1 rounded-full bg-amber-400/25 blur-[6px] pointer-events-none"></div>
-          <!-- Ảnh đại diện 4K sắc nét bên trong -->
           <img src="${src}" class="${imgSizeClass} rounded-full object-cover avatar-4k bg-slate-900 z-10" alt="avt">
-          <!-- Khung Baroque 8K PBR: Hoa văn uốn lượn + Vòng kim cương + 4 Đá Sapphire Bầu dục + 4 Ngọc Cyan Góc chéo -->
           <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 3px 6px rgba(2,6,23,0.65));">
             <defs>
               <linearGradient id="bqGoldPBR" x1="0" y1="0" x2="1" y2="1">
@@ -638,28 +842,18 @@
                 <stop offset="100%" stop-color="#0284C7"/>
               </radialGradient>
             </defs>
-
-            <!-- Lớp Hoa Văn Chạm Trổ Baroque Uốn Lượn (Intricate Baroque Filigree Scrollwork) -->
             <circle cx="70" cy="70" r="61" stroke="url(#bqGoldPBR)" stroke-width="2.5" stroke-dasharray="8 3"/>
             <path d="M52,10 C60,2 80,2 88,10 M52,130 C60,138 80,138 88,130 M10,52 C2,60 2,80 10,88 M130,52 C138,60 138,80 130,88" stroke="url(#bqGoldPBR)" stroke-width="3.2" stroke-linecap="round"/>
             <path d="M24,32 C18,22 22,18 32,24 M116,32 C122,22 118,18 108,24 M24,108 C18,118 22,122 32,116 M116,108 C122,118 118,122 108,116" stroke="url(#bqGoldPBR)" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- Vành Kim Loại Vàng Đánh Bóng Chính (Polished Gold Metallic Border) -->
             <circle cx="70" cy="70" r="56" stroke="url(#bqGoldPBR)" stroke-width="5.5"/>
             <circle cx="70" cy="70" r="53" stroke="#FFFBEB" stroke-width="0.9" opacity="0.8"/>
-
-            <!-- Vòng Kim Cương Trắng Lấp Lánh Dọc Vòng Trong (Studded Sparkling Tiny Diamonds Ring) -->
             <circle cx="70" cy="70" r="49" stroke="#451A03" stroke-width="5.2"/>
             <circle cx="70" cy="70" r="49" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-dasharray="0.9 4.2"/>
             <circle cx="70" cy="70" r="45.5" stroke="url(#bqGoldPBR)" stroke-width="2.8"/>
-
-            <!-- 4 Viên Ngọc Bích Cyan Phát Sáng Ở 4 Góc Chéo (Bright Cyan Gem Accents at Corners) -->
             <polygon points="110,24 116,30 110,36 104,30" fill="url(#bqCyanGem)" stroke="url(#bqGoldPBR)" stroke-width="1.5"/>
             <polygon points="30,24 36,30 30,36 24,30" fill="url(#bqCyanGem)" stroke="url(#bqGoldPBR)" stroke-width="1.5"/>
             <polygon points="110,104 116,110 110,116 104,110" fill="url(#bqCyanGem)" stroke="url(#bqGoldPBR)" stroke-width="1.5"/>
             <polygon points="30,104 36,110 30,116 24,110" fill="url(#bqCyanGem)" stroke="url(#bqGoldPBR)" stroke-width="1.5"/>
-
-            <!-- 4 Viên Đá Quý Sapphire Xanh Bầu Dục Ở 4 Hướng Chính (Royal Blue Oval Sapphires at Cardinal Points) -->
             <ellipse cx="70" cy="10" rx="6.5" ry="9" fill="url(#bqSapphireOval)" stroke="url(#bqGoldPBR)" stroke-width="2.2"/>
             <ellipse cx="68" cy="7.5" rx="2" ry="3" fill="#FFFFFF" opacity="0.75"/>
             <ellipse cx="70" cy="130" rx="6.5" ry="9" fill="url(#bqSapphireOval)" stroke="url(#bqGoldPBR)" stroke-width="2.2"/>
@@ -668,8 +862,6 @@
             <ellipse cx="7.5" cy="68" rx="3" ry="2" fill="#FFFFFF" opacity="0.75"/>
             <ellipse cx="130" cy="70" rx="9" ry="6.5" fill="url(#bqSapphireOval)" stroke="url(#bqGoldPBR)" stroke-width="2.2"/>
             <ellipse cx="127.5" cy="68" rx="3" ry="2" fill="#FFFFFF" opacity="0.75"/>
-
-            <!-- Hạt sáng ma thuật lấp lánh (Magical Sparkle Particles) -->
             <circle cx="70" cy="2" r="2" fill="#FFFFFF"/>
             <circle cx="114" cy="26" r="1.8" fill="#BAE6FD"/>
             <circle cx="26" cy="114" r="1.8" fill="#FEF08A"/>
@@ -752,10 +944,10 @@
       img.src = url;
     }
 
-    // THUẬT TOÁN XỬ LÝ LOGO 8K NGUYÊN BẢN (GIỮ NGUYÊN ĐỘ PHÂN GIẢI CAO TỚI 960PX, KHÔNG BỊ VỠ HẠT)
+    // THUẬT TOÁN XỬ LÝ LOGO 8K NGUYÊN BẢN (LOSSLESS HIGH-RES)
     function process8KLogoLossless(imgElement, callback) {
       const workCanvas = document.createElement('canvas');
-      const maxNativeDim = 960; // Giữ độ phân giải siêu nét 960px cho cả màn hình PC và Retina iPhone
+      const maxNativeDim = 960;
       const scale = Math.min(1, maxNativeDim / Math.max(imgElement.width, imgElement.height));
       const W = Math.round(imgElement.width * scale);
       const H = Math.round(imgElement.height * scale);
@@ -769,7 +961,6 @@
       const imgData = ctx.getImageData(0, 0, W, H);
       const data = imgData.data;
 
-      // Nếu ảnh tải lên ĐÃ LÀ ẢNH PNG TRONG SUỐT SẴN thì giữ nguyên 100% điểm ảnh gốc, không can thiệp làm giảm nét
       let transparentCorners = 0;
       const cornerCoords = [0, (W - 1) * 4, (H - 1) * W * 4, ((H - 1) * W + (W - 1)) * 4];
       cornerCoords.forEach(cIdx => { if (data[cIdx + 3] < 20) transparentCorners++; });
@@ -778,7 +969,6 @@
         return;
       }
 
-      // Nếu ảnh có nền đen (như thap dai cao thu.png): Khóa bảo vệ 100% toàn bộ phần trong huy hiệu, chỉ tách nền đen bên ngoài
       function isInsideSealedCore(nx, ny) {
         const dx = nx - 0.50;
         const dy = ny - 0.545;
@@ -820,7 +1010,6 @@
               data[idx + 3] = 0;
               continue;
             }
-            // Làm mượt biên (Smooth Alpha Feathering) mà không làm biến dạng màu gốc
             if (luma < 95) {
               data[idx + 3] = Math.min(255, Math.round((luma - 55) * 6));
             }
@@ -844,7 +1033,7 @@
       const cropH = Math.min(H - cropY, (maxY - minY + 1) + pad * 2);
 
       const outCanvas = document.createElement('canvas');
-      const outMax = 820; // Giữ độ phân giải 820px siêu nét
+      const outMax = 820;
       const outScale = Math.min(1, outMax / Math.max(cropW, cropH));
       outCanvas.width = Math.round(cropW * outScale);
       outCanvas.height = Math.round(cropH * outScale);
@@ -929,7 +1118,7 @@
       if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh...");
       const a = document.createElement('a');
       a.href = activeTransparentLogoPNG;
-      a.download = 'Logo-10-Thap-Dai-Than-Toc-8K-V32.png';
+      a.download = 'Logo-10-Thap-Dai-Than-Toc-8K-V33.png';
       a.click();
     }
 
@@ -1079,7 +1268,7 @@
       } catch (e) {}
     }
 
-    (function initMasterLogoV32() {
+    (function initMasterLogoV33() {
       let savedV32 = null;
       try { savedV32 = localStorage.getItem('fh_master_logo_v32'); } catch (e) {}
       if (savedV32 && savedV32.startsWith('data:image/')) {
@@ -1307,7 +1496,7 @@
       return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-200" alt="avt">`;
     }
 
-    // HỆ THỐNG ÂM THANH MƯỢT 100%
+    // HỆ THỐNG ÂM THANH & HIỆU ỨNG PHÁO HOA + MƯA KIM TUYẾN VÀNG (GOLD CONFETTI)
     let audioCtx = null, mp3Unlocked = false, keepAliveNode = null, isBgmActive = false;
     const bgmEl = document.getElementById('audio-bgm');
     const correctEl = document.getElementById('audio-correct');
@@ -1456,15 +1645,59 @@
       }
     }
 
+    // HIỆU ỨNG MƯA KIM TUYẾN VÀNG (GOLD CONFETTI) & PHÁO HOA HẠT SÁNG BUNG NỔ RỰC RỠ
     function launchFireworks() {
       playALTPCorrect();
       if (typeof confetti !== 'function') return;
-      const end = Date.now() + 3500;
+
+      const luxuryColors = ['#FFD700', '#FDE047', '#F59E0B', '#FFFBEB', '#38BDF8', '#FB7185'];
+
+      // Đợt 1: Nổ bung pháo hoa trung tâm ngay lập tức
+      confetti({
+        particleCount: 80,
+        spread: 100,
+        startVelocity: 42,
+        origin: { x: 0.5, y: 0.35 },
+        colors: luxuryColors,
+        zIndex: 9999
+      });
+
+      // Đợt 2: Mưa kim tuyến vàng bắn chéo từ 2 bên cánh gà
+      const end = Date.now() + 3600;
       (function frame() {
-        confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0, y: 0.65 } });
-        confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1, y: 0.65 } });
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.65 },
+          colors: ['#FFD700', '#FDE047', '#FFFBEB', '#F59E0B'],
+          zIndex: 9999
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.65 },
+          colors: ['#FFD700', '#FDE047', '#FFFBEB', '#F59E0B'],
+          zIndex: 9999
+        });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
+
+      // Đợt 3: Các chùm pháo hoa hạt sáng 360 độ nổ nối tiếp trên cao
+      [550, 1250, 2100].forEach((delay, idx) => {
+        setTimeout(() => {
+          confetti({
+            particleCount: 55,
+            spread: 360,
+            startVelocity: 32,
+            ticks: 70,
+            origin: { x: 0.25 + idx * 0.25, y: 0.25 + (idx % 2) * 0.12 },
+            colors: luxuryColors,
+            zIndex: 9999
+          });
+        }, delay);
+      });
     }
 
     // NGÂN HÀNG CÂU HỎI & QUẢN LÝ TÀI KHOẢN
@@ -1638,7 +1871,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh32_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh33_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -2174,6 +2407,9 @@
 
     function closePrevRankModal() { document.getElementById('modal-prev-rank').classList.add('hidden'); }
 
+    // =========================================================================
+    // HIỂN THỊ BẢNG VINH DANH CHUNG CUỘC PHÂN CẤP TOP 1 - TOP 2 - TOP 3 (V33)
+    // =========================================================================
     function showFinishCelebration(quizTitle) {
       closeRoundSpeedModal();
       const record = buildCurrentStandingsRecord(quizTitle);
@@ -2182,23 +2418,90 @@
       const myBoxEl = document.getElementById('finish-my-rank-box');
       const top10El = document.getElementById('finish-top10-list');
 
-      const sorted = Object.entries(players).map(([id, p]) => ({ id, name: p.name, avatar: p.avatar || DEFAULT_ADMIN_AVATAR, score: p.score || 0 })).sort((a, b) => b.score - a.score);
+      const sorted = Object.entries(players)
+        .map(([id, p]) => ({ id, name: p.name, avatar: p.avatar || DEFAULT_ADMIN_AVATAR, score: p.score || 0 }))
+        .sort((a, b) => b.score - a.score);
+
       const myIndex = sorted.findIndex(r => r.id === myId || (myName && r.name.toLowerCase() === myName.toLowerCase()));
-      myBoxEl.innerHTML = myIndex !== -1 ? `Thành tích của bạn (${myName}): <strong>Hạng ${myIndex + 1}/${sorted.length}</strong> — Đạt <strong>${sorted[myIndex].score} ⭐</strong>` : `Tổng số thí sinh hoàn thành: <strong>${sorted.length} người</strong>`;
+      if (myIndex !== -1) {
+        const myRank = myIndex + 1;
+        const subNote = myRank === 1
+          ? `<span class="text-emerald-300 text-[11px] block mt-0.5">👑 Xuất sắc! Bạn là Nhà Vô Địch của chuyên đề này!</span>`
+          : `<span class="text-sky-300 text-[11px] block mt-0.5">🔼 Xếp ngay trên bạn: ${sorted[myIndex - 1].name} (${sorted[myIndex - 1].score} ⭐)</span>`;
+        myBoxEl.innerHTML = `🎖️ Thành tích của bạn (<span class="text-white">${myName}</span>): <strong class="text-amber-300">Hạng ${myRank}/${sorted.length}</strong> — Đạt <strong class="score-star-glow">${sorted[myIndex].score} ⭐</strong>${subNote}`;
+      } else {
+        myBoxEl.innerHTML = `✨ Tổng số thí sinh tham gia vinh danh: <strong class="text-amber-300">${sorted.length} người</strong>`;
+      }
 
       top10El.innerHTML = '';
-      sorted.slice(0, 10).forEach((p, idx) => {
-        const badge = idx === 0 ? '🥇 Top 1' : idx === 1 ? '🥈 Top 2' : idx === 2 ? '🥉 Top 3' : `Hạng ${idx + 1}`;
-        top10El.innerHTML += `
-          <div class="flex items-center justify-between py-1.5 px-3 rounded-xl ${p.id === myId ? 'bg-amber-500/30 border border-amber-400' : 'bg-slate-800 border border-slate-700'}">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-amber-300">${badge}</span>
-              ${renderAvatarHTML(p.avatar, 'w-7 h-7')}
-              <span class="font-bold text-white">${p.name}</span>
-            </div>
-            <span class="font-black text-amber-400">${p.score} ⭐</span>
-          </div>`;
-      });
+      if (sorted.length === 0) {
+        top10El.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Đang chờ dữ liệu điểm số của các thí sinh...</div>`;
+      } else {
+        sorted.slice(0, 10).forEach((p, idx) => {
+          const isMeTag = (p.id === myId) ? `<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded-full ml-1">Bạn</span>` : '';
+
+          if (idx === 0) {
+            // VỊ TRÍ TOP 1: KHUNG ÁNH KIM VÀNG + VỆT SÁNG SHIMMER + AVATAR PHÓNG TO ĐỘI VƯƠNG MIỆN
+            top10El.innerHTML += `
+              <div class="rank-top1-card py-2.5 px-3 rounded-2xl flex items-center justify-between gap-2">
+                <div class="flex items-center gap-3 min-w-0 z-10">
+                  <span class="bg-gradient-to-b from-yellow-200 via-amber-400 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-1 rounded-xl shadow border border-yellow-100 shrink-0">
+                    🥇 TOP 1
+                  </span>
+                  <div class="relative shrink-0 mt-1">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] z-20">👑</span>
+                    ${renderAvatarHTML(p.avatar, 'w-11 h-11', 'border-2 border-yellow-300 shadow-[0_0_14px_rgba(253,224,71,0.75)]')}
+                  </div>
+                  <div class="truncate">
+                    <div class="font-black text-sm text-amber-100 truncate flex items-center">${p.name}${isMeTag}</div>
+                    <div class="text-[9px] font-extrabold text-amber-300/90 uppercase tracking-wider">Quán Quân Đấu Trường</div>
+                  </div>
+                </div>
+                <span class="font-black text-base score-star-glow shrink-0 z-10">${p.score} ⭐</span>
+              </div>`;
+          } else if (idx === 1) {
+            // VỊ TRÍ TOP 2: TÔNG MÀU BẠC (SILVER GLOW)
+            top10El.innerHTML += `
+              <div class="rank-top2-card py-2 px-3 rounded-xl flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="bg-gradient-to-b from-white to-slate-300 text-slate-900 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">
+                    🥈 TOP 2
+                  </span>
+                  ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-slate-200 shadow-[0_0_10px_rgba(226,232,240,0.5)]')}
+                  <span class="font-extrabold text-xs text-slate-100 truncate flex items-center">${p.name}${isMeTag}</span>
+                </div>
+                <span class="font-black text-sm score-star-glow shrink-0">${p.score} ⭐</span>
+              </div>`;
+          } else if (idx === 2) {
+            // VỊ TRÍ TOP 3: TÔNG MÀU ĐỒNG (BRONZE GLOW)
+            top10El.innerHTML += `
+              <div class="rank-top3-card py-2 px-3 rounded-xl flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="bg-gradient-to-b from-orange-200 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">
+                    🥉 TOP 3
+                  </span>
+                  ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400 shadow-[0_0_10px_rgba(251,146,60,0.5)]')}
+                  <span class="font-extrabold text-xs text-orange-100 truncate flex items-center">${p.name}${isMeTag}</span>
+                </div>
+                <span class="font-black text-sm score-star-glow shrink-0">${p.score} ⭐</span>
+              </div>`;
+          } else {
+            // CÁC HẠNG TỪ 4 ĐẾN 10
+            top10El.innerHTML += `
+              <div class="rank-normal-card py-1.5 px-3 rounded-xl flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="w-12 text-center bg-slate-800 text-amber-300/90 border border-slate-600 font-extrabold text-[10px] py-0.5 rounded-lg shrink-0">
+                    Hạng ${idx + 1}
+                  </span>
+                  ${renderAvatarHTML(p.avatar, 'w-7 h-7', 'border border-amber-400/70')}
+                  <span class="font-bold text-xs text-slate-200 truncate flex items-center">${p.name}${isMeTag}</span>
+                </div>
+                <span class="font-black text-xs score-star-glow shrink-0">${p.score} ⭐</span>
+              </div>`;
+          }
+        });
+      }
+
       document.getElementById('modal-finish-celebration').classList.remove('hidden');
       launchFireworks();
     }
