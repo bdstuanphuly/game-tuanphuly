@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V35</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V36</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -95,10 +95,11 @@
       transform: translateZ(0);
       backface-visibility: hidden;
     }
+    /* Logo 8K chỉ dùng hiệu ứng phát sáng Vàng Kim, KHÔNG dùng bóng đen để tránh lộ vết đen */
     .logo-8k-pure {
       image-rendering: -webkit-optimize-contrast;
       image-rendering: high-quality;
-      filter: drop-shadow(0 10px 22px rgba(2, 6, 23, 0.85)) drop-shadow(0 0 18px rgba(245, 158, 11, 0.35));
+      filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.42));
       transform: translateZ(0);
     }
     .timer-gold-number {
@@ -110,7 +111,7 @@
     }
 
     /* ===================================================================== */
-    /* 5. ĐỒ HỌA MODAL THẬP ĐẠI THẦN TỐC & VINH DANH (LUXURY DARK & GOLD)    */
+    /* 5. ĐỒ HỌA MODAL THẬP ĐẠI THẦN TỐC & PODIUM 3D (LUXURY V36)            */
     /* ===================================================================== */
     .victory-backdrop-overlay {
       background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.28) 0%, rgba(15, 23, 42, 0.88) 52%, rgba(2, 6, 23, 0.96) 100%);
@@ -141,30 +142,91 @@
       pointer-events: none;
     }
 
-    /* Bục Podium 3D cho Top 1 - Top 2 - Top 3 */
+    /* Bục Podium 3D có Nắp Nghiêng & Luồng Sáng Spotlight (V36) */
+    .podium-stage-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .podium-spotlight-gold {
+      position: absolute;
+      bottom: 100%;
+      left: 10%;
+      right: 10%;
+      height: 75px;
+      background: linear-gradient(0deg, rgba(251, 191, 36, 0.30) 0%, rgba(251, 191, 36, 0.06) 65%, transparent 100%);
+      clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
+      pointer-events: none;
+    }
+    .podium-spotlight-silver {
+      position: absolute;
+      bottom: 100%;
+      left: 12%;
+      right: 12%;
+      height: 60px;
+      background: linear-gradient(0deg, rgba(148, 163, 184, 0.25) 0%, rgba(56, 189, 248, 0.05) 65%, transparent 100%);
+      clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
+      pointer-events: none;
+    }
+    .podium-spotlight-bronze {
+      position: absolute;
+      bottom: 100%;
+      left: 12%;
+      right: 12%;
+      height: 55px;
+      background: linear-gradient(0deg, rgba(251, 146, 60, 0.24) 0%, rgba(251, 146, 60, 0.04) 65%, transparent 100%);
+      clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
+      pointer-events: none;
+    }
+
+    .podium-top-cap-gold {
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, #fde047 0%, #ffffff 50%, #f59e0b 100%);
+      clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%);
+      box-shadow: 0 -2px 10px rgba(253, 224, 71, 0.6);
+    }
+    .podium-top-cap-silver {
+      width: 100%;
+      height: 9px;
+      background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 50%, #94a3b8 100%);
+      clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%);
+    }
+    .podium-top-cap-bronze {
+      width: 100%;
+      height: 9px;
+      background: linear-gradient(90deg, #fdba74 0%, #ffedd5 50%, #ea580c 100%);
+      clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%);
+    }
+
     .podium-3d-gold {
-      background: linear-gradient(180deg, rgba(254, 240, 138, 0.95) 0%, rgba(245, 158, 11, 0.95) 45%, rgba(146, 64, 14, 0.98) 100%);
-      border-top: 2px solid #ffffff;
-      border-left: 1px solid rgba(254, 240, 138, 0.8);
-      border-right: 1px solid rgba(254, 240, 138, 0.8);
-      box-shadow: 0 -4px 18px rgba(245, 158, 11, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.6);
-      color: #090d16;
+      background: linear-gradient(180deg, #f59e0b 0%, #b45309 55%, #451a03 100%);
+      border-top: 1.5px solid #fef08a;
+      border-left: 1px solid rgba(254, 240, 138, 0.65);
+      border-right: 1px solid rgba(254, 240, 138, 0.65);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), inset 0 2px 10px rgba(254, 240, 138, 0.45);
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
     }
     .podium-3d-silver {
-      background: linear-gradient(180deg, rgba(241, 245, 249, 0.95) 0%, rgba(148, 163, 184, 0.92) 50%, rgba(51, 65, 85, 0.98) 100%);
-      border-top: 2px solid #ffffff;
-      border-left: 1px solid rgba(226, 232, 240, 0.7);
-      border-right: 1px solid rgba(226, 232, 240, 0.7);
-      box-shadow: 0 -4px 14px rgba(148, 163, 184, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.6);
-      color: #0f172a;
+      background: linear-gradient(180deg, #64748b 0%, #334155 55%, #0f172a 100%);
+      border-top: 1.5px solid #f1f5f9;
+      border-left: 1px solid rgba(226, 232, 240, 0.5);
+      border-right: 1px solid rgba(226, 232, 240, 0.5);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(255, 255, 255, 0.35);
+      color: #f8fafc;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
     }
     .podium-3d-bronze {
-      background: linear-gradient(180deg, rgba(254, 215, 170, 0.95) 0%, rgba(217, 119, 6, 0.9) 50%, rgba(124, 45, 18, 0.98) 100%);
-      border-top: 2px solid #ffedd5;
-      border-left: 1px solid rgba(253, 186, 116, 0.7);
-      border-right: 1px solid rgba(253, 186, 116, 0.7);
-      box-shadow: 0 -4px 14px rgba(234, 88, 12, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
-      color: #1c1917;
+      background: linear-gradient(180deg, #d97706 0%, #9a3412 55%, #270e05 100%);
+      border-top: 1.5px solid #fed7aa;
+      border-left: 1px solid rgba(253, 186, 116, 0.5);
+      border-right: 1px solid rgba(253, 186, 116, 0.5);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(254, 215, 170, 0.35);
+      color: #fff7ed;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
     }
 
     @keyframes auraSpin {
@@ -287,7 +349,7 @@
     <div class="flex items-center gap-1.5 min-w-0">
       <span id="conn-status" class="text-[10px] text-amber-300 font-extrabold truncate">🟡 Đang kết nối...</span>
       <span class="text-[9px] bg-amber-500/15 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full font-extrabold shrink-0">
-        💎 8K-Victory V35
+        💎 8K-Victory V36
       </span>
     </div>
     <div class="flex items-center gap-1.5 shrink-0">
@@ -315,21 +377,21 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ TÁCH NỀN & TẢI LOGO PNG 8K NGUYÊN BẢN SẮC NÉT -->
+    <!-- CÔNG CỤ AI CHROMA-KEY TÁCH SẠCH NỀN ĐEN & TẢI FILE PNG 8K -->
     <div class="flex flex-wrap items-center justify-between gap-1.5 bg-slate-800/90 px-2.5 py-1.5 rounded-xl border border-slate-700">
-      <span id="logo-sync-status" class="text-[10px] font-bold text-emerald-300">🎨 Tách Nền Logo 8K:</span>
+      <span id="logo-sync-status" class="text-[10px] font-bold text-emerald-300">🎨 Tách Nền Sạch 100%:</span>
       <div class="flex flex-wrap gap-1">
-        <label for="adminLogoInput" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg cursor-pointer shadow" title="Chọn file ảnh gốc để tự động tách nền PNG 8K mịn màng">
-          🖼️ Nạp Ảnh & Tách Nền 8K
+        <label for="adminLogoInput" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg cursor-pointer shadow" title="Chọn ảnh gốc để khử sạch 100% vết đen/khói xung quanh và tự động tải PNG về máy">
+          🖼️ Chọn Ảnh -> Tách Nền & Tải PNG
         </label>
         <input id="adminLogoInput" type="file" accept="image/*" onchange="handleCustomLogoUpload(event)" class="hidden">
-        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-2.5 py-1 rounded-lg cursor-pointer shadow" title="Tải file PNG đã tách nền trong suốt về máy">
-          📥 Tải File PNG 8K
+        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-2.5 py-1 rounded-lg cursor-pointer shadow" title="Tải file PNG đã tách sạch nền về máy">
+          📥 Tải PNG
         </button>
         <button onclick="forceBroadcastLogoNow(true)" class="text-[10px] bg-sky-600 hover:bg-sky-500 text-white font-bold px-2 py-1 rounded-lg cursor-pointer shadow">
           📡 Đồng bộ ĐT
         </button>
-        <button onclick="resetToDefault8KEmblem()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1 rounded-lg cursor-pointer" title="Dùng huy hiệu Vector 3D mặc định">
+        <button onclick="resetToDefault8KEmblem()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1 rounded-lg cursor-pointer" title="Khôi phục Huy hiệu Vector 3D Sạch 100%">
           🔄 Mặc định
         </button>
       </div>
@@ -687,16 +749,16 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (DARK LUXURY V35)      -->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (IMPERIAL PRESTIGE V36)-->
   <!-- ===================================================================== -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-16">
-    <div class="w-full max-w-[420px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[87vh] relative">
+    <div class="w-full max-w-[428px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[88vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-xs flex items-center justify-center cursor-pointer z-20">✖</button>
 
-      <!-- HUY HIỆU 10 THẬP ĐẠI THẦN TỐC 8K NỀN TRONG SUỐT + QUẦNG SÁNG HOÀNG GIA -->
+      <!-- HUY HIỆU 10 THẬP ĐẠI THẦN TỐC 8K SẠCH VẾT ĐEN 100% + VÒNG HÀO QUANG XOAY -->
       <div class="flex justify-center -mt-20 mb-1 select-none pointer-events-none relative z-10">
-        <div class="absolute inset-x-12 top-6 bottom-2 rounded-full bg-amber-400/20 blur-2xl"></div>
-        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc 8K" class="w-[245px] h-[196px] object-contain logo-8k-pure relative z-10">
+        <div class="absolute w-[180px] h-[180px] top-3 rounded-full bg-amber-400/20 blur-2xl"></div>
+        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc 8K" class="w-[248px] h-[196px] object-contain logo-8k-pure relative z-10">
       </div>
 
       <!-- THANH ĐÁP ÁN ĐÚNG & GIẢI THÍCH SANG TRỌNG -->
@@ -704,8 +766,8 @@
         ✅ Đáp án & Bảng vinh danh 10 Thập Đại Thần Tốc
       </div>
 
-      <!-- BỤC PODIUM TOP 1 - TOP 2 - TOP 3 VỚI KHUNG KIM LOẠI 3D PHÂN CẤP -->
-      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1 pt-2"></div>
+      <!-- BỤC PODIUM TOP 1 - TOP 2 - TOP 3 VỚI KHUNG NGUYỆT QUẾ & CÁNH 3D ĐỐI XỨNG TÂM -->
+      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1 pt-3"></div>
 
       <!-- DANH SÁCH HẠNG 4 ĐẾN HẠNG 10 -->
       <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
@@ -739,7 +801,7 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 (V35)   -->
+  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 (V36)   -->
   <!-- ===================================================================== -->
   <div id="modal-finish-celebration" class="hidden fixed inset-0 z-50 victory-backdrop-overlay flex items-center justify-center p-3">
     <div class="w-full max-w-[430px] victory-luxury-modal text-white rounded-[28px] p-4 sm:p-5 text-center space-y-3 max-h-[93vh] flex flex-col">
@@ -832,204 +894,300 @@
 
   <script>
     // =========================================================================
-    // 1. ĐỘNG CƠ ĐỒ HỌA V35:
-    //    - KHUNG AVATAR 3D METALLIC LUXURY RING PHÂN CẤP TOP 1 - TOP 2 - TOP 3
-    //    - BỘ TÁCH NỀN LOGO 8K CHUYÊN NGHIỆP (FLOOD-FILL + SOFT ALPHA MATTING)
+    // 1. ĐỘNG CƠ ĐỒ HỌA V36:
+    //    - AVATAR MẶC ĐỊNH 3D LUXURY EMBLEM (THAY THẾ HÌNH CAM EMOJI SƠ SÀI)
+    //    - KHUNG AVATAR ĐẾ VƯƠNG ĐA TẦNG (CÀNH NGUYỆT QUẾ + CÁNH 3D + RUY-BĂNG GIỮA ĐÁY)
+    //    - THUẬT TOÁN AI CHROMA-KEY DESPILL TÁCH SẠCH 100% VẾT ĐEN/KHÓI QUANH LOGO
     // =========================================================================
     let activeTransparentLogoPNG = '';
     let hasCustomLogoLocked = false;
 
-    // KHUNG AVATAR 3D METALLIC LUXURY HIỆN ĐẠI, PHÂN CẤP RÕ TOP 1 (VÀNG) - TOP 2 (BẠC) - TOP 3 (ĐỒNG)
-    function renderModernLuxuryAvatarFrameHTML(avatarUrl, rank = 1) {
+    // AVATAR MẶC ĐỊNH 3D LUXURY CREST (Nền Navy kim cương + Vương miện Vàng 3D sang trọng)
+    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+        <defs>
+          <radialGradient id="admBg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#1E3A8A"/>
+            <stop offset="65%" stop-color="#0F172A"/>
+            <stop offset="100%" stop-color="#020617"/>
+          </radialGradient>
+          <linearGradient id="admGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="25%" stop-color="#FEF08A"/>
+            <stop offset="55%" stop-color="#F59E0B"/>
+            <stop offset="85%" stop-color="#B45309"/>
+            <stop offset="100%" stop-color="#FDE047"/>
+          </linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r="80" fill="url(#admBg)"/>
+        <circle cx="80" cy="80" r="70" fill="none" stroke="url(#admGold)" stroke-width="2" opacity="0.45"/>
+        <polygon points="80,22 130,80 80,138 30,80" fill="none" stroke="url(#admGold)" stroke-width="1.2" opacity="0.25"/>
+        <path d="M42,102 L34,58 L60,76 L80,44 L100,76 L126,58 L118,102 Z" fill="url(#admGold)" stroke="#FFFBEB" stroke-width="2"/>
+        <rect x="40" y="106" width="80" height="10" rx="5" fill="url(#admGold)"/>
+        <circle cx="34" cy="52" r="4.5" fill="#FEF08A"/>
+        <circle cx="80" cy="38" r="5.5" fill="#FFFFFF"/>
+        <circle cx="126" cy="52" r="4.5" fill="#FEF08A"/>
+        <circle cx="80" cy="84" r="5" fill="#1E3A8A"/>
+      </svg>
+    `);
+
+    // KHUNG AVATAR ĐẾ VƯƠNG ĐA TẦNG (MULTI-LAYER 3D IMPERIAL LAUREL & WINGS + RUY-BĂNG CHÍNH GIỮA ĐÁY)
+    function renderImperialPrestigeAvatarFrameHTML(avatarUrl, rank = 1) {
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      const boxSizeClass = isTop1 ? "w-[84px] h-[84px]" : "w-[68px] h-[68px]";
-      const imgSizeClass = isTop1 ? "w-[58px] h-[58px]" : "w-[48px] h-[48px]";
+      const boxSizeClass = isTop1 ? "w-[96px] h-[96px]" : "w-[80px] h-[80px]";
+      const imgSizeClass = isTop1 ? "w-[56px] h-[56px]" : "w-[46px] h-[46px]";
 
-      const gradId = `luxGrad_${rank}`;
-      const innerId = `luxInner_${rank}`;
-      let stopsHTML = '';
-      let innerStroke = '';
-      let glowClass = '';
-      let badgeBg = '';
-      let crownHTML = '';
-      let wingHTML = '';
+      const gradId = `impGrad_${rank}`;
+      const darkId = `impDark_${rank}`;
+      const ribId = `impRib_${rank}`;
+
+      let stopsMain = '';
+      let stopsDark = '';
+      let stopsRib = '';
+      let gemColor = '';
+      let auraGlowClass = '';
+      let rankLabel = `TOP ${rank}`;
 
       if (rank === 1) {
-        stopsHTML = `
+        stopsMain = `
           <stop offset="0%" stop-color="#FFFFFF"/>
-          <stop offset="22%" stop-color="#FEF08A"/>
-          <stop offset="52%" stop-color="#F59E0B"/>
+          <stop offset="20%" stop-color="#FEF08A"/>
+          <stop offset="50%" stop-color="#F59E0B"/>
           <stop offset="82%" stop-color="#92400E"/>
           <stop offset="100%" stop-color="#FDE047"/>
         `;
-        innerStroke = '#FEF08A';
-        glowClass = 'bg-amber-400/35';
-        badgeBg = 'bg-gradient-to-b from-yellow-200 via-amber-400 to-amber-600 text-slate-950 border border-white';
-        crownHTML = `
-          <g transform="translate(0, -3)">
-            <polygon points="52,18 47,5 61,12 70,1 79,12 93,5 88,18" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1"/>
-            <circle cx="70" cy="1" r="2" fill="#FFFFFF"/>
-            <circle cx="47" cy="5" r="1.5" fill="#FEF08A"/>
-            <circle cx="93" cy="5" r="1.5" fill="#FEF08A"/>
-          </g>
+        stopsDark = `
+          <stop offset="0%" stop-color="#FDE047"/>
+          <stop offset="60%" stop-color="#B45309"/>
+          <stop offset="100%" stop-color="#451A03"/>
         `;
-        wingHTML = `
-          <path d="M16,70 C4,56 6,38 22,28 C16,42 18,54 24,66 Z" fill="url(#${gradId})" opacity="0.9"/>
-          <path d="M124,70 C136,56 134,38 118,28 C124,42 122,54 116,66 Z" fill="url(#${gradId})" opacity="0.9"/>
+        stopsRib = `
+          <stop offset="0%" stop-color="#991B1B"/>
+          <stop offset="50%" stop-color="#EF4444"/>
+          <stop offset="100%" stop-color="#991B1B"/>
         `;
+        gemColor = '#EF4444';
+        auraGlowClass = 'bg-amber-400/40';
       } else if (rank === 2) {
-        stopsHTML = `
+        stopsMain = `
           <stop offset="0%" stop-color="#FFFFFF"/>
-          <stop offset="28%" stop-color="#E2E8F0"/>
-          <stop offset="58%" stop-color="#94A3B8"/>
+          <stop offset="25%" stop-color="#E2E8F0"/>
+          <stop offset="55%" stop-color="#94A3B8"/>
           <stop offset="85%" stop-color="#334155"/>
           <stop offset="100%" stop-color="#F8FAFC"/>
         `;
-        innerStroke = '#BAE6FD';
-        glowClass = 'bg-sky-400/25';
-        badgeBg = 'bg-gradient-to-b from-white via-slate-200 to-slate-400 text-slate-950 border border-white';
-        crownHTML = `
-          <polygon points="60,16 65,7 70,13 75,7 80,16" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.8"/>
+        stopsDark = `
+          <stop offset="0%" stop-color="#CBD5E1"/>
+          <stop offset="60%" stop-color="#475569"/>
+          <stop offset="100%" stop-color="#0F172A"/>
         `;
+        stopsRib = `
+          <stop offset="0%" stop-color="#1E3A8A"/>
+          <stop offset="50%" stop-color="#2563EB"/>
+          <stop offset="100%" stop-color="#1E3A8A"/>
+        `;
+        gemColor = '#38BDF8';
+        auraGlowClass = 'bg-sky-400/30';
       } else {
-        stopsHTML = `
-          <stop offset="0%" stop-color="#FFEDD5"/>
-          <stop offset="28%" stop-color="#FDBA74"/>
-          <stop offset="58%" stop-color="#EA580C"/>
+        stopsMain = `
+          <stop offset="0%" stop-color="#FFF7ED"/>
+          <stop offset="25%" stop-color="#FDBA74"/>
+          <stop offset="55%" stop-color="#EA580C"/>
           <stop offset="85%" stop-color="#7C2D12"/>
           <stop offset="100%" stop-color="#FED7AA"/>
         `;
-        innerStroke = '#FDBA74';
-        glowClass = 'bg-orange-500/25';
-        badgeBg = 'bg-gradient-to-b from-orange-200 via-amber-500 to-orange-700 text-slate-950 border border-white';
-        crownHTML = `
-          <polygon points="62,16 70,8 78,16" fill="url(#${gradId})" stroke="#FFEDD5" stroke-width="0.8"/>
+        stopsDark = `
+          <stop offset="0%" stop-color="#FDBA74"/>
+          <stop offset="60%" stop-color="#9A3412"/>
+          <stop offset="100%" stop-color="#431407"/>
         `;
+        stopsRib = `
+          <stop offset="0%" stop-color="#7C2D12"/>
+          <stop offset="50%" stop-color="#D97706"/>
+          <stop offset="100%" stop-color="#7C2D12"/>
+        `;
+        gemColor = '#F97316';
+        auraGlowClass = 'bg-orange-500/25';
       }
+
+      // Đôi cánh Đại Bàng 3D lớn cho Top 1, cánh Bạch Kim/Đồng gọn cho Top 2 & 3
+      const wingsSVG = isTop1 ? `
+        <g>
+          <path d="M24,84 C4,72 2,48 16,30 C16,46 22,58 32,68 Z" fill="url(#${gradId})" stroke="#FFFBEB" stroke-width="0.9"/>
+          <path d="M28,96 C8,88 4,68 14,52 C16,66 24,76 34,84 Z" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.7"/>
+          <path d="M136,84 C156,72 158,48 144,30 C144,46 138,58 128,68 Z" fill="url(#${gradId})" stroke="#FFFBEB" stroke-width="0.9"/>
+          <path d="M132,96 C152,88 156,68 146,52 C144,66 136,76 126,84 Z" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.7"/>
+        </g>
+      ` : `
+        <g>
+          <path d="M26,86 C10,74 10,54 22,40 C20,54 24,66 32,74 Z" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.7"/>
+          <path d="M134,86 C150,74 150,54 138,40 C140,54 136,66 128,74 Z" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.7"/>
+        </g>
+      `;
+
+      // Cành Nguyệt Quế 3D ôm dọc 2 bên khung tròn
+      const laurelSVG = `
+        <g stroke="url(#${gradId})" stroke-width="1.5" fill="url(#${gradId})">
+          <path d="M36,112 C24,96 22,74 30,54 C28,74 32,92 42,106 Z"/>
+          <path d="M124,112 C136,96 138,74 130,54 C132,74 128,92 118,106 Z"/>
+          <ellipse cx="27" cy="86" rx="3.5" ry="7" transform="rotate(-25 27 86)"/>
+          <ellipse cx="27" cy="68" rx="3.5" ry="7" transform="rotate(-10 27 68)"/>
+          <ellipse cx="32" cy="52" rx="3.2" ry="6.5" transform="rotate(12 32 52)"/>
+          <ellipse cx="133" cy="86" rx="3.5" ry="7" transform="rotate(25 133 86)"/>
+          <ellipse cx="133" cy="68" rx="3.5" ry="7" transform="rotate(10 133 68)"/>
+          <ellipse cx="128" cy="52" rx="3.2" ry="6.5" transform="rotate(-12 128 52)"/>
+        </g>
+      `;
+
+      // Vương miện Đế Vương 3D trên đỉnh khung
+      const crownSVG = isTop1 ? `
+        <g>
+          <polygon points="52,32 45,12 64,22 80,4 96,22 115,12 108,32" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1.2"/>
+          <rect x="52" y="31" width="56" height="5.5" rx="2.5" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.9"/>
+          <circle cx="80" cy="4" r="3" fill="#FFFFFF"/>
+          <circle cx="45" cy="11" r="2.2" fill="#FEF08A"/>
+          <circle cx="115" cy="11" r="2.2" fill="#FEF08A"/>
+          <circle cx="80" cy="24" r="2.8" fill="${gemColor}" stroke="#FFFFFF" stroke-width="0.7"/>
+        </g>
+      ` : `
+        <g>
+          <polygon points="58,33 54,18 68,25 80,11 92,25 106,18 102,33" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1"/>
+          <rect x="58" y="32" width="44" height="4.5" rx="2" fill="url(#${darkId})"/>
+          <circle cx="80" cy="11" r="2.2" fill="#FFFFFF"/>
+          <circle cx="80" cy="26" r="2.2" fill="${gemColor}"/>
+        </g>
+      `;
 
       return `
         <div class="relative ${boxSizeClass} flex items-center justify-center shrink-0 select-none">
-          <div class="absolute inset-1.5 rounded-full ${glowClass} blur-md pointer-events-none"></div>
-          <img src="${src}" class="${imgSizeClass} rounded-full object-cover avatar-4k bg-slate-900 z-10" alt="avt">
-          <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 8px rgba(0,0,0,0.75));">
+          <div class="absolute inset-2 rounded-full ${auraGlowClass} blur-md pointer-events-none"></div>
+          ${isTop1 ? `<div class="absolute inset-1 rounded-full border border-dashed border-amber-300/60 trophy-aura-ring pointer-events-none"></div>` : ''}
+          <img src="${src}" class="${imgSizeClass} rounded-full object-cover avatar-4k bg-slate-900 z-10 mt-0.5" alt="avt">
+          <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 5px 10px rgba(0,0,0,0.85));">
             <defs>
-              <linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="1">
-                ${stopsHTML}
-              </linearGradient>
-              <linearGradient id="${innerId}" x1="1" y1="0" x2="0" y2="1">
-                ${stopsHTML}
-              </linearGradient>
+              <linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="1">${stopsMain}</linearGradient>
+              <linearGradient id="${darkId}" x1="0" y1="0" x2="0" y2="1">${stopsDark}</linearGradient>
+              <linearGradient id="${ribId}" x1="0" y1="0" x2="1" y2="0">${stopsRib}</linearGradient>
             </defs>
-            ${wingHTML}
-            <!-- Vòng Bezel Kim Loại 3D Sắc Sảo -->
-            <circle cx="70" cy="72" r="52" stroke="url(#${gradId})" stroke-width="6.5"/>
-            <circle cx="70" cy="72" r="48" stroke="#090D16" stroke-width="2.5"/>
-            <circle cx="70" cy="72" r="46" stroke="${innerStroke}" stroke-width="1.4" opacity="0.9"/>
-            <!-- 4 Cạnh Vát Kim Cương Hiện Đại -->
-            <polygon points="70,15 75,20 70,25 65,20" fill="url(#${innerId})" stroke="#FFFFFF" stroke-width="0.8"/>
-            <polygon points="20,72 24,68 28,72 24,76" fill="url(#${innerId})"/>
-            <polygon points="120,72 116,68 112,72 116,76" fill="url(#${innerId})"/>
-            ${crownHTML}
+
+            ${wingsSVG}
+            ${laurelSVG}
+
+            <!-- Vòng Bezel Kim Loại Đa Giác Đúc Đặc -->
+            <circle cx="80" cy="82" r="48" stroke="url(#${darkId})" stroke-width="8"/>
+            <circle cx="80" cy="82" r="48" stroke="url(#${gradId})" stroke-width="5.5"/>
+            <circle cx="80" cy="82" r="44" stroke="#090D16" stroke-width="2.2"/>
+            <circle cx="80" cy="82" r="42.5" stroke="#FFFFFF" stroke-width="1" opacity="0.85"/>
+
+            <!-- Đinh Tán Kim Cương 2 Bên -->
+            <polygon points="32,82 36,78 40,82 36,86" fill="#FFFFFF" stroke="url(#${darkId})" stroke-width="1"/>
+            <polygon points="128,82 124,78 120,82 124,86" fill="#FFFFFF" stroke="url(#${darkId})" stroke-width="1"/>
+
+            ${crownSVG}
+
+            <!-- KHIÊN & DẢI RUY-BĂNG ĐỐI XỨNG CHÍNH GIỮA ĐÁY KHUNG (CENTERED RIBBON CREST) -->
+            <g>
+              <path d="M40,126 L120,126 L114,144 C96,148 64,148 46,144 Z" fill="url(#${ribId})" stroke="url(#${gradId})" stroke-width="2"/>
+              <polygon points="80,114 96,122 92,148 80,155 68,148 64,122" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1.3"/>
+              <polygon points="80,117 93,124 89,146 80,152 71,146 67,124" fill="url(#${darkId})"/>
+              <text x="80" y="141" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="18" fill="#FFFFFF">${rank}</text>
+            </g>
           </svg>
-          <span class="absolute -bottom-0.5 right-0.5 z-30 w-5 h-5 rounded-full ${badgeBg} font-black text-[10px] flex items-center justify-center shadow-md">${rank}</span>
         </div>
       `;
     }
 
-    // HUY HIỆU VECTOR 3D LUXURY MẶC ĐỊNH (TRONG SUỐT 100%, KHÔNG VIỀN ĐEN)
+    // HUY HIỆU VECTOR 3D LUXURY MẶC ĐỊNH (TRONG SUỐT 100%, KHÔNG BAO GIỜ CÓ VẾT ĐEN)
     function renderClean8KEmblemIfNone() {
       if (hasCustomLogoLocked || activeTransparentLogoPNG) return;
       const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="780" viewBox="0 0 420 340">
         <defs>
-          <linearGradient id="v35Gold" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="v36Gold" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#FFFFFF"/>
             <stop offset="20%" stop-color="#FEF08A"/>
             <stop offset="48%" stop-color="#F59E0B"/>
             <stop offset="78%" stop-color="#B45309"/>
             <stop offset="100%" stop-color="#FDE047"/>
           </linearGradient>
-          <linearGradient id="v35GoldDark" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="v36GoldDark" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#FDE047"/>
             <stop offset="55%" stop-color="#D97706"/>
             <stop offset="100%" stop-color="#78350F"/>
           </linearGradient>
-          <radialGradient id="v35ShieldCore" cx="50%" cy="38%" r="58%">
+          <radialGradient id="v36ShieldCore" cx="50%" cy="38%" r="58%">
             <stop offset="0%" stop-color="#FFFFFF"/>
             <stop offset="30%" stop-color="#FEF08A"/>
             <stop offset="68%" stop-color="#F59E0B"/>
             <stop offset="100%" stop-color="#92400E"/>
           </radialGradient>
-          <radialGradient id="v35NavyCore" cx="50%" cy="45%" r="55%">
+          <radialGradient id="v36NavyCore" cx="50%" cy="45%" r="55%">
             <stop offset="0%" stop-color="#1E3A8A"/>
             <stop offset="65%" stop-color="#0F172A"/>
             <stop offset="100%" stop-color="#060A14"/>
           </radialGradient>
-          <linearGradient id="v35RoyalRibbon" x1="0" y1="0" x2="1" y2="0">
+          <linearGradient id="v36RoyalRibbon" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#1E3A8A"/>
             <stop offset="25%" stop-color="#2563EB"/>
             <stop offset="50%" stop-color="#60A5FA"/>
             <stop offset="75%" stop-color="#2563EB"/>
             <stop offset="100%" stop-color="#1E3A8A"/>
           </linearGradient>
-          <linearGradient id="v35RoyalText" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="v36RoyalText" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#E0F2FE"/>
             <stop offset="35%" stop-color="#3B82F6"/>
             <stop offset="85%" stop-color="#1D4ED8"/>
             <stop offset="100%" stop-color="#1E3A8A"/>
           </linearGradient>
-          <filter id="v35DropShadow" x="-15%" y="-15%" width="130%" height="130%">
-            <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.7"/>
-          </filter>
         </defs>
 
         <!-- Đôi Cánh Vàng Hoàng Gia 2 Bên -->
-        <g filter="url(#v35DropShadow)">
-          <path d="M110,136 C54,116 28,84 26,48 C54,64 84,82 122,102 Z" fill="url(#v35Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
-          <path d="M102,158 C46,144 20,116 16,84 C46,96 76,112 112,130 Z" fill="url(#v35GoldDark)" stroke="#FEF08A" stroke-width="1"/>
-          <path d="M310,136 C366,116 392,84 394,48 C366,64 336,82 298,102 Z" fill="url(#v35Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
-          <path d="M318,158 C374,144 400,116 404,84 C374,96 344,112 308,130 Z" fill="url(#v35GoldDark)" stroke="#FEF08A" stroke-width="1"/>
+        <g>
+          <path d="M110,136 C54,116 28,84 26,48 C54,64 84,82 122,102 Z" fill="url(#v36Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
+          <path d="M102,158 C46,144 20,116 16,84 C46,96 76,112 112,130 Z" fill="url(#v36GoldDark)" stroke="#FEF08A" stroke-width="1"/>
+          <path d="M310,136 C366,116 392,84 394,48 C366,64 336,82 298,102 Z" fill="url(#v36Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
+          <path d="M318,158 C374,144 400,116 404,84 C374,96 344,112 308,130 Z" fill="url(#v36GoldDark)" stroke="#FEF08A" stroke-width="1"/>
         </g>
 
         <!-- Vòng Nguyệt Quế & Đĩa Nền Navy Hoàng Gia -->
-        <circle cx="210" cy="192" r="112" fill="url(#v35NavyCore)" stroke="url(#v35Gold)" stroke-width="7" filter="url(#v35DropShadow)"/>
+        <circle cx="210" cy="192" r="112" fill="url(#v36NavyCore)" stroke="url(#v36Gold)" stroke-width="7"/>
         <circle cx="210" cy="192" r="102" fill="none" stroke="#38BDF8" stroke-width="2" stroke-dasharray="6 4" opacity="0.85"/>
-        <circle cx="210" cy="192" r="95" fill="none" stroke="url(#v35Gold)" stroke-width="1.8" opacity="0.75"/>
+        <circle cx="210" cy="192" r="95" fill="none" stroke="url(#v36Gold)" stroke-width="1.8" opacity="0.75"/>
 
         <!-- Dải Ruy-Băng Lụa Xanh Hoàng Gia Uốn Lượn -->
-        <g filter="url(#v35DropShadow)">
-          <path d="M135,118 C75,94 26,110 18,146 C12,172 58,182 46,204 L10,214 L32,184 L12,162 C44,150 76,154 135,138 Z" fill="url(#v35RoyalRibbon)" stroke="url(#v35Gold)" stroke-width="3.2"/>
-          <path d="M285,118 C345,94 394,110 402,146 C408,172 362,182 374,204 L410,214 L388,184 L408,162 C376,150 344,154 285,138 Z" fill="url(#v35RoyalRibbon)" stroke="url(#v35Gold)" stroke-width="3.2"/>
+        <g>
+          <path d="M135,118 C75,94 26,110 18,146 C12,172 58,182 46,204 L10,214 L32,184 L12,162 C44,150 76,154 135,138 Z" fill="url(#v36RoyalRibbon)" stroke="url(#v36Gold)" stroke-width="3.2"/>
+          <path d="M285,118 C345,94 394,110 402,146 C408,172 362,182 374,204 L410,214 L388,184 L408,162 C376,150 344,154 285,138 Z" fill="url(#v36RoyalRibbon)" stroke="url(#v36Gold)" stroke-width="3.2"/>
         </g>
 
         <!-- Vương Miện 3D Đỉnh Khiên -->
-        <g filter="url(#v35DropShadow)">
-          <polygon points="164,58 152,24 180,40 194,14 210,36 226,14 240,40 268,24 256,58" fill="url(#v35Gold)" stroke="#FFFFFF" stroke-width="1.5"/>
+        <g>
+          <polygon points="164,58 152,24 180,40 194,14 210,36 226,14 240,40 268,24 256,58" fill="url(#v36Gold)" stroke="#FFFFFF" stroke-width="1.5"/>
           <circle cx="152" cy="20" r="3.5" fill="#FEF08A"/>
           <circle cx="194" cy="10" r="4" fill="#FFFFFF"/>
           <circle cx="226" cy="10" r="4" fill="#FFFFFF"/>
           <circle cx="268" cy="20" r="3.5" fill="#FEF08A"/>
-          <rect x="162" y="56" width="96" height="9" rx="4.5" fill="url(#v35GoldDark)" stroke="#FEF08A" stroke-width="1.2"/>
+          <rect x="162" y="56" width="96" height="9" rx="4.5" fill="url(#v36GoldDark)" stroke="#FEF08A" stroke-width="1.2"/>
         </g>
 
         <!-- Khiên Vàng Kim Loại Trung Tâm -->
-        <g filter="url(#v35DropShadow)">
-          <path d="M210,66 L282,82 L273,138 C266,175 210,195 210,195 C210,195 154,175 147,138 L138,82 Z" fill="url(#v35Gold)" stroke="#FFFFFF" stroke-width="2.5"/>
-          <path d="M210,74 L272,88 L264,135 C258,166 210,184 210,184 C210,184 162,166 156,135 L148,88 Z" fill="url(#v35ShieldCore)" stroke="#1E3A8A" stroke-width="5.5"/>
-          <text x="210" y="152" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="68" fill="url(#v35RoyalText)" stroke="url(#v35Gold)" stroke-width="3.5">10</text>
+        <g>
+          <path d="M210,66 L282,82 L273,138 C266,175 210,195 210,195 C210,195 154,175 147,138 L138,82 Z" fill="url(#v36Gold)" stroke="#FFFFFF" stroke-width="2.5"/>
+          <path d="M210,74 L272,88 L264,135 C258,166 210,184 210,184 C210,184 162,166 156,135 L148,88 Z" fill="url(#v36ShieldCore)" stroke="#1E3A8A" stroke-width="5.5"/>
+          <text x="210" y="152" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="68" fill="url(#v36RoyalText)" stroke="url(#v36Gold)" stroke-width="3.5">10</text>
         </g>
 
         <!-- Chữ Nổi 3D THẬP ĐẠI THẦN TỐC -->
-        <g filter="url(#v35DropShadow)">
+        <g>
           <text x="210" y="232" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="46" fill="#451A03" dy="4">THẬP ĐẠI</text>
-          <text x="210" y="232" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="46" fill="url(#v35RoyalText)" stroke="url(#v35Gold)" stroke-width="3">THẬP ĐẠI</text>
+          <text x="210" y="232" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="46" fill="url(#v36RoyalText)" stroke="url(#v36Gold)" stroke-width="3">THẬP ĐẠI</text>
 
           <text x="210" y="276" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="36" fill="#451A03" dy="3.5">★ THẦN TỐC ★</text>
-          <text x="210" y="276" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="36" fill="url(#v35RoyalText)" stroke="url(#v35Gold)" stroke-width="2.6">★ THẦN TỐC ★</text>
+          <text x="210" y="276" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="36" fill="url(#v36RoyalText)" stroke="url(#v36Gold)" stroke-width="2.6">★ THẦN TỐC ★</text>
         </g>
 
         <!-- Ngôi Sao Đáy Khiên -->
-        <polygon points="210,288 217,303 233,303 220,312 225,328 210,318 195,328 200,312 187,303 203,303" fill="url(#v35Gold)" stroke="#FFFBEB" stroke-width="1.2" filter="url(#v35DropShadow)"/>
+        <polygon points="210,288 217,303 233,303 220,312 225,328 210,318 195,328 200,312 187,303 203,303" fill="url(#v36Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
       </svg>`;
 
       const svgBlob = new Blob([svgMarkup], { type: 'image/svg+xml;charset=utf-8' });
@@ -1055,8 +1213,8 @@
       img.src = url;
     }
 
-    // THUẬT TOÁN TÁCH NỀN STUDIO 8K (FLOOD-FILL + SOFT ALPHA MATTING + KHỬ VIỀN ĐEN)
-    // Giữ nguyên 100% chi tiết ruy-băng, đôi cánh, hạt sáng và tự động xóa watermark góc dưới phải
+    // THUẬT TOÁN AI CHROMA-KEY DESPILL V36:
+    // Khử sạch 100% lớp khói đen/xám/nâu (vignette) quanh vương miện và ruy-băng, chỉ giữ lại đúng Huy hiệu Vàng Kim & Xanh Hoàng Gia
     function process8KLogoLossless(imgElement, callback) {
       const workCanvas = document.createElement('canvas');
       const maxNativeDim = 1024;
@@ -1073,7 +1231,7 @@
       const imgData = ctx.getImageData(0, 0, W, H);
       const data = imgData.data;
 
-      // 1. Nếu ảnh đã là PNG trong suốt sẵn ở 4 góc -> Giữ nguyên chất lượng gốc 100%
+      // 1. Nếu ảnh tải lên đã là PNG trong suốt sẵn -> Giữ nguyên 100%
       let transparentCorners = 0;
       const cornerCoords = [0, (W - 1) * 4, (H - 1) * W * 4, ((H - 1) * W + (W - 1)) * 4];
       cornerCoords.forEach(cIdx => { if (data[cIdx + 3] < 25) transparentCorners++; });
@@ -1082,124 +1240,90 @@
         return;
       }
 
-      // 2. Xóa sạch logo watermark hình sao 4 cánh ở góc dưới bên phải (nếu có) và mặt sàn đen dưới đáy
-      for (let y = 0; y < H; y++) {
-        const ny = y / H;
-        for (let x = 0; x < W; x++) {
-          const nx = x / W;
-          if ((nx > 0.88 && ny > 0.88) || ny > 0.905) {
-            data[(y * W + x) * 4 + 3] = 0;
-          }
-        }
-      }
-
-      // 3. Lấy mẫu màu nền tối ở các góc ảnh để tách nền chính xác
-      const bgR = (data[0] + data[(W - 1) * 4]) * 0.5;
-      const bgG = (data[1] + data[(W - 1) * 4 + 1]) * 0.5;
-      const bgB = (data[2] + data[(W - 1) * 4 + 2]) * 0.5;
-
-      // Vùng lõi trung tâm của Huy hiệu (Khiên số 10 + Bảng chữ THẬP ĐẠI THẦN TỐC) được bảo vệ đặc 100%
-      function isProtectedEmblemCore(nx, ny) {
-        const dx = (nx - 0.50) / 0.27;
-        const dy = (ny - 0.56) / 0.27;
+      // 2. Vùng lõi trung tâm (Khiên số 10 + Bảng chữ THẬP ĐẠI THẦN TỐC) được giữ nguyên vẹn 100%
+      function isInsideSolidEmblemShield(nx, ny) {
+        // Đĩa tròn chính chứa chữ THẬP ĐẠI THẦN TỐC
+        const dx = (nx - 0.50) / 0.255;
+        const dy = (ny - 0.575) / 0.245;
         if (dx * dx + dy * dy <= 1.0) return true;
-        if (Math.abs(nx - 0.50) <= 0.135 && ny >= 0.21 && ny <= 0.52) return true;
+        // Khiên vàng chứa số 10
+        if (Math.abs(nx - 0.50) <= 0.13 && ny >= 0.22 && ny <= 0.52) return true;
         return false;
       }
 
-      // 4. Flood-Fill (BFS) từ viền ngoài vào để nhận diện vùng nền tối liên thông mà không cắt lẹm vào cánh & ruy-băng
-      const isBgMask = new Uint8Array(W * H);
-      const queue = new Int32Array(W * H);
-      let qHead = 0, qTail = 0;
+      // 3. Phân tích từng pixel ngoài vùng lõi: Chỉ giữ lại Vàng Kim (Gold) và Xanh Hoàng Gia (Royal Blue) thật sự, xóa 100% khói đen/nâu/xám
+      const alphaMap = new Float32Array(W * H);
 
-      function isDarkBackdropPixel(x, y) {
-        const nx = x / W, ny = y / H;
-        if (isProtectedEmblemCore(nx, ny)) return false;
-        const idx = (y * W + x) * 4;
-        if (data[idx + 3] === 0) return true;
-        const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-        const maxC = Math.max(r, g, b);
-        const minC = Math.min(r, g, b);
-        const sat = maxC - minC;
-        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
-
-        // Giữ lại toàn bộ chi tiết Vàng Kim, Ruy-băng Xanh và Hạt sáng
-        if (luma > 56) return false;
-        if (sat > 38 && luma > 34) return false;
-        return true;
-      }
-
-      for (let x = 0; x < W; x++) {
-        if (isDarkBackdropPixel(x, 0)) { isBgMask[x] = 1; queue[qTail++] = x; }
-        const botIdx = (H - 1) * W + x;
-        if (!isBgMask[botIdx] && isDarkBackdropPixel(x, H - 1)) { isBgMask[botIdx] = 1; queue[qTail++] = botIdx; }
-      }
-      for (let y = 1; y < H - 1; y++) {
-        const leftIdx = y * W;
-        if (!isBgMask[leftIdx] && isDarkBackdropPixel(0, y)) { isBgMask[leftIdx] = 1; queue[qTail++] = leftIdx; }
-        const rightIdx = y * W + (W - 1);
-        if (!isBgMask[rightIdx] && isDarkBackdropPixel(W - 1, y)) { isBgMask[rightIdx] = 1; queue[qTail++] = rightIdx; }
-      }
-
-      const dirs = [-1, 1, -W, W];
-      while (qHead < qTail) {
-        const curr = queue[qHead++];
-        const cx = curr % W;
-        const cy = (curr / W) | 0;
-        for (let d = 0; d < 4; d++) {
-          const nx = cx + (d === 0 ? -1 : d === 1 ? 1 : 0);
-          const ny = cy + (d === 2 ? -1 : d === 3 ? 1 : 0);
-          if (nx < 0 || nx >= W || ny < 0 || ny >= H) continue;
-          const nPos = ny * W + nx;
-          if (!isBgMask[nPos] && isDarkBackdropPixel(nx, ny)) {
-            isBgMask[nPos] = 1;
-            queue[qTail++] = nPos;
-          }
-        }
-      }
-
-      // 5. Khử nền mềm (Soft Alpha Matting & Color Un-multiplying) giúp rìa cánh, ruy-băng và hạt sáng mịn tuyệt đối
-      let minX = W, minY = H, maxX = 0, maxY = 0;
       for (let y = 0; y < H; y++) {
         const ny = y / H;
         for (let x = 0; x < W; x++) {
           const nx = x / W;
           const pos = y * W + x;
           const idx = pos * 4;
-          if (data[idx + 3] === 0) continue;
 
-          if (!isProtectedEmblemCore(nx, ny)) {
-            const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-            const maxC = Math.max(r, g, b);
-            const minC = Math.min(r, g, b);
-            const sat = maxC - minC;
-            const luma = 0.299 * r + 0.587 * g + 0.114 * b;
-            const distFromBg = Math.hypot(r - bgR, g - bgG, b - bgB);
+          // Cắt bỏ rìa ngoài, mặt sàn đen dưới đáy và watermark góc phải
+          const distFromCenter = Math.hypot((nx - 0.50) / 0.45, (ny - 0.50) / 0.45);
+          if (ny < 0.055 || ny > 0.892 || distFromCenter > 1.0 || (nx > 0.85 && ny > 0.85)) {
+            alphaMap[pos] = 0;
+            continue;
+          }
 
-            if (isBgMask[pos]) {
-              // Giữ lại các tia sáng xanh/vàng dịu trong vùng hào quang với độ trong suốt mượt mà
-              const glowStrength = Math.max(0, (distFromBg - 18) / 48) + Math.max(0, (sat - 22) / 55);
-              if (glowStrength <= 0.04) {
-                data[idx + 3] = 0;
-                continue;
-              } else {
-                const softA = Math.min(1, glowStrength);
-                data[idx] = Math.min(255, Math.max(0, Math.round((r - (1 - softA) * bgR) / softA)));
-                data[idx + 1] = Math.min(255, Math.max(0, Math.round((g - (1 - softA) * bgG) / softA)));
-                data[idx + 2] = Math.min(255, Math.max(0, Math.round((b - (1 - softA) * bgB) / softA)));
-                data[idx + 3] = Math.round(softA * 255);
-              }
-            } else if (luma < 72 && sat < 45) {
-              // Làm mềm các khe tối giữa cành nguyệt quế và rìa ngoài
-              const edgeA = Math.min(1, Math.max(0.15, (distFromBg - 12) / 55));
-              data[idx] = Math.min(255, Math.max(0, Math.round((r - (1 - edgeA) * bgR) / edgeA)));
-              data[idx + 1] = Math.min(255, Math.max(0, Math.round((g - (1 - edgeA) * bgG) / edgeA)));
-              data[idx + 2] = Math.min(255, Math.max(0, Math.round((b - (1 - edgeA) * bgB) / edgeA)));
-              data[idx + 3] = Math.round(edgeA * 255);
+          if (isInsideSolidEmblemShield(nx, ny)) {
+            alphaMap[pos] = 1.0;
+            continue;
+          }
+
+          const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+          const maxC = Math.max(r, g, b);
+          const minC = Math.min(r, g, b);
+          const sat = maxC - minC;
+          const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+
+          // Nhận diện chất liệu Vàng Kim (Vương miện, Lá nguyệt quế, Cánh vàng, Ngôi sao)
+          const isTrueGold = (r > b + 32) && (g > b + 12) && (r >= 95) && (sat >= 38);
+          // Nhận diện chất liệu Lụa Xanh Hoàng Gia (Dải ruy-băng 2 bên)
+          const isTrueRoyalBlue = (b > r + 28) && (b >= 88) && (sat >= 38) && (ny >= 0.22 && ny <= 0.72);
+          // Điểm sáng kim cương trắng trên đỉnh vương miện/cánh
+          const isTrueHighlight = (luma >= 185) && (distFromCenter <= 0.86);
+
+          if (!isTrueGold && !isTrueRoyalBlue && !isTrueHighlight) {
+            // Toàn bộ khói đen, quầng sáng nâu/xám loang lổ bị loại bỏ 100%
+            alphaMap[pos] = 0;
+          } else {
+            // Tính độ sắc nét của rìa để chống răng cưa
+            const strength = Math.min(1.0, Math.max((luma - 52) / 55, (sat - 35) / 50));
+            alphaMap[pos] = strength < 0.22 ? 0 : strength;
+          }
+        }
+      }
+
+      // 4. Lọc khử các đốm nhiễu rời rạc (Despeckle) và làm mượt viền (Anti-alias Feathering)
+      let minX = W, minY = H, maxX = 0, maxY = 0;
+      for (let y = 1; y < H - 1; y++) {
+        for (let x = 1; x < W - 1; x++) {
+          const pos = y * W + x;
+          const idx = pos * 4;
+          let a = alphaMap[pos];
+
+          if (a > 0 && a < 1.0) {
+            // Kiểm tra 8 pixel xung quanh để khử đốm lẻ và làm mịn mép cắt
+            const nSum = alphaMap[pos - 1] + alphaMap[pos + 1] + alphaMap[pos - W] + alphaMap[pos + W];
+            if (nSum < 0.6) {
+              a = 0;
+            } else {
+              a = (a * 2 + nSum * 0.5) / 4;
+              // Khử màu đen ám ở viền ngoài (Edge Decontamination)
+              const boost = Math.min(1.35, 1 / Math.max(0.45, a));
+              data[idx] = Math.min(255, Math.round(data[idx] * boost));
+              data[idx + 1] = Math.min(255, Math.round(data[idx + 1] * boost));
+              data[idx + 2] = Math.min(255, Math.round(data[idx + 2] * boost));
             }
           }
 
-          if (data[idx + 3] > 15) {
+          const finalAlpha = Math.round(Math.min(1, Math.max(0, a)) * 255);
+          data[idx + 3] = finalAlpha;
+
+          if (finalAlpha > 25) {
             if (x < minX) minX = x;
             if (x > maxX) maxX = x;
             if (y < minY) minY = y;
@@ -1211,7 +1335,7 @@
       ctx.putImageData(imgData, 0, 0);
 
       if (maxX <= minX || maxY <= minY) { minX = 0; minY = 0; maxX = W - 1; maxY = H - 1; }
-      const pad = 12;
+      const pad = 10;
       const cropX = Math.max(0, minX - pad);
       const cropY = Math.max(0, minY - pad);
       const cropW = Math.min(W - cropX, (maxX - minX + 1) + pad * 2);
@@ -1228,9 +1352,7 @@
       outCtx.clearRect(0, 0, outCanvas.width, outCanvas.height);
       outCtx.drawImage(workCanvas, cropX, cropY, cropW, cropH, 0, 0, outCanvas.width, outCanvas.height);
 
-      // Xuất chuẩn PNG Lossless để anh Tuấn tải về máy không bị mất nét
-      const finalPngDataUrl = outCanvas.toDataURL('image/png');
-      callback(finalPngDataUrl);
+      callback(outCanvas.toDataURL('image/png'));
     }
 
     function applyLogoPNGToUI(dataUrl, lockPermanently = false) {
@@ -1244,12 +1366,12 @@
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || !dataUrl.startsWith('data:image/')) return;
       applyLogoPNGToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v35', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v35', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v36', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v36', dataUrl);
       const statusEl = document.getElementById('logo-sync-status');
       if (statusEl) {
         const kb = Math.round((dataUrl.length * 3) / 4 / 1024);
-        statusEl.innerText = `✅ Logo PNG 8K (${kb}KB)`;
+        statusEl.innerText = `✅ Đã tách sạch (${kb}KB)`;
         statusEl.className = 'text-[10px] font-extrabold text-emerald-400';
       }
     }
@@ -1257,16 +1379,16 @@
     function resetToDefault8KEmblem() {
       hasCustomLogoLocked = false;
       activeTransparentLogoPNG = '';
-      removePersistentData('fh_master_logo_v35');
+      removePersistentData('fh_master_logo_v36');
       renderClean8KEmblemIfNone();
       const statusEl = document.getElementById('logo-sync-status');
-      if (statusEl) statusEl.innerText = '🎨 Huy hiệu 3D Mặc định';
+      if (statusEl) statusEl.innerText = '🎨 Huy hiệu 3D Sạch 100%';
       openRoundSpeedModal();
     }
 
     function forceBroadcastLogoNow(showNotification = true) {
       if (!activeTransparentLogoPNG) return;
-      publishPacket('state/logo_v35', {
+      publishPacket('state/logo_v36', {
         type: 'SYNC_LOGO_PNG',
         id: 'admin',
         logoPng: activeTransparentLogoPNG
@@ -1277,7 +1399,7 @@
         logoPng: activeTransparentLogoPNG
       }, false);
       if (showNotification) {
-        alert("📡 Đã đồng bộ Logo 8K tách nền sang toàn bộ máy tính và điện thoại!");
+        alert("📡 Đã đồng bộ Logo 8K sạch nền sang toàn bộ máy tính và điện thoại!");
       }
     }
 
@@ -1285,7 +1407,7 @@
       const file = event.target.files && event.target.files[0];
       if (!file) return;
       const statusEl = document.getElementById('logo-sync-status');
-      if (statusEl) statusEl.innerText = "⏳ Đang tách nền 8K...";
+      if (statusEl) statusEl.innerText = "⏳ Đang khử nền đen...";
 
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -1295,7 +1417,6 @@
             saveCustomLogoPermanently(clean8KPngUrl);
             forceBroadcastLogoNow(false);
             openRoundSpeedModal();
-            // Tự động tải file PNG đã tách nền về máy cho anh Tuấn
             downloadTransparentLogoPNG();
           });
         };
@@ -1308,12 +1429,12 @@
       if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh PNG 8K...");
       const a = document.createElement('a');
       a.href = activeTransparentLogoPNG;
-      a.download = 'Logo-10-Thap-Dai-Than-Toc-8K-Tach-Nen.png';
+      a.download = 'Logo-10-Thap-Dai-Than-Toc-V36-Sach-Nen.png';
       a.click();
     }
 
     // =========================================================================
-    // 2. BẢO MẬT ĐÁP ÁN CHỐNG F12 & LƯU TRỮ 4 TẦNG (V35)
+    // 2. BẢO MẬT ĐÁP ÁN CHỐNG F12 & LƯU TRỮ 4 TẦNG (V36)
     // =========================================================================
     const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
     const clientRateLimits = {};
@@ -1458,13 +1579,16 @@
       } catch (e) {}
     }
 
-    // Khởi tạo Logo V35 (Bỏ hẳn bản cache V32 cũ bị lỗi cắt nham nhở)
-    (function initMasterLogoV35() {
-      try { localStorage.removeItem('fh_master_logo_v32'); } catch (e) {}
-      let savedV35 = null;
-      try { savedV35 = localStorage.getItem('fh_master_logo_v35'); } catch (e) {}
-      if (savedV35 && savedV35.startsWith('data:image/')) {
-        saveCustomLogoPermanently(savedV35);
+    // Khởi tạo Logo V36 (Xóa sạch toàn bộ cache logo cũ V32/V35 từng bị bám khói đen)
+    (function initMasterLogoV36() {
+      try {
+        localStorage.removeItem('fh_master_logo_v32');
+        localStorage.removeItem('fh_master_logo_v35');
+      } catch (e) {}
+      let savedV36 = null;
+      try { savedV36 = localStorage.getItem('fh_master_logo_v36'); } catch (e) {}
+      if (savedV36 && savedV36.startsWith('data:image/')) {
+        saveCustomLogoPermanently(savedV36);
       } else {
         renderClean8KEmblemIfNone();
       }
@@ -1513,8 +1637,6 @@
     let tempUploadedAvatar = '';
     let rawSourceImage = null;
     let cropScale = 1, cropBaseScale = 1, cropOffsetX = 0, cropOffsetY = 0, isDraggingCrop = false, dragStartX = 0, dragStartY = 0;
-
-    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="#f59e0b"/><text x="64" y="84" font-size="60" text-anchor="middle" fill="#0f172a">👑</text></svg>');
 
     function handleAvatarFileSelect(event) {
       const file = event.target.files && event.target.files[0];
@@ -1685,7 +1807,7 @@
 
     function renderAvatarHTML(avatarUrl, sizeClass = "w-7 h-7", borderClass = "border border-amber-400") {
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
-      return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-200" alt="avt">`;
+      return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-900" alt="avt">`;
     }
 
     // HỆ THỐNG ÂM THANH & HIỆU ỨNG PHÁO HOA + MƯA KIM TUYẾN VÀNG (GOLD CONFETTI)
@@ -2020,8 +2142,8 @@
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_logo_v35'] && stored['fh_master_logo_v35'].startsWith('data:image/')) {
-          saveCustomLogoPermanently(stored['fh_master_logo_v35']);
+        if (stored['fh_master_logo_v36'] && stored['fh_master_logo_v36'].startsWith('data:image/')) {
+          saveCustomLogoPermanently(stored['fh_master_logo_v36']);
         }
         if (stored['fh_logged_out_v21'] === 'true') return;
         const idbName = stored['fh_locked_name_v20'], idbAvt = stored['fh_locked_avatar_v20'];
@@ -2060,7 +2182,7 @@
     autoRestorePlayerSession();
 
     // =========================================================================
-    // KẾT NỐI ĐA TỔNG ĐÀI MQTT SIÊU TỐC & TỐI ƯU BĂNG THÔNG V35
+    // KẾT NỐI ĐA TỔNG ĐÀI MQTT SIÊU TỐC & TỐI ƯU BĂNG THÔNG V36
     // =========================================================================
     const BASE_TOPIC = 'fourhome_mega_suc_2026_v20_secure';
     const BROKER_URLS = [
@@ -2088,7 +2210,7 @@
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh35_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          clientId: 'fh36_' + index + '_' + Math.random().toString(16).substring(2, 9),
           protocolVersion: 4,
           clean: true,
           keepalive: 25,
@@ -2102,7 +2224,7 @@
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
           if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence(true);
           if (isAdminMode && hasCustomLogoLocked && activeTransparentLogoPNG) {
-            c.publish(`${BASE_TOPIC}/state/logo_v35`, JSON.stringify({
+            c.publish(`${BASE_TOPIC}/state/logo_v36`, JSON.stringify({
               type: 'SYNC_LOGO_PNG',
               id: 'admin',
               logoPng: activeTransparentLogoPNG,
@@ -2218,8 +2340,8 @@
       if (data._sig !== computePacketSig(data.type, data.id || 'sys', data._ts)) return;
       if (data.id && data.id !== 'admin' && isRateLimited(data.id)) return;
 
-      // Bỏ qua toàn bộ các kênh logo cũ (v29, v30, v32) để không bị nạp đè logo lỗi cắt nham nhở
-      if (subTopic === 'state/logo' || subTopic === 'state/logo_v29' || subTopic === 'state/logo_v30' || subTopic === 'state/logo_v32') return;
+      // Chặn toàn bộ các kênh logo phiên bản cũ (v29 -> v35) để không bị nạp đè logo dính vết đen
+      if (subTopic === 'state/logo' || subTopic === 'state/logo_v29' || subTopic === 'state/logo_v30' || subTopic === 'state/logo_v32' || subTopic === 'state/logo_v35') return;
 
       if (seenMsgIds.size > 4000) seenMsgIds.clear();
       if (data.type !== 'PLAYER_JOIN' && data.type !== 'PLAYER_HEARTBEAT' && data.type !== 'START_QUESTION' && data.type !== 'MASTER_TICK' && data.type !== 'PREV_QUIZ_RECORD' && data.type !== 'SYNC_LOGO_PNG' && data.type !== 'REVEAL_CORRECT' && data._mid) {
@@ -2537,7 +2659,7 @@
     }
 
     // =========================================================================
-    // 3. BẢNG VINH DANH TOP 10 "THẬP ĐẠI THẦN TỐC" (DARK LUXURY & 3D PODIUM V35)
+    // 3. BẢNG VINH DANH TOP 10 "THẬP ĐẠI THẦN TỐC" (IMPERIAL PODIUM 3D V36)
     // =========================================================================
     function renderRoundSpeedModalContent(correctKey, explanationText) {
       const ansBar = document.getElementById('speed-modal-answer-bar');
@@ -2564,25 +2686,46 @@
       }
 
       function buildPodiumCol(item, rank) {
-        if (!item) {
-          const emptyH = rank === 1 ? 'h-14' : rank === 2 ? 'h-11' : 'h-10';
-          return `<div class="flex flex-col items-center opacity-20"><div class="w-12 h-12 rounded-full bg-slate-800 border border-slate-600 mb-1"></div><div class="w-full ${emptyH} bg-slate-800/80 rounded-t-xl"></div></div>`;
-        }
         const pedestalClass = rank === 1 ? 'podium-3d-gold h-14' : rank === 2 ? 'podium-3d-silver h-11' : 'podium-3d-bronze h-10';
+        const capClass = rank === 1 ? 'podium-top-cap-gold' : rank === 2 ? 'podium-top-cap-silver' : 'podium-top-cap-bronze';
+        const spotClass = rank === 1 ? 'podium-spotlight-gold' : rank === 2 ? 'podium-spotlight-silver' : 'podium-spotlight-bronze';
+
+        // Nếu vị trí Hạng 2 hoặc Hạng 3 chưa có người -> Vẫn dựng Bục 3D cân đối để không bị lệch Podium
+        if (!item) {
+          return `
+            <div class="flex flex-col items-center text-center opacity-40">
+              <div class="mb-1.5">
+                ${renderImperialPrestigeAvatarFrameHTML(DEFAULT_ADMIN_AVATAR, rank)}
+              </div>
+              <div class="text-[10px] font-bold text-slate-400 truncate max-w-[95px]">Đang chờ...</div>
+              <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-500 my-1">
+                <span>--</span>
+              </div>
+              <div class="podium-stage-wrap">
+                <div class="${capClass}"></div>
+                <div class="w-full ${pedestalClass} rounded-b-xl flex items-center justify-center font-black text-xs">--</div>
+              </div>
+            </div>`;
+        }
+
         const nameColor = rank === 1 ? 'text-amber-200' : rank === 2 ? 'text-slate-100' : 'text-orange-200';
         const choiceDotColor = item.isCorrect ? 'bg-emerald-500 text-slate-950' : 'bg-rose-500 text-white';
 
         return `
-          <div class="flex flex-col items-center text-center">
-            <div class="mb-1">
-              ${renderModernLuxuryAvatarFrameHTML(item.avatar, rank)}
+          <div class="flex flex-col items-center text-center relative">
+            <div class="mb-1 relative z-10">
+              ${renderImperialPrestigeAvatarFrameHTML(item.avatar, rank)}
             </div>
-            <div class="text-[11px] font-black ${nameColor} truncate max-w-[100px] drop-shadow">${item.name}</div>
-            <div class="inline-flex items-center gap-1 bg-slate-900/90 border border-amber-400/40 rounded-full px-2 py-0.5 text-[9px] font-bold text-amber-200 my-1 shadow">
+            <div class="text-[11px] font-black ${nameColor} truncate max-w-[104px] drop-shadow z-10">${item.name}</div>
+            <div class="inline-flex items-center gap-1 bg-slate-900/95 border border-amber-400/45 rounded-full px-2 py-0.5 text-[9px] font-bold text-amber-200 my-1 shadow z-10">
               <span class="w-3.5 h-3.5 rounded-full ${choiceDotColor} text-[8px] flex items-center justify-center font-black">${item.choice}</span>
               <span>⚡ ${item.elapsedSec.toFixed(1)}s</span>
             </div>
-            <div class="w-full ${pedestalClass} rounded-t-xl flex items-center justify-center font-black text-xs tracking-wide">+${item.points}đ</div>
+            <div class="podium-stage-wrap mt-0.5">
+              <div class="${spotClass}"></div>
+              <div class="${capClass}"></div>
+              <div class="w-full ${pedestalClass} rounded-b-xl flex items-center justify-center font-black text-xs tracking-wide">+${item.points}đ</div>
+            </div>
           </div>`;
       }
 
@@ -2668,7 +2811,7 @@
     function closePrevRankModal() { document.getElementById('modal-prev-rank').classList.add('hidden'); }
 
     // =========================================================================
-    // HIỂN THỊ BẢNG VINH DANH CHUNG CUỘC PHÂN CẤP TOP 1 - TOP 2 - TOP 3 (V35)
+    // HIỂN THỊ BẢNG VINH DANH CHUNG CUỘC PHÂN CẤP TOP 1 - TOP 2 - TOP 3 (V36)
     // =========================================================================
     function showFinishCelebration(quizTitle) {
       closeRoundSpeedModal();
