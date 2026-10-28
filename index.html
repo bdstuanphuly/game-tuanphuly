@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V37</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V38</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;600;700;800;900&display=swap');
 
-    /* 1. NỀN DARK NAVY / CHARCOAL + LƯỚI CÔNG NGHỆ MỜ + DẢI SÁNG VÀNG KIM */
     body {
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: #060a14;
@@ -29,43 +28,58 @@
       -webkit-user-select: none;
     }
 
-    /* 2. THANH HEADER KÍNH MỜ TINH GỌN */
-    .exec-glass-header {
-      background: rgba(15, 23, 42, 0.78);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(251, 191, 36, 0.30);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    /* 3. KHUNG BAO NGOÀI KÍNH MỜ & THẺ ĐĂNG NHẬP DARK ROYAL GLASSMORPHISM (V37) */
     .exec-arena-shell {
       background: linear-gradient(180deg, rgba(30, 41, 59, 0.50) 0%, rgba(15, 23, 42, 0.78) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1.5px solid rgba(251, 191, 36, 0.38);
-      box-shadow:
-        0 25px 60px -12px rgba(0, 0, 0, 0.85),
-        0 0 28px rgba(245, 158, 11, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.22);
+      box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 28px rgba(245, 158, 11, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.22);
     }
 
     .exec-login-card {
       background: linear-gradient(180deg, #0b1120 0%, #080d1a 58%, #050811 100%);
-      border: 1.5px solid rgba(251, 191, 36, 0.42);
-      box-shadow:
-        0 25px 55px -10px rgba(0, 0, 0, 0.92),
-        0 0 28px rgba(245, 158, 11, 0.14),
-        inset 0 1px 1px rgba(254, 240, 138, 0.22);
+      border: 1.5px solid rgba(251, 191, 36, 0.45);
+      box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.92), 0 0 28px rgba(245, 158, 11, 0.14), inset 0 1px 1px rgba(254, 240, 138, 0.22);
+    }
+
+    /* ẢNH BÌA SÁNG RÕ NÉT CHUẨN POSTER GAME (V38) */
+    .hero-cover-bright {
+      filter: brightness(1.18) contrast(1.06) saturate(1.12);
+      transition: filter 0.3s ease;
+    }
+
+    /* HIỆU ỨNG CHỮ 3D LẤP LÁNH - VẦNG SÁNG ĐỔI MÀU CHẠY ĐUỔI LIÊN TỤC (V38) */
+    @keyframes titleChasingRainbowGlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+    .fourhome-3d-chasing-title {
+      background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #fde047 14%,
+        #f59e0b 28%,
+        #38bdf8 44%,
+        #c084fc 58%,
+        #fb7185 72%,
+        #fde047 86%,
+        #ffffff 100%
+      );
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleChasingRainbowGlow 3.2s linear infinite;
+      filter:
+        drop-shadow(0 2px 0px #78350f)
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.95))
+        drop-shadow(0 0 16px rgba(251, 191, 36, 0.65));
+      letter-spacing: 0.04em;
     }
 
     .vip-profile-card {
       background: linear-gradient(145deg, rgba(15, 23, 42, 0.92) 0%, rgba(7, 11, 22, 0.96) 100%);
       border: 1px solid rgba(251, 191, 36, 0.42);
-      box-shadow:
-        0 10px 25px -6px rgba(0, 0, 0, 0.7),
-        0 0 18px rgba(245, 158, 11, 0.10),
-        inset 0 1px 0 rgba(254, 240, 138, 0.22);
+      box-shadow: 0 10px 25px -6px rgba(0, 0, 0, 0.7), 0 0 18px rgba(245, 158, 11, 0.10), inset 0 1px 0 rgba(254, 240, 138, 0.22);
     }
 
     .luxury-dark-input {
@@ -75,46 +89,20 @@
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.75);
       transition: all 0.22s ease;
     }
-    .luxury-dark-input::placeholder {
-      color: rgba(148, 163, 184, 0.68);
-      font-weight: 600;
-    }
+    .luxury-dark-input::placeholder { color: rgba(148, 163, 184, 0.68); font-weight: 600; }
     .luxury-dark-input:focus {
       background: #040710;
       border-color: #fde047;
       color: #ffffff;
-      box-shadow:
-        0 0 16px rgba(251, 191, 36, 0.35),
-        inset 0 1px 4px rgba(251, 191, 36, 0.15);
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.35), inset 0 1px 4px rgba(251, 191, 36, 0.15);
       outline: none;
     }
-
-    /* 4. NÚT BẤM MẠ VÀNG 3D SHIMMER & TAB HOÀNG GIA (V37) */
-    .btn-exec-primary {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 52%, #0f172a 100%);
-      border: 1.5px solid #fbbf24;
-      color: #fef08a;
-      box-shadow:
-        0 10px 25px -4px rgba(15, 23, 42, 0.65),
-        0 0 15px rgba(245, 158, 11, 0.28),
-        inset 0 1px 1px rgba(254, 240, 138, 0.45);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn-exec-primary:hover {
-      background: linear-gradient(135deg, #1e293b 0%, #1d4ed8 52%, #0f172a 100%);
-      color: #ffffff;
-      box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.8), 0 0 20px rgba(251, 191, 36, 0.45);
-    }
-    .btn-exec-primary:active { transform: scale(0.97); }
 
     .btn-luxury-gold-shimmer {
       background: linear-gradient(180deg, #fef08a 0%, #f59e0b 48%, #b45309 100%);
       border: 1.5px solid #fffbeb;
       color: #060a14;
-      box-shadow:
-        0 4px 0 #78350f,
-        0 10px 26px rgba(245, 158, 11, 0.48),
-        inset 0 1px 1px #ffffff;
+      box-shadow: 0 4px 0 #78350f, 0 10px 26px rgba(245, 158, 11, 0.48), inset 0 1px 1px #ffffff;
       position: relative;
       overflow: hidden;
       transition: all 0.2s ease;
@@ -128,18 +116,8 @@
       animation: shimmerSweep 2.8s infinite;
       pointer-events: none;
     }
-    .btn-luxury-gold-shimmer:hover {
-      filter: brightness(1.07);
-      box-shadow:
-        0 4px 0 #78350f,
-        0 0 28px rgba(253, 224, 71, 0.75);
-    }
-    .btn-luxury-gold-shimmer:active {
-      transform: translateY(2px);
-      box-shadow:
-        0 2px 0 #78350f,
-        0 6px 14px rgba(245, 158, 11, 0.4);
-    }
+    .btn-luxury-gold-shimmer:hover { filter: brightness(1.07); box-shadow: 0 4px 0 #78350f, 0 0 28px rgba(253, 224, 71, 0.75); }
+    .btn-luxury-gold-shimmer:active { transform: translateY(2px); box-shadow: 0 2px 0 #78350f, 0 6px 14px rgba(245, 158, 11, 0.4); }
 
     .btn-exec-gold-tab {
       background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #b45309 100%);
@@ -173,9 +151,6 @@
       filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.95));
     }
 
-    /* ===================================================================== */
-    /* 5. ĐỒ HỌA MODAL THẬP ĐẠI THẦN TỐC & PODIUM 3D (LUXURY V37)            */
-    /* ===================================================================== */
     .victory-backdrop-overlay {
       background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.28) 0%, rgba(15, 23, 42, 0.88) 52%, rgba(2, 6, 23, 0.96) 100%);
       backdrop-filter: blur(12px);
@@ -187,10 +162,7 @@
       border: 2px solid transparent;
       background-clip: padding-box;
       position: relative;
-      box-shadow:
-        0 0 50px rgba(255, 215, 0, 0.25),
-        0 25px 60px rgba(0, 0, 0, 0.9),
-        inset 0 0 32px rgba(245, 158, 11, 0.14);
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.25), 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 32px rgba(245, 158, 11, 0.14);
     }
     .victory-luxury-modal::before {
       content: "";
@@ -205,109 +177,23 @@
       pointer-events: none;
     }
 
-    .podium-stage-wrap {
-      position: relative;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .podium-spotlight-gold {
-      position: absolute;
-      bottom: 100%;
-      left: 10%;
-      right: 10%;
-      height: 75px;
-      background: linear-gradient(0deg, rgba(251, 191, 36, 0.30) 0%, rgba(251, 191, 36, 0.06) 65%, transparent 100%);
-      clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
-      pointer-events: none;
-    }
-    .podium-spotlight-silver {
-      position: absolute;
-      bottom: 100%;
-      left: 12%;
-      right: 12%;
-      height: 60px;
-      background: linear-gradient(0deg, rgba(148, 163, 184, 0.25) 0%, rgba(56, 189, 248, 0.05) 65%, transparent 100%);
-      clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
-      pointer-events: none;
-    }
-    .podium-spotlight-bronze {
-      position: absolute;
-      bottom: 100%;
-      left: 12%;
-      right: 12%;
-      height: 55px;
-      background: linear-gradient(0deg, rgba(251, 146, 60, 0.24) 0%, rgba(251, 146, 60, 0.04) 65%, transparent 100%);
-      clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%);
-      pointer-events: none;
-    }
+    .podium-stage-wrap { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .podium-spotlight-gold { position: absolute; bottom: 100%; left: 10%; right: 10%; height: 75px; background: linear-gradient(0deg, rgba(251, 191, 36, 0.30) 0%, rgba(251, 191, 36, 0.06) 65%, transparent 100%); clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%); pointer-events: none; }
+    .podium-spotlight-silver { position: absolute; bottom: 100%; left: 12%; right: 12%; height: 60px; background: linear-gradient(0deg, rgba(148, 163, 184, 0.25) 0%, rgba(56, 189, 248, 0.05) 65%, transparent 100%); clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%); pointer-events: none; }
+    .podium-spotlight-bronze { position: absolute; bottom: 100%; left: 12%; right: 12%; height: 55px; background: linear-gradient(0deg, rgba(251, 146, 60, 0.24) 0%, rgba(251, 146, 60, 0.04) 65%, transparent 100%); clip-path: polygon(15% 100%, 85% 100%, 100% 0%, 0% 0%); pointer-events: none; }
 
-    .podium-top-cap-gold {
-      width: 100%;
-      height: 10px;
-      background: linear-gradient(90deg, #fde047 0%, #ffffff 50%, #f59e0b 100%);
-      clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%);
-      box-shadow: 0 -2px 10px rgba(253, 224, 71, 0.6);
-    }
-    .podium-top-cap-silver {
-      width: 100%;
-      height: 9px;
-      background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 50%, #94a3b8 100%);
-      clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%);
-    }
-    .podium-top-cap-bronze {
-      width: 100%;
-      height: 9px;
-      background: linear-gradient(90deg, #fdba74 0%, #ffedd5 50%, #ea580c 100%);
-      clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%);
-    }
+    .podium-top-cap-gold { width: 100%; height: 10px; background: linear-gradient(90deg, #fde047 0%, #ffffff 50%, #f59e0b 100%); clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%); box-shadow: 0 -2px 10px rgba(253, 224, 71, 0.6); }
+    .podium-top-cap-silver { width: 100%; height: 9px; background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 50%, #94a3b8 100%); clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%); }
+    .podium-top-cap-bronze { width: 100%; height: 9px; background: linear-gradient(90deg, #fdba74 0%, #ffedd5 50%, #ea580c 100%); clip-path: polygon(9% 0%, 91% 0%, 100% 100%, 0% 100%); }
 
-    .podium-3d-gold {
-      background: linear-gradient(180deg, #f59e0b 0%, #b45309 55%, #451a03 100%);
-      border-top: 1.5px solid #fef08a;
-      border-left: 1px solid rgba(254, 240, 138, 0.65);
-      border-right: 1px solid rgba(254, 240, 138, 0.65);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), inset 0 2px 10px rgba(254, 240, 138, 0.45);
-      color: #ffffff;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
-    }
-    .podium-3d-silver {
-      background: linear-gradient(180deg, #64748b 0%, #334155 55%, #0f172a 100%);
-      border-top: 1.5px solid #f1f5f9;
-      border-left: 1px solid rgba(226, 232, 240, 0.5);
-      border-right: 1px solid rgba(226, 232, 240, 0.5);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(255, 255, 255, 0.35);
-      color: #f8fafc;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
-    }
-    .podium-3d-bronze {
-      background: linear-gradient(180deg, #d97706 0%, #9a3412 55%, #270e05 100%);
-      border-top: 1.5px solid #fed7aa;
-      border-left: 1px solid rgba(253, 186, 116, 0.5);
-      border-right: 1px solid rgba(253, 186, 116, 0.5);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(254, 215, 170, 0.35);
-      color: #fff7ed;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85);
-    }
+    .podium-3d-gold { background: linear-gradient(180deg, #f59e0b 0%, #b45309 55%, #451a03 100%); border-top: 1.5px solid #fef08a; border-left: 1px solid rgba(254, 240, 138, 0.65); border-right: 1px solid rgba(254, 240, 138, 0.65); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), inset 0 2px 10px rgba(254, 240, 138, 0.45); color: #ffffff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85); }
+    .podium-3d-silver { background: linear-gradient(180deg, #64748b 0%, #334155 55%, #0f172a 100%); border-top: 1.5px solid #f1f5f9; border-left: 1px solid rgba(226, 232, 240, 0.5); border-right: 1px solid rgba(226, 232, 240, 0.5); box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(255, 255, 255, 0.35); color: #f8fafc; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85); }
+    .podium-3d-bronze { background: linear-gradient(180deg, #d97706 0%, #9a3412 55%, #270e05 100%); border-top: 1.5px solid #fed7aa; border-left: 1px solid rgba(253, 186, 116, 0.5); border-right: 1px solid rgba(253, 186, 116, 0.5); box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(254, 215, 170, 0.35); color: #fff7ed; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85); }
 
-    @keyframes auraSpin {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.06); }
-      100% { transform: rotate(360deg) scale(1); }
-    }
-    @keyframes trophyPulse {
-      0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 6px 14px rgba(245, 158, 11, 0.55)); }
-      50% { transform: scale(1.08) translateY(-3px); filter: drop-shadow(0 10px 24px rgba(253, 224, 71, 0.85)); }
-    }
-    @keyframes starTwinkle {
-      0%, 100% { opacity: 0.35; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.25); }
-    }
-    @keyframes shimmerSweep {
-      0% { transform: translateX(-140%) skewX(-22deg); }
-      100% { transform: translateX(240%) skewX(-22deg); }
-    }
+    @keyframes auraSpin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.06); } 100% { transform: rotate(360deg) scale(1); } }
+    @keyframes trophyPulse { 0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 6px 14px rgba(245, 158, 11, 0.55)); } 50% { transform: scale(1.08) translateY(-3px); filter: drop-shadow(0 10px 24px rgba(253, 224, 71, 0.85)); } }
+    @keyframes starTwinkle { 0%, 100% { opacity: 0.35; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.25); } }
+    @keyframes shimmerSweep { 0% { transform: translateX(-140%) skewX(-22deg); } 100% { transform: translateX(240%) skewX(-22deg); } }
 
     .trophy-aura-ring { animation: auraSpin 14s linear infinite; }
     .trophy-center-anim { animation: trophyPulse 2.6s ease-in-out infinite; }
@@ -323,114 +209,45 @@
       letter-spacing: 0.04em;
     }
 
-    .rank-top1-card {
-      background: linear-gradient(135deg, rgba(120, 53, 15, 0.65) 0%, rgba(245, 158, 11, 0.28) 48%, rgba(69, 26, 3, 0.75) 100%);
-      border: 1.5px solid #fde047;
-      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.32), inset 0 0 18px rgba(254, 240, 138, 0.22);
-      position: relative;
-      overflow: hidden;
-    }
-    .rank-top1-card::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 45%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-      animation: shimmerSweep 3.2s infinite;
-      pointer-events: none;
-    }
-
-    .rank-top2-card {
-      background: linear-gradient(135deg, rgba(51, 65, 85, 0.72) 0%, rgba(148, 163, 184, 0.22) 50%, rgba(15, 23, 42, 0.85) 100%);
-      border: 1.5px solid #e2e8f0;
-      box-shadow: 0 4px 16px rgba(226, 232, 240, 0.20), inset 0 0 12px rgba(255, 255, 255, 0.12);
-    }
-
-    .rank-top3-card {
-      background: linear-gradient(135deg, rgba(124, 45, 18, 0.65) 0%, rgba(234, 88, 12, 0.22) 50%, rgba(23, 15, 12, 0.85) 100%);
-      border: 1.5px solid #fdba74;
-      box-shadow: 0 4px 16px rgba(251, 146, 60, 0.22), inset 0 0 12px rgba(253, 186, 116, 0.14);
-    }
-
-    .rank-normal-card {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(71, 85, 105, 0.55);
-    }
-
-    .score-star-glow {
-      color: #fef08a;
-      text-shadow: 0 0 10px rgba(250, 204, 21, 0.9), 0 0 20px rgba(245, 158, 11, 0.65), 0 2px 3px rgba(0, 0, 0, 0.95);
-    }
+    .rank-top1-card { background: linear-gradient(135deg, rgba(120, 53, 15, 0.65) 0%, rgba(245, 158, 11, 0.28) 48%, rgba(69, 26, 3, 0.75) 100%); border: 1.5px solid #fde047; box-shadow: 0 6px 22px rgba(245, 158, 11, 0.32), inset 0 0 18px rgba(254, 240, 138, 0.22); position: relative; overflow: hidden; }
+    .rank-top1-card::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent); animation: shimmerSweep 3.2s infinite; pointer-events: none; }
+    .rank-top2-card { background: linear-gradient(135deg, rgba(51, 65, 85, 0.72) 0%, rgba(148, 163, 184, 0.22) 50%, rgba(15, 23, 42, 0.85) 100%); border: 1.5px solid #e2e8f0; box-shadow: 0 4px 16px rgba(226, 232, 240, 0.20), inset 0 0 12px rgba(255, 255, 255, 0.12); }
+    .rank-top3-card { background: linear-gradient(135deg, rgba(124, 45, 18, 0.65) 0%, rgba(234, 88, 12, 0.22) 50%, rgba(23, 15, 12, 0.85) 100%); border: 1.5px solid #fdba74; box-shadow: 0 4px 16px rgba(251, 146, 60, 0.22), inset 0 0 12px rgba(253, 186, 116, 0.14); }
+    .rank-normal-card { background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(71, 85, 105, 0.55); }
+    .score-star-glow { color: #fef08a; text-shadow: 0 0 10px rgba(250, 204, 21, 0.9), 0 0 20px rgba(245, 158, 11, 0.65), 0 2px 3px rgba(0, 0, 0, 0.95); }
 
     .btn-3d-fireworks {
       background: linear-gradient(180deg, #fef08a 0%, #f59e0b 45%, #ea580c 100%);
       border: 1.5px solid #ffffff;
       color: #090d16;
-      box-shadow:
-        0 4px 0 #9a3412,
-        0 8px 22px rgba(245, 158, 11, 0.55),
-        inset 0 1px 1px #ffffff;
+      box-shadow: 0 4px 0 #9a3412, 0 8px 22px rgba(245, 158, 11, 0.55), inset 0 1px 1px #ffffff;
       position: relative;
       overflow: hidden;
       transition: all 0.18s ease;
     }
-    .btn-3d-fireworks::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 40%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-      animation: shimmerSweep 2.6s infinite;
-      pointer-events: none;
-    }
-    .btn-3d-fireworks:hover {
-      filter: brightness(1.08);
-      box-shadow: 0 4px 0 #9a3412, 0 0 28px rgba(253, 224, 71, 0.85);
-    }
-    .btn-3d-fireworks:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 #9a3412, 0 4px 12px rgba(245, 158, 11, 0.45);
-    }
+    .btn-3d-fireworks::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent); animation: shimmerSweep 2.6s infinite; pointer-events: none; }
+    .btn-3d-fireworks:hover { filter: brightness(1.08); box-shadow: 0 4px 0 #9a3412, 0 0 28px rgba(253, 224, 71, 0.85); }
+    .btn-3d-fireworks:active { transform: translateY(3px); box-shadow: 0 1px 0 #9a3412, 0 4px 12px rgba(245, 158, 11, 0.45); }
 
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
   </style>
 </head>
-<body class="text-slate-800 flex flex-col justify-start items-center min-h-screen p-2 sm:p-3">
+<body class="text-slate-800 flex flex-col justify-center items-center min-h-screen p-2 sm:p-3">
 
   <!-- HỆ THỐNG 3 TỆP ÂM THANH MP3 GỐC TỪ TIẾNGĐỘNG.COM -->
   <audio id="audio-bgm" src="https://tiengdong.com/wp-content/uploads/Nhac-nen-game-show-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" loop playsinline></audio>
   <audio id="audio-correct" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-dung-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" playsinline></audio>
   <audio id="audio-wrong" src="https://tiengdong.com/wp-content/uploads/Am-thanh-tra-loi-sai-ai-la-trieu-phu-www_tiengdong_com.mp3" preload="auto" playsinline></audio>
 
-  <!-- ===================================================================== -->
-  <!-- THANH HEADER KÍNH MỜ GOM GỌN TINH TẾ                                  -->
-  <!-- ===================================================================== -->
-  <header class="w-full max-w-[440px] exec-glass-header rounded-2xl px-3 py-2 mb-2.5 flex items-center justify-between gap-1.5 z-30">
-    <div class="flex items-center gap-1.5 min-w-0">
-      <span id="conn-status" class="text-[10px] text-amber-300 font-extrabold truncate">🟡 Đang kết nối...</span>
-      <span class="text-[9px] bg-amber-500/15 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full font-extrabold shrink-0">
-        💎 8K-Victory V37
-      </span>
-    </div>
-    <div class="flex items-center gap-1.5 shrink-0">
-      <button onclick="openPrevRankModal()" class="text-[10px] text-slate-200 hover:text-amber-300 bg-slate-800/80 hover:bg-slate-800 px-2.5 py-1 rounded-xl border border-slate-600/80 transition-all cursor-pointer font-bold">
-        📊 Hạng trước
-      </button>
-      <button onclick="unlockAdmin()" id="btn-unlock-admin" class="text-[10px] text-amber-300 hover:text-white bg-gradient-to-r from-amber-500/20 to-amber-600/20 px-2.5 py-1 rounded-xl border border-amber-400/50 shadow-sm transition-all cursor-pointer font-extrabold">
-        🔑 Admin Tuấn Phủ Lý
-      </button>
-    </div>
-  </header>
-
-  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ -->
+  <!-- BẢNG ĐIỀU KHIỂN CỦA ADMIN TUẤN PHỦ LÝ (Mở tự động khi đăng nhập TK: Admin / MK: 181139) -->
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-3 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
       <span class="text-[11px] font-black text-amber-400">👑 ADMIN TUẤN PHỦ LÝ</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow">🏆 Xem Thập Đại</button>
-        <button onclick="showFinishCelebration(currentQuizName)" class="text-[10px] bg-amber-600 hover:bg-amber-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow" title="Xem thử Bảng Vinh Danh Chung Cuộc">🎆 Xem Vinh Danh</button>
+        <button onclick="showFinishCelebration(currentQuizName)" class="text-[10px] bg-amber-600 hover:bg-amber-500 px-2 py-1 rounded-lg font-bold cursor-pointer shadow">🎆 Xem Vinh Danh</button>
         <button onclick="toggleNewQuizModal()" class="text-[10px] bg-blue-600 hover:bg-blue-500 px-2 py-1 rounded-lg font-bold cursor-pointer">➕ Thêm đề</button>
         <button onclick="deleteCurrentQuiz()" class="text-[10px] bg-rose-600 hover:bg-rose-500 px-2 py-1 rounded-lg font-bold cursor-pointer">🗑️ Xóa đề</button>
         <button onclick="openPlayerDirectoryModal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2 py-1 rounded-lg font-black cursor-pointer shadow">
@@ -439,18 +256,18 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 1: NẠP ẢNH BÌA SỰ KIỆN ĐĂNG NHẬP & ĐỒNG BỘ TOÀN PHÒNG (V37 MỚI) -->
+    <!-- CÔNG CỤ 1: NẠP ẢNH BÌA SỰ KIỆN ĐĂNG NHẬP & ĐỒNG BỘ TOÀN PHÒNG -->
     <div class="flex flex-wrap items-center justify-between gap-1.5 bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-amber-500/40">
       <span id="cover-sync-status" class="text-[10px] font-extrabold text-amber-300">🏞️ Ảnh Bìa Đăng Nhập:</span>
       <div class="flex flex-wrap gap-1">
-        <label for="adminCoverInput" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-2.5 py-1 rounded-lg cursor-pointer shadow" title="Chọn ảnh bìa sự kiện từ máy để lưu vĩnh viễn và đồng bộ sang toàn bộ điện thoại">
+        <label for="adminCoverInput" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-2.5 py-1 rounded-lg cursor-pointer shadow">
           🏞️ Nạp Ảnh Bìa Đăng Nhập
         </label>
         <input id="adminCoverInput" type="file" accept="image/*" onchange="handleCustomCoverUpload(event)" class="hidden">
         <button onclick="forceBroadcastCoverNow(true)" class="text-[10px] bg-sky-600 hover:bg-sky-500 text-white font-bold px-2 py-1 rounded-lg cursor-pointer shadow">
           📡 Đồng bộ Ảnh Bìa ĐT
         </button>
-        <button onclick="resetToDefaultCoverBanner()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1 rounded-lg cursor-pointer" title="Khôi phục Ảnh Bìa Đại Đô Thị Hoàng Kim 8K mặc định">
+        <button onclick="resetToDefaultCoverBanner()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1 rounded-lg cursor-pointer">
           🔄 Mặc định
         </button>
       </div>
@@ -460,17 +277,17 @@
     <div class="flex flex-wrap items-center justify-between gap-1.5 bg-slate-800/90 px-2.5 py-1.5 rounded-xl border border-slate-700">
       <span id="logo-sync-status" class="text-[10px] font-bold text-emerald-300">🎨 Tách Nền Logo 100%:</span>
       <div class="flex flex-wrap gap-1">
-        <label for="adminLogoInput" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg cursor-pointer shadow" title="Chọn ảnh gốc để khử sạch 100% vết đen/khói xung quanh và tự động tải PNG về máy">
+        <label for="adminLogoInput" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg cursor-pointer shadow">
           🖼️ Chọn Ảnh -> Tách Nền & Tải PNG
         </label>
         <input id="adminLogoInput" type="file" accept="image/*" onchange="handleCustomLogoUpload(event)" class="hidden">
-        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-2 py-1 rounded-lg cursor-pointer shadow" title="Tải file PNG đã tách sạch nền về máy">
+        <button onclick="downloadTransparentLogoPNG()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-2 py-1 rounded-lg cursor-pointer shadow">
           📥 Tải PNG
         </button>
         <button onclick="forceBroadcastLogoNow(true)" class="text-[10px] bg-sky-600 hover:bg-sky-500 text-white font-bold px-2 py-1 rounded-lg cursor-pointer shadow">
           📡 Đồng bộ ĐT
         </button>
-        <button onclick="resetToDefault8KEmblem()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1 rounded-lg cursor-pointer" title="Khôi phục Huy hiệu Vector 3D Sạch 100%">
+        <button onclick="resetToDefault8KEmblem()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-2 py-1 rounded-lg cursor-pointer">
           🔄 Mặc định
         </button>
       </div>
@@ -509,51 +326,41 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- KHUNG MÀN HÌNH CHÍNH (GLASSMORPHISM SHELL & LUXURY PORTAL V37)        -->
+  <!-- KHUNG MÀN HÌNH CHÍNH (POSTER GAME HẠNG SANG V38)                      -->
   <!-- ===================================================================== -->
-  <div class="w-full max-w-[440px] exec-arena-shell rounded-[30px] overflow-hidden flex flex-col min-h-[650px] p-2.5 relative">
+  <div class="w-full max-w-[440px] exec-arena-shell rounded-[30px] overflow-hidden flex flex-col p-2.5 relative">
 
     <!-- =================================================================== -->
-    <!-- MÀN HÌNH 1: CỔNG SỰ KIỆN BẤT ĐỘNG SẢN HẠNG SANG (LUXURY PORTAL V37) -->
+    <!-- MÀN HÌNH 1: GIAO DIỆN ĐĂNG NHẬP TỐI GIẢN ĐẲNG CẤP POSTER GAME V38   -->
     <!-- =================================================================== -->
     <div id="screen-login" class="flex-1 flex flex-col justify-between items-center text-center exec-login-card rounded-[24px] relative overflow-hidden">
 
-      <!-- 1. BANNER ẢNH BÌA SỰ KIỆN (HERO COVER BANNER) TRÀN VIỀN TRÊN CÙNG -->
-      <div class="w-full h-[164px] sm:h-[174px] relative overflow-hidden shrink-0 select-none">
-        <img id="login-hero-cover-img" src="" alt="Four Home Mega Hero Cover" class="w-full h-full object-cover object-center">
-        <!-- Lớp phủ chuyển sắc mượt mà nối liền xuống tiêu đề FOUR HOME MEGA -->
-        <div class="absolute inset-0 bg-gradient-to-b from-[#060a14]/25 via-[#0b1120]/55 to-[#0b1120]"></div>
+      <!-- 1. BANNER ẢNH BÌA SÁNG RÕ TRÀN VIỀN TRÊN CÙNG (Đã ẩn các nhãn phụ) -->
+      <div class="w-full h-[175px] sm:h-[188px] relative overflow-hidden shrink-0 select-none">
+        <img id="login-hero-cover-img" src="" alt="Four Home Mega Cover" class="w-full h-full object-cover object-center hero-cover-bright">
+        <!-- Lớp phủ chỉ làm mờ nhẹ chân ảnh để giữ ảnh bìa sáng rõ rực rỡ -->
+        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0b1120] via-[#0b1120]/60 to-transparent"></div>
         <div class="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-amber-300/90 to-transparent"></div>
-        <div class="absolute top-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
-          <span class="text-[9px] font-black uppercase tracking-[0.16em] text-amber-200 bg-slate-950/75 backdrop-blur-md border border-amber-400/45 px-2.5 py-1 rounded-full shadow-lg">
-            ✦ EXECUTIVE LUXURY PORTAL
-          </span>
-          <span class="text-[9px] font-extrabold text-amber-300 bg-amber-500/20 backdrop-blur-md border border-amber-400/50 px-2.5 py-0.5 rounded-full shadow">
-            VIP ARENA
-          </span>
-        </div>
       </div>
 
-      <!-- 2. CỤM TIÊU ĐỀ MẠ VÀNG 3D LẤP LÁNH & CHUYÊN ĐỀ -->
-      <div class="w-full px-4 -mt-6 relative z-10 flex flex-col items-center">
-        <h1 class="text-[22px] sm:text-[24px] font-black victory-gold-title tracking-tight leading-tight uppercase">
+      <!-- 2. CHỮ FOUR HOME MEGA 3D LẤP LÁNH VẦNG SÁNG ĐỔI MÀU CHẠY ĐUỔI LIÊN TỤC -->
+      <div class="w-full px-4 -mt-4 relative z-10 flex flex-col items-center">
+        <h1 class="text-[23px] sm:text-[26px] font-black fourhome-3d-chasing-title tracking-tight leading-tight uppercase">
           FOUR HOME MEGA
         </h1>
-        <div class="flex items-center gap-2 my-1">
+        <div class="flex items-center gap-2 mt-1">
           <span class="h-[1.5px] w-8 bg-gradient-to-r from-transparent to-amber-400"></span>
           <p class="text-[11px] font-extrabold text-amber-300 tracking-[0.18em] uppercase drop-shadow">
             ĐẤU TRƯỜNG TRI THỨC
           </p>
           <span class="h-[1.5px] w-8 bg-gradient-to-l from-transparent to-amber-400"></span>
         </div>
-
-        <div id="login-quiz-badge" class="mt-1 text-[11px] text-amber-100 font-bold bg-gradient-to-r from-slate-900/95 via-amber-950/70 to-slate-900/95 py-1.5 px-3.5 rounded-full border border-amber-400/50 shadow-[0_4px_15px_rgba(245,158,11,0.18)]">
-          Chuyên đề: Tuần 1 - Tổng quan Sun Urban City
-        </div>
+        <!-- Đã ẩn Chuyên đề ở ngoài màn hình đăng nhập theo yêu cầu -->
+        <div id="login-quiz-badge" class="hidden"></div>
       </div>
 
-      <!-- 3. THÂN THẺ ĐĂNG NHẬP DARK ROYAL GLASSMORPHISM -->
-      <div class="w-full px-4 my-2.5 space-y-2.5 flex-1 flex flex-col justify-center">
+      <!-- 3. THÂN THẺ ĐĂNG NHẬP TỐI GIẢN - TINH GỌN (V38) -->
+      <div class="w-full px-4 my-3 space-y-3 flex-1 flex flex-col justify-center">
         <!-- Thanh chuyển Tab Đăng ký / Đăng nhập -->
         <div class="w-full grid grid-cols-2 gap-1.5 bg-slate-950/90 p-1.5 rounded-2xl border border-amber-500/30 shadow-inner">
           <button type="button" id="tab-btn-register" onclick="switchAuthTab('register')" class="py-2 rounded-xl text-[11px] font-black btn-exec-gold-tab cursor-pointer transition-all">
@@ -564,60 +371,59 @@
           </button>
         </div>
 
-        <!-- Thẻ VIP Profile (Tải & Cắt ảnh đại diện 4K) -->
-        <div id="auth-avatar-section" class="w-full vip-profile-card rounded-2xl p-3 flex flex-col items-center">
-          <label class="text-[11px] font-extrabold text-amber-200 mb-2 flex items-center gap-1.5 tracking-wide">
-            <span>📸</span> <span>1. Tải & Cắt ảnh đại diện 4K (VIP Profile):</span>
-          </label>
-          <div class="flex items-center gap-3.5 w-full justify-center">
+        <!-- Khung Tải hình ảnh đại diện (Đã ẩn dòng chữ tiêu đề phụ & dòng bắt buộc mặc định) -->
+        <div id="auth-avatar-section" class="w-full vip-profile-card rounded-2xl p-3 flex flex-col items-center justify-center">
+          <div class="flex items-center gap-4 w-full justify-center">
             <div onclick="reopenCropperIfAvailable()" class="w-16 h-16 rounded-full bg-slate-950 border-2 border-amber-400 flex items-center justify-center overflow-hidden shadow-[0_0_18px_rgba(251,191,36,0.45)] shrink-0 cursor-pointer relative group ring-4 ring-amber-400/15">
-              <span id="avatar-placeholder" class="text-[9px] text-amber-200/70 font-bold px-1 leading-tight">Chưa có ảnh</span>
+              <span id="avatar-placeholder" class="text-[9px] text-amber-200/75 font-bold px-1 leading-tight">Chưa có ảnh</span>
               <img id="avatar-preview-img" src="" class="hidden w-full h-full object-cover avatar-4k" alt="Avatar">
             </div>
-            <div class="text-left">
-              <div class="flex flex-wrap gap-1.5">
-                <label for="avatarInput" class="inline-flex items-center gap-1 bg-gradient-to-r from-amber-500/25 to-amber-600/20 hover:from-amber-500/35 hover:to-amber-600/30 text-amber-200 border border-amber-400/60 text-[11px] font-extrabold px-3 py-1.5 rounded-xl cursor-pointer shadow-md transition-all">
-                  <span>📁</span> <span>Chọn ảnh & Cắt 4K</span>
+            <div class="text-left flex flex-col justify-center">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <label for="avatarInput" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500/25 to-amber-600/20 hover:from-amber-500/35 hover:to-amber-600/30 text-amber-200 border border-amber-400/60 text-xs font-extrabold px-3.5 py-2 rounded-xl cursor-pointer shadow-md transition-all">
+                  <span>📁</span> <span>Tải hình ảnh</span>
                 </label>
-                <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="hidden bg-amber-400 hover:bg-amber-300 text-slate-950 text-[11px] font-black px-2.5 py-1.5 rounded-xl cursor-pointer shadow-md">
+                <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="hidden bg-amber-400 hover:bg-amber-300 text-slate-950 text-[11px] font-black px-2.5 py-2 rounded-xl cursor-pointer shadow-md">
                   ✂️ Cắt lại
                 </button>
               </div>
               <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
-              <p id="avatar-status-text" class="text-[10px] text-amber-300/90 font-bold mt-1.5">
-                * Bắt buộc chọn & cắt ảnh đại diện 4K rõ nét.
-              </p>
+              <p id="avatar-status-text" class="hidden text-[10px] font-extrabold mt-1.5"></p>
             </div>
           </div>
         </div>
 
         <!-- Gợi ý khi chuyển sang Tab Đăng nhập TK cũ -->
         <div id="auth-login-hint" class="hidden w-full bg-amber-950/40 border border-amber-400/45 rounded-2xl p-3 text-[11px] text-amber-100 font-semibold text-left leading-relaxed shadow-inner">
-          💡 Nếu bạn đã tạo tài khoản trước đó (hoặc đổi điện thoại/máy tính), chỉ cần nhập đúng <strong class="text-amber-300">Tên tài khoản</strong> và <strong class="text-amber-300">Mật khẩu số 1</strong>. Hệ thống tự động khôi phục Ảnh đại diện 4K và Điểm số!
+          💡 Nhập đúng <strong class="text-amber-300">Tên tài khoản</strong> và <strong class="text-amber-300">Mật khẩu số 1</strong> để hệ thống tự động khôi phục Ảnh đại diện 4K và Điểm số!
         </div>
 
-        <!-- Ô nhập Tên tài khoản chuẩn Luxury Dark Input -->
+        <!-- Ô nhập Tên tài khoản (Xóa chữ Tối đa 20 ký tự, giữ 0/20 ký tự bên phải) -->
         <div class="w-full text-left">
           <div class="flex justify-between items-center mb-1 px-0.5">
-            <label class="text-[11px] font-extrabold text-amber-200">👤 Tên tài khoản (Tối đa 20 ký tự):</label>
+            <label class="text-[11px] font-extrabold text-amber-200">👤 Tên tài khoản:</label>
             <span id="char-count" class="text-[10px] font-extrabold text-amber-300 bg-amber-500/15 border border-amber-400/35 px-2 py-0.5 rounded-full">0/20 ký tự</span>
           </div>
           <input id="playerName" type="text" maxlength="20" oninput="updateCharCount()" placeholder="Nhập tên tài khoản (VD: TuanPhuLy_FHM)..." class="w-full px-4 py-2.5 luxury-dark-input rounded-xl font-bold text-sm text-center">
         </div>
 
-        <!-- Ô nhập Mật khẩu chuẩn Luxury Dark Input -->
+        <!-- Ô nhập Mật khẩu (Trái: Mật khẩu | Phải cùng hàng dưới 0/20 ký tự: (Nhập số 1)) -->
         <div class="w-full text-left">
-          <label class="text-[11px] font-extrabold text-amber-200 block mb-1 px-0.5">🔑 Mật khẩu tham gia (Nhập số 1):</label>
-          <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu thí sinh (Số 1)..." class="w-full px-4 py-2.5 luxury-dark-input rounded-xl font-bold text-sm text-center">
+          <div class="flex justify-between items-center mb-1 px-0.5">
+            <label class="text-[11px] font-extrabold text-amber-200">🔑 Mật khẩu:</label>
+            <span class="text-[10px] font-extrabold text-amber-300 bg-amber-500/15 border border-amber-400/35 px-2 py-0.5 rounded-full">(Nhập số 1)</span>
+          </div>
+          <input id="playerPassword" type="password" inputmode="numeric" placeholder="Nhập mật khẩu..." class="w-full px-4 py-2.5 luxury-dark-input rounded-xl font-bold text-sm text-center">
+        </div>
+
+        <!-- Dòng cảnh báo tự động hiện khi chưa tải ảnh đại diện mà bấm Đăng ký -->
+        <div id="avatar-missing-alert" class="hidden w-full bg-rose-950/90 border border-rose-400 text-rose-200 text-[11px] font-extrabold py-2 px-3 rounded-xl text-center shadow-lg animate-pulse">
+          ⚠️ Bạn chưa tải hình ảnh đại diện, vui lòng tải hình ảnh đại diện để tham gia thi đấu
         </div>
       </div>
 
-      <!-- 4. CHÂN THẺ ĐĂNG NHẬP & NÚT BẤM MẠ VÀNG 3D SHIMMER -->
-      <div class="w-full px-4 pb-4 space-y-2.5">
-        <p class="text-[10px] text-slate-300 font-semibold leading-snug bg-slate-900/85 py-1.5 px-2.5 rounded-xl border border-slate-700/80">
-          🔒 Tự động ghi nhớ tài khoản trên thiết bị (dù thoát trình duyệt hay rớt mạng 4G/5G). Bảo mật 1 thiết bị/tài khoản.
-        </p>
-
+      <!-- 4. NÚT BẤM MẠ VÀNG 3D SHIMMER (Đã ẩn dòng ghi chú bảo mật dài dòng) -->
+      <div class="w-full px-4 pb-4 pt-1">
         <button id="btn-submit-auth" onclick="joinGame()" class="w-full btn-luxury-gold-shimmer font-black py-3.5 rounded-2xl text-sm tracking-wide cursor-pointer flex items-center justify-center gap-2">
           <span>🚀</span>
           <span id="btn-submit-text">ĐĂNG KÝ & VÀO ĐẤU TRƯỜNG</span>
@@ -626,20 +432,27 @@
     </div>
 
     <!-- =================================================================== -->
-    <!-- MÀN HÌNH 2: GIAO DIỆN THI ĐẤU TIKTOK LIVE                           -->
+    <!-- MÀN HÌNH 2: GIAO DIỆN THI ĐẤU TIKTOK LIVE (Hiện Chuyên đề & Hạng trước)-->
     <!-- =================================================================== -->
-    <div id="screen-game" class="hidden flex-1 flex flex-col p-1.5 justify-between">
+    <div id="screen-game" class="hidden flex-1 flex flex-col p-1.5 justify-between min-h-[630px]">
       <div>
-        <div class="flex items-start justify-between gap-2 mb-1">
-          <div class="flex flex-col">
-            <div class="inline-flex items-center gap-1.5 bg-white/95 px-3 py-1 rounded-full shadow-sm border border-amber-300/80 w-fit">
-              <span class="text-[11px]">🏆</span>
-              <span id="live-topic-pill" class="text-[10px] font-extrabold text-slate-800 truncate max-w-[205px]">Sun Urban City</span>
+        <!-- Thanh thông tin bên trong sau khi đăng nhập: Chuyên đề + Hạng trước + Vòng thi -->
+        <div class="flex items-start justify-between gap-1.5 mb-1">
+          <div class="flex flex-col min-w-0 flex-1">
+            <div class="inline-flex items-center gap-1.5 bg-white/95 px-2.5 py-1 rounded-full shadow-sm border border-amber-300/80 w-fit max-w-full">
+              <span class="text-[11px] shrink-0">🏆</span>
+              <span id="live-topic-pill" class="text-[10px] font-extrabold text-slate-800 truncate">Chuyên đề: Tuần 1 - Tổng quan & Quy mô Sun Urban City</span>
             </div>
-            <span class="text-[9px] font-black text-amber-300/95 drop-shadow tracking-widest mt-1 ml-1 uppercase">FOUR HOME MEGA ARENA</span>
+            <div class="flex items-center gap-2 mt-1 ml-1">
+              <span id="conn-status" class="text-[9px] text-emerald-300 font-extrabold truncate">🟢 Trực tuyến</span>
+              <span class="text-[9px] font-black text-amber-300/90 drop-shadow tracking-wider uppercase">• FOUR HOME MEGA</span>
+            </div>
           </div>
-          <div class="flex flex-col items-end">
-            <span id="question-index" class="bg-slate-900/90 text-amber-300 border border-amber-400/50 px-3 py-1 rounded-full text-[11px] font-extrabold shadow">Phòng chờ</span>
+          <div class="flex items-center gap-1 shrink-0">
+            <button onclick="openPrevRankModal()" class="text-[10px] text-amber-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 px-2.5 py-1 rounded-full border border-amber-400/50 shadow transition-all cursor-pointer font-extrabold">
+              📊 Hạng trước
+            </button>
+            <span id="question-index" class="bg-slate-900/90 text-amber-300 border border-amber-400/50 px-2.5 py-1 rounded-full text-[10px] font-extrabold shadow">Phòng chờ</span>
           </div>
         </div>
 
@@ -662,26 +475,16 @@
               <svg class="w-full h-full" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="tmGoldBezel" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#FFFBEB"/>
-                    <stop offset="25%" stop-color="#FDE047"/>
-                    <stop offset="55%" stop-color="#D97706"/>
-                    <stop offset="85%" stop-color="#78350F"/>
-                    <stop offset="100%" stop-color="#F59E0B"/>
+                    <stop offset="0%" stop-color="#FFFBEB"/><stop offset="25%" stop-color="#FDE047"/><stop offset="55%" stop-color="#D97706"/><stop offset="85%" stop-color="#78350F"/><stop offset="100%" stop-color="#F59E0B"/>
                   </linearGradient>
                   <radialGradient id="tmDarkCore" cx="50%" cy="45%" r="55%">
-                    <stop offset="0%" stop-color="#1E293B"/>
-                    <stop offset="70%" stop-color="#0F172A"/>
-                    <stop offset="100%" stop-color="#020617"/>
+                    <stop offset="0%" stop-color="#1E293B"/><stop offset="70%" stop-color="#0F172A"/><stop offset="100%" stop-color="#020617"/>
                   </radialGradient>
                   <linearGradient id="tmBlueNeon" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#60A5FA"/>
-                    <stop offset="50%" stop-color="#38BDF8"/>
-                    <stop offset="100%" stop-color="#2563EB"/>
+                    <stop offset="0%" stop-color="#60A5FA"/><stop offset="50%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#2563EB"/>
                   </linearGradient>
                   <linearGradient id="tmGoldArc" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#FFFBEB"/>
-                    <stop offset="50%" stop-color="#FDE047"/>
-                    <stop offset="100%" stop-color="#F59E0B"/>
+                    <stop offset="0%" stop-color="#FFFBEB"/><stop offset="50%" stop-color="#FDE047"/><stop offset="100%" stop-color="#F59E0B"/>
                   </linearGradient>
                   <filter id="tmNeonGlow" x="-20%" y="-20%" width="140%" height="140%">
                     <feGaussianBlur stdDeviation="2" result="b"/>
@@ -801,11 +604,11 @@
   <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-3">
     <div class="w-full max-w-sm bg-slate-900 text-white rounded-3xl shadow-2xl border-2 border-amber-500 p-4 text-center space-y-3">
       <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-        <span class="text-xs font-black text-amber-400">✂️ CĂN CHỈNH & CẮT ẢNH ĐẠI DIỆN 4K</span>
+        <span class="text-xs font-black text-amber-400">✂️ CĂN CHỈNH & CẮT HÌNH ẢNH</span>
         <button onclick="closeAvatarCropper()" class="text-xs text-slate-400 hover:text-white font-bold cursor-pointer">✖ Đóng</button>
       </div>
       <p class="text-[11px] text-slate-300 font-semibold">
-        Dùng ngón tay (hoặc chuột) <strong class="text-amber-300">kéo di chuyển ảnh</strong> và trượt thanh <strong class="text-amber-300">Phóng to / Thu nhỏ</strong> để lấy góc nét nhất:
+        Dùng ngón tay (hoặc chuột) <strong class="text-amber-300">kéo di chuyển ảnh</strong> và trượt thanh <strong class="text-amber-300">Phóng to / Thu nhỏ</strong> để chọn góc đẹp nhất:
       </p>
       <div class="flex justify-center">
         <div class="relative w-[220px] h-[220px] rounded-2xl overflow-hidden bg-slate-950 shadow-inner border-2 border-amber-500/60 touch-none">
@@ -819,7 +622,7 @@
       </div>
       <div class="flex gap-2 pt-1">
         <label for="avatarInput" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-bold text-xs py-2.5 rounded-xl cursor-pointer">🔄 Chọn ảnh khác</label>
-        <button type="button" onclick="applyAvatarCrop()" class="flex-1 btn-luxury-gold-shimmer font-black text-xs py-2.5 rounded-xl shadow-lg cursor-pointer">✂️ Cắt chuẩn 4K</button>
+        <button type="button" onclick="applyAvatarCrop()" class="flex-1 btn-luxury-gold-shimmer font-black text-xs py-2.5 rounded-xl shadow-lg cursor-pointer">✂️ Xác nhận cắt ảnh</button>
       </div>
     </div>
   </div>
@@ -849,31 +652,23 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" (IMPERIAL PRESTIGE V37)-->
-  <!-- ===================================================================== -->
+  <!-- MODAL 1: BẢNG VINH DANH "10 THẬP ĐẠI THẦN TỐC" -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-16">
     <div class="w-full max-w-[428px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[88vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-xs flex items-center justify-center cursor-pointer z-20">✖</button>
 
-      <!-- HUY HIỆU 10 THẬP ĐẠI THẦN TỐC 8K SẠCH VẾT ĐEN 100% + VÒNG HÀO QUANG XOAY -->
       <div class="flex justify-center -mt-20 mb-1 select-none pointer-events-none relative z-10">
         <div class="absolute w-[180px] h-[180px] top-3 rounded-full bg-amber-400/20 blur-2xl"></div>
         <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc 8K" class="w-[248px] h-[196px] object-contain logo-8k-pure relative z-10">
       </div>
 
-      <!-- THANH ĐÁP ÁN ĐÚNG & GIẢI THÍCH SANG TRỌNG -->
       <div id="speed-modal-answer-bar" class="bg-gradient-to-r from-emerald-950/90 via-slate-900/95 to-emerald-950/90 border border-emerald-400/50 text-emerald-200 rounded-xl px-3 py-1.5 text-[10px] font-bold text-center mb-2.5 shadow-inner">
         ✅ Đáp án & Bảng vinh danh 10 Thập Đại Thần Tốc
       </div>
 
-      <!-- BỤC PODIUM TOP 1 - TOP 2 - TOP 3 VỚI KHUNG NGUYỆT QUẾ & CÁNH 3D ĐỐI XỨNG TÂM -->
       <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1 pt-3"></div>
-
-      <!-- DANH SÁCH HẠNG 4 ĐẾN HẠNG 10 -->
       <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
 
-      <!-- THANH ĐẾM NGƯỢC TỰ ĐỘNG CHUYỂN CÂU -->
       <div class="pt-2 border-t border-amber-500/25">
         <div class="flex justify-between items-center text-[11px] font-bold text-slate-300 mb-1">
           <span id="speed-footer-status">🕒 Tự động chuyển câu sau</span>
@@ -901,47 +696,31 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 (V37)   -->
-  <!-- ===================================================================== -->
+  <!-- MODAL 3: CHÚC MỪNG HOÀN THÀNH BÀI THI & BẢNG VINH DANH TOP 10 -->
   <div id="modal-finish-celebration" class="hidden fixed inset-0 z-50 victory-backdrop-overlay flex items-center justify-center p-3">
     <div class="w-full max-w-[430px] victory-luxury-modal text-white rounded-[28px] p-4 sm:p-5 text-center space-y-3 max-h-[93vh] flex flex-col">
-
-      <!-- CỤM ĐỒ HỌA CÚP VÀNG 3D + VÒNG HÀO QUANG XOAY + NGÔI SAO LẤP LÁNH -->
       <div class="relative w-24 h-24 mx-auto flex items-center justify-center select-none pointer-events-none -mt-1">
         <div class="absolute inset-0 rounded-full bg-amber-400/25 blur-xl"></div>
-
         <svg class="absolute inset-0 w-full h-full trophy-aura-ring opacity-85" viewBox="0 0 120 120" fill="none">
           <defs>
             <radialGradient id="auraGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.9"/>
-              <stop offset="55%" stop-color="#F59E0B" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+              <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.9"/><stop offset="55%" stop-color="#F59E0B" stop-opacity="0.35"/><stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
             </radialGradient>
           </defs>
           <circle cx="60" cy="60" r="52" fill="url(#auraGrad)"/>
           <g stroke="#FDE047" stroke-width="1.5" stroke-linecap="round" opacity="0.65">
-            <line x1="60" y1="4" x2="60" y2="18"/><line x1="60" y1="102" x2="60" y2="116"/>
-            <line x1="4" y1="60" x2="18" y2="60"/><line x1="102" y1="60" x2="116" y2="60"/>
-            <line x1="20" y1="20" x2="30" y2="30"/><line x1="90" y1="90" x2="100" y2="100"/>
-            <line x1="100" y1="20" x2="90" y2="30"/><line x1="30" y1="90" x2="20" y2="100"/>
+            <line x1="60" y1="4" x2="60" y2="18"/><line x1="60" y1="102" x2="60" y2="116"/><line x1="4" y1="60" x2="18" y2="60"/><line x1="102" y1="60" x2="116" y2="60"/>
+            <line x1="20" y1="20" x2="30" y2="30"/><line x1="90" y1="90" x2="100" y2="100"/><line x1="100" y1="20" x2="90" y2="30"/><line x1="30" y1="90" x2="20" y2="100"/>
           </g>
           <circle cx="60" cy="60" r="42" stroke="#FEF08A" stroke-width="1.2" stroke-dasharray="4 6"/>
         </svg>
-
         <svg class="relative z-10 w-16 h-16 trophy-center-anim" viewBox="0 0 100 100" fill="none">
           <defs>
             <linearGradient id="cupGold3D" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#FFFFFF"/>
-              <stop offset="22%" stop-color="#FEF08A"/>
-              <stop offset="55%" stop-color="#F59E0B"/>
-              <stop offset="85%" stop-color="#B45309"/>
-              <stop offset="100%" stop-color="#78350F"/>
+              <stop offset="0%" stop-color="#FFFFFF"/><stop offset="22%" stop-color="#FEF08A"/><stop offset="55%" stop-color="#F59E0B"/><stop offset="85%" stop-color="#B45309"/><stop offset="100%" stop-color="#78350F"/>
             </linearGradient>
             <linearGradient id="cupBase" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#78350F"/>
-              <stop offset="50%" stop-color="#F59E0B"/>
-              <stop offset="100%" stop-color="#451A03"/>
+              <stop offset="0%" stop-color="#78350F"/><stop offset="50%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#451A03"/>
             </linearGradient>
           </defs>
           <path d="M28,26 C12,26 12,50 30,54" stroke="url(#cupGold3D)" stroke-width="5.5" stroke-linecap="round" fill="none"/>
@@ -952,14 +731,12 @@
           <path d="M32,76 L68,76 L72,86 L28,86 Z" fill="url(#cupBase)" stroke="#FDE047" stroke-width="1.5"/>
           <rect x="24" y="86" width="52" height="6" rx="3" fill="url(#cupGold3D)"/>
         </svg>
-
         <span class="absolute top-1 left-3 text-xs text-yellow-200 sparkle-1">✦</span>
         <span class="absolute top-2 right-2 text-sm text-amber-300 sparkle-2">★</span>
         <span class="absolute bottom-2 left-2 text-xs text-sky-300 sparkle-3">✦</span>
         <span class="absolute bottom-1 right-3 text-xs text-yellow-100 sparkle-1">✦</span>
       </div>
 
-      <!-- TIÊU ĐỀ MẠ VÀNG KIM LOẠI 3D -->
       <div class="space-y-1.5">
         <h2 class="text-base sm:text-[19px] font-black victory-gold-title uppercase leading-tight">
           Chúc mừng bạn đã hoàn thành bài thi
@@ -967,10 +744,8 @@
         <p id="finish-quiz-name" class="text-[11px] font-extrabold text-amber-200 bg-gradient-to-r from-amber-950/80 via-slate-900 to-amber-950/80 border border-amber-400/50 py-1 px-3.5 rounded-full mx-auto w-fit shadow-sm"></p>
       </div>
 
-      <!-- HỘP THÔNG BÁO THỨ HẠNG CÁ NHÂN CỦA BẠN -->
       <div id="finish-my-rank-box" class="bg-gradient-to-r from-amber-500/15 via-yellow-500/20 to-amber-500/15 border border-amber-400/60 rounded-2xl p-2.5 text-xs font-bold text-amber-100 shadow-inner"></div>
 
-      <!-- BẢNG XẾP HẠNG PHÂN CẤP TOP 1 - TOP 2 - TOP 3 - TOP 10 -->
       <div class="text-left flex-1 flex flex-col overflow-hidden bg-slate-950/85 border border-amber-500/40 rounded-2xl p-3 shadow-inner">
         <div class="flex justify-between items-center border-b border-amber-500/30 pb-2 mb-2.5">
           <span class="text-xs font-black text-amber-300 tracking-wide flex items-center gap-1">
@@ -981,7 +756,6 @@
         <div id="finish-top10-list" class="space-y-2 overflow-y-auto flex-1 text-xs pr-1"></div>
       </div>
 
-      <!-- CỤM NÚT ĐIỀU KHIỂN 3D -->
       <div class="flex gap-2.5 pt-1">
         <button onclick="launchFireworks()" class="flex-1 btn-3d-fireworks font-black text-xs py-3 rounded-xl cursor-pointer flex items-center justify-center gap-1.5">
           <span>🎇</span> <span>Bắn thêm pháo hoa</span>
@@ -994,186 +768,81 @@
   </div>
 
   <script>
-    // =========================================================================
-    // 1. ĐỘNG CƠ ĐỒ HỌA V37:
-    //    - ẢNH BÌA SỰ KIỆN ĐẠI ĐÔ THỊ HOÀNG KIM 8K (HERO COVER BANNER) & ĐỒNG BỘ MQTT
-    //    - AVATAR MẶC ĐỊNH 3D LUXURY EMBLEM
-    //    - KHUNG AVATAR ĐẾ VƯƠNG ĐA TẦNG (CÀNH NGUYỆT QUẾ + CÁNH 3D + RUY-BĂNG GIỮA ĐÁY)
-    //    - THUẬT TOÁN AI CHROMA-KEY DESPILL TÁCH SẠCH 100% VẾT ĐEN/KHÓI QUANH LOGO
-    // =========================================================================
     let activeTransparentLogoPNG = '';
     let hasCustomLogoLocked = false;
-
     let activeCoverBannerDataUrl = '';
     let hasCustomCoverLocked = false;
 
-    // ẢNH BÌA MẶC ĐỊNH 8K VECTOR KIẾN TRÚC ĐẠI ĐÔ THỊ BĐS HOÀNG KIM (LUXURY SKYLINE & GOLDEN SUN)
+    // ẢNH BÌA MẶC ĐỊNH 8K ĐẠI ĐÔ THỊ BĐS HOÀNG KIM (ĐÃ TĂNG ĐỘ SÁNG RỰC RỠ V38)
     const DEFAULT_LUXURY_COVER_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#03060E"/>
-            <stop offset="42%" stop-color="#0B1528"/>
-            <stop offset="78%" stop-color="#231815"/>
-            <stop offset="100%" stop-color="#0B1120"/>
+            <stop offset="0%" stop-color="#0f1f3d"/><stop offset="45%" stop-color="#1e3a8a"/><stop offset="78%" stop-color="#78350f"/><stop offset="100%" stop-color="#0b1120"/>
           </linearGradient>
-          <radialGradient id="sunGlow" cx="50%" cy="62%" r="48%">
-            <stop offset="0%" stop-color="#FFFBEB" stop-opacity="0.95"/>
-            <stop offset="22%" stop-color="#FDE047" stop-opacity="0.72"/>
-            <stop offset="52%" stop-color="#F59E0B" stop-opacity="0.32"/>
-            <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+          <radialGradient id="sunGlow" cx="50%" cy="58%" r="52%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="28%" stop-color="#FEF08A" stop-opacity="0.88"/><stop offset="60%" stop-color="#F59E0B" stop-opacity="0.45"/><stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
           </radialGradient>
           <linearGradient id="goldTower" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#FEF08A"/>
-            <stop offset="45%" stop-color="#D97706"/>
-            <stop offset="100%" stop-color="#451A03"/>
+            <stop offset="0%" stop-color="#FFFFFF"/><stop offset="35%" stop-color="#FDE047"/><stop offset="75%" stop-color="#D97706"/><stop offset="100%" stop-color="#78350F"/>
           </linearGradient>
           <linearGradient id="darkTower" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1E293B"/>
-            <stop offset="60%" stop-color="#0F172A"/>
-            <stop offset="100%" stop-color="#060A14"/>
-          </linearGradient>
-          <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#F59E0B" stop-opacity="0"/>
-            <stop offset="30%" stop-color="#FDE047" stop-opacity="0.9"/>
-            <stop offset="50%" stop-color="#FFFFFF" stop-opacity="1"/>
-            <stop offset="70%" stop-color="#FDE047" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#334155"/><stop offset="60%" stop-color="#1E293B"/><stop offset="100%" stop-color="#0F172A"/>
           </linearGradient>
         </defs>
-
-        <!-- Nền trời đêm Hoàng Gia -->
         <rect width="960" height="440" fill="url(#skyBg)"/>
-
-        <!-- Hào quang Mặt Trời Hoàng Kim -->
-        <circle cx="480" cy="272" r="245" fill="url(#sunGlow)"/>
-        <circle cx="480" cy="272" r="88" fill="#FEF08A" opacity="0.22"/>
-        <circle cx="480" cy="272" r="135" fill="none" stroke="#FDE047" stroke-width="1.2" stroke-dasharray="6 8" opacity="0.4"/>
-        <circle cx="480" cy="272" r="185" fill="none" stroke="#F59E0B" stroke-width="1" stroke-dasharray="3 10" opacity="0.3"/>
-
-        <!-- Các tia sáng kiến trúc hướng tâm -->
-        <g stroke="#FDE047" stroke-width="0.9" opacity="0.22">
-          <line x1="480" y1="272" x2="120" y2="20"/>
-          <line x1="480" y1="272" x2="280" y2="0"/>
-          <line x1="480" y1="272" x2="480" y2="0"/>
-          <line x1="480" y1="272" x2="680" y2="0"/>
-          <line x1="480" y1="272" x2="840" y2="20"/>
-          <line x1="480" y1="272" x2="40" y2="120"/>
-          <line x1="480" y1="272" x2="920" y2="120"/>
+        <circle cx="480" cy="255" r="270" fill="url(#sunGlow)"/>
+        <circle cx="480" cy="255" r="95" fill="#FFFBEB" opacity="0.35"/>
+        <circle cx="480" cy="255" r="145" fill="none" stroke="#FEF08A" stroke-width="1.5" stroke-dasharray="6 8" opacity="0.6"/>
+        <g fill="#1E293B" opacity="0.9">
+          <rect x="45" y="185" width="48" height="175"/><rect x="102" y="150" width="54" height="210"/><rect x="165" y="200" width="44" height="160"/>
+          <rect x="275" y="135" width="58" height="225"/><rect x="630" y="140" width="56" height="220"/><rect x="755" y="165" width="52" height="195"/>
+          <rect x="820" y="195" width="46" height="165"/><rect x="875" y="175" width="50" height="185"/>
         </g>
-
-        <!-- Quần thể Tòa Tháp Đại Đô Thị BĐS Lớp Xa -->
-        <g fill="#0F172A" opacity="0.85">
-          <rect x="45" y="195" width="48" height="165"/>
-          <rect x="102" y="160" width="54" height="200"/>
-          <rect x="165" y="210" width="44" height="150"/>
-          <rect x="275" y="145" width="58" height="215"/>
-          <rect x="630" y="150" width="56" height="210"/>
-          <rect x="755" y="175" width="52" height="185"/>
-          <rect x="820" y="205" width="46" height="155"/>
-          <rect x="875" y="185" width="50" height="175"/>
+        <g stroke="url(#goldTower)" fill="none" opacity="0.88">
+          <path d="M 0 335 Q 240 280 480 330 T 960 330" stroke-width="3.5"/>
+          <line x1="210" y1="195" x2="210" y2="355" stroke-width="5"/><line x1="740" y1="195" x2="740" y2="355" stroke-width="5"/>
+          <line x1="210" y1="205" x2="115" y2="322" stroke-width="1.2"/><line x1="210" y1="205" x2="310" y2="318" stroke-width="1.2"/>
+          <line x1="740" y1="205" x2="640" y2="318" stroke-width="1.2"/><line x1="740" y1="205" x2="840" y2="322" stroke-width="1.2"/>
         </g>
-
-        <!-- Cầu Dây Văng Nghệ Thuật Băng Qua Đại Đô Thị -->
-        <g stroke="url(#goldTower)" fill="none" opacity="0.72">
-          <path d="M 0 335 Q 240 285 480 330 T 960 330" stroke-width="3"/>
-          <line x1="210" y1="205" x2="210" y2="355" stroke-width="4.5"/>
-          <line x1="740" y1="205" x2="740" y2="355" stroke-width="4.5"/>
-          <line x1="210" y1="215" x2="115" y2="322" stroke-width="1"/>
-          <line x1="210" y1="235" x2="145" y2="320" stroke-width="1"/>
-          <line x1="210" y1="215" x2="310" y2="318" stroke-width="1"/>
-          <line x1="210" y1="235" x2="280" y2="320" stroke-width="1"/>
-          <line x1="740" y1="215" x2="640" y2="318" stroke-width="1"/>
-          <line x1="740" y1="235" x2="670" y2="320" stroke-width="1"/>
-          <line x1="740" y1="215" x2="840" y2="322" stroke-width="1"/>
-          <line x1="740" y1="235" x2="810" y2="320" stroke-width="1"/>
-        </g>
-
-        <!-- Tổ Hợp Tháp Biểu Tượng Trung Tâm (Luxury Iconic Towers) -->
         <g>
-          <!-- Tháp Đôi Art Residence Bên Trái -->
-          <polygon points="338,118 392,92 392,355 338,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2"/>
-          <polygon points="396,138 438,118 438,355 396,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="1.6"/>
-
-          <!-- Tháp Trung Tâm Đỉnh Vương Miện Hoàng Kim -->
-          <polygon points="480,34 492,72 468,72" fill="url(#goldTower)"/>
-          <line x1="480" y1="10" x2="480" y2="36" stroke="#FFFBEB" stroke-width="2.5"/>
-          <rect x="448" y="72" width="64" height="283" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.4"/>
-          <rect x="458" y="82" width="44" height="270" fill="none" stroke="#FDE047" stroke-width="0.9" opacity="0.6"/>
-
-          <!-- Tháp Park Residence Bên Phải -->
-          <polygon points="522,118 564,138 564,355 522,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="1.6"/>
-          <polygon points="568,92 622,118 622,355 568,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2"/>
+          <polygon points="338,110 392,84 392,355 338,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.2"/>
+          <polygon points="396,130 438,110 438,355 396,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="1.8"/>
+          <polygon points="480,26 494,68 466,68" fill="url(#goldTower)"/>
+          <line x1="480" y1="6" x2="480" y2="30" stroke="#FFFFFF" stroke-width="3"/>
+          <rect x="448" y="68" width="64" height="287" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.6"/>
+          <rect x="458" y="78" width="44" height="272" fill="none" stroke="#FEF08A" stroke-width="1.2" opacity="0.75"/>
+          <polygon points="522,110 564,130 564,355 522,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="1.8"/>
+          <polygon points="568,84 622,110 622,355 568,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.2"/>
         </g>
-
-        <!-- Hệ Đèn Led Mặt Dựng Vàng Kim Trên Các Tòa Tháp -->
-        <g stroke="#FDE047" stroke-width="1.4" opacity="0.75">
-          <line x1="352" y1="130" x2="352" y2="340" stroke-dasharray="4 8"/>
-          <line x1="374" y1="115" x2="374" y2="340" stroke-dasharray="6 10"/>
-          <line x1="468" y1="92" x2="468" y2="340" stroke-dasharray="3 7"/>
-          <line x1="480" y1="88" x2="480" y2="340" stroke-dasharray="8 6"/>
-          <line x1="492" y1="92" x2="492" y2="340" stroke-dasharray="3 7"/>
-          <line x1="586" y1="115" x2="586" y2="340" stroke-dasharray="6 10"/>
-          <line x1="608" y1="130" x2="608" y2="340" stroke-dasharray="4 8"/>
-          <line x1="128" y1="175" x2="128" y2="340" stroke-dasharray="3 9"/>
-          <line x1="304" y1="162" x2="304" y2="340" stroke-dasharray="4 8"/>
-          <line x1="658" y1="168" x2="658" y2="340" stroke-dasharray="4 8"/>
-          <line x1="780" y1="190" x2="780" y2="340" stroke-dasharray="3 9"/>
+        <g stroke="#FEF08A" stroke-width="1.8" opacity="0.9">
+          <line x1="352" y1="125" x2="352" y2="340" stroke-dasharray="5 7"/><line x1="374" y1="110" x2="374" y2="340" stroke-dasharray="6 9"/>
+          <line x1="468" y1="88" x2="468" y2="340" stroke-dasharray="4 6"/><line x1="480" y1="82" x2="480" y2="340" stroke-dasharray="8 6"/><line x1="492" y1="88" x2="492" y2="340" stroke-dasharray="4 6"/>
+          <line x1="586" y1="110" x2="586" y2="340" stroke-dasharray="6 9"/><line x1="608" y1="125" x2="608" y2="340" stroke-dasharray="5 7"/>
         </g>
-
-        <!-- Mặt Nước Phản Chiếu Ánh Vàng Kim -->
-        <rect x="0" y="352" width="960" height="88" fill="#060A14"/>
-        <rect x="60" y="351" width="840" height="2.5" fill="url(#goldLine)"/>
-        <g stroke="#F59E0B" opacity="0.45" stroke-linecap="round">
-          <line x1="360" y1="362" x2="600" y2="362" stroke-width="2"/>
-          <line x1="390" y1="370" x2="570" y2="370" stroke-width="1.6"/>
-          <line x1="420" y1="378" x2="540" y2="378" stroke-width="1.2"/>
-          <line x1="220" y1="366" x2="310" y2="366" stroke-width="1.2"/>
-          <line x1="650" y1="366" x2="740" y2="366" stroke-width="1.2"/>
-        </g>
-
-        <!-- Các Ngôi Sao Kim Cương Trên Bầu Trời -->
-        <g fill="#FFFBEB">
-          <circle cx="150" cy="70" r="2" opacity="0.8"/>
-          <circle cx="260" cy="48" r="1.6" opacity="0.6"/>
-          <circle cx="380" cy="42" r="2.2" opacity="0.9"/>
-          <circle cx="585" cy="44" r="2.2" opacity="0.9"/>
-          <circle cx="710" cy="55" r="1.6" opacity="0.65"/>
-          <circle cx="830" cy="76" r="2" opacity="0.8"/>
-        </g>
+        <rect x="0" y="352" width="960" height="88" fill="#090f1d"/>
+        <line x1="40" y1="352" x2="920" y2="352" stroke="#FDE047" stroke-width="2.5"/>
       </svg>
     `);
 
-    // AVATAR MẶC ĐỊNH 3D LUXURY CREST
     const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
         <defs>
           <radialGradient id="admBg" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#1E3A8A"/>
-            <stop offset="65%" stop-color="#0F172A"/>
-            <stop offset="100%" stop-color="#020617"/>
+            <stop offset="0%" stop-color="#1E3A8A"/><stop offset="65%" stop-color="#0F172A"/><stop offset="100%" stop-color="#020617"/>
           </radialGradient>
           <linearGradient id="admGold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="25%" stop-color="#FEF08A"/>
-            <stop offset="55%" stop-color="#F59E0B"/>
-            <stop offset="85%" stop-color="#B45309"/>
-            <stop offset="100%" stop-color="#FDE047"/>
+            <stop offset="0%" stop-color="#FFFFFF"/><stop offset="25%" stop-color="#FEF08A"/><stop offset="55%" stop-color="#F59E0B"/><stop offset="85%" stop-color="#B45309"/><stop offset="100%" stop-color="#FDE047"/>
           </linearGradient>
         </defs>
         <circle cx="80" cy="80" r="80" fill="url(#admBg)"/>
         <circle cx="80" cy="80" r="70" fill="none" stroke="url(#admGold)" stroke-width="2" opacity="0.45"/>
-        <polygon points="80,22 130,80 80,138 30,80" fill="none" stroke="url(#admGold)" stroke-width="1.2" opacity="0.25"/>
         <path d="M42,102 L34,58 L60,76 L80,44 L100,76 L126,58 L118,102 Z" fill="url(#admGold)" stroke="#FFFBEB" stroke-width="2"/>
         <rect x="40" y="106" width="80" height="10" rx="5" fill="url(#admGold)"/>
-        <circle cx="34" cy="52" r="4.5" fill="#FEF08A"/>
-        <circle cx="80" cy="38" r="5.5" fill="#FFFFFF"/>
-        <circle cx="126" cy="52" r="4.5" fill="#FEF08A"/>
-        <circle cx="80" cy="84" r="5" fill="#1E3A8A"/>
+        <circle cx="34" cy="52" r="4.5" fill="#FEF08A"/><circle cx="80" cy="38" r="5.5" fill="#FFFFFF"/><circle cx="126" cy="52" r="4.5" fill="#FEF08A"/>
       </svg>
     `);
 
-    // HÀM QUẢN LÝ, NÉN HD & ĐỒNG BỘ ẢNH BÌA SỰ KIỆN ĐĂNG NHẬP (V37)
     function applyCoverBannerToUI(dataUrl, lockPermanently = false) {
       const coverEl = document.getElementById('login-hero-cover-img');
       if (!dataUrl || dataUrl === 'DEFAULT') {
@@ -1211,27 +880,18 @@
     }
 
     function compressCoverBannerHD(imgElement, callback) {
-      const targetW = 900;
-      const targetH = 420;
+      const targetW = 900, targetH = 420;
       const canvas = document.createElement('canvas');
-      canvas.width = targetW;
-      canvas.height = targetH;
+      canvas.width = targetW; canvas.height = targetH;
       const ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      // Căn chỉnh tỷ lệ Panorama 16:9 tràn viền thông minh (Center Cover Crop)
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
       const scale = Math.max(targetW / imgElement.width, targetH / imgElement.height);
-      const drawW = imgElement.width * scale;
-      const drawH = imgElement.height * scale;
-      const offsetX = (targetW - drawW) / 2;
-      const offsetY = (targetH - drawH) / 2;
-
+      const drawW = imgElement.width * scale, drawH = imgElement.height * scale;
+      const offsetX = (targetW - drawW) / 2, offsetY = (targetH - drawH) / 2;
       ctx.fillStyle = '#0b1120';
       ctx.fillRect(0, 0, targetW, targetH);
       ctx.drawImage(imgElement, offsetX, offsetY, drawW, drawH);
-
-      let quality = 0.84;
+      let quality = 0.85;
       let dataUrl = canvas.toDataURL('image/jpeg', quality);
       while (dataUrl.length > 185000 && quality > 0.58) {
         quality -= 0.06;
@@ -1243,10 +903,9 @@
     function handleCustomCoverUpload(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
-      if (!file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh (JPG, PNG, WEBP...)!");
+      if (!file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
       const statusEl = document.getElementById('cover-sync-status');
       if (statusEl) statusEl.innerText = "⏳ Đang tối ưu HD...";
-
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
@@ -1254,7 +913,7 @@
           compressCoverBannerHD(img, (hdCoverDataUrl) => {
             saveCustomCoverPermanently(hdCoverDataUrl);
             forceBroadcastCoverNow(false);
-            alert("🏞️ Đã nạp Ảnh Bìa Sự Kiện Đăng Nhập thành công và tự động đồng bộ sang toàn bộ điện thoại thí sinh!");
+            alert("🏞️ Đã nạp Ảnh Bìa Đăng Nhập thành công và đồng bộ sang toàn bộ điện thoại thí sinh!");
           });
         };
         img.src = e.target.result;
@@ -1264,19 +923,9 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v37', {
-        type: 'SYNC_COVER_BANNER',
-        id: 'admin',
-        coverImg: payloadImg
-      }, true);
-      publishPacket('events', {
-        type: 'FORCE_SYNC_COVER',
-        id: 'admin',
-        coverImg: payloadImg
-      }, false);
-      if (showNotification) {
-        alert("📡 Đã đồng bộ Ảnh Bìa Đăng Nhập sang toàn bộ máy tính và điện thoại!");
-      }
+      publishPacket('state/cover_v37', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
+      if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa Đăng Nhập sang toàn bộ máy tính và điện thoại!");
     }
 
     function resetToDefaultCoverBanner() {
@@ -1284,129 +933,40 @@
       forceBroadcastCoverNow(false);
     }
 
-    // KHUNG AVATAR ĐẾ VƯƠNG ĐA TẦNG (MULTI-LAYER 3D IMPERIAL LAUREL & WINGS + RUY-BĂNG CHÍNH GIỮA ĐÁY)
     function renderImperialPrestigeAvatarFrameHTML(avatarUrl, rank = 1) {
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
       const boxSizeClass = isTop1 ? "w-[96px] h-[96px]" : "w-[80px] h-[80px]";
       const imgSizeClass = isTop1 ? "w-[56px] h-[56px]" : "w-[46px] h-[46px]";
+      const gradId = `impGrad_${rank}`, darkId = `impDark_${rank}`, ribId = `impRib_${rank}`;
 
-      const gradId = `impGrad_${rank}`;
-      const darkId = `impDark_${rank}`;
-      const ribId = `impRib_${rank}`;
-
-      let stopsMain = '';
-      let stopsDark = '';
-      let stopsRib = '';
-      let gemColor = '';
-      let auraGlowClass = '';
-
+      let stopsMain = '', stopsDark = '', stopsRib = '', gemColor = '', auraGlowClass = '';
       if (rank === 1) {
-        stopsMain = `
-          <stop offset="0%" stop-color="#FFFFFF"/>
-          <stop offset="20%" stop-color="#FEF08A"/>
-          <stop offset="50%" stop-color="#F59E0B"/>
-          <stop offset="82%" stop-color="#92400E"/>
-          <stop offset="100%" stop-color="#FDE047"/>
-        `;
-        stopsDark = `
-          <stop offset="0%" stop-color="#FDE047"/>
-          <stop offset="60%" stop-color="#B45309"/>
-          <stop offset="100%" stop-color="#451A03"/>
-        `;
-        stopsRib = `
-          <stop offset="0%" stop-color="#991B1B"/>
-          <stop offset="50%" stop-color="#EF4444"/>
-          <stop offset="100%" stop-color="#991B1B"/>
-        `;
-        gemColor = '#EF4444';
-        auraGlowClass = 'bg-amber-400/40';
+        stopsMain = `<stop offset="0%" stop-color="#FFFFFF"/><stop offset="20%" stop-color="#FEF08A"/><stop offset="50%" stop-color="#F59E0B"/><stop offset="82%" stop-color="#92400E"/><stop offset="100%" stop-color="#FDE047"/>`;
+        stopsDark = `<stop offset="0%" stop-color="#FDE047"/><stop offset="60%" stop-color="#B45309"/><stop offset="100%" stop-color="#451A03"/>`;
+        stopsRib = `<stop offset="0%" stop-color="#991B1B"/><stop offset="50%" stop-color="#EF4444"/><stop offset="100%" stop-color="#991B1B"/>`;
+        gemColor = '#EF4444'; auraGlowClass = 'bg-amber-400/40';
       } else if (rank === 2) {
-        stopsMain = `
-          <stop offset="0%" stop-color="#FFFFFF"/>
-          <stop offset="25%" stop-color="#E2E8F0"/>
-          <stop offset="55%" stop-color="#94A3B8"/>
-          <stop offset="85%" stop-color="#334155"/>
-          <stop offset="100%" stop-color="#F8FAFC"/>
-        `;
-        stopsDark = `
-          <stop offset="0%" stop-color="#CBD5E1"/>
-          <stop offset="60%" stop-color="#475569"/>
-          <stop offset="100%" stop-color="#0F172A"/>
-        `;
-        stopsRib = `
-          <stop offset="0%" stop-color="#1E3A8A"/>
-          <stop offset="50%" stop-color="#2563EB"/>
-          <stop offset="100%" stop-color="#1E3A8A"/>
-        `;
-        gemColor = '#38BDF8';
-        auraGlowClass = 'bg-sky-400/30';
+        stopsMain = `<stop offset="0%" stop-color="#FFFFFF"/><stop offset="25%" stop-color="#E2E8F0"/><stop offset="55%" stop-color="#94A3B8"/><stop offset="85%" stop-color="#334155"/><stop offset="100%" stop-color="#F8FAFC"/>`;
+        stopsDark = `<stop offset="0%" stop-color="#CBD5E1"/><stop offset="60%" stop-color="#475569"/><stop offset="100%" stop-color="#0F172A"/>`;
+        stopsRib = `<stop offset="0%" stop-color="#1E3A8A"/><stop offset="50%" stop-color="#2563EB"/><stop offset="100%" stop-color="#1E3A8A"/>`;
+        gemColor = '#38BDF8'; auraGlowClass = 'bg-sky-400/30';
       } else {
-        stopsMain = `
-          <stop offset="0%" stop-color="#FFF7ED"/>
-          <stop offset="25%" stop-color="#FDBA74"/>
-          <stop offset="55%" stop-color="#EA580C"/>
-          <stop offset="85%" stop-color="#7C2D12"/>
-          <stop offset="100%" stop-color="#FED7AA"/>
-        `;
-        stopsDark = `
-          <stop offset="0%" stop-color="#FDBA74"/>
-          <stop offset="60%" stop-color="#9A3412"/>
-          <stop offset="100%" stop-color="#431407"/>
-        `;
-        stopsRib = `
-          <stop offset="0%" stop-color="#7C2D12"/>
-          <stop offset="50%" stop-color="#D97706"/>
-          <stop offset="100%" stop-color="#7C2D12"/>
-        `;
-        gemColor = '#F97316';
-        auraGlowClass = 'bg-orange-500/25';
+        stopsMain = `<stop offset="0%" stop-color="#FFF7ED"/><stop offset="25%" stop-color="#FDBA74"/><stop offset="55%" stop-color="#EA580C"/><stop offset="85%" stop-color="#7C2D12"/><stop offset="100%" stop-color="#FED7AA"/>`;
+        stopsDark = `<stop offset="0%" stop-color="#FDBA74"/><stop offset="60%" stop-color="#9A3412"/><stop offset="100%" stop-color="#431407"/>`;
+        stopsRib = `<stop offset="0%" stop-color="#7C2D12"/><stop offset="50%" stop-color="#D97706"/><stop offset="100%" stop-color="#7C2D12"/>`;
+        gemColor = '#F97316'; auraGlowClass = 'bg-orange-500/25';
       }
 
-      const wingsSVG = isTop1 ? `
-        <g>
-          <path d="M24,84 C4,72 2,48 16,30 C16,46 22,58 32,68 Z" fill="url(#${gradId})" stroke="#FFFBEB" stroke-width="0.9"/>
-          <path d="M28,96 C8,88 4,68 14,52 C16,66 24,76 34,84 Z" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.7"/>
-          <path d="M136,84 C156,72 158,48 144,30 C144,46 138,58 128,68 Z" fill="url(#${gradId})" stroke="#FFFBEB" stroke-width="0.9"/>
-          <path d="M132,96 C152,88 156,68 146,52 C144,66 136,76 126,84 Z" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.7"/>
-        </g>
-      ` : `
-        <g>
-          <path d="M26,86 C10,74 10,54 22,40 C20,54 24,66 32,74 Z" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.7"/>
-          <path d="M134,86 C150,74 150,54 138,40 C140,54 136,66 128,74 Z" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.7"/>
-        </g>
-      `;
+      const wingsSVG = isTop1
+        ? `<g><path d="M24,84 C4,72 2,48 16,30 C16,46 22,58 32,68 Z" fill="url(#${gradId})" stroke="#FFFBEB" stroke-width="0.9"/><path d="M28,96 C8,88 4,68 14,52 C16,66 24,76 34,84 Z" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.7"/><path d="M136,84 C156,72 158,48 144,30 C144,46 138,58 128,68 Z" fill="url(#${gradId})" stroke="#FFFBEB" stroke-width="0.9"/><path d="M132,96 C152,88 156,68 146,52 C144,66 136,76 126,84 Z" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.7"/></g>`
+        : `<g><path d="M26,86 C10,74 10,54 22,40 C20,54 24,66 32,74 Z" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.7"/><path d="M134,86 C150,74 150,54 138,40 C140,54 136,66 128,74 Z" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="0.7"/></g>`;
 
-      const laurelSVG = `
-        <g stroke="url(#${gradId})" stroke-width="1.5" fill="url(#${gradId})">
-          <path d="M36,112 C24,96 22,74 30,54 C28,74 32,92 42,106 Z"/>
-          <path d="M124,112 C136,96 138,74 130,54 C132,74 128,92 118,106 Z"/>
-          <ellipse cx="27" cy="86" rx="3.5" ry="7" transform="rotate(-25 27 86)"/>
-          <ellipse cx="27" cy="68" rx="3.5" ry="7" transform="rotate(-10 27 68)"/>
-          <ellipse cx="32" cy="52" rx="3.2" ry="6.5" transform="rotate(12 32 52)"/>
-          <ellipse cx="133" cy="86" rx="3.5" ry="7" transform="rotate(25 133 86)"/>
-          <ellipse cx="133" cy="68" rx="3.5" ry="7" transform="rotate(10 133 68)"/>
-          <ellipse cx="128" cy="52" rx="3.2" ry="6.5" transform="rotate(-12 128 52)"/>
-        </g>
-      `;
+      const laurelSVG = `<g stroke="url(#${gradId})" stroke-width="1.5" fill="url(#${gradId})"><path d="M36,112 C24,96 22,74 30,54 C28,74 32,92 42,106 Z"/><path d="M124,112 C136,96 138,74 130,54 C132,74 128,92 118,106 Z"/><ellipse cx="27" cy="86" rx="3.5" ry="7" transform="rotate(-25 27 86)"/><ellipse cx="27" cy="68" rx="3.5" ry="7" transform="rotate(-10 27 68)"/><ellipse cx="32" cy="52" rx="3.2" ry="6.5" transform="rotate(12 32 52)"/><ellipse cx="133" cy="86" rx="3.5" ry="7" transform="rotate(25 133 86)"/><ellipse cx="133" cy="68" rx="3.5" ry="7" transform="rotate(10 133 68)"/><ellipse cx="128" cy="52" rx="3.2" ry="6.5" transform="rotate(-12 128 52)"/></g>`;
 
-      const crownSVG = isTop1 ? `
-        <g>
-          <polygon points="52,32 45,12 64,22 80,4 96,22 115,12 108,32" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1.2"/>
-          <rect x="52" y="31" width="56" height="5.5" rx="2.5" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.9"/>
-          <circle cx="80" cy="4" r="3" fill="#FFFFFF"/>
-          <circle cx="45" cy="11" r="2.2" fill="#FEF08A"/>
-          <circle cx="115" cy="11" r="2.2" fill="#FEF08A"/>
-          <circle cx="80" cy="24" r="2.8" fill="${gemColor}" stroke="#FFFFFF" stroke-width="0.7"/>
-        </g>
-      ` : `
-        <g>
-          <polygon points="58,33 54,18 68,25 80,11 92,25 106,18 102,33" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1"/>
-          <rect x="58" y="32" width="44" height="4.5" rx="2" fill="url(#${darkId})"/>
-          <circle cx="80" cy="11" r="2.2" fill="#FFFFFF"/>
-          <circle cx="80" cy="26" r="2.2" fill="${gemColor}"/>
-        </g>
-      `;
+      const crownSVG = isTop1
+        ? `<g><polygon points="52,32 45,12 64,22 80,4 96,22 115,12 108,32" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1.2"/><rect x="52" y="31" width="56" height="5.5" rx="2.5" fill="url(#${darkId})" stroke="#FEF08A" stroke-width="0.9"/><circle cx="80" cy="4" r="3" fill="#FFFFFF"/><circle cx="45" cy="11" r="2.2" fill="#FEF08A"/><circle cx="115" cy="11" r="2.2" fill="#FEF08A"/><circle cx="80" cy="24" r="2.8" fill="${gemColor}" stroke="#FFFFFF" stroke-width="0.7"/></g>`
+        : `<g><polygon points="58,33 54,18 68,25 80,11 92,25 106,18 102,33" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1"/><rect x="58" y="32" width="44" height="4.5" rx="2" fill="url(#${darkId})"/><circle cx="80" cy="11" r="2.2" fill="#FFFFFF"/><circle cx="80" cy="26" r="2.2" fill="${gemColor}"/></g>`;
 
       return `
         <div class="relative ${boxSizeClass} flex items-center justify-center shrink-0 select-none">
@@ -1419,20 +979,14 @@
               <linearGradient id="${darkId}" x1="0" y1="0" x2="0" y2="1">${stopsDark}</linearGradient>
               <linearGradient id="${ribId}" x1="0" y1="0" x2="1" y2="0">${stopsRib}</linearGradient>
             </defs>
-
-            ${wingsSVG}
-            ${laurelSVG}
-
+            ${wingsSVG}${laurelSVG}
             <circle cx="80" cy="82" r="48" stroke="url(#${darkId})" stroke-width="8"/>
             <circle cx="80" cy="82" r="48" stroke="url(#${gradId})" stroke-width="5.5"/>
             <circle cx="80" cy="82" r="44" stroke="#090D16" stroke-width="2.2"/>
             <circle cx="80" cy="82" r="42.5" stroke="#FFFFFF" stroke-width="1" opacity="0.85"/>
-
             <polygon points="32,82 36,78 40,82 36,86" fill="#FFFFFF" stroke="url(#${darkId})" stroke-width="1"/>
             <polygon points="128,82 124,78 120,82 124,86" fill="#FFFFFF" stroke="url(#${darkId})" stroke-width="1"/>
-
             ${crownSVG}
-
             <g>
               <path d="M40,126 L120,126 L114,144 C96,148 64,148 46,144 Z" fill="url(#${ribId})" stroke="url(#${gradId})" stroke-width="2"/>
               <polygon points="80,114 96,122 92,148 80,155 68,148 64,122" fill="url(#${gradId})" stroke="#FFFFFF" stroke-width="1.3"/>
@@ -1444,88 +998,46 @@
       `;
     }
 
-    // HUY HIỆU VECTOR 3D LUXURY MẶC ĐỊNH (TRONG SUỐT 100%, KHÔNG BAO GIỜ CÓ VẾT ĐEN)
     function renderClean8KEmblemIfNone() {
       if (hasCustomLogoLocked || activeTransparentLogoPNG) return;
       const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="780" viewBox="0 0 420 340">
         <defs>
-          <linearGradient id="v36Gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="20%" stop-color="#FEF08A"/>
-            <stop offset="48%" stop-color="#F59E0B"/>
-            <stop offset="78%" stop-color="#B45309"/>
-            <stop offset="100%" stop-color="#FDE047"/>
-          </linearGradient>
-          <linearGradient id="v36GoldDark" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#FDE047"/>
-            <stop offset="55%" stop-color="#D97706"/>
-            <stop offset="100%" stop-color="#78350F"/>
-          </linearGradient>
-          <radialGradient id="v36ShieldCore" cx="50%" cy="38%" r="58%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="30%" stop-color="#FEF08A"/>
-            <stop offset="68%" stop-color="#F59E0B"/>
-            <stop offset="100%" stop-color="#92400E"/>
-          </radialGradient>
-          <radialGradient id="v36NavyCore" cx="50%" cy="45%" r="55%">
-            <stop offset="0%" stop-color="#1E3A8A"/>
-            <stop offset="65%" stop-color="#0F172A"/>
-            <stop offset="100%" stop-color="#060A14"/>
-          </radialGradient>
-          <linearGradient id="v36RoyalRibbon" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#1E3A8A"/>
-            <stop offset="25%" stop-color="#2563EB"/>
-            <stop offset="50%" stop-color="#60A5FA"/>
-            <stop offset="75%" stop-color="#2563EB"/>
-            <stop offset="100%" stop-color="#1E3A8A"/>
-          </linearGradient>
-          <linearGradient id="v36RoyalText" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#E0F2FE"/>
-            <stop offset="35%" stop-color="#3B82F6"/>
-            <stop offset="85%" stop-color="#1D4ED8"/>
-            <stop offset="100%" stop-color="#1E3A8A"/>
-          </linearGradient>
+          <linearGradient id="v36Gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="20%" stop-color="#FEF08A"/><stop offset="48%" stop-color="#F59E0B"/><stop offset="78%" stop-color="#B45309"/><stop offset="100%" stop-color="#FDE047"/></linearGradient>
+          <linearGradient id="v36GoldDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FDE047"/><stop offset="55%" stop-color="#D97706"/><stop offset="100%" stop-color="#78350F"/></linearGradient>
+          <radialGradient id="v36ShieldCore" cx="50%" cy="38%" r="58%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="30%" stop-color="#FEF08A"/><stop offset="68%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#92400E"/></radialGradient>
+          <radialGradient id="v36NavyCore" cx="50%" cy="45%" r="55%"><stop offset="0%" stop-color="#1E3A8A"/><stop offset="65%" stop-color="#0F172A"/><stop offset="100%" stop-color="#060A14"/></radialGradient>
+          <linearGradient id="v36RoyalRibbon" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1E3A8A"/><stop offset="25%" stop-color="#2563EB"/><stop offset="50%" stop-color="#60A5FA"/><stop offset="75%" stop-color="#2563EB"/><stop offset="100%" stop-color="#1E3A8A"/></linearGradient>
+          <linearGradient id="v36RoyalText" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E0F2FE"/><stop offset="35%" stop-color="#3B82F6"/><stop offset="85%" stop-color="#1D4ED8"/><stop offset="100%" stop-color="#1E3A8A"/></linearGradient>
         </defs>
-
         <g>
           <path d="M110,136 C54,116 28,84 26,48 C54,64 84,82 122,102 Z" fill="url(#v36Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
           <path d="M102,158 C46,144 20,116 16,84 C46,96 76,112 112,130 Z" fill="url(#v36GoldDark)" stroke="#FEF08A" stroke-width="1"/>
           <path d="M310,136 C366,116 392,84 394,48 C366,64 336,82 298,102 Z" fill="url(#v36Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
           <path d="M318,158 C374,144 400,116 404,84 C374,96 344,112 308,130 Z" fill="url(#v36GoldDark)" stroke="#FEF08A" stroke-width="1"/>
         </g>
-
         <circle cx="210" cy="192" r="112" fill="url(#v36NavyCore)" stroke="url(#v36Gold)" stroke-width="7"/>
         <circle cx="210" cy="192" r="102" fill="none" stroke="#38BDF8" stroke-width="2" stroke-dasharray="6 4" opacity="0.85"/>
         <circle cx="210" cy="192" r="95" fill="none" stroke="url(#v36Gold)" stroke-width="1.8" opacity="0.75"/>
-
         <g>
           <path d="M135,118 C75,94 26,110 18,146 C12,172 58,182 46,204 L10,214 L32,184 L12,162 C44,150 76,154 135,138 Z" fill="url(#v36RoyalRibbon)" stroke="url(#v36Gold)" stroke-width="3.2"/>
           <path d="M285,118 C345,94 394,110 402,146 C408,172 362,182 374,204 L410,214 L388,184 L408,162 C376,150 344,154 285,138 Z" fill="url(#v36RoyalRibbon)" stroke="url(#v36Gold)" stroke-width="3.2"/>
         </g>
-
         <g>
           <polygon points="164,58 152,24 180,40 194,14 210,36 226,14 240,40 268,24 256,58" fill="url(#v36Gold)" stroke="#FFFFFF" stroke-width="1.5"/>
-          <circle cx="152" cy="20" r="3.5" fill="#FEF08A"/>
-          <circle cx="194" cy="10" r="4" fill="#FFFFFF"/>
-          <circle cx="226" cy="10" r="4" fill="#FFFFFF"/>
-          <circle cx="268" cy="20" r="3.5" fill="#FEF08A"/>
+          <circle cx="152" cy="20" r="3.5" fill="#FEF08A"/><circle cx="194" cy="10" r="4" fill="#FFFFFF"/><circle cx="226" cy="10" r="4" fill="#FFFFFF"/><circle cx="268" cy="20" r="3.5" fill="#FEF08A"/>
           <rect x="162" y="56" width="96" height="9" rx="4.5" fill="url(#v36GoldDark)" stroke="#FEF08A" stroke-width="1.2"/>
         </g>
-
         <g>
           <path d="M210,66 L282,82 L273,138 C266,175 210,195 210,195 C210,195 154,175 147,138 L138,82 Z" fill="url(#v36Gold)" stroke="#FFFFFF" stroke-width="2.5"/>
           <path d="M210,74 L272,88 L264,135 C258,166 210,184 210,184 C210,184 162,166 156,135 L148,88 Z" fill="url(#v36ShieldCore)" stroke="#1E3A8A" stroke-width="5.5"/>
           <text x="210" y="152" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="68" fill="url(#v36RoyalText)" stroke="url(#v36Gold)" stroke-width="3.5">10</text>
         </g>
-
         <g>
           <text x="210" y="232" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="46" fill="#451A03" dy="4">THẬP ĐẠI</text>
           <text x="210" y="232" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="46" fill="url(#v36RoyalText)" stroke="url(#v36Gold)" stroke-width="3">THẬP ĐẠI</text>
-
           <text x="210" y="276" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="36" fill="#451A03" dy="3.5">★ THẦN TỐC ★</text>
           <text x="210" y="276" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="36" fill="url(#v36RoyalText)" stroke="url(#v36Gold)" stroke-width="2.6">★ THẦN TỐC ★</text>
         </g>
-
         <polygon points="210,288 217,303 233,303 220,312 225,328 210,318 195,328 200,312 187,303 203,303" fill="url(#v36Gold)" stroke="#FFFBEB" stroke-width="1.2"/>
       </svg>`;
 
@@ -1535,11 +1047,9 @@
       img.onload = function() {
         if (hasCustomLogoLocked) { URL.revokeObjectURL(url); return; }
         const canvas = document.createElement('canvas');
-        canvas.width = 860;
-        canvas.height = 696;
+        canvas.width = 860; canvas.height = 696;
         const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
+        ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, 0, 0, 860, 696);
         URL.revokeObjectURL(url);
         if (!hasCustomLogoLocked && !activeTransparentLogoPNG) {
@@ -1552,90 +1062,57 @@
       img.src = url;
     }
 
-    // THUẬT TOÁN AI CHROMA-KEY DESPILL: Khử sạch 100% lớp khói đen/xám/nâu quanh vương miện và ruy-băng
     function process8KLogoLossless(imgElement, callback) {
       const workCanvas = document.createElement('canvas');
       const maxNativeDim = 1024;
       const scale = Math.min(1, maxNativeDim / Math.max(imgElement.width, imgElement.height));
-      const W = Math.round(imgElement.width * scale);
-      const H = Math.round(imgElement.height * scale);
-      workCanvas.width = W;
-      workCanvas.height = H;
+      const W = Math.round(imgElement.width * scale), H = Math.round(imgElement.height * scale);
+      workCanvas.width = W; workCanvas.height = H;
       const ctx = workCanvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(imgElement, 0, 0, W, H);
-
       const imgData = ctx.getImageData(0, 0, W, H);
       const data = imgData.data;
 
       let transparentCorners = 0;
-      const cornerCoords = [0, (W - 1) * 4, (H - 1) * W * 4, ((H - 1) * W + (W - 1)) * 4];
-      cornerCoords.forEach(cIdx => { if (data[cIdx + 3] < 25) transparentCorners++; });
-      if (transparentCorners >= 3) {
-        callback(workCanvas.toDataURL('image/png'));
-        return;
-      }
+      [0, (W - 1) * 4, (H - 1) * W * 4, ((H - 1) * W + (W - 1)) * 4].forEach(cIdx => { if (data[cIdx + 3] < 25) transparentCorners++; });
+      if (transparentCorners >= 3) { callback(workCanvas.toDataURL('image/png')); return; }
 
       function isInsideSolidEmblemShield(nx, ny) {
-        const dx = (nx - 0.50) / 0.255;
-        const dy = (ny - 0.575) / 0.245;
+        const dx = (nx - 0.50) / 0.255, dy = (ny - 0.575) / 0.245;
         if (dx * dx + dy * dy <= 1.0) return true;
         if (Math.abs(nx - 0.50) <= 0.13 && ny >= 0.22 && ny <= 0.52) return true;
         return false;
       }
 
       const alphaMap = new Float32Array(W * H);
-
       for (let y = 0; y < H; y++) {
         const ny = y / H;
         for (let x = 0; x < W; x++) {
-          const nx = x / W;
-          const pos = y * W + x;
-          const idx = pos * 4;
-
+          const nx = x / W, pos = y * W + x, idx = pos * 4;
           const distFromCenter = Math.hypot((nx - 0.50) / 0.45, (ny - 0.50) / 0.45);
-          if (ny < 0.055 || ny > 0.892 || distFromCenter > 1.0 || (nx > 0.85 && ny > 0.85)) {
-            alphaMap[pos] = 0;
-            continue;
-          }
-
-          if (isInsideSolidEmblemShield(nx, ny)) {
-            alphaMap[pos] = 1.0;
-            continue;
-          }
-
+          if (ny < 0.055 || ny > 0.892 || distFromCenter > 1.0 || (nx > 0.85 && ny > 0.85)) { alphaMap[pos] = 0; continue; }
+          if (isInsideSolidEmblemShield(nx, ny)) { alphaMap[pos] = 1.0; continue; }
           const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-          const maxC = Math.max(r, g, b);
-          const minC = Math.min(r, g, b);
-          const sat = maxC - minC;
+          const sat = Math.max(r, g, b) - Math.min(r, g, b);
           const luma = 0.299 * r + 0.587 * g + 0.114 * b;
-
           const isTrueGold = (r > b + 32) && (g > b + 12) && (r >= 95) && (sat >= 38);
           const isTrueRoyalBlue = (b > r + 28) && (b >= 88) && (sat >= 38) && (ny >= 0.22 && ny <= 0.72);
           const isTrueHighlight = (luma >= 185) && (distFromCenter <= 0.86);
-
-          if (!isTrueGold && !isTrueRoyalBlue && !isTrueHighlight) {
-            alphaMap[pos] = 0;
-          } else {
-            const strength = Math.min(1.0, Math.max((luma - 52) / 55, (sat - 35) / 50));
-            alphaMap[pos] = strength < 0.22 ? 0 : strength;
-          }
+          if (!isTrueGold && !isTrueRoyalBlue && !isTrueHighlight) { alphaMap[pos] = 0; }
+          else { const strength = Math.min(1.0, Math.max((luma - 52) / 55, (sat - 35) / 50)); alphaMap[pos] = strength < 0.22 ? 0 : strength; }
         }
       }
 
       let minX = W, minY = H, maxX = 0, maxY = 0;
       for (let y = 1; y < H - 1; y++) {
         for (let x = 1; x < W - 1; x++) {
-          const pos = y * W + x;
-          const idx = pos * 4;
+          const pos = y * W + x, idx = pos * 4;
           let a = alphaMap[pos];
-
           if (a > 0 && a < 1.0) {
             const nSum = alphaMap[pos - 1] + alphaMap[pos + 1] + alphaMap[pos - W] + alphaMap[pos + W];
-            if (nSum < 0.6) {
-              a = 0;
-            } else {
+            if (nSum < 0.6) { a = 0; }
+            else {
               a = (a * 2 + nSum * 0.5) / 4;
               const boost = Math.min(1.35, 1 / Math.max(0.45, a));
               data[idx] = Math.min(255, Math.round(data[idx] * boost));
@@ -1643,39 +1120,27 @@
               data[idx + 2] = Math.min(255, Math.round(data[idx + 2] * boost));
             }
           }
-
           const finalAlpha = Math.round(Math.min(1, Math.max(0, a)) * 255);
           data[idx + 3] = finalAlpha;
-
           if (finalAlpha > 25) {
-            if (x < minX) minX = x;
-            if (x > maxX) maxX = x;
-            if (y < minY) minY = y;
-            if (y > maxY) maxY = y;
+            if (x < minX) minX = x; if (x > maxX) maxX = x;
+            if (y < minY) minY = y; if (y > maxY) maxY = y;
           }
         }
       }
 
       ctx.putImageData(imgData, 0, 0);
-
       if (maxX <= minX || maxY <= minY) { minX = 0; minY = 0; maxX = W - 1; maxY = H - 1; }
       const pad = 10;
-      const cropX = Math.max(0, minX - pad);
-      const cropY = Math.max(0, minY - pad);
-      const cropW = Math.min(W - cropX, (maxX - minX + 1) + pad * 2);
-      const cropH = Math.min(H - cropY, (maxY - minY + 1) + pad * 2);
-
+      const cropX = Math.max(0, minX - pad), cropY = Math.max(0, minY - pad);
+      const cropW = Math.min(W - cropX, (maxX - minX + 1) + pad * 2), cropH = Math.min(H - cropY, (maxY - minY + 1) + pad * 2);
       const outCanvas = document.createElement('canvas');
-      const outMax = 880;
-      const outScale = Math.min(1, outMax / Math.max(cropW, cropH));
-      outCanvas.width = Math.round(cropW * outScale);
-      outCanvas.height = Math.round(cropH * outScale);
+      const outScale = Math.min(1, 880 / Math.max(cropW, cropH));
+      outCanvas.width = Math.round(cropW * outScale); outCanvas.height = Math.round(cropH * outScale);
       const outCtx = outCanvas.getContext('2d');
-      outCtx.imageSmoothingEnabled = true;
-      outCtx.imageSmoothingQuality = 'high';
+      outCtx.imageSmoothingEnabled = true; outCtx.imageSmoothingQuality = 'high';
       outCtx.clearRect(0, 0, outCanvas.width, outCanvas.height);
       outCtx.drawImage(workCanvas, cropX, cropY, cropW, cropH, 0, 0, outCanvas.width, outCanvas.height);
-
       callback(outCanvas.toDataURL('image/png'));
     }
 
@@ -1712,19 +1177,9 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       if (!activeTransparentLogoPNG) return;
-      publishPacket('state/logo_v36', {
-        type: 'SYNC_LOGO_PNG',
-        id: 'admin',
-        logoPng: activeTransparentLogoPNG
-      }, true);
-      publishPacket('events', {
-        type: 'FORCE_SYNC_LOGO',
-        id: 'admin',
-        logoPng: activeTransparentLogoPNG
-      }, false);
-      if (showNotification) {
-        alert("📡 Đã đồng bộ Logo 8K sạch nền sang toàn bộ máy tính và điện thoại!");
-      }
+      publishPacket('state/logo_v36', { type: 'SYNC_LOGO_PNG', id: 'admin', logoPng: activeTransparentLogoPNG }, true);
+      publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoPng: activeTransparentLogoPNG }, false);
+      if (showNotification) alert("📡 Đã đồng bộ Logo 8K sạch nền sang toàn bộ máy tính và điện thoại!");
     }
 
     function handleCustomLogoUpload(event) {
@@ -1732,7 +1187,6 @@
       if (!file) return;
       const statusEl = document.getElementById('logo-sync-status');
       if (statusEl) statusEl.innerText = "⏳ Đang khử nền đen...";
-
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
@@ -1753,13 +1207,10 @@
       if (!activeTransparentLogoPNG) return alert("Đang khởi tạo ảnh PNG 8K...");
       const a = document.createElement('a');
       a.href = activeTransparentLogoPNG;
-      a.download = 'Logo-10-Thap-Dai-Than-Toc-V37-Sach-Nen.png';
+      a.download = 'Logo-10-Thap-Dai-Than-Toc-V38-Sach-Nen.png';
       a.click();
     }
 
-    // =========================================================================
-    // 2. BẢO MẬT ĐÁP ÁN CHỐNG F12 & LƯU TRỮ 4 TẦNG (V37)
-    // =========================================================================
     const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V21";
     const clientRateLimits = {};
     let adminActiveSecret = null;
@@ -1903,9 +1354,7 @@
       } catch (e) {}
     }
 
-    // Khởi tạo Ảnh Bìa V37 & Logo V36
-    (function initMasterAssetsV37() {
-      // 1. Khởi tạo Ảnh Bìa Sự Kiện (Hero Cover Banner)
+    (function initMasterAssetsV38() {
       let savedCoverV37 = null;
       try { savedCoverV37 = localStorage.getItem('fh_master_cover_v37'); } catch (e) {}
       if (savedCoverV37 && savedCoverV37.startsWith('data:image/')) {
@@ -1914,7 +1363,6 @@
         applyCoverBannerToUI('DEFAULT', false);
       }
 
-      // 2. Khởi tạo Logo Thập Đại Thần Tốc Sạch Nền 100%
       try {
         localStorage.removeItem('fh_master_logo_v32');
         localStorage.removeItem('fh_master_logo_v35');
@@ -1951,6 +1399,8 @@
       const avtSec = document.getElementById('auth-avatar-section');
       const logHint = document.getElementById('auth-login-hint');
       const submitText = document.getElementById('btn-submit-text');
+      const alertBox = document.getElementById('avatar-missing-alert');
+      if (alertBox) alertBox.classList.add('hidden');
 
       if (mode === 'register') {
         btnReg.className = "py-2 rounded-xl text-[11px] font-black btn-exec-gold-tab cursor-pointer transition-all";
@@ -1967,7 +1417,6 @@
       }
     }
 
-    // XỬ LÝ ĐỒ HỌA 4K CHO ẢNH ĐẠI DIỆN
     let tempUploadedAvatar = '';
     let rawSourceImage = null;
     let cropScale = 1, cropBaseScale = 1, cropOffsetX = 0, cropOffsetY = 0, isDraggingCrop = false, dragStartX = 0, dragStartY = 0;
@@ -2107,11 +1556,9 @@
       if (!rawSourceImage) return;
       const outCanvas = document.createElement('canvas');
       const outSize = 220;
-      outCanvas.width = outSize;
-      outCanvas.height = outSize;
+      outCanvas.width = outSize; outCanvas.height = outSize;
       const outCtx = outCanvas.getContext('2d');
-      outCtx.imageSmoothingEnabled = true;
-      outCtx.imageSmoothingQuality = 'high';
+      outCtx.imageSmoothingEnabled = true; outCtx.imageSmoothingQuality = 'high';
       const totalScale = cropBaseScale * cropScale;
       const sx = (36 - cropOffsetX) / totalScale, sy = (36 - cropOffsetY) / totalScale, sDim = 368 / totalScale;
       outCtx.fillStyle = "#ffffff";
@@ -2126,6 +1573,9 @@
       const placeholder = document.getElementById('avatar-placeholder');
       const statusTxt = document.getElementById('avatar-status-text');
       const recropBtn = document.getElementById('btn-recrop');
+      const alertBox = document.getElementById('avatar-missing-alert');
+      if (alertBox) alertBox.classList.add('hidden');
+
       if (previewImg && placeholder) {
         previewImg.src = tempUploadedAvatar;
         previewImg.classList.remove('hidden');
@@ -2133,8 +1583,9 @@
       }
       if (recropBtn) recropBtn.classList.remove('hidden');
       if (statusTxt) {
-        statusTxt.innerText = "✅ Đã cắt & làm nét ảnh đại diện chuẩn 4K!";
+        statusTxt.innerText = "✅ Đã tải & cắt hình ảnh đại diện!";
         statusTxt.className = "text-[10px] text-emerald-400 font-bold mt-1.5";
+        statusTxt.classList.remove('hidden');
       }
       closeAvatarCropper();
     }
@@ -2144,7 +1595,6 @@
       return `<img src="${src}" class="${sizeClass} rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-900" alt="avt">`;
     }
 
-    // HỆ THỐNG ÂM THANH & HIỆU ỨNG PHÁO HOA + MƯA KIM TUYẾN VÀNG (GOLD CONFETTI)
     let audioCtx = null, mp3Unlocked = false, keepAliveNode = null, isBgmActive = false;
     const bgmEl = document.getElementById('audio-bgm');
     const correctEl = document.getElementById('audio-correct');
@@ -2165,10 +1615,8 @@
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
           gain.gain.value = 0.00001;
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          keepAliveNode = osc;
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(); keepAliveNode = osc;
         }
         if (!mp3Unlocked) {
           mp3Unlocked = true;
@@ -2178,15 +1626,8 @@
               const p = el.play();
               if (p !== undefined) {
                 p.then(() => {
-                  if (el === bgmEl && isBgmActive) {
-                    el.muted = false;
-                    el.volume = 0.9;
-                  } else {
-                    el.pause();
-                    el.currentTime = 0;
-                    el.muted = false;
-                    el.volume = 1.0;
-                  }
+                  if (el === bgmEl && isBgmActive) { el.muted = false; el.volume = 0.9; }
+                  else { el.pause(); el.currentTime = 0; el.muted = false; el.volume = 1.0; }
                 }).catch(() => { el.muted = false; el.volume = 1.0; });
               }
             }
@@ -2195,15 +1636,11 @@
       } catch (e) {}
     }
 
-    ['touchstart', 'click'].forEach(evt => {
-      document.addEventListener(evt, initAudio, { once: true, passive: true });
-    });
+    ['touchstart', 'click'].forEach(evt => { document.addEventListener(evt, initAudio, { once: true, passive: true }); });
 
     function stopAllMP3() {
       isBgmActive = false;
-      [bgmEl, correctEl, wrongEl].forEach(el => {
-        if (el) { try { el.pause(); el.currentTime = 0; } catch (e) {} }
-      });
+      [bgmEl, correctEl, wrongEl].forEach(el => { if (el) { try { el.pause(); el.currentTime = 0; } catch (e) {} } });
     }
 
     function playSynthTone(freq, startOffset, duration, type = 'triangle', volume = 0.16) {
@@ -2211,28 +1648,23 @@
       if (!audioCtx) return;
       try {
         const now = audioCtx.currentTime + startOffset;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, now);
+        const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+        osc.type = type; osc.frequency.setValueAtTime(freq, now);
         gain.gain.setValueAtTime(0.001, now);
         gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + duration + 0.03);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(now); osc.stop(now + duration + 0.03);
       } catch (e) {}
     }
 
-   function playALTPQuestionStart() {
+    function playALTPQuestionStart() {
       initAudio();
       if (correctEl) { try { correctEl.pause(); correctEl.currentTime = 0; } catch (e) {} }
       if (wrongEl) { try { wrongEl.pause(); wrongEl.currentTime = 0; } catch (e) {} }
       isBgmActive = true;
       if (bgmEl) {
-        bgmEl.muted = false;
-        bgmEl.volume = 0.9;
+        bgmEl.muted = false; bgmEl.volume = 0.9;
         try { bgmEl.currentTime = 0; } catch (e) {}
         const p = bgmEl.play();
         if (p !== undefined) {
@@ -2258,8 +1690,7 @@
       if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
       if (wrongEl) { try { wrongEl.pause(); wrongEl.currentTime = 0; } catch (e) {} }
       if (correctEl) {
-        correctEl.muted = false;
-        correctEl.volume = 1.0;
+        correctEl.muted = false; correctEl.volume = 1.0;
         try { correctEl.currentTime = 0; } catch (e) {}
         const p = correctEl.play();
         if (p !== undefined) {
@@ -2279,8 +1710,7 @@
       if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
       if (correctEl) { try { correctEl.pause(); correctEl.currentTime = 0; } catch (e) {} }
       if (wrongEl) {
-        wrongEl.muted = false;
-        wrongEl.volume = 1.0;
+        wrongEl.muted = false; wrongEl.volume = 1.0;
         try { wrongEl.currentTime = 0; } catch (e) {}
         const p = wrongEl.play();
         if (p !== undefined) {
@@ -2293,59 +1723,19 @@
       }
     }
 
-    // HIỆU ỨNG MƯA KIM TUYẾN VÀNG (GOLD CONFETTI) & PHÁO HOA HẠT SÁNG BUNG NỔ RỰC RỠ
     function launchFireworks() {
       playALTPCorrect();
       if (typeof confetti !== 'function') return;
-
       const luxuryColors = ['#FFD700', '#FDE047', '#F59E0B', '#FFFBEB', '#38BDF8', '#FB7185'];
-
-      confetti({
-        particleCount: 80,
-        spread: 100,
-        startVelocity: 42,
-        origin: { x: 0.5, y: 0.35 },
-        colors: luxuryColors,
-        zIndex: 9999
-      });
-
+      confetti({ particleCount: 80, spread: 100, startVelocity: 42, origin: { x: 0.5, y: 0.35 }, colors: luxuryColors, zIndex: 9999 });
       const end = Date.now() + 3600;
       (function frame() {
-        confetti({
-          particleCount: 5,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0, y: 0.65 },
-          colors: ['#FFD700', '#FDE047', '#FFFBEB', '#F59E0B'],
-          zIndex: 9999
-        });
-        confetti({
-          particleCount: 5,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1, y: 0.65 },
-          colors: ['#FFD700', '#FDE047', '#FFFBEB', '#F59E0B'],
-          zIndex: 9999
-        });
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0, y: 0.65 }, colors: ['#FFD700', '#FDE047', '#FFFBEB', '#F59E0B'], zIndex: 9999 });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1, y: 0.65 }, colors: ['#FFD700', '#FDE047', '#FFFBEB', '#F59E0B'], zIndex: 9999 });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
-
-      [550, 1250, 2100].forEach((delay, idx) => {
-        setTimeout(() => {
-          confetti({
-            particleCount: 55,
-            spread: 360,
-            startVelocity: 32,
-            ticks: 70,
-            origin: { x: 0.25 + idx * 0.25, y: 0.25 + (idx % 2) * 0.12 },
-            colors: luxuryColors,
-            zIndex: 9999
-          });
-        }, delay);
-      });
     }
 
-    // NGÂN HÀNG CÂU HỎI & QUẢN LÝ TÀI KHOẢN
     const defaultBank = {
       "Tuần 1 - Tổng quan & Quy mô Sun Urban City": [
         { "id": 1, "question": "Đại đô thị Sun Urban City tại Hà Nam có tổng quy mô diện tích và mật độ xây dựng là bao nhiêu?", "options": { "A": "300ha - Mật độ 25%", "B": "420ha - Mật độ chỉ 18%", "C": "500ha - Mật độ 30%", "D": "250ha - Mật độ 20%" }, "correct": "B", "time": 20, "explanation": "Sun Urban City có tổng quy mô 420ha nhưng mật độ xây dựng chỉ 18%, dành phần lớn diện tích cho không gian xanh và đại tiện ích." },
@@ -2421,18 +1811,12 @@
 
     function scheduleRenderLeaderboard() {
       if (leaderboardRenderTimer) return;
-      leaderboardRenderTimer = setTimeout(() => {
-        leaderboardRenderTimer = null;
-        renderLeaderboard();
-      }, 120);
+      leaderboardRenderTimer = setTimeout(() => { leaderboardRenderTimer = null; renderLeaderboard(); }, 120);
     }
 
     function scheduleRenderDirectory() {
       if (directoryRenderTimer) return;
-      directoryRenderTimer = setTimeout(() => {
-        directoryRenderTimer = null;
-        renderPlayerDirectoryList();
-      }, 150);
+      directoryRenderTimer = setTimeout(() => { directoryRenderTimer = null; renderPlayerDirectoryList(); }, 150);
     }
 
     function getExplanationForQuestion(qObj) {
@@ -2452,11 +1836,11 @@
     function updateLockedPlayerBadgeUI() {
       const badgeEl = document.getElementById('locked-player-badge');
       if (!badgeEl) return;
-      if (myName && myAvatar) {
+      if (isAdminMode && !myName) {
+        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">👑 Admin Tuấn Phủ Lý</span>`;
+      } else if (myName && myAvatar) {
         const suspTag = isMyAccountSuspended ? `<span class="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : '';
         badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
-      } else if (isAdminMode) {
-        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">Admin Tuấn Phủ Lý</span>`;
       }
     }
 
@@ -2466,11 +1850,7 @@
       const circumference = 207.3;
       const ratio = Math.max(0, Math.min(1, currentSec / (maxSec || 20)));
       circle.style.strokeDashoffset = String(circumference * (1 - ratio));
-      if (currentSec <= 5) {
-        circle.setAttribute('stroke', '#f43f5e');
-      } else {
-        circle.setAttribute('stroke', 'url(#tmGoldArc)');
-      }
+      circle.setAttribute('stroke', currentSec <= 5 ? '#f43f5e' : 'url(#tmGoldArc)');
     }
 
     function autoRestorePlayerSession() {
@@ -2485,8 +1865,7 @@
         if (stored['fh_logged_out_v21'] === 'true') return;
         const idbName = stored['fh_locked_name_v20'], idbAvt = stored['fh_locked_avatar_v20'];
         if (idbName && idbAvt && !myName) {
-          myName = idbName;
-          myAvatar = idbAvt;
+          myName = idbName; myAvatar = idbAvt;
           myScore = parseInt(stored['fh_saved_score_v20'], 10) || 0;
           myId = stored['fh_account_uid_v21'] || ('acc_' + normalizeAccountKey(myName));
           isMyAccountSuspended = (stored['fh_suspended_v22'] === 'true');
@@ -2518,9 +1897,6 @@
 
     autoRestorePlayerSession();
 
-    // =========================================================================
-    // KẾT NỐI ĐA TỔNG ĐÀI MQTT SIÊU TỐC & TỐI ƯU BĂNG THÔNG V37
-    // =========================================================================
     const BASE_TOPIC = 'fourhome_mega_suc_2026_v20_secure';
     const BROKER_URLS = [
       'wss://broker.hivemq.com:8884/mqtt',
@@ -2535,24 +1911,21 @@
 
     function updateConnectionUI() {
       const statusEl = document.getElementById('conn-status');
+      if (!statusEl) return;
       if (connectedBrokerCount > 0) {
         statusEl.innerText = `🟢 Trực tuyến (${connectedBrokerCount} trạm)`;
-        statusEl.className = 'text-[10px] text-emerald-300 font-extrabold truncate';
+        statusEl.className = 'text-[9px] text-emerald-300 font-extrabold truncate';
       } else {
-        statusEl.innerText = '🟡 Đang nối lại sóng...';
-        statusEl.className = 'text-[10px] text-amber-300 font-extrabold truncate';
+        statusEl.innerText = '🟡 Đang nối sóng...';
+        statusEl.className = 'text-[9px] text-amber-300 font-extrabold truncate';
       }
     }
 
     BROKER_URLS.forEach((url, index) => {
       try {
         const c = mqtt.connect(url, {
-          clientId: 'fh37_' + index + '_' + Math.random().toString(16).substring(2, 9),
-          protocolVersion: 4,
-          clean: true,
-          keepalive: 25,
-          connectTimeout: 5000,
-          reconnectPeriod: 1500
+          clientId: 'fh38_' + index + '_' + Math.random().toString(16).substring(2, 9),
+          protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500
         });
         c.on('connect', () => {
           c._isConnected = true;
@@ -2563,21 +1936,13 @@
           if (isAdminMode && hasCustomCoverLocked && activeCoverBannerDataUrl) {
             const tsNow = Date.now();
             c.publish(`${BASE_TOPIC}/state/cover_v37`, JSON.stringify({
-              type: 'SYNC_COVER_BANNER',
-              id: 'admin',
-              coverImg: activeCoverBannerDataUrl,
-              _ts: tsNow,
-              _sig: computePacketSig('SYNC_COVER_BANNER', 'admin', tsNow)
+              type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: activeCoverBannerDataUrl, _ts: tsNow, _sig: computePacketSig('SYNC_COVER_BANNER', 'admin', tsNow)
             }), { qos: 0, retain: true });
           }
           if (isAdminMode && hasCustomLogoLocked && activeTransparentLogoPNG) {
             const tsNow = Date.now();
             c.publish(`${BASE_TOPIC}/state/logo_v36`, JSON.stringify({
-              type: 'SYNC_LOGO_PNG',
-              id: 'admin',
-              logoPng: activeTransparentLogoPNG,
-              _ts: tsNow,
-              _sig: computePacketSig('SYNC_LOGO_PNG', 'admin', tsNow)
+              type: 'SYNC_LOGO_PNG', id: 'admin', logoPng: activeTransparentLogoPNG, _ts: tsNow, _sig: computePacketSig('SYNC_LOGO_PNG', 'admin', tsNow)
             }), { qos: 0, retain: true });
           }
         });
@@ -2625,25 +1990,14 @@
       const accKey = normalizeAccountKey(myName);
       if (!myId) myId = 'acc_' + accKey;
       const fullRecord = {
-        type: 'PLAYER_JOIN',
-        id: myId,
-        name: myName,
-        avatar: myAvatar,
-        score: myScore,
-        lockedByDevice: myDeviceHwId,
-        isOnline: true,
-        isSuspended: isMyAccountSuspended,
-        resetId: myResetId
+        type: 'PLAYER_JOIN', id: myId, name: myName, avatar: myAvatar, score: myScore,
+        lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended, resetId: myResetId
       };
       players[myId] = fullRecord;
       accountRegistry[accKey] = fullRecord;
       saveAccountRegistryLocal();
-
-      if (includeAvatar) {
-        publishPacket(`players/${myId}`, fullRecord, true);
-      } else {
-        sendLightweightHeartbeat();
-      }
+      if (includeAvatar) publishPacket(`players/${myId}`, fullRecord, true);
+      else sendLightweightHeartbeat();
     }
 
     function sendLightweightHeartbeat() {
@@ -2651,14 +2005,8 @@
       const accKey = normalizeAccountKey(myName);
       if (!myId) myId = 'acc_' + accKey;
       publishPacket('events', {
-        type: 'PLAYER_HEARTBEAT',
-        id: myId,
-        name: myName,
-        score: myScore,
-        lockedByDevice: myDeviceHwId,
-        isOnline: true,
-        isSuspended: isMyAccountSuspended,
-        resetId: myResetId
+        type: 'PLAYER_HEARTBEAT', id: myId, name: myName, score: myScore,
+        lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended, resetId: myResetId
       }, false);
     }
 
@@ -2671,9 +2019,7 @@
       const safeName = sanitizeText(data.name || 'Thí sinh', 20);
       const accKey = normalizeAccountKey(safeName);
       const cachedPlayer = players[data.id] || accountRegistry[accKey];
-      const avt = (data.avatar && data.avatar.startsWith('data:image/'))
-        ? data.avatar
-        : ((cachedPlayer && cachedPlayer.avatar) || DEFAULT_ADMIN_AVATAR);
+      const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : ((cachedPlayer && cachedPlayer.avatar) || DEFAULT_ADMIN_AVATAR);
       const tLeft = Math.max(1, Math.min(20, parseInt(data.timeLeft, 10) || 10));
       const elap = typeof data.elapsedSec === 'number' ? Math.max(0.1, Math.min(20, data.elapsedSec)) : Math.max(0.5, 20 - tLeft);
       if (!currentRoundAnswers[data.id]) optionPickers[data.choice].push({ id: data.id, name: safeName, avatar: avt });
@@ -2687,8 +2033,6 @@
       if (!data || !data.type) return;
       if (data._sig !== computePacketSig(data.type, data.id || 'sys', data._ts)) return;
       if (data.id && data.id !== 'admin' && isRateLimited(data.id)) return;
-
-      // Chặn toàn bộ các kênh logo phiên bản cũ (v29 -> v35) để không bị nạp đè logo dính vết đen
       if (subTopic === 'state/logo' || subTopic === 'state/logo_v29' || subTopic === 'state/logo_v30' || subTopic === 'state/logo_v32' || subTopic === 'state/logo_v35') return;
 
       if (seenMsgIds.size > 4000) seenMsgIds.clear();
@@ -2698,27 +2042,19 @@
       }
 
       if (data.type === 'SYNC_COVER_BANNER' || data.type === 'FORCE_SYNC_COVER') {
-        if (data.coverImg === 'DEFAULT') {
-          saveCustomCoverPermanently('DEFAULT');
-        } else if (data.coverImg && data.coverImg.startsWith('data:image/')) {
-          saveCustomCoverPermanently(data.coverImg);
-        }
+        if (data.coverImg === 'DEFAULT') saveCustomCoverPermanently('DEFAULT');
+        else if (data.coverImg && data.coverImg.startsWith('data:image/')) saveCustomCoverPermanently(data.coverImg);
       } else if (data.type === 'SYNC_LOGO_PNG' || data.type === 'FORCE_SYNC_LOGO') {
-        if (data.logoPng && data.logoPng.startsWith('data:image/')) {
-          saveCustomLogoPermanently(data.logoPng);
-        }
+        if (data.logoPng && data.logoPng.startsWith('data:image/')) saveCustomLogoPermanently(data.logoPng);
       } else if (data.type === 'MASTER_TICK') {
         if (isAdminMode) return;
         if (data.questionPacket && window.activeQuestionUid !== data.qUid) {
-          closeFinishModal();
-          closeRoundSpeedModal();
-          showQuestionOnScreen(data.questionPacket);
+          closeFinishModal(); closeRoundSpeedModal(); showQuestionOnScreen(data.questionPacket);
         }
         if (window.activeQuestionUid === data.qUid && !isQuestionRevealed) {
           const thinkBanner = document.getElementById('thinking-banner');
           const timerCountEl = document.getElementById('timer-count');
           const timerLabelEl = document.getElementById('timer-label');
-
           if (data.phase === 'think') {
             isThinkingPhase = true;
             thinkBanner.classList.remove('hidden');
@@ -2729,8 +2065,7 @@
             ['A', 'B', 'C', 'D'].forEach(k => document.getElementById(`btn-${k}`).classList.add('opacity-60'));
           } else if (data.phase === 'answer') {
             if (isThinkingPhase) {
-              clearInterval(thinkingTimer);
-              isThinkingPhase = false;
+              clearInterval(thinkingTimer); isThinkingPhase = false;
               thinkBanner.classList.add('hidden');
               ['A', 'B', 'C', 'D'].forEach(k => document.getElementById(`btn-${k}`).classList.remove('opacity-60'));
             }
@@ -2804,9 +2139,7 @@
       } else if (data.type === 'PRE_NEXT_COUNTDOWN') {
         showPreNextCountdownOnScreen(data);
       } else if (data.type === 'START_QUESTION') {
-        closeFinishModal();
-        closeRoundSpeedModal();
-        showQuestionOnScreen(data);
+        closeFinishModal(); closeRoundSpeedModal(); showQuestionOnScreen(data);
       } else if (data.type === 'SUBMIT_ANSWER') {
         recordRoundChoice(data);
         const existing = players[data.id];
@@ -2836,17 +2169,14 @@
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || "";
         renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
-        stopAllMP3();
-        closeRoundSpeedModal();
+        stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
           myResetId = data.resetId;
           setPersistentData('fh_reset_id_v20', myResetId);
-          myScore = 0;
-          setPersistentData('fh_saved_score_v20', 0);
-          answeredHistory = {};
-          saveAnsweredHistory();
+          myScore = 0; setPersistentData('fh_saved_score_v20', 0);
+          answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -2862,9 +2192,7 @@
         if (myName && myAvatar && !isLoggedOutExplicitly) sendLightweightHeartbeat();
         scheduleRenderLeaderboard();
       } else if (data.type === 'CLEAR_PLAYERS') {
-        players = {};
-        accountRegistry = {};
-        saveAccountRegistryLocal();
+        players = {}; accountRegistry = {}; saveAccountRegistryLocal();
         if (myName && myAvatar && !isLoggedOutExplicitly) announceMyPresence(true);
         scheduleRenderLeaderboard();
         scheduleRenderDirectory();
@@ -2872,9 +2200,21 @@
     }
 
     function logoutAccount() {
+      if (isAdminMode && !myName) {
+        isAdminMode = false;
+        document.getElementById('admin-panel').classList.add('hidden');
+        document.getElementById('screen-game').classList.add('hidden');
+        document.getElementById('screen-login').classList.remove('hidden');
+        document.getElementById('playerName').value = '';
+        document.getElementById('playerPassword').value = '';
+        updateCharCount();
+        return;
+      }
       if (!myName) return;
-      if (!confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}" khỏi thiết bị này?\n\nSau khi đăng xuất, bạn có thể đăng nhập trên điện thoại hoặc máy tính khác.`)) return;
+      if (!confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}" khỏi thiết bị này?`)) return;
       stopAllMP3();
+      isAdminMode = false;
+      document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
       isLoggedOutExplicitly = true;
       setPersistentData('fh_logged_out_v21', 'true');
@@ -2958,16 +2298,14 @@
         publishPacket(`players/${targetId}`, { ...players[targetId], type: 'PLAYER_JOIN', isSuspended: suspendState }, true);
       }
       publishPacket('events', { type: 'ADMIN_SUSPEND_PLAYER', id: 'admin', targetId: targetId, targetName: targetName, isSuspended: suspendState }, false);
-      renderLeaderboard();
-      renderPlayerDirectoryList();
+      renderLeaderboard(); renderPlayerDirectoryList();
     }
 
     function adminUnlockPlayerDevice(targetId, targetName) {
       const accKey = normalizeAccountKey(targetName);
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
       if (players[targetId]) {
-        players[targetId].lockedByDevice = null;
-        players[targetId].isOnline = false;
+        players[targetId].lockedByDevice = null; players[targetId].isOnline = false;
         publishPacket(`players/${targetId}`, { ...players[targetId], type: 'PLAYER_LOGOUT', lockedByDevice: null, isOnline: false }, true);
       }
       publishPacket('events', { type: 'ADMIN_UNLOCK_DEVICE', id: 'admin', targetId: targetId, targetName: targetName }, false);
@@ -2985,8 +2323,7 @@
       document.getElementById('avatar-preview-img').classList.add('hidden');
       document.getElementById('avatar-placeholder').classList.remove('hidden');
       document.getElementById('btn-recrop').classList.add('hidden');
-      document.getElementById('avatar-status-text').innerText = '* Bắt buộc chọn & cắt ảnh đại diện 4K rõ nét.';
-      document.getElementById('avatar-status-text').className = 'text-[10px] text-amber-300/90 font-bold mt-1.5';
+      document.getElementById('avatar-status-text').classList.add('hidden');
       switchAuthTab('register');
       updateCharCount();
       closeRoundSpeedModal();
@@ -3000,8 +2337,7 @@
       delete accountRegistry[normalizeAccountKey(targetName)];
       saveAccountRegistryLocal();
       delete players[targetId];
-      renderLeaderboard();
-      renderPlayerDirectoryList();
+      renderLeaderboard(); renderPlayerDirectoryList();
       activeClients.forEach(c => { if (c && c._isConnected) c.publish(`${BASE_TOPIC}/players/${targetId}`, '', { retain: true }); });
       publishPacket('events', { type: 'KICK_RESET_PLAYER', id: 'admin', targetId: targetId, targetName: targetName }, false);
     }
@@ -3012,9 +2348,6 @@
       return { quizTitle: title || currentQuizName || "Bộ đề gần nhất", savedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'), rankings: sorted };
     }
 
-    // =========================================================================
-    // 3. BẢNG VINH DANH TOP 10 "THẬP ĐẠI THẦN TỐC" (IMPERIAL PODIUM 3D V37)
-    // =========================================================================
     function renderRoundSpeedModalContent(correctKey, explanationText) {
       const ansBar = document.getElementById('speed-modal-answer-bar');
       const podiumBox = document.getElementById('speed-podium-box');
@@ -3047,17 +2380,10 @@
         if (!item) {
           return `
             <div class="flex flex-col items-center text-center opacity-40">
-              <div class="mb-1.5">
-                ${renderImperialPrestigeAvatarFrameHTML(DEFAULT_ADMIN_AVATAR, rank)}
-              </div>
+              <div class="mb-1.5">${renderImperialPrestigeAvatarFrameHTML(DEFAULT_ADMIN_AVATAR, rank)}</div>
               <div class="text-[10px] font-bold text-slate-400 truncate max-w-[95px]">Đang chờ...</div>
-              <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-500 my-1">
-                <span>--</span>
-              </div>
-              <div class="podium-stage-wrap">
-                <div class="${capClass}"></div>
-                <div class="w-full ${pedestalClass} rounded-b-xl flex items-center justify-center font-black text-xs">--</div>
-              </div>
+              <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-500 my-1"><span>--</span></div>
+              <div class="podium-stage-wrap"><div class="${capClass}"></div><div class="w-full ${pedestalClass} rounded-b-xl flex items-center justify-center font-black text-xs">--</div></div>
             </div>`;
         }
 
@@ -3066,17 +2392,14 @@
 
         return `
           <div class="flex flex-col items-center text-center relative">
-            <div class="mb-1 relative z-10">
-              ${renderImperialPrestigeAvatarFrameHTML(item.avatar, rank)}
-            </div>
+            <div class="mb-1 relative z-10">${renderImperialPrestigeAvatarFrameHTML(item.avatar, rank)}</div>
             <div class="text-[11px] font-black ${nameColor} truncate max-w-[104px] drop-shadow z-10">${item.name}</div>
             <div class="inline-flex items-center gap-1 bg-slate-900/95 border border-amber-400/45 rounded-full px-2 py-0.5 text-[9px] font-bold text-amber-200 my-1 shadow z-10">
               <span class="w-3.5 h-3.5 rounded-full ${choiceDotColor} text-[8px] flex items-center justify-center font-black">${item.choice}</span>
               <span>⚡ ${item.elapsedSec.toFixed(1)}s</span>
             </div>
             <div class="podium-stage-wrap mt-0.5">
-              <div class="${spotClass}"></div>
-              <div class="${capClass}"></div>
+              <div class="${spotClass}"></div><div class="${capClass}"></div>
               <div class="w-full ${pedestalClass} rounded-b-xl flex items-center justify-center font-black text-xs tracking-wide">+${item.points}đ</div>
             </div>
           </div>`;
@@ -3084,9 +2407,7 @@
 
       podiumBox.innerHTML = buildPodiumCol(allParticipants[1], 2) + buildPodiumCol(allParticipants[0], 1) + buildPodiumCol(allParticipants[2], 3);
       list4to10.innerHTML = allParticipants.slice(3, 10).map((item, idx) => {
-        const pointBadgeClass = item.points > 0
-          ? 'bg-amber-500/20 text-amber-300 border-amber-400/50'
-          : 'bg-rose-500/20 text-rose-300 border-rose-400/40';
+        const pointBadgeClass = item.points > 0 ? 'bg-amber-500/20 text-amber-300 border-amber-400/50' : 'bg-rose-500/20 text-rose-300 border-rose-400/40';
         return `
           <div class="flex items-center justify-between bg-slate-900/85 border border-slate-700/80 rounded-xl px-2.5 py-1.5 text-xs">
             <div class="flex items-center gap-2 truncate">
@@ -3163,9 +2484,6 @@
 
     function closePrevRankModal() { document.getElementById('modal-prev-rank').classList.add('hidden'); }
 
-    // =========================================================================
-    // HIỂN THỊ BẢNG VINH DANH CHUNG CUỘC PHÂN CẤP TOP 1 - TOP 2 - TOP 3 (V37)
-    // =========================================================================
     function showFinishCelebration(quizTitle) {
       closeRoundSpeedModal();
       const record = buildCurrentStandingsRecord(quizTitle);
@@ -3194,14 +2512,11 @@
       } else {
         top10El.innerHTML = sorted.slice(0, 10).map((p, idx) => {
           const isMeTag = (p.id === myId) ? `<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded-full ml-1">Bạn</span>` : '';
-
           if (idx === 0) {
             return `
               <div class="rank-top1-card py-2.5 px-3 rounded-2xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3 min-w-0 z-10">
-                  <span class="bg-gradient-to-b from-yellow-200 via-amber-400 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-1 rounded-xl shadow border border-yellow-100 shrink-0">
-                    🥇 TOP 1
-                  </span>
+                  <span class="bg-gradient-to-b from-yellow-200 via-amber-400 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-1 rounded-xl shadow border border-yellow-100 shrink-0">🥇 TOP 1</span>
                   <div class="relative shrink-0 mt-1">
                     <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] z-20">👑</span>
                     ${renderAvatarHTML(p.avatar, 'w-11 h-11', 'border-2 border-yellow-300 shadow-[0_0_14px_rgba(253,224,71,0.75)]')}
@@ -3217,9 +2532,7 @@
             return `
               <div class="rank-top2-card py-2 px-3 rounded-xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="bg-gradient-to-b from-white to-slate-300 text-slate-900 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">
-                    🥈 TOP 2
-                  </span>
+                  <span class="bg-gradient-to-b from-white to-slate-300 text-slate-900 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">🥈 TOP 2</span>
                   ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-slate-200 shadow-[0_0_10px_rgba(226,232,240,0.5)]')}
                   <span class="font-extrabold text-xs text-slate-100 truncate flex items-center">${p.name}${isMeTag}</span>
                 </div>
@@ -3229,9 +2542,7 @@
             return `
               <div class="rank-top3-card py-2 px-3 rounded-xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="bg-gradient-to-b from-orange-200 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">
-                    🥉 TOP 3
-                  </span>
+                  <span class="bg-gradient-to-b from-orange-200 to-amber-600 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-lg shadow shrink-0">🥉 TOP 3</span>
                   ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400 shadow-[0_0_10px_rgba(251,146,60,0.5)]')}
                   <span class="font-extrabold text-xs text-orange-100 truncate flex items-center">${p.name}${isMeTag}</span>
                 </div>
@@ -3241,9 +2552,7 @@
             return `
               <div class="rank-normal-card py-1.5 px-3 rounded-xl flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="w-12 text-center bg-slate-800 text-amber-300/90 border border-slate-600 font-extrabold text-[10px] py-0.5 rounded-lg shrink-0">
-                    Hạng ${idx + 1}
-                  </span>
+                  <span class="w-12 text-center bg-slate-800 text-amber-300/90 border border-slate-600 font-extrabold text-[10px] py-0.5 rounded-lg shrink-0">Hạng ${idx + 1}</span>
                   ${renderAvatarHTML(p.avatar, 'w-7 h-7', 'border border-amber-400/70')}
                   <span class="font-bold text-xs text-slate-200 truncate flex items-center">${p.name}${isMeTag}</span>
                 </div>
@@ -3259,9 +2568,6 @@
 
     function closeFinishModal() { document.getElementById('modal-finish-celebration').classList.add('hidden'); }
 
-    // =========================================================================
-    // 4. QUẢN TRÒ - ADMIN TUẤN PHỦ LÝ
-    // =========================================================================
     function renderQuizDropdown() {
       const sel = document.getElementById('admin-quiz-select');
       const countLabel = document.getElementById('quiz-count-label');
@@ -3282,28 +2588,20 @@
         if (title === currentQuizName) opt.selected = true;
         sel.appendChild(opt);
       });
-      document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
       const pill = document.getElementById('live-topic-pill');
-      if (pill) pill.innerText = currentQuizName;
+      if (pill) pill.innerText = `Chuyên đề: ${currentQuizName}`;
     }
 
-    function unlockAdmin() {
-      initAudio();
-      const pin = prompt("Nhập mật khẩu Quản trò (Admin Tuấn Phủ Lý):");
-      if (verifyAdminPin(pin)) {
-        isAdminMode = true;
-        document.getElementById('admin-panel').classList.remove('hidden');
-        document.getElementById('btn-unlock-admin').classList.add('hidden');
-        document.getElementById('screen-login').classList.add('hidden');
-        document.getElementById('screen-game').classList.remove('hidden');
-        updateLockedPlayerBadgeUI();
-        renderLeaderboard();
-        requestPlayerPresence();
-        if (hasCustomCoverLocked && activeCoverBannerDataUrl) forceBroadcastCoverNow(false);
-        if (hasCustomLogoLocked && activeTransparentLogoPNG) forceBroadcastLogoNow(false);
-      } else if (pin !== null) {
-        alert("Sai mật khẩu Quản trò!");
-      }
+    function activateAdminSession() {
+      isAdminMode = true;
+      document.getElementById('admin-panel').classList.remove('hidden');
+      document.getElementById('screen-login').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('hidden');
+      updateLockedPlayerBadgeUI();
+      renderLeaderboard();
+      requestPlayerPresence();
+      if (hasCustomCoverLocked && activeCoverBannerDataUrl) forceBroadcastCoverNow(false);
+      if (hasCustomLogoLocked && activeTransparentLogoPNG) forceBroadcastLogoNow(false);
     }
 
     function toggleNewQuizModal() { document.getElementById('modal-new-quiz').classList.toggle('hidden'); }
@@ -3316,9 +2614,8 @@
       }
       currentQuizName = document.getElementById('admin-quiz-select').value;
       currentQIndex = -1;
-      document.getElementById('login-quiz-badge').innerText = `Chuyên đề: ${currentQuizName}`;
       const pill = document.getElementById('live-topic-pill');
-      if (pill) pill.innerText = currentQuizName;
+      if (pill) pill.innerText = `Chuyên đề: ${currentQuizName}`;
       publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
 
@@ -3361,8 +2658,7 @@
 
     function requestPlayerPresence() {
       publishPacket('events', { type: 'PING_PRESENCE', id: 'admin' }, false);
-      renderLeaderboard();
-      renderPlayerDirectoryList();
+      renderLeaderboard(); renderPlayerDirectoryList();
     }
 
     function clearRoomPlayers() {
@@ -3370,32 +2666,51 @@
       Object.keys(players).forEach(pid => {
         activeClients.forEach(c => { if (c && c._isConnected) c.publish(`${BASE_TOPIC}/players/${pid}`, '', { retain: true }); });
       });
-      players = {};
-      accountRegistry = {};
-      saveAccountRegistryLocal();
-      renderLeaderboard();
-      renderPlayerDirectoryList();
+      players = {}; accountRegistry = {}; saveAccountRegistryLocal();
+      renderLeaderboard(); renderPlayerDirectoryList();
       publishPacket('events', { type: 'CLEAR_PLAYERS', id: 'admin' }, false);
     }
 
+    // ĐĂNG NHẬP THÍ SINH HOẶC QUẢN TRÒ (TK: Admin / MK: 181139) (V38)
     function joinGame() {
       initAudio();
       const rawName = document.getElementById('playerName').value.trim();
       const nameInput = sanitizeText(rawName, 20);
       const passInput = document.getElementById('playerPassword').value.trim();
+      const alertBox = document.getElementById('avatar-missing-alert');
+      if (alertBox) alertBox.classList.add('hidden');
 
-      if (!nameInput) return alert("Vui lòng nhập Tên tài khoản (tối đa 20 ký tự)!");
-      if (rawName.length > 20) return alert("Tên tài khoản không được vượt quá 20 ký tự!");
-      if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! Mật khẩu cố định cho tất cả thí sinh là số 1.");
+      // 1. Kiểm tra nếu người dùng đăng nhập quyền Quản trò (Tên TK: Admin)
+      if (normalizeAccountKey(rawName) === 'admin') {
+        if (verifyAdminPin(passInput)) {
+          activateAdminSession();
+          return;
+        } else {
+          return alert("Sai mật khẩu Quản trò!");
+        }
+      }
 
+      // 2. Kiểm tra điều kiện thí sinh
       const accKey = normalizeAccountKey(nameInput);
       const targetAccountId = 'acc_' + accKey;
       const existingAcc = accountRegistry[accKey] || players[targetAccountId] || Object.values(players).find(p => p && p.name && normalizeAccountKey(p.name) === accKey);
 
+      if (authMode === 'register' && !(existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
+        const avatarToUse = tempUploadedAvatar || myAvatar;
+        if (!avatarToUse) {
+          if (alertBox) alertBox.classList.remove('hidden');
+          return alert("Bạn chưa tải hình ảnh đại diện, vui lòng tải hình ảnh đại diện để tham gia thi đấu");
+        }
+      }
+
+      if (!nameInput) return alert("Vui lòng nhập Tên tài khoản!");
+      if (rawName.length > 20) return alert("Tên tài khoản không được vượt quá 20 ký tự!");
+      if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! Mật khẩu tham gia của thí sinh là số 1.");
+
       if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
-        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang mục "✨ Đăng ký TK mới" để tải ảnh đại diện nhé.`);
+        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang mục "✨ Đăng ký TK mới" để tải hình ảnh đại diện nhé.`);
         if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) {
-          return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng bấm "🚪 Đăng xuất" trên thiết bị cũ (hoặc nhờ Admin Tuấn Phủ Lý bấm "🔓") trước khi đăng nhập vào máy này!`);
+          return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng bấm "🚪 Đăng xuất" trên thiết bị cũ trước khi đăng nhập vào máy này!`);
         }
         myId = existingAcc.id || targetAccountId;
         myName = existingAcc.name;
@@ -3415,7 +2730,6 @@
           return alert(`⚠️ Tên tài khoản "${nameInput}" đã có người đăng ký! Vui lòng đổi tên khác nhé!`);
         }
         const avatarToUse = tempUploadedAvatar || myAvatar;
-        if (!avatarToUse) return alert("⚠️ Bắt buộc: Vui lòng bấm 'Chọn ảnh & Cắt 4K' trước khi đăng ký!");
         myId = targetAccountId;
         myName = nameInput;
         myAvatar = avatarToUse;
@@ -3439,9 +2753,6 @@
       renderLeaderboard();
     }
 
-    // =========================================================================
-    // 5. ĐỒNG BỘ CÂU HỎI & BẢO MẬT ĐÁP ÁN TUYỆT ĐỐI (ZERO-LEAK QUESTION PACKET)
-    // =========================================================================
     function hostNextQuestion() {
       initAudio();
       if (!currentQuizName || !quizBank[currentQuizName]) return alert("Kho đề đang trống!");
@@ -3658,7 +2969,7 @@
       document.getElementById('question-index').innerText = `Vòng ${data.qIndex}/${data.total}`;
       if (data.quizTitle) {
         const pill = document.getElementById('live-topic-pill');
-        if (pill) pill.innerText = data.quizTitle;
+        if (pill) pill.innerText = `Chuyên đề: ${data.quizTitle}`;
       }
       document.getElementById('question-text').innerText = data.question;
       document.getElementById('answer-feedback').classList.add('hidden');
