@@ -367,7 +367,6 @@
 </head>
 <body class="text-slate-800 flex flex-col justify-center items-center min-h-screen p-1.5 sm:p-3">
 
-  <!-- HỆ THỐNG 6 FILE ÂM THANH TRỰC TIẾP TỪ THƯ MỤC GITHUB (V43) -->
   <audio id="audio-login-bgm" src="./login-bgm.mp3" preload="auto" loop playsinline></audio>
   <audio id="audio-intro" src="./intro.mp3" preload="auto" playsinline></audio>
   <audio id="audio-bgm" src="./bgm.mp3" preload="auto" loop playsinline></audio>
@@ -375,9 +374,6 @@
   <audio id="audio-wrong" src="./wrong.mp3" preload="auto" playsinline></audio>
   <audio id="audio-victory" src="./victory.mp3" preload="auto" playsinline></audio>
 
-  <!-- =================================================================== -->
-  <!-- BẢNG ĐIỀU KHIỂN QUẢN TRÒ (ADMIN TUẤN PHỦ LÝ) - V43                   -->
-  <!-- =================================================================== -->
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
       <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V43)</span>
@@ -391,7 +387,6 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 1: QUẢN LÝ ẢNH BÌA -->
     <div class="flex flex-wrap gap-1.5 bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-amber-500/40 justify-between items-center">
       <span id="cover-sync-status" class="text-[10px] font-extrabold text-amber-300">🏞️ Ảnh Bìa Dự Án:</span>
       <div class="flex gap-1">
@@ -402,7 +397,6 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 2: QUẢN LÝ LOGO 8K -->
     <div class="flex flex-wrap gap-1.5 bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-sky-500/40 justify-between items-center">
       <span id="logo-sync-status" class="text-[10px] font-extrabold text-sky-300">🛡️ Logo Thập Đại 8K:</span>
       <div class="flex gap-1">
@@ -413,7 +407,6 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 3: BÀN KIỂM DUYỆT ÂM THANH 6 TẦNG V43 (ĐÃ SỬA CHUẨN 6 TẦNG) -->
     <div class="bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-emerald-500/40 space-y-1.5">
       <div class="flex items-center justify-between">
         <span class="text-[10px] font-extrabold text-emerald-300">🔊 Bàn Âm Thanh 6 Tầng (Chống chồng tiếng):</span>
@@ -457,9 +450,6 @@
     </div>
   </div>
 
-  <!-- =================================================================== -->
-  <!-- KHUNG MÀN HÌNH CHÍNH (FULL-VIEWPORT TRÊN MOBILE)                    -->
-  <!-- =================================================================== -->
   <div class="w-full max-w-[440px] exec-arena-shell rounded-[30px] overflow-hidden flex flex-col p-2 sm:p-2.5 relative shadow-[0_0_40px_rgba(0,0,0,0.9)] border border-amber-500/40 flex-1 min-h-[92vh] sm:min-h-[760px]">
 
     <div id="screen-login" class="flex-1 flex flex-col justify-between exec-login-card rounded-[24px] relative overflow-hidden">
@@ -537,9 +527,6 @@
       </div>
     </div>
 
-    <!-- =================================================================== -->
-    <!-- MÀN HÌNH 2: PHÒNG THI ĐẤU                                           -->
-    <!-- =================================================================== -->
     <div id="screen-game" class="hidden flex-1 flex flex-col p-1 sm:p-1.5 justify-between">
       <div>
         <div class="w-full flex flex-col items-center justify-center mb-2 mt-0.5">
@@ -739,12 +726,11 @@
     </div>
   </div>
 
-  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI (ĐÃ ĐIỀU CHỈNH KHOẢNG CÁCH LOGO KHÔNG BỊ ĐÈ) -->
+  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI (ĐÃ FIX LỖI TỶ LỆ KHUNG & ẢNH KHÔNG BỊ MÉO) -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-10">
     <div class="w-full max-w-[432px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[90vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-xs flex items-center justify-center cursor-pointer z-30">✖</button>
 
-      <!-- LOGO THẬP ĐẠI ĐƯỢC THU NHỎ & ĐẨY XUỐNG VỪA VẮN KHÔNG ĐÈ CHỮ -->
       <div class="flex justify-center -mt-12 mb-1 select-none pointer-events-none relative z-20">
         <div class="absolute w-[150px] h-[90px] top-3 rounded-full bg-amber-400/20 blur-xl"></div>
         <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[145px] h-[110px] object-contain relative z-10 logo-8k-pure">
@@ -1016,12 +1002,13 @@
     }
 
     let shieldUidCounter = 0;
+    // ĐÃ FIX TỶ LỆ KHIÊN CÂN ĐỐI 1:1, ẢNH KHÔNG BỊ MÉO & KHỚP KHÍT TÂM
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
       shieldUidCounter++;
       const uid = `sh_${rank}_${shieldUidCounter}`;
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      const wrapSize = isTop1 ? "w-[122px] h-[128px] -mt-3" : "w-[98px] h-[104px]";
+      const wrapSize = isTop1 ? "w-[110px] h-[110px]" : "w-[92px] h-[92px]";
 
       let metalStops = '', darkMetalStops = '', ribbonStops = '', numFill = '', auraClass = '';
       if (rank === 1) {
@@ -1045,62 +1032,50 @@
       }
 
       const leftLaurelLeaves = `
-        <path d="M90,185 C36,166 18,108 42,46" fill="none" stroke="url(#m_${uid})" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M100,185 C42,165 20,105 46,40" fill="none" stroke="url(#m_${uid})" stroke-width="2.6" stroke-linecap="round"/>
         <g fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="0.6">
-          <path d="M74,178 C56,182 46,174 44,164 C56,164 68,170 74,178 Z"/>
-          <path d="M56,164 C38,166 28,156 28,144 C40,146 52,154 56,164 Z"/>
-          <path d="M43,146 C25,146 18,134 20,122 C31,126 40,135 43,146 Z"/>
-          <path d="M35,126 C18,123 13,110 17,98 C27,103 34,114 35,126 Z"/>
-          <path d="M32,104 C17,98 14,85 20,74 C29,81 33,92 32,104 Z"/>
-          <path d="M34,82 C21,74 20,62 28,52 C35,60 36,71 34,82 Z"/>
-          <path d="M40,62 C30,53 31,42 40,34 C45,43 44,53 40,62 Z"/>
-          <path d="M68,168 C62,154 66,144 74,138 C76,148 74,160 68,168 Z"/>
-          <path d="M53,150 C49,136 55,126 63,122 C64,132 60,142 53,150 Z"/>
-          <path d="M43,130 C41,116 48,107 57,104 C56,114 50,123 43,130 Z"/>
-          <path d="M38,108 C38,94 46,86 55,84 C53,94 46,102 38,108 Z"/>
-          <path d="M38,86 C40,73 48,66 57,66 C54,75 46,82 38,86 Z"/>
-          <path d="M42,66 C45,54 53,48 62,49 C57,57 50,63 42,66 Z"/>
+          <path d="M82,176 C62,180 50,170 48,158 C62,158 74,166 82,176 Z"/>
+          <path d="M62,158 C42,160 30,148 30,134 C44,136 56,146 62,158 Z"/>
+          <path d="M46,138 C28,138 20,124 22,110 C34,114 44,126 46,138 Z"/>
+          <path d="M38,116 C20,113 14,98 18,84 C28,90 35,102 38,116 Z"/>
+          <path d="M34,92 C18,85 14,70 20,58 C29,66 34,78 34,92 Z"/>
+          <path d="M38,70 C23,61 22,48 30,38 C37,47 38,58 38,70 Z"/>
+          <path d="M46,50 C33,40 34,28 44,20 C49,30 48,40 46,50 Z"/>
         </g>
       `;
 
       return `
         <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
-          <div class="absolute inset-2 rounded-full ${auraClass} blur-xl pointer-events-none"></div>
-          <svg class="w-full h-full overflow-visible" viewBox="0 0 200 210">
+          <div class="absolute inset-1 rounded-full ${auraClass} blur-xl pointer-events-none"></div>
+          <svg class="w-full h-full overflow-visible" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="m_${uid}" x1="0" y1="0" x2="1" y2="1">${metalStops}</linearGradient>
               <linearGradient id="d_${uid}" x1="0" y1="0" x2="0" y2="1">${darkMetalStops}</linearGradient>
               <linearGradient id="r_${uid}" x1="0" y1="0" x2="1" y2="1">${ribbonStops}</linearGradient>
               <clipPath id="clip_${uid}">
-                <circle cx="100" cy="100" r="47"/>
+                <circle cx="100" cy="100" r="46"/>
               </clipPath>
             </defs>
             ${leftLaurelLeaves}
             <g transform="translate(200, 0) scale(-1, 1)">
               ${leftLaurelLeaves}
             </g>
-            <g transform="translate(100, 17)">
-              <path d="M-16,6 L-20,-8 L-9,-1 L0,-12 L9,-1 L20,-8 L16,6 Z" fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="1"/>
-              <rect x="-16" y="7" width="32" height="3.5" rx="1.5" fill="url(#d_${uid})"/>
-              <circle cx="-20" cy="-9.5" r="2" fill="url(#m_${uid})"/>
-              <circle cx="-9" cy="-2.5" r="1.6" fill="url(#m_${uid})"/>
-              <circle cx="0" cy="-14" r="2.3" fill="url(#m_${uid})"/>
-              <circle cx="9" cy="-2.5" r="1.6" fill="url(#m_${uid})"/>
-              <circle cx="20" cy="-9.5" r="2" fill="url(#m_${uid})"/>
+            <g transform="translate(100, 14)">
+              <path d="M-14,5 L-18,-7 L-8,-1 L0,-10 L8,-1 L18,-7 L14,5 Z" fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="1"/>
+              <rect x="-14" y="6" width="28" height="3" rx="1.2" fill="url(#d_${uid})"/>
             </g>
-            <path d="M100,26 C138,26 158,42 158,82 C158,129 133,164 100,183 C67,164 42,129 42,82 C42,42 62,26 100,26 Z" fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="1.5"/>
-            <path d="M100,32 C133,32 152,46 152,82 C152,125 129,158 100,176 C71,158 48,125 48,82 C48,46 67,32 100,32 Z" fill="#0f172a" stroke="url(#d_${uid})" stroke-width="2"/>
-            <circle cx="100" cy="100" r="49" fill="#090d16" stroke="url(#m_${uid})" stroke-width="3"/>
-            <image href="${src}" x="53" y="53" width="94" height="94" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip_${uid})"/>
-            <circle cx="100" cy="100" r="47" fill="none" stroke="url(#m_${uid})" stroke-width="2"/>
-            <g transform="translate(52, 152)">
-              <path d="M-8,16 L-18,44 L-8,39 L-1,46 L6,20 Z" fill="url(#r_${uid})" stroke="rgba(255,255,255,0.45)" stroke-width="0.8"/>
-              <path d="M8,16 L18,44 L8,39 L1,46 L-6,20 Z" fill="url(#r_${uid})" stroke="rgba(255,255,255,0.45)" stroke-width="0.8"/>
-              <circle cx="0" cy="0" r="24" fill="url(#d_${uid})"/>
-              <circle cx="0" cy="0" r="22.5" fill="url(#m_${uid})" stroke="#FFFFFF" stroke-width="1"/>
-              <circle cx="0" cy="0" r="18" fill="none" stroke="url(#d_${uid})" stroke-width="1" stroke-dasharray="2.2 1.8" opacity="0.75"/>
-              <text x="0" y="1" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="20" fill="${numFill}">${rank}</text>
-              <text x="0" y="13" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="8.5" fill="${numFill}" letter-spacing="0.5">TOP</text>
+            <path d="M100,22 C138,22 156,38 156,78 C156,125 132,158 100,178 C68,158 44,125 44,78 C44,38 62,22 100,22 Z" fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="1.5"/>
+            <path d="M100,27 C132,27 150,41 150,78 C150,120 128,151 100,170 C72,151 50,120 50,78 C50,41 68,27 100,27 Z" fill="#0f172a" stroke="url(#d_${uid})" stroke-width="2"/>
+            <circle cx="100" cy="100" r="48" fill="#090d16" stroke="url(#m_${uid})" stroke-width="2.5"/>
+            <image href="${src}" x="52" y="52" width="96" height="96" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip_${uid})"/>
+            <circle cx="100" cy="100" r="46" fill="none" stroke="url(#m_${uid})" stroke-width="1.8"/>
+            <g transform="translate(50, 146)">
+              <path d="M-7,14 L-16,38 L-7,34 L-1,40 L5,18 Z" fill="url(#r_${uid})" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+              <path d="M7,14 L16,38 L7,34 L1,40 L-5,18 Z" fill="url(#r_${uid})" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+              <circle cx="0" cy="0" r="22" fill="url(#d_${uid})"/>
+              <circle cx="0" cy="0" r="20.5" fill="url(#m_${uid})" stroke="#FFFFFF" stroke-width="1"/>
+              <text x="0" y="1" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="18" fill="${numFill}">${rank}</text>
+              <text x="0" y="12" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="7.5" fill="${numFill}">TOP</text>
             </g>
           </svg>
         </div>
@@ -1342,9 +1317,6 @@
       return `<img src="${src}" class="${sizeClass} aspect-square rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-900" alt="avt">`;
     }
 
-    // ======================================================================
-    // HỆ THỐNG ÂM THANH 6 TẦNG TỪ GITHUB + CHỐNG CHỒNG TIẾNG V43
-    // ======================================================================
     let audioCtx = null, mp3Unlocked = false, keepAliveNode = null, isBgmActive = false;
     let delayedBgmTimeout = null;
     const loginBgmEl = document.getElementById('audio-login-bgm');
@@ -1507,7 +1479,6 @@
       }
     }
 
-    // ĐÃ CHỈNH SỬA ĐỦ 6 TẦNG ÂM THANH CHO BÀN QUẢN TRÒ
     function executeSyncedAudioCue(cueType) {
       stopLoginMusicCompletely();
       if (cueType === 'STOP_ALL') stopAllMP3();
@@ -1891,7 +1862,7 @@
       } else if (data.type === 'ADMIN_UNLOCK_DEVICE') {
         const accKey = normalizeAccountKey(data.targetName || '');
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
-        if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[data.targetId].isOnline = false; }
+        if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[targetId].isOnline = false; }
         scheduleRenderDirectory();
       } else if (data.type === 'KICK_RESET_PLAYER') {
         const accKey = normalizeAccountKey(data.targetName || '');
