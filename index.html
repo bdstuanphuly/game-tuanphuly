@@ -145,7 +145,7 @@
     .logo-8k-pure {
       image-rendering: -webkit-optimize-contrast;
       image-rendering: high-quality;
-      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 18px rgba(251, 191, 36, 0.45));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 14px rgba(251, 191, 36, 0.45));
       transform: translateZ(0);
     }
     .timer-gold-number {
@@ -391,7 +391,7 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 1: QUẢN LÝ ẢNH BÌA (ĐĂNG NHẬP & CHUNG CUỘC - HỖ TRỢ GITHUB) -->
+    <!-- CÔNG CỤ 1: QUẢN LÝ ẢNH BÌA -->
     <div class="flex flex-wrap gap-1.5 bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-amber-500/40 justify-between items-center">
       <span id="cover-sync-status" class="text-[10px] font-extrabold text-amber-300">🏞️ Ảnh Bìa Dự Án:</span>
       <div class="flex gap-1">
@@ -402,7 +402,7 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 2: QUẢN LÝ LOGO 8K "10 THẬP ĐẠI THẦN TỐC" (TÁCH BIỆT HOÀN TOÀN) -->
+    <!-- CÔNG CỤ 2: QUẢN LÝ LOGO 8K -->
     <div class="flex flex-wrap gap-1.5 bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-sky-500/40 justify-between items-center">
       <span id="logo-sync-status" class="text-[10px] font-extrabold text-sky-300">🛡️ Logo Thập Đại 8K:</span>
       <div class="flex gap-1">
@@ -413,17 +413,19 @@
       </div>
     </div>
 
-    <!-- CÔNG CỤ 3: BÀN KIỂM DUYỆT ÂM THANH 4 TẦNG V43 (ĐỒNG BỘ TOÀN PHÒNG) -->
-    <div class="bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-emerald-500/40 space-y-1">
+    <!-- CÔNG CỤ 3: BÀN KIỂM DUYỆT ÂM THANH 6 TẦNG V43 (ĐÃ SỬA CHUẨN 6 TẦNG) -->
+    <div class="bg-slate-800/95 px-2.5 py-1.5 rounded-xl border border-emerald-500/40 space-y-1.5">
       <div class="flex items-center justify-between">
-        <span class="text-[10px] font-extrabold text-emerald-300">🔊 Bàn Âm Thanh 4 Tầng (Chống chồng tiếng):</span>
+        <span class="text-[10px] font-extrabold text-emerald-300">🔊 Bàn Âm Thanh 6 Tầng (Chống chồng tiếng):</span>
         <button onclick="adminBroadcastAudioCue('STOP_ALL')" class="text-[9px] bg-rose-700 hover:bg-rose-600 text-white font-black px-2 py-0.5 rounded-md cursor-pointer">🔇 Ngắt nhạc</button>
       </div>
-      <div class="grid grid-cols-4 gap-1">
+      <div class="grid grid-cols-3 gap-1">
+        <button onclick="adminBroadcastAudioCue('TIER0_LOGIN')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-sky-300 font-bold py-1 rounded border border-sky-400/30 cursor-pointer truncate">0. Nhạc sảnh</button>
         <button onclick="adminBroadcastAudioCue('TIER1_INTRO')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-amber-200 font-bold py-1 rounded border border-amber-400/30 cursor-pointer truncate">1. Mở câu</button>
         <button onclick="adminBroadcastAudioCue('TIER2_BGM')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-sky-200 font-bold py-1 rounded border border-sky-400/30 cursor-pointer truncate">2. Nhạc 20s</button>
         <button onclick="adminBroadcastAudioCue('TIER3_CORRECT')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-emerald-200 font-bold py-1 rounded border border-emerald-400/30 cursor-pointer truncate">3. Báo Đúng</button>
-        <button onclick="adminBroadcastAudioCue('TIER4_VICTORY')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-yellow-200 font-bold py-1 rounded border border-yellow-400/30 cursor-pointer truncate">4. Vinh danh</button>
+        <button onclick="adminBroadcastAudioCue('TIER3_WRONG')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-rose-200 font-bold py-1 rounded border border-rose-400/30 cursor-pointer truncate">4. Báo Sai</button>
+        <button onclick="adminBroadcastAudioCue('TIER4_VICTORY')" class="text-[9px] bg-slate-700 hover:bg-slate-600 text-yellow-200 font-bold py-1 rounded border border-yellow-400/30 cursor-pointer truncate">5. Vinh danh</button>
       </div>
     </div>
 
@@ -460,9 +462,6 @@
   <!-- =================================================================== -->
   <div class="w-full max-w-[440px] exec-arena-shell rounded-[30px] overflow-hidden flex flex-col p-2 sm:p-2.5 relative shadow-[0_0_40px_rgba(0,0,0,0.9)] border border-amber-500/40 flex-1 min-h-[92vh] sm:min-h-[760px]">
 
-    <!-- =================================================================== -->
-    <!-- MÀN HÌNH 1: ĐĂNG NHẬP / ĐĂNG KÝ (FULL CHIỀU CAO ĐIỆN THOẠI)         -->
-    <!-- =================================================================== -->
     <div id="screen-login" class="flex-1 flex flex-col justify-between exec-login-card rounded-[24px] relative overflow-hidden">
       <div>
         <div class="w-full h-[215px] sm:h-[235px] relative overflow-hidden shrink-0 select-none">
@@ -740,18 +739,24 @@
     </div>
   </div>
 
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-20">
-    <div class="w-full max-w-[432px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-3 flex flex-col max-h-[88vh] relative">
+  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI (ĐÃ ĐIỀU CHỈNH KHOẢNG CÁCH LOGO KHÔNG BỊ ĐÈ) -->
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-10">
+    <div class="w-full max-w-[432px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[90vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-xs flex items-center justify-center cursor-pointer z-30">✖</button>
-      <div class="flex justify-center -mt-20 mb-1.5 select-none pointer-events-none relative z-20">
-        <div class="absolute w-[180px] h-[120px] top-4 rounded-full bg-amber-400/25 blur-2xl"></div>
-        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[185px] h-[145px] object-contain relative z-10 logo-8k-pure">
+
+      <!-- LOGO THẬP ĐẠI ĐƯỢC THU NHỎ & ĐẨY XUỐNG VỪA VẮN KHÔNG ĐÈ CHỮ -->
+      <div class="flex justify-center -mt-12 mb-1 select-none pointer-events-none relative z-20">
+        <div class="absolute w-[150px] h-[90px] top-3 rounded-full bg-amber-400/20 blur-xl"></div>
+        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[145px] h-[110px] object-contain relative z-10 logo-8k-pure">
       </div>
+
       <div id="speed-modal-answer-bar" class="bg-gradient-to-r from-emerald-950/90 via-slate-900/95 to-emerald-950/90 border border-emerald-400/50 text-emerald-200 rounded-xl px-3 py-1.5 text-[10.5px] font-bold text-center mb-2 shadow-inner leading-snug">
         ✅ Đáp án & Bảng vinh danh Thập Đại Thần Tốc
       </div>
-      <div id="speed-podium-box" class="grid grid-cols-3 gap-1.5 items-end mb-2.5 px-0.5 pt-1"></div>
+
+      <div id="speed-podium-box" class="grid grid-cols-3 gap-1.5 items-end mb-2 px-0.5 pt-1"></div>
       <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
+
       <div class="pt-2 border-t border-amber-500/25">
         <div class="flex justify-between items-center text-[11px] font-bold text-slate-300 mb-1">
           <span id="speed-footer-status">🕒 Tự động chuyển câu sau</span>
@@ -845,7 +850,7 @@
       if (!dataUrl || dataUrl === 'DEFAULT') {
         hasCustomCoverLocked = false;
         activeCoverBannerDataUrl = '';
-        removePersistentData('fh_master_cover_v41');
+        removePersistentData('fh_master_cover_v43');
         applyCoverBannerToUI('DEFAULT', false);
         const statusEl = document.getElementById('cover-sync-status');
         if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định';
@@ -853,8 +858,8 @@
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v41', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v41', dataUrl);
+      try { localStorage.setItem('fh_master_cover_v43', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v43', dataUrl);
       const statusEl = document.getElementById('cover-sync-status');
       if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
@@ -895,7 +900,7 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v41', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v43', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
@@ -922,7 +927,7 @@
       if (!dataUrl || dataUrl === 'DEFAULT') {
         hasCustomLogoLocked = false;
         activeTransparentLogoPNG = '';
-        removePersistentData('fh_master_logo_v41');
+        removePersistentData('fh_master_logo_v43');
         applySpeedLogoToUI('DEFAULT', false);
         const statusEl = document.getElementById('logo-sync-status');
         if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định';
@@ -930,8 +935,8 @@
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v41', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v41', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v43', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v43', dataUrl);
       const statusEl = document.getElementById('logo-sync-status');
       if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
@@ -1000,7 +1005,7 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v41', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v43', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
@@ -1338,7 +1343,7 @@
     }
 
     // ======================================================================
-    // HỆ THỐNG ÂM THANH 6 FILE TỪ GITHUB + CHỐNG CHỒNG TIẾNG V43
+    // HỆ THỐNG ÂM THANH 6 TẦNG TỪ GITHUB + CHỐNG CHỒNG TIẾNG V43
     // ======================================================================
     let audioCtx = null, mp3Unlocked = false, keepAliveNode = null, isBgmActive = false;
     let delayedBgmTimeout = null;
@@ -1377,7 +1382,6 @@
       } catch (e) {}
     }
 
-    // Tự động phát nhạc nền sảnh chờ (login-bgm) khi người dùng vào trang
     function playLoginBackgroundMusic() {
       initAudio();
       if (loginBgmEl && loginBgmEl.paused) {
@@ -1503,9 +1507,11 @@
       }
     }
 
+    // ĐÃ CHỈNH SỬA ĐỦ 6 TẦNG ÂM THANH CHO BÀN QUẢN TRÒ
     function executeSyncedAudioCue(cueType) {
       stopLoginMusicCompletely();
       if (cueType === 'STOP_ALL') stopAllMP3();
+      else if (cueType === 'TIER0_LOGIN') { if (loginBgmEl) { loginBgmEl.currentTime = 0; loginBgmEl.play().catch(()=>{}); } }
       else if (cueType === 'TIER1_INTRO') playALTPIntroPhase();
       else if (cueType === 'TIER2_BGM') playALTPBgmLoop();
       else if (cueType === 'TIER3_CORRECT') playALTPCorrect();
@@ -1885,7 +1891,7 @@
       } else if (data.type === 'ADMIN_UNLOCK_DEVICE') {
         const accKey = normalizeAccountKey(data.targetName || '');
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
-        if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[targetId].isOnline = false; }
+        if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[data.targetId].isOnline = false; }
         scheduleRenderDirectory();
       } else if (data.type === 'KICK_RESET_PLAYER') {
         const accKey = normalizeAccountKey(data.targetName || '');
@@ -2051,10 +2057,10 @@
       }).sort((a, b) => (b.points !== a.points) ? (b.points - a.points) : (a.elapsedSec - b.elapsedSec)).slice(0, 10);
 
       function buildPodiumCol(item, rank) {
-        const bodyClass = rank === 1 ? 'podium-3d-gold h-[60px]' : rank === 2 ? 'podium-3d-silver h-[48px]' : 'podium-3d-bronze h-[44px]';
+        const bodyClass = rank === 1 ? 'podium-3d-gold h-[55px]' : rank === 2 ? 'podium-3d-silver h-[44px]' : 'podium-3d-bronze h-[40px]';
         const capClass = rank === 1 ? 'podium-top-surface-gold' : rank === 2 ? 'podium-top-surface-silver' : 'podium-top-surface-bronze';
         const spotClass = rank === 1 ? 'podium-spotlight-gold' : rank === 2 ? 'podium-spotlight-silver' : 'podium-spotlight-bronze';
-        const numClass = rank === 1 ? 'podium-rank-num-gold text-[34px]' : rank === 2 ? 'podium-rank-num-silver text-[28px]' : 'podium-rank-num-bronze text-[26px]';
+        const numClass = rank === 1 ? 'podium-rank-num-gold text-[30px]' : rank === 2 ? 'podium-rank-num-silver text-[25px]' : 'podium-rank-num-bronze text-[23px]';
         const scoreColor = rank === 1 ? 'text-amber-300' : rank === 2 ? 'text-slate-200' : 'text-orange-300';
         const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : DEFAULT_ADMIN_AVATAR, rank);
 
@@ -2092,7 +2098,7 @@
               <div class="${capClass}"></div>
               <div class="podium-3d-body ${bodyClass} rounded-b-xl">
                 <span class="${numClass} font-black leading-none">${rank}</span>
-                <span class="text-[12.5px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
+                <span class="text-[12px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
               </div>
             </div>
           </div>
