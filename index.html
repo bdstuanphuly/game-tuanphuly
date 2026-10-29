@@ -729,6 +729,7 @@
     </div>
   </div>
 
+  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI (CHUẨN FORM HOÀNG GIA: TOP 1 VÀNG/ĐỎ, TOP 2 BẠC/XANH, TOP 3 ĐỒNG/CAM) -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-10">
     <div class="w-full max-w-[432px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[90vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-xs flex items-center justify-center cursor-pointer z-30">✖</button>
@@ -1004,32 +1005,39 @@
     }
 
     let shieldUidCounter = 0;
+    // HÀM RENDER KHUNG VINH DANH HOÀNG GIA CHUẨN MẪU ẢNH (VƯƠNG MIỆN, NGUYỆT QUẾ, KHIÊN KÉP, HUY CHƯƠNG & RUY BĂNG MÀU RIÊNG CHO TOP 1, 2, 3)
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
       shieldUidCounter++;
       const uid = `sh_${rank}_${shieldUidCounter}`;
       const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      const wrapSize = isTop1 ? "w-[110px] h-[110px]" : "w-[92px] h-[92px]";
+      const wrapSize = isTop1 ? "w-[115px] h-[120px]" : "w-[94px] h-[98px]";
 
-      let metalStops = '', darkMetalStops = '', ribbonStops = '', numFill = '', auraClass = '';
+      let metalStops = '', darkMetalStops = '', ribbonStops = '', numFill = '', auraClass = '', crownColor = '', rankText = `TOP ${rank}`;
       if (rank === 1) {
         metalStops = `<stop offset="0%" stop-color="#FFFBEB"/><stop offset="22%" stop-color="#FEF08A"/><stop offset="50%" stop-color="#F59E0B"/><stop offset="78%" stop-color="#78350F"/><stop offset="100%" stop-color="#FDE047"/>`;
         darkMetalStops = `<stop offset="0%" stop-color="#B45309"/><stop offset="100%" stop-color="#451A03"/>`;
         ribbonStops = `<stop offset="0%" stop-color="#EF4444"/><stop offset="50%" stop-color="#B91C1C"/><stop offset="100%" stop-color="#7F1D1D"/>`;
         numFill = '#78350F';
-        auraClass = 'bg-amber-400/25';
+        auraClass = 'bg-amber-400/30';
+        crownColor = '#FDE047';
+        rankText = '1 TOP';
       } else if (rank === 2) {
         metalStops = `<stop offset="0%" stop-color="#FFFFFF"/><stop offset="25%" stop-color="#E2E8F0"/><stop offset="55%" stop-color="#94A3B8"/><stop offset="80%" stop-color="#334155"/><stop offset="100%" stop-color="#F8FAFC"/>`;
         darkMetalStops = `<stop offset="0%" stop-color="#64748B"/><stop offset="100%" stop-color="#1E293B"/>`;
-        ribbonStops = `<stop offset="0%" stop-color="#3B82F6"/><stop offset="50%" stop-color="#1D4ED8"/><stop offset="100%" stop-color="#1E3A8A"/>`;
+        ribbonStops = `<stop offset="0%" stop-color="#60A5FA"/><stop offset="50%" stop-color="#2563EB"/><stop offset="100%" stop-color="#1E3A8A"/>`;
         numFill = '#1E293B';
-        auraClass = 'bg-slate-300/20';
+        auraClass = 'bg-sky-300/20';
+        crownColor = '#E2E8F0';
+        rankText = '2 TOP';
       } else {
         metalStops = `<stop offset="0%" stop-color="#FFF7ED"/><stop offset="25%" stop-color="#FDBA74"/><stop offset="55%" stop-color="#EA580C"/><stop offset="80%" stop-color="#7C2D12"/><stop offset="100%" stop-color="#FED7AA"/>`;
         darkMetalStops = `<stop offset="0%" stop-color="#9A3412"/><stop offset="100%" stop-color="#431407"/>`;
-        ribbonStops = `<stop offset="0%" stop-color="#EF4444"/><stop offset="50%" stop-color="#B91C1C"/><stop offset="100%" stop-color="#7F1D1D"/>`;
+        ribbonStops = `<stop offset="0%" stop-color="#FB923C"/><stop offset="50%" stop-color="#C2410C"/><stop offset="100%" stop-color="#7C2D12"/>`;
         numFill = '#5C2009';
         auraClass = 'bg-orange-400/20';
+        crownColor = '#FDBA74';
+        rankText = '3 TOP';
       }
 
       const leftLaurelLeaves = `
@@ -1057,26 +1065,34 @@
                 <circle cx="100" cy="100" r="46"/>
               </clipPath>
             </defs>
+            <!-- Vòng lá nguyệt quế đối xứng 2 bên -->
             ${leftLaurelLeaves}
             <g transform="translate(200, 0) scale(-1, 1)">
               ${leftLaurelLeaves}
             </g>
-            <g transform="translate(100, 14)">
-              <path d="M-14,5 L-18,-7 L-8,-1 L0,-10 L8,-1 L18,-7 L14,5 Z" fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="1"/>
-              <rect x="-14" y="6" width="28" height="3" rx="1.2" fill="url(#d_${uid})"/>
+            <!-- Vương miện đỉnh đầu -->
+            <g transform="translate(100, 10)">
+              <path d="M-14,6 L-18,-7 L-9,-1 L0,-11 L9,-1 L18,-7 L14,6 Z" fill="${crownColor}" stroke="url(#d_${uid})" stroke-width="1.2"/>
+              <rect x="-14" y="7" width="28" height="3" rx="1.2" fill="url(#d_${uid})"/>
+              <circle cx="-18" cy="-8" r="2" fill="${crownColor}"/>
+              <circle cx="0" cy="-12" r="2.5" fill="${crownColor}"/>
+              <circle cx="18" cy="-8" r="2" fill="${crownColor}"/>
             </g>
+            <!-- Khung khiên kép bảo vệ -->
             <path d="M100,22 C138,22 156,38 156,78 C156,125 132,158 100,178 C68,158 44,125 44,78 C44,38 62,22 100,22 Z" fill="url(#m_${uid})" stroke="url(#d_${uid})" stroke-width="1.5"/>
             <path d="M100,27 C132,27 150,41 150,78 C150,120 128,151 100,170 C72,151 50,120 50,78 C50,41 68,27 100,27 Z" fill="#0f172a" stroke="url(#d_${uid})" stroke-width="2"/>
+            <!-- Ảnh đại diện 1:1 trong lòng khiên -->
             <circle cx="100" cy="100" r="48" fill="#090d16" stroke="url(#m_${uid})" stroke-width="2.5"/>
             <image href="${src}" x="52" y="52" width="96" height="96" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip_${uid})"/>
             <circle cx="100" cy="100" r="46" fill="none" stroke="url(#m_${uid})" stroke-width="1.8"/>
-            <g transform="translate(50, 146)">
+            <!-- Huy chương & Ruy băng ở góc dưới bên trái -->
+            <g transform="translate(46, 144)">
               <path d="M-7,14 L-16,38 L-7,34 L-1,40 L5,18 Z" fill="url(#r_${uid})" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
               <path d="M7,14 L16,38 L7,34 L1,40 L-5,18 Z" fill="url(#r_${uid})" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
-              <circle cx="0" cy="0" r="22" fill="url(#d_${uid})"/>
-              <circle cx="0" cy="0" r="20.5" fill="url(#m_${uid})" stroke="#FFFFFF" stroke-width="1"/>
-              <text x="0" y="1" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="18" fill="${numFill}">${rank}</text>
-              <text x="0" y="12" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="7.5" fill="${numFill}">TOP</text>
+              <circle cx="0" cy="0" r="23" fill="url(#d_${uid})"/>
+              <circle cx="0" cy="0" r="21.5" fill="url(#m_${uid})" stroke="#FFFFFF" stroke-width="1"/>
+              <text x="0" y="2" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="16" fill="${numFill}">${rank}</text>
+              <text x="0" y="11" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="7" fill="${numFill}">TOP</text>
             </g>
           </svg>
         </div>
