@@ -1463,13 +1463,11 @@
     function downloadExcel() {
       const sorted = Object.values(players).sort((a, b) => (b.score || 0) - (a.score || 0));
       if (sorted.length === 0) return alert("Chưa có dữ liệu điểm số của thí sinh để xuất Excel!");
-      let csv = "﻿Hạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái
-";
+      let csv = "\uFEFFHạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái\n";
       sorted.forEach((p, idx) => {
         const title = idx < 10 ? getRoyalTitleByRank(idx) : "Thí sinh tham dự", status = p.isSuspended ? "Đình chỉ" : (p.isOnline !== false ? "Trực tuyến" : "Đã rời phòng");
         const cleanName = String(p.name || '').replace(/"/g, '""');
-        csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"
-`;
+        csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
       a.href = url; a.download = `Bang_Diem_FourHomeMega_${new Date().toISOString().slice(0, 10)}.csv`;
@@ -1690,7 +1688,7 @@
       } else if (data.type === 'FINISH_QUIZ') {
         closeRoundSpeedModal(); if (data.record) savePrevQuizRecord(data.record); showFinishCelebration(data.quizTitle || currentQuizName);
       } else if (data.type === 'PREV_QUIZ_RECORD') {
-        if (data.record) savePrevQuizRecord(data.record);
+        if (data.record) savePrevQuizRecord(record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
         try { localStorage.setItem('fourhome_quiz_bank_v53', JSON.stringify(quizBank)); } catch (e) {}
@@ -1755,7 +1753,7 @@
       const filtered = keyword ? allList.filter(p => (p.name || '').toLowerCase().includes(keyword)) : allList;
       if (filtered.length === 0) { container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Chưa có tài khoản thí sinh nào trong phòng...</div>`; return; }
       container.innerHTML = filtered.map((p, idx) => {
-        const safeName = (p.name || '').replace(/'/g, "\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
+        const safeName = (p.name || '').replace(/'/g, "\\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
         const statusBadge = isSusp ? `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : isLocked ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Trong phòng</span>` : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất</span>`;
         const suspendBtnHTML = isSusp ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">✅ Bỏ đình chỉ</button>` : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">⛔ Đình chỉ</button>`;
         return `<div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2"><div class="flex items-center gap-2.5 truncate min-w-0 flex-1"><span class="w-5 h-5 aspect-square rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}<div class="truncate min-w-0 flex-1"><div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div><div class="mt-0.5">${statusBadge}</div></div></div><div class="flex flex-wrap items-center justify-end gap-1 shrink-0">${suspendBtnHTML}<button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🔓</button><button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🗑️</button></div></div>`;
@@ -1855,7 +1853,7 @@
             <div class="podium-stage-wrap">
               <div class="${spotClass}"></div>
               <div class="${capClass}"></div>
-              <div class="${podium-3d-body} ${bodyClass} rounded-b-xl">
+              <div class="podium-3d-body ${bodyClass} rounded-b-xl">
                 <span class="${numClass} font-black leading-none">${rank}</span>
                 <span class="text-[13.5px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
               </div>
@@ -2043,8 +2041,7 @@
       publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function deleteCurrentQuiz() {
-      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:
-"${currentQuizName}" không?`)) return;
+      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
       delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v53', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
@@ -2086,10 +2083,8 @@
       if (rawName.length > 20) return alert("Tên tài khoản không vượt quá 20 ký tự!");
       if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! (Mật khẩu thí sinh là số 1).");
       if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
-        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!
-Vui lòng chuyển sang "✨ Đăng ký TK mới".`);
-        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!
-Vui lòng đăng xuất trên máy cũ trước!`);
+        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang "✨ Đăng ký TK mới".`);
+        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng đăng xuất trên máy cũ trước!`);
         myId = existingAcc.id || targetAccountId; myName = existingAcc.name; myAvatar = (tempUploadedAvatar || existingAcc.avatar || DEFAULT_ADMIN_AVATAR); myScore = existingAcc.score || 0;
         isMyAccountSuspended = Boolean(existingAcc.isSuspended); isLoggedOutExplicitly = false;
       } else {
