@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V51</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V52</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -116,6 +116,27 @@
       transform: translateZ(0);
       backface-visibility: hidden;
     }
+    /* CẮT ẢNH ĐẠI DIỆN THEO KHUÔN CHIẾC KHIÊN (CÁCH 3 CLIP-PATH V52) */
+    .shield-avatar-clip-v52 {
+      clip-path: polygon(
+        50% 0%,    /* Đỉnh vòm giữa */
+        82% 5%,    /* Vòm vai phải */
+        98% 16%,   /* Góc trên phải của khiên */
+        100% 38%,  /* Cạnh hông phải trên */
+        92% 65%,   /* Cạnh hông phải dưới thuôn vào */
+        75% 86%,   /* Vát xuống đáy phải */
+        50% 100%,  /* Mũi nhọn đáy khiên */
+        25% 86%,   /* Vát xuống đáy trái */
+        8% 65%,    /* Cạnh hông trái dưới thuôn vào */
+        0% 38%,    /* Cạnh hông trái trên */
+        2% 16%,    /* Góc trên trái của khiên */
+        18% 5%     /* Vòm vai trái */
+      );
+      -webkit-clip-path: polygon(
+        50% 0%, 82% 5%, 98% 16%, 100% 38%, 92% 65%, 75% 86%,
+        50% 100%, 25% 86%, 8% 65%, 0% 38%, 2% 16%, 18% 5%
+      );
+    }
     .logo-8k-pure {
       image-rendering: -webkit-optimize-contrast;
       image-rendering: high-quality;
@@ -218,7 +239,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V51)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V52)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -515,7 +536,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V51 Executive Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V52 Executive Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -662,6 +683,14 @@
 
     const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><circle cx="80" cy="80" r="80" fill="#0F172A"/><circle cx="80" cy="80" r="70" fill="none" stroke="#F59E0B" stroke-width="3"/><path d="M42,102 L34,58 L60,76 L80,44 L100,76 L126,58 L118,102 Z" fill="#FDE047" stroke="#FFF" stroke-width="2"/><rect x="40" y="106" width="80" height="10" rx="5" fill="#F59E0B"/></svg>`);
 
+    // Tự động kiểm tra xem thư mục có sẵn 3 file ảnh khung PNG đã tách nền hay không
+    const availableShieldPngFrames = { 1: false, 2: false, 3: false };
+    [1, 2, 3].forEach(r => {
+      const testImg = new Image();
+      testImg.onload = () => { availableShieldPngFrames[r] = true; };
+      testImg.src = `./khung_vinh_danh_top${r}.png`;
+    });
+
     function applyCoverBannerToUI(dataUrl, lockPermanently = false) {
       const coverEl = document.getElementById('login-hero-cover-img'), finishBanner = document.getElementById('finish-hero-banner');
       const imgSrc = (!dataUrl || dataUrl === 'DEFAULT') ? DEFAULT_LUXURY_COVER_SVG : dataUrl;
@@ -673,13 +702,13 @@
 
     function saveCustomCoverPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v51'); applyCoverBannerToUI('DEFAULT', false);
+        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v52'); applyCoverBannerToUI('DEFAULT', false);
         const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v51', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v51', dataUrl);
+      try { localStorage.setItem('fh_master_cover_v52', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v52', dataUrl);
       const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
 
@@ -714,7 +743,7 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v51', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v52', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
@@ -730,13 +759,13 @@
 
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v51'); applySpeedLogoToUI('DEFAULT', false);
+        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v52'); applySpeedLogoToUI('DEFAULT', false);
         const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v51', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v51', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v52', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v52', dataUrl);
       const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
 
@@ -786,14 +815,14 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v51', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v52', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
 
     function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
 
-    // CƠ CHẾ 2 V51: KHUNG VECTOR SVG ĐỘC QUYỀN 5 CHI TIẾT GIỐNG HỆT BẢN GỐC (KHIÊN 3D + VƯƠNG MIỆN + NGUYỆT QUẾ + HUY CHƯƠNG 1/2/3 TOP + AVATAR LỌT LÒNG KHIÊN)
+    // CƠ CHẾ KÉP V52: ƯU TIÊN KHUNG ẢNH PNG TÁCH NỀN + CẮT CLIP-PATH ĐA GIÁC HÌNH KHIÊN (NẾU CHƯA CÓ FILE PNG SẼ TỰ ĐỘNG DÙNG VECTOR SVG 3D)
     let svgFrameUidCounter = 0;
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
       const hasCustomAvatar = Boolean(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined');
@@ -813,7 +842,22 @@
         rib1: '#ea580c', rib2: '#7c2d12', aura: 'bg-orange-400/25'
       };
 
-      // Tạo 11 cặp lá nguyệt quế kép uốn cong ôm sát 2 bên sườn khiên giống hệt khung gốc
+      // CHẾ ĐỘ 1: Nếu người dùng đã có file khung_vinh_danh_top1/2/3.png trong thư mục -> Dùng CSS clip-path hình khiên lọt lòng dưới khung PNG
+      if (availableShieldPngFrames[rank]) {
+        const frameImgPath = `./khung_vinh_danh_top${rank}.png`;
+        const avtShieldBox = isTop1 ? "w-[62px] h-[88px] top-[20px]" : "w-[52px] h-[74px] top-[17px]";
+        return `
+          <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
+            <div class="absolute inset-2 rounded-full ${pal.aura} blur-xl pointer-events-none z-0"></div>
+            <div class="absolute ${avtShieldBox} left-1/2 -translate-x-1/2 z-10 shield-avatar-clip-v52 bg-slate-900 overflow-hidden flex items-center justify-center">
+              <img src="${src}" class="w-full h-full object-cover object-center" alt="Avatar Top ${rank}">
+            </div>
+            <img src="${frameImgPath}" class="absolute inset-0 w-full h-full object-contain z-20 pointer-events-none drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]" alt="Khung Top ${rank}">
+          </div>
+        `;
+      }
+
+      // CHẾ ĐỘ 2 (DỰ PHÒNG TỰ ĐỘNG): Vẽ khung Vector SVG 5 chi tiết & cắt ảnh đại diện theo clipPath lòng khiên
       let leftLeaves = '', rightLeaves = '';
       for (let i = 0; i < 11; i++) {
         const t = i / 10;
@@ -889,7 +933,7 @@
             <path d="${outerShield}" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1.8"/>
             <path d="${midShield}" fill="#0b101d" stroke="url(#mg2_${uid})" stroke-width="1.4"/>
 
-            <!-- 4. Lòng khiên & Ảnh đại diện thí sinh cắt chuẩn theo khuôn khiên (Không bao giờ đè hoặc bị che) -->
+            <!-- 4. Lòng khiên & Ảnh đại diện thí sinh cắt chuẩn theo khuôn khiên -->
             <path d="${innerShield}" fill="#262b38"/>
             <image href="${src}" x="56" y="42" width="108" height="134" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip_${uid})"/>
             <path d="M 62,64 C 85,52 135,52 158,64 L 158,95 C 130,82 90,82 62,95 Z" fill="#ffffff" opacity="0.08" clip-path="url(#clip_${uid})"/>
@@ -921,7 +965,7 @@
       return "THẬP ĐẠI THẦN TỐC";
     }
 
-    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V51";
+    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V52";
     const clientRateLimits = {};
     let adminActiveSecret = null;
 
@@ -944,7 +988,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V51", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V52", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -988,11 +1032,11 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV51() {
+    (function initMasterAssetsV52() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50') || localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v48') || localStorage.getItem('fh_master_cover_v47');
-        savedLogo = localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50') || localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v48') || localStorage.getItem('fh_master_logo_v47');
+        savedCover = localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50') || localStorage.getItem('fh_master_cover_v49');
+        savedLogo = localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50') || localStorage.getItem('fh_master_logo_v49');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1266,7 +1310,7 @@
 
     function adminBroadcastAudioCue(cueType) {
       executeSyncedAudioCue(cueType);
-      publishPacket('events', { type: 'AUDIO_SYNC_V51', id: 'admin', cue: cueType }, false);
+      publishPacket('events', { type: 'AUDIO_SYNC_V52', id: 'admin', cue: cueType }, false);
     }
 
     function launchFireworks() {
@@ -1293,36 +1337,36 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50') || localStorage.getItem('fourhome_quiz_bank_v49') || localStorage.getItem('fourhome_quiz_bank_v48') || localStorage.getItem('fourhome_quiz_bank_v47')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50') || localStorage.getItem('fourhome_quiz_bank_v49')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v51') || getPersistentData('fh_hw_device_id_v49') || getPersistentData('fh_hw_device_id_v47');
-    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v51', myDeviceHwId); }
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v52') || getPersistentData('fh_hw_device_id_v51') || getPersistentData('fh_hw_device_id_v49');
+    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v52', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v51') || getPersistentData('fh_account_uid_v49') || getPersistentData('fh_account_uid_v47') || '';
-    let myName = getPersistentData('fh_locked_name_v51') || getPersistentData('fh_locked_name_v49') || getPersistentData('fh_locked_name_v47') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v51') || getPersistentData('fh_locked_avatar_v49') || getPersistentData('fh_locked_avatar_v47') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v51') || getPersistentData('fh_saved_score_v49') || getPersistentData('fh_saved_score_v47'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v51') || getPersistentData('fh_reset_id_v49') || getPersistentData('fh_reset_id_v47') || 'init_session';
-    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v51') || getPersistentData('fh_suspended_v49') || getPersistentData('fh_suspended_v47')) === 'true');
-    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v51') || getPersistentData('fh_logged_out_v49') || getPersistentData('fh_logged_out_v47')) === 'true');
+    let myId = getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || getPersistentData('fh_account_uid_v49') || '';
+    let myName = getPersistentData('fh_locked_name_v52') || getPersistentData('fh_locked_name_v51') || getPersistentData('fh_locked_name_v49') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v52') || getPersistentData('fh_locked_avatar_v51') || getPersistentData('fh_locked_avatar_v49') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v52') || getPersistentData('fh_saved_score_v51') || getPersistentData('fh_saved_score_v49'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v52') || getPersistentData('fh_reset_id_v51') || getPersistentData('fh_reset_id_v49') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v52') || getPersistentData('fh_suspended_v51') || getPersistentData('fh_suspended_v49')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v52') || getPersistentData('fh_logged_out_v51') || getPersistentData('fh_logged_out_v49')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v51', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v52', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v47')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
-    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v51', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
+    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v52', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v51')) || JSON.parse(localStorage.getItem('fh_answered_history_v49')) || JSON.parse(localStorage.getItem('fh_answered_history_v47')) || {}; } catch (e) { answeredHistory = {}; }
-    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v51', JSON.stringify(answeredHistory)); } catch (e) {} }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v52')) || JSON.parse(localStorage.getItem('fh_answered_history_v51')) || JSON.parse(localStorage.getItem('fh_answered_history_v49')) || {}; } catch (e) { answeredHistory = {}; }
+    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v52', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v47')); } catch (e) { prevQuizRecord = null; }
-    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v51', JSON.stringify(record)); } catch (e) {} }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v52')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')); } catch (e) { prevQuizRecord = null; }
+    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v52', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
@@ -1418,7 +1462,7 @@
         csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
-      a.href = url; a.download = `Bang_Diem_FourHomeMega_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.href = url; a.download = `Bang_Diem_FourHomeMega_V52_${new Date().toISOString().slice(0, 10)}.csv`;
       document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     }
 
@@ -1428,19 +1472,19 @@
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_cover_v51'] && stored['fh_master_cover_v51'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v51']);
-        if (stored['fh_master_logo_v51'] && stored['fh_master_logo_v51'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v51']);
-        if (stored['fh_logged_out_v51'] === 'true') return;
-        const idbName = stored['fh_locked_name_v51'] || stored['fh_locked_name_v49'] || stored['fh_locked_name_v47'];
-        const idbAvt = stored['fh_locked_avatar_v51'] || stored['fh_locked_avatar_v49'] || stored['fh_locked_avatar_v47'];
+        if (stored['fh_master_cover_v52'] && stored['fh_master_cover_v52'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v52']);
+        if (stored['fh_master_logo_v52'] && stored['fh_master_logo_v52'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v52']);
+        if (stored['fh_logged_out_v52'] === 'true') return;
+        const idbName = stored['fh_locked_name_v52'] || stored['fh_locked_name_v51'] || stored['fh_locked_name_v49'];
+        const idbAvt = stored['fh_locked_avatar_v52'] || stored['fh_locked_avatar_v51'] || stored['fh_locked_avatar_v49'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v51'] || stored['fh_saved_score_v49'] || stored['fh_saved_score_v47'], 10) || 0;
-          myId = stored['fh_account_uid_v51'] || stored['fh_account_uid_v49'] || ('acc_' + normalizeAccountKey(myName));
-          isMyAccountSuspended = ((stored['fh_suspended_v51'] || stored['fh_suspended_v49']) === 'true');
-          if (stored['fh_hw_device_id_v51']) myDeviceHwId = stored['fh_hw_device_id_v51'];
-          setPersistentData('fh_locked_name_v51', myName); setPersistentData('fh_locked_avatar_v51', myAvatar);
-          setPersistentData('fh_saved_score_v51', myScore); setPersistentData('fh_account_uid_v51', myId);
+          myScore = parseInt(stored['fh_saved_score_v52'] || stored['fh_saved_score_v51'] || stored['fh_saved_score_v49'], 10) || 0;
+          myId = stored['fh_account_uid_v52'] || stored['fh_account_uid_v51'] || ('acc_' + normalizeAccountKey(myName));
+          isMyAccountSuspended = ((stored['fh_suspended_v52'] || stored['fh_suspended_v51']) === 'true');
+          if (stored['fh_hw_device_id_v52']) myDeviceHwId = stored['fh_hw_device_id_v52'];
+          setPersistentData('fh_locked_name_v52', myName); setPersistentData('fh_locked_avatar_v52', myAvatar);
+          setPersistentData('fh_saved_score_v52', myScore); setPersistentData('fh_account_uid_v52', myId);
           players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
           document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -1457,7 +1501,7 @@
     }
     autoRestorePlayerSession();
 
-    const BASE_TOPIC = 'fourhome_mega_suc_2026_v51_secure';
+    const BASE_TOPIC = 'fourhome_mega_suc_2026_v52_secure';
     const BROKER_URLS = ['wss://broker.hivemq.com:8884/mqtt', 'wss://test.mosquitto.org:8081/mqtt', 'wss://broker.emqx.io:8084/mqtt'];
     const activeClients = []; let connectedBrokerCount = 0;
     const localChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(BASE_TOPIC) : null;
@@ -1471,7 +1515,7 @@
 
     BROKER_URLS.forEach((url, index) => {
       try {
-        const c = mqtt.connect(url, { clientId: 'fh51_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
+        const c = mqtt.connect(url, { clientId: 'fh52_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
         c.on('connect', () => {
           c._isConnected = true; connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length; updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
@@ -1553,7 +1597,7 @@
       } else if (data.type === 'SYNC_SPEED_LOGO' || data.type === 'FORCE_SYNC_LOGO') {
         if (data.logoImg === 'DEFAULT') saveCustomLogoPermanently('DEFAULT');
         else if (data.logoImg && data.logoImg.startsWith('data:image/')) saveCustomLogoPermanently(data.logoImg);
-      } else if (data.type === 'AUDIO_SYNC_V51') {
+      } else if (data.type === 'AUDIO_SYNC_V52') {
         if (!isAdminMode && data.cue) executeSyncedAudioCue(data.cue);
       } else if (data.type === 'MASTER_TICK') {
         if (isAdminMode) return;
@@ -1585,8 +1629,8 @@
           const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
 
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
-            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v51', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
-            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v51', suspState ? 'true' : 'false'); updateSuspensionUI(); }
+            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v52', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
+            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v52', suspState ? 'true' : 'false'); updateSuspensionUI(); }
           }
           const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
           const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
@@ -1601,7 +1645,7 @@
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].isSuspended = newSusp; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) players[data.targetId].isSuspended = newSusp;
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
-          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v51', newSusp ? 'true' : 'false'); updateSuspensionUI();
+          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v52', newSusp ? 'true' : 'false'); updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản bị Admin tạm đình chỉ!" : "✅ THÔNG BÁO: Admin đã BỎ ĐÌNH CHỈ!");
         }
         scheduleRenderLeaderboard(); scheduleRenderDirectory();
@@ -1639,15 +1683,15 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v52', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || ""; renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
         stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
-          myResetId = data.resetId; setPersistentData('fh_reset_id_v51', myResetId);
-          myScore = 0; setPersistentData('fh_saved_score_v51', 0); answeredHistory = {}; saveAnsweredHistory();
+          myResetId = data.resetId; setPersistentData('fh_reset_id_v52', myResetId);
+          myScore = 0; setPersistentData('fh_saved_score_v52', 0); answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -1678,7 +1722,7 @@
       if (!myName || !confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
       stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
-      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v51', 'true');
+      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v52', 'true');
       const logoutPacket = { type: 'PLAYER_LOGOUT', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: null, isOnline: false, isSuspended: isMyAccountSuspended };
       if (players[myId]) { players[myId].lockedByDevice = null; players[myId].isOnline = false; }
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
@@ -1724,7 +1768,7 @@
       renderPlayerDirectoryList(); alert(`✅ Đã mở khóa thiết bị cho "${targetName}"!`);
     }
     function forceResetMyLocalAccount() {
-      stopAllMP3(); ['fh_locked_name_v51', 'fh_locked_avatar_v51', 'fh_saved_score_v51', 'fh_answered_history_v51', 'fh_account_uid_v51', 'fh_logged_out_v51', 'fh_suspended_v51'].forEach(removePersistentData);
+      stopAllMP3(); ['fh_locked_name_v52', 'fh_locked_avatar_v52', 'fh_saved_score_v52', 'fh_answered_history_v52', 'fh_account_uid_v52', 'fh_logged_out_v52', 'fh_suspended_v52'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-placeholder').classList.remove('hidden');
@@ -1965,275 +2009,4 @@
       if (countLabel) countLabel.innerText = keys.length;
       if (keys.length === 0) { sel.innerHTML = '<option value="">-- Kho đề trống --</option>'; currentQuizName = ""; return; }
       if (!quizBank[currentQuizName]) currentQuizName = keys[0];
-      keys.forEach(title => {
-        const opt = document.createElement('option'); opt.value = title; opt.innerText = `${title} (${quizBank[title].length} câu)`;
-        if (title === currentQuizName) opt.selected = true; sel.appendChild(opt);
-      });
-      const pill = document.getElementById('live-topic-pill'); if (pill) pill.innerText = `Chuyên đề: ${currentQuizName}`;
-    }
-
-    function activateAdminSession() {
-      stopLoginMusicCompletely();
-      isAdminMode = true; document.getElementById('admin-panel').classList.remove('hidden'); document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
-      updateLockedPlayerBadgeUI(); renderLeaderboard(); requestPlayerPresence();
-      if (hasCustomCoverLocked && activeCoverBannerDataUrl) forceBroadcastCoverNow(false);
-      if (hasCustomLogoLocked && activeTransparentLogoPNG) forceBroadcastLogoNow(false);
-    }
-
-    function toggleNewQuizModal() { document.getElementById('modal-new-quiz').classList.toggle('hidden'); }
-    function selectQuizWeek() {
-      const snap = buildCurrentStandingsRecord(currentQuizName);
-      if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      currentQuizName = document.getElementById('admin-quiz-select').value; currentQIndex = -1;
-      const pill = document.getElementById('live-topic-pill'); if (pill) pill.innerText = `Chuyên đề: ${currentQuizName}`;
-      publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
-    }
-    function deleteCurrentQuiz() {
-      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
-      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
-      currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
-    }
-    function restoreDefaultQuiz() {
-      const defaultTitle = Object.keys(defaultBank)[0]; quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
-      currentQuizName = defaultTitle; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
-    }
-    function saveNewQuizFromNotebook() {
-      const title = sanitizeText(document.getElementById('new-quiz-title').value.trim(), 120), rawJson = document.getElementById('new-quiz-json').value.trim();
-      if (!title || !rawJson) return alert("Vui lòng nhập Tên và dán JSON!");
-      try {
-        const parsed = JSON.parse(rawJson);
-        if (!Array.isArray(parsed) || parsed.length === 0) return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
-        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
-        currentQuizName = title; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
-        document.getElementById('new-quiz-title').value = ''; document.getElementById('new-quiz-json').value = ''; document.getElementById('modal-new-quiz').classList.add('hidden'); alert(`🎉 Đã thêm bộ đề "${title}"!`);
-      } catch (e) { alert("Mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!"); }
-    }
-    function requestPlayerPresence() { publishPacket('events', { type: 'PING_PRESENCE', id: 'admin' }, false); renderLeaderboard(); renderPlayerDirectoryList(); }
-    function clearRoomPlayers() {
-      if (!confirm("Admin muốn xóa toàn bộ danh sách tài khoản trong phòng hiện tại?")) return;
-      Object.keys(players).forEach(pid => { activeClients.forEach(c => { if (c && c._isConnected) c.publish(`${BASE_TOPIC}/players/${pid}`, '', { retain: true }); }); });
-      players = {}; accountRegistry = {}; saveAccountRegistryLocal(); renderLeaderboard(); renderPlayerDirectoryList(); publishPacket('events', { type: 'CLEAR_PLAYERS', id: 'admin' }, false);
-    }
-
-    function joinGame() {
-      stopLoginMusicCompletely(); initAudio();
-      const rawName = document.getElementById('playerName').value.trim(), nameInput = sanitizeText(rawName, 20), passInput = document.getElementById('playerPassword').value.trim(), alertBox = document.getElementById('avatar-missing-alert');
-      if (alertBox) alertBox.classList.add('hidden');
-      if (normalizeAccountKey(rawName) === 'admin') { if (verifyAdminPin(passInput)) { activateAdminSession(); return; } else return alert("Sai mật khẩu Quản trò!"); }
-      const accKey = normalizeAccountKey(nameInput), targetAccountId = 'acc_' + accKey;
-      const existingAcc = accountRegistry[accKey] || players[targetAccountId] || Object.values(players).find(p => p && p.name && normalizeAccountKey(p.name) === accKey);
-      if (authMode === 'register' && !(existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
-        const avatarToUse = tempUploadedAvatar || myAvatar;
-        if (!avatarToUse) { if (alertBox) alertBox.classList.remove('hidden'); return alert("Bạn chưa tải hình ảnh đại diện, vui lòng tải hình ảnh đại diện để tham gia thi đấu"); }
-      }
-      if (!nameInput) return alert("Vui lòng nhập Tên tài khoản!");
-      if (rawName.length > 20) return alert("Tên tài khoản không vượt quá 20 ký tự!");
-      if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! (Mật khẩu thí sinh là số 1).");
-      if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
-        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang "✨ Đăng ký TK mới".`);
-        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng đăng xuất trên máy cũ trước!`);
-        myId = existingAcc.id || targetAccountId; myName = existingAcc.name; myAvatar = existingAcc.avatar || DEFAULT_ADMIN_AVATAR; myScore = existingAcc.score || 0;
-        isMyAccountSuspended = Boolean(existingAcc.isSuspended); isLoggedOutExplicitly = false;
-      } else {
-        if (existingAcc) {
-          if (existingAcc.isOnline === false || !existingAcc.lockedByDevice) { if (confirm(`Tài khoản "${existingAcc.name}" đã có sẵn! Bạn muốn ĐĂNG NHẬP luôn vào tài khoản này?`)) { switchAuthTab('login'); joinGame(); return; } }
-          return alert(`⚠️ Tên tài khoản "${nameInput}" đã tồn tại! Vui lòng đổi tên khác!`);
-        }
-        myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
-      }
-      setPersistentData('fh_account_uid_v51', myId); setPersistentData('fh_locked_name_v51', myName); setPersistentData('fh_locked_avatar_v51', myAvatar); setPersistentData('fh_saved_score_v51', myScore);
-      setPersistentData('fh_suspended_v51', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v51', 'false');
-      document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
-      updateSuspensionUI(); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; announceMyPresence(true); renderLeaderboard();
-    }
-
-    function hostNextQuestion() {
-      stopLoginMusicCompletely(); initAudio();
-      if (!currentQuizName || !quizBank[currentQuizName]) return alert("Kho đề đang trống!");
-      const list = quizBank[currentQuizName] || [], nextIdx = currentQIndex + 1;
-      if (nextIdx >= list.length) {
-        const finalRecord = buildCurrentStandingsRecord(currentQuizName);
-        if (finalRecord) { savePrevQuizRecord(finalRecord); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: finalRecord }, true); }
-        publishPacket('events', { type: 'FINISH_QUIZ', id: 'admin', quizTitle: currentQuizName, record: finalRecord }, false);
-        showFinishCelebration(currentQuizName); currentQIndex = -1; return;
-      }
-      const explanationMsg = (currentQIndex >= 0 && list[currentQIndex]) ? `💡 Giải thích Câu ${currentQIndex + 1} (Đáp án ${list[currentQIndex].correct}): ${getExplanationForQuestion(list[currentQIndex])}` : `💡 Chuẩn bị bước vào Câu hỏi số 1! Các thí sinh có 3 giây suy nghĩ và 20 giây trả lời.`;
-      const btnNext = document.getElementById('btn-host-next'), adminBar = document.getElementById('admin-transition-bar'), adminNum = document.getElementById('admin-countdown-num');
-      if (btnNext) { btnNext.disabled = true; btnNext.classList.add('opacity-50', 'cursor-not-allowed'); }
-      if (adminBar) adminBar.classList.remove('hidden');
-      if (adminNum) adminNum.innerText = 5;
-      const prePacket = { type: 'PRE_NEXT_COUNTDOWN', id: 'admin', countdown: 5, nextQuestionNumber: nextIdx + 1, explanation: explanationMsg };
-      publishPacket('events', prePacket, false); showPreNextCountdownOnScreen(prePacket);
-      const transitionEndMs = Date.now() + 5000; clearInterval(adminTransitionTimeout);
-      adminTransitionTimeout = setInterval(() => {
-        const rem = Math.max(0, Math.ceil((transitionEndMs - Date.now()) / 1000));
-        if (rem > 0) { if (adminNum) adminNum.innerText = rem; }
-        else { clearInterval(adminTransitionTimeout); if (adminBar) adminBar.classList.add('hidden'); if (btnNext) { btnNext.disabled = false; btnNext.classList.remove('opacity-50', 'cursor-not-allowed'); } dispatchQuestionNow(nextIdx); }
-      }, 250);
-    }
-
-    function showPreNextCountdownOnScreen(data) {
-      const box = document.getElementById('transition-Syntax-box'), numEl = document.getElementById('player-transition-num'), expEl = document.getElementById('transition-explanation-text');
-      const footerStatus = document.getElementById('speed-footer-status'), footerSec = document.getElementById('speed-footer-sec'), footerBar = document.getElementById('speed-footer-bar');
-      if (box && numEl && expEl) { box.classList.remove('hidden'); expEl.innerText = data.explanation || ""; }
-      const totalSec = data.countdown || 5, endMs = Date.now() + totalSec * 1000;
-      if (numEl) numEl.innerText = totalSec;
-      if (footerStatus) footerStatus.innerText = `🕒 Tự động chuyển câu sau`;
-      if (footerSec) footerSec.innerText = `0${totalSec}s`; if (footerBar) footerBar.style.width = '100%';
-      clearInterval(transitionInterval);
-      transitionInterval = setInterval(() => {
-        const sec = Math.max(0, Math.ceil((endMs - Date.now()) / 1000));
-        if (sec > 0) { if (numEl) numEl.innerText = sec; if (footerSec) footerSec.innerText = `0${sec}s`; if (footerBar) footerBar.style.width = `${(sec / totalSec) * 100}%`; }
-        else { clearInterval(transitionInterval); if (box) box.classList.add('hidden'); closeRoundSpeedModal(); }
-      }, 250);
-    }
-
-    function dispatchQuestionNow(targetIndex) {
-      stopLoginMusicCompletely();
-      const list = quizBank[currentQuizName] || []; if (targetIndex >= list.length) return;
-      currentQIndex = targetIndex;
-      const q = list[currentQIndex], qTime = 20, expText = getExplanationForQuestion(q), qUid = currentQuizName + '_q' + (currentQIndex + 1) + '_' + myResetId + '_' + Date.now();
-      adminActiveSecret = { qUid, correct: q.correct, explanation: expText };
-      const packet = { type: 'START_QUESTION', id: 'admin', qUid, qIndex: currentQIndex + 1, total: list.length, quizTitle: currentQuizName, question: q.question, options: q.options, thinkTime: 3, time: qTime, sentAt: Date.now() };
-      activeQuestionPacketCache = packet; document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
-      activeClients.forEach(c => { if (c && c._isConnected) c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); });
-      publishPacket('state/question', packet, true); publishPacket('events', packet, false); showQuestionOnScreen(packet);
-      clearTimeout(revealTimer); clearTimeout(finishTimer);
-      revealTimer = setTimeout(() => {
-        const revealPacket = { type: 'REVEAL_CORRECT', id: 'admin', qUid, correct: q.correct, explanation: expText };
-        publishPacket('state/reveal', revealPacket, true); publishPacket('events', revealPacket, false); revealAnswerAndPlaySound(q.correct, expText);
-        if (packet.qIndex === packet.total) {
-          finishTimer = setTimeout(() => {
-            const finalRecord = buildCurrentStandingsRecord(currentQuizName);
-            if (finalRecord) { savePrevQuizRecord(finalRecord); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: finalRecord }, true); }
-            publishPacket('events', { type: 'FINISH_QUIZ', id: 'admin', quizTitle: currentQuizName, record: finalRecord }, false);
-            showFinishCelebration(currentQuizName); currentQIndex = -1;
-          }, 5500);
-        }
-      }, (3 + qTime) * 1000);
-    }
-
-    function hostResetGame() {
-      currentQIndex = -1; clearTimeout(revealTimer); clearTimeout(finishTimer); clearTimeout(soloFallbackRevealTimer);
-      clearInterval(thinkingTimer); clearInterval(countdownTimer); clearInterval(transitionInterval); clearInterval(adminTransitionTimeout);
-      stopAllMP3(); closeRoundSpeedModal();
-      const snap = buildCurrentStandingsRecord(currentQuizName);
-      if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v51', newResetId);
-      activeClients.forEach(c => { if (c && c._isConnected) { c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); } });
-      myScore = 0; setPersistentData('fh_saved_score_v51', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
-      for (let k in players) players[k].score = 0; for (let k in accountRegistry) accountRegistry[k].score = 0;
-      saveAccountRegistryLocal(); renderLeaderboard(); publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
-    }
-
-    function showQuestionOnScreen(data) {
-      stopLoginMusicCompletely();
-      if (window.activeQuestionUid === data.qUid) return;
-      window.activeQuestionUid = data.qUid; clearInterval(thinkingTimer); clearInterval(countdownTimer); clearInterval(transitionInterval); clearTimeout(soloFallbackRevealTimer);
-      closeRoundSpeedModal(); closeFinishModal(); document.getElementById('transition-Syntax-box').classList.add('hidden');
-      votes = { A: 0, B: 0, C: 0, D: 0, total: 0 }; optionPickers = { A: [], B: [], C: [], D: [] }; currentRoundAnswers = {}; window.currentCorrectAns = ''; window.currentExplanation = ''; isQuestionRevealed = false; myPendingChoice = null; myPendingTimeLeft = 0; myPendingElapsedSec = 0;
-      document.getElementById('question-index').innerText = `Vòng ${data.qIndex}/${data.total}`;
-      if (data.quizTitle) { const pill = document.getElementById('live-topic-pill'); if (pill) pill.innerText = `Chuyên đề: ${data.quizTitle}`; }
-      document.getElementById('question-text').innerText = data.question; document.getElementById('answer-feedback').classList.add('hidden'); document.getElementById('explanation-inline').classList.add('hidden');
-      ['A', 'B', 'C', 'D'].forEach(k => {
-        const btn = document.getElementById(`btn-${k}`); btn.classList.remove('ring-4', 'ring-amber-400', 'bg-amber-50', 'bg-emerald-100', 'border-emerald-500', 'bg-rose-100', 'border-rose-500', 'opacity-60');
-        document.getElementById(`text-${k}`).innerText = data.options[k]; document.getElementById(`avatars-${k}`).innerHTML = ''; document.getElementById(`stat-${k}`).innerText = `0 (0%)`;
-      });
-      const prevAns = answeredHistory[data.qUid];
-      if (prevAns) { myPendingChoice = prevAns.choice; myPendingTimeLeft = prevAns.timeLeft; myPendingElapsedSec = prevAns.elapsedSec || (20 - prevAns.timeLeft); hasAnswered = true; const selectedBtn = document.getElementById(`btn-${myPendingChoice}`); if (selectedBtn) selectedBtn.classList.add('ring-4', 'ring-amber-400', 'bg-amber-50'); } else hasAnswered = false;
-      let thinkLeft = 3; const thinkEndMs = Date.now() + 3000; isThinkingPhase = true;
-      const thinkBanner = document.getElementById('thinking-banner'), timerCountEl = document.getElementById('timer-count'), timerLabelEl = document.getElementById('timer-label');
-      thinkBanner.classList.remove('hidden'); thinkBanner.innerText = `🧠 Suy nghĩ: ${thinkLeft} giây... (Chưa mở chọn)`; timerCountEl.innerText = thinkLeft; timerLabelEl.innerText = 'suy nghĩ'; setTimerRingProgress(thinkLeft, 3);
-      ['A', 'B', 'C', 'D'].forEach(k => document.getElementById(`btn-${k}`).classList.add('opacity-60'));
-      playALTPQuestionStart();
-      let lastBroadcastThinkSec = 3;
-      thinkingTimer = setInterval(() => {
-        const rem = Math.max(0, Math.ceil((thinkEndMs - Date.now()) / 1000));
-        if (rem > 0) {
-          thinkLeft = rem; thinkBanner.innerText = `🧠 Suy nghĩ: ${thinkLeft} giây... (Chưa mở chọn)`; timerCountEl.innerText = thinkLeft; setTimerRingProgress(thinkLeft, 3);
-          if (isAdminMode && rem !== lastBroadcastThinkSec) { lastBroadcastThinkSec = rem; publishPacket('events', { type: 'MASTER_TICK', id: 'admin', qUid: data.qUid, phase: 'think', timeLeft: rem, questionPacket: activeQuestionPacketCache }, false); }
-        } else { clearInterval(thinkingTimer); isThinkingPhase = false; thinkBanner.classList.add('hidden'); ['A', 'B', 'C', 'D'].forEach(k => document.getElementById(`btn-${k}`).classList.remove('opacity-60')); start20SecondAnsweringPhase(data); }
-      }, 200);
-    }
-
-    function start20SecondAnsweringPhase(data) {
-      playALTPBgmLoop();
-      currentTimeLeft = 20; answerPhaseStartMs = Date.now(); const answerEndMs = answerPhaseStartMs + 20000;
-      const timerCountEl = document.getElementById('timer-count'), timerLabelEl = document.getElementById('timer-label');
-      timerCountEl.innerText = currentTimeLeft; timerLabelEl.innerText = 'giây'; setTimerRingProgress(currentTimeLeft, 20);
-      if (isAdminMode) publishPacket('events', { type: 'MASTER_TICK', id: 'admin', qUid: data.qUid, phase: 'answer', timeLeft: 20, questionPacket: activeQuestionPacketCache }, false);
-      let lastTickSec = 20; clearInterval(countdownTimer);
-      countdownTimer = setInterval(() => {
-        const rem = Math.max(0, Math.ceil((answerEndMs - Date.now()) / 1000));
-        if (rem >= 1) {
-          if (rem !== lastTickSec) {
-            lastTickSec = rem; currentTimeLeft = rem; timerCountEl.innerText = currentTimeLeft; setTimerRingProgress(currentTimeLeft, 20); playALTPTick(currentTimeLeft);
-            if (isAdminMode) publishPacket('events', { type: 'MASTER_TICK', id: 'admin', qUid: data.qUid, phase: 'answer', timeLeft: currentTimeLeft }, false);
-          }
-        } else {
-          clearInterval(countdownTimer); currentTimeLeft = 0; timerCountEl.innerText = 0; setTimerRingProgress(0, 20);
-          if (isAdminMode && adminActiveSecret && adminActiveSecret.qUid === data.qUid) revealAnswerAndPlaySound(adminActiveSecret.correct, adminActiveSecret.explanation);
-          else {
-            clearTimeout(soloFallbackRevealTimer);
-            soloFallbackRevealTimer = setTimeout(() => {
-              if (!isQuestionRevealed && window.activeQuestionUid === data.qUid) {
-                const localList = (data.quizTitle && quizBank[data.quizTitle]) ? quizBank[data.quizTitle] : (quizBank[currentQuizName] || []);
-                const localQ = localList[(data.qIndex || 1) - 1]; if (localQ && localQ.correct) revealAnswerAndPlaySound(localQ.correct, getExplanationForQuestion(localQ));
-              }
-            }, 1200);
-          }
-        }
-      }, 200);
-    }
-
-    function pickAnswer(choice) {
-      if (isMyAccountSuspended) return alert("⛔ Tài khoản của bạn đang bị Admin tạm đình chỉ thi đấu!");
-      if (isThinkingPhase || hasAnswered || isQuestionRevealed || currentTimeLeft <= 0) return;
-      initAudio(); hasAnswered = true; myPendingChoice = choice; myPendingTimeLeft = Math.max(1, Math.min(20, currentTimeLeft)); myPendingElapsedSec = Math.max(0.1, Math.min(19.9, (Date.now() - answerPhaseStartMs) / 1000));
-      document.getElementById(`btn-${choice}`).classList.add('ring-4', 'ring-amber-400', 'bg-amber-50');
-      const fb = document.getElementById('answer-feedback'); fb.classList.remove('hidden'); fb.innerText = `🔒 Đã chốt ${choice} ở giây thứ ${myPendingTimeLeft} (Mốc +${myPendingTimeLeft}đ). Chờ hết 20s mở kết quả!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow";
-      if (window.activeQuestionUid) { answeredHistory[window.activeQuestionUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: false, bonus: 0 }; saveAnsweredHistory(); }
-      const displayName = myName || 'Admin Tuấn PL', displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
-      recordRoundChoice({ id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec });
-      publishPacket('events', { type: 'LOCK_CHOICE', id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec }, false);
-    }
-
-    function revealAnswerAndPlaySound(correctKey, explanationText) {
-      if (isQuestionRevealed || !correctKey) return;
-      isQuestionRevealed = true; window.currentCorrectAns = correctKey; if (explanationText) window.currentExplanation = explanationText;
-      clearInterval(thinkingTimer); clearInterval(countdownTimer); clearTimeout(soloFallbackRevealTimer); hasAnswered = true;
-      document.getElementById('thinking-banner').classList.add('hidden'); document.getElementById('timer-count').innerText = 0; setTimerRingProgress(0, 20);
-      const correctBtn = document.getElementById(`btn-${correctKey}`); if (correctBtn) { correctBtn.classList.remove('bg-amber-50'); correctBtn.classList.add('bg-emerald-100', 'border-emerald-500'); }
-      const fb = document.getElementById('answer-feedback'); fb.classList.remove('hidden');
-      const expBox = document.getElementById('explanation-inline'); if (expBox && explanationText) { expBox.innerHTML = `💡 <strong>Giải thích:</strong> ${explanationText}`; expBox.classList.remove('hidden'); }
-      const qUid = window.activeQuestionUid, savedRec = qUid ? answeredHistory[qUid] : null, alreadyScored = savedRec && savedRec.revealed;
-      if (myPendingChoice) {
-        const chosenBtn = document.getElementById(`btn-${myPendingChoice}`);
-        if (myPendingChoice === correctKey) {
-          const earnedPoints = myPendingTimeLeft;
-          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v51', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
-          document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; fb.innerText = `🎉 CHÍNH XÁC! Bạn chốt đáp án ${myPendingChoice} ở giây thứ ${myPendingTimeLeft} (+${earnedPoints} ⭐)`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow"; playALTPCorrect();
-        } else {
-          if (chosenBtn) { chosenBtn.classList.remove('bg-amber-50'); chosenBtn.classList.add('bg-rose-100', 'border-rose-500'); }
-          if (!alreadyScored && qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: 0 }; saveAnsweredHistory(); }
-          fb.innerText = `❌ RẤT TIẾC! Bạn chọn ${myPendingChoice} chưa đúng (+0 ⭐). Đáp án đúng là ${correctKey}!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-rose-600 text-white shadow"; playALTPWrong();
-        }
-      } else {
-        fb.innerText = `⏰ HẾT 20 GIÂY! Bạn chưa chọn đáp án (+0 ⭐). Đáp án đúng là ${correctKey}!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-slate-700 text-amber-300 shadow";
-        if (!isAdminMode) playALTPWrong(); else playALTPCorrect();
-      }
-      const displayName = myName || 'Admin Tuấn PL', displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
-      if (myName) players[myId] = { id: myId, name: displayName, avatar: displayAvt, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
-      if (myPendingChoice) recordRoundChoice({ id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec });
-      updateVoteStatsUI(); scheduleRenderLeaderboard();
-      if (myName || myPendingChoice) { publishPacket('events', { type: 'SUBMIT_ANSWER', id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, score: myScore }, false); sendLightweightHeartbeat(); }
-      
-      renderRoundSpeedModalContent(correctKey, explanationText);
-      const footerStatus = document.getElementById('speed-footer-status'), footerSec = document.getElementById('speed-footer-sec'), footerBar = document.getElementById('speed-footer-bar');
-      if (footerStatus) footerStatus.innerText = '🕒 Tự động chuyển câu sau'; if (footerSec) footerSec.innerText = '05s'; if (footerBar) footerBar.style.width = '100%';
-      setTimeout(() => { if (isQuestionRevealed) openRoundSpeedModal(); }, 650);
-    }
-  </script>
-</body>
-</html>
+      keys.
