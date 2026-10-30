@@ -104,22 +104,39 @@
       aspect-ratio: 1 / 1;
     }
     .timer-ring-circle { transition: stroke-dashoffset 0.25s linear, stroke 0.25s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
+    /* AVATAR SIÊU NÉT 8K: Tắt crisp-edges gây vỡ hạt trên Chrome, dùng nội suy Bicubic GPU chất lượng cao */
     .avatar-4k {
       aspect-ratio: 1 / 1;
       border-radius: 9999px;
       object-fit: cover;
       object-position: center;
       flex-shrink: 0;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: high-quality;
-      filter: contrast(1.06) saturate(1.10) brightness(1.02);
+      image-rendering: auto;
+      filter: contrast(1.04) saturate(1.08) brightness(1.02);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .shield-avatar-clip {
+      clip-path: polygon(50% 21%, 63% 22.5%, 71% 27.5%, 72.5% 32%, 72% 46%, 68.5% 60%, 61.5% 72%, 50% 81.8%, 38.5% 72%, 31.5% 60%, 28% 46%, 27.5% 32%, 29% 27.5%, 37% 22.5%);
+      -webkit-clip-path: polygon(50% 21%, 63% 22.5%, 71% 27.5%, 72.5% 32%, 72% 46%, 68.5% 60%, 61.5% 72%, 50% 81.8%, 38.5% 72%, 31.5% 60%, 28% 46%, 27.5% 32%, 29% 27.5%, 37% 22.5%);
       transform: translateZ(0);
       backface-visibility: hidden;
     }
+    .shield-avatar-img-hd {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+      image-rendering: auto;
+      filter: contrast(1.05) saturate(1.10) brightness(1.02);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
     .logo-8k-pure {
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: high-quality;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 14px rgba(251, 191, 36, 0.45));
+      image-rendering: auto;
+      filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.88)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.5));
       transform: translateZ(0);
     }
     .timer-gold-number {
@@ -148,19 +165,19 @@
     }
     .podium-stage-wrap { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 2px; }
     .podium-spotlight-gold, .podium-spotlight-silver, .podium-spotlight-bronze {
-      position: absolute; bottom: 92%; left: 6%; right: 6%; height: 95px; pointer-events: none; z-index: 1;
+      position: absolute; bottom: 92%; left: 6%; right: 6%; height: 110px; pointer-events: none; z-index: 1;
     }
     .podium-spotlight-gold { background: radial-gradient(ellipse at 50% 100%, rgba(251, 191, 36, 0.38) 0%, rgba(245, 158, 11, 0.08) 55%, transparent 80%); }
     .podium-spotlight-silver { background: radial-gradient(ellipse at 50% 100%, rgba(226, 232, 240, 0.26) 0%, rgba(148, 163, 184, 0.05) 55%, transparent 80%); }
     .podium-spotlight-bronze { background: radial-gradient(ellipse at 50% 100%, rgba(251, 146, 60, 0.26) 0%, rgba(234, 88, 12, 0.05) 55%, transparent 80%); }
     .podium-top-surface-gold, .podium-top-surface-silver, .podium-top-surface-bronze {
-      width: 100%; height: 12px; clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      width: 100%; height: 14px; clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
     }
     .podium-top-surface-gold { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-bottom: 2.5px solid #fde047; box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5); }
     .podium-top-surface-silver { background: linear-gradient(180deg, #334155 0%, #1e293b 100%); border-bottom: 2px solid #e2e8f0; }
     .podium-top-surface-bronze { background: linear-gradient(180deg, #292524 0%, #1c1917 100%); border-bottom: 2px solid #fdba74; }
     .podium-3d-body {
-      width: 100%; position: relative; display: flex; align-items: center; justify-content: center; gap: 3px; overflow: hidden;
+      width: 100%; position: relative; display: flex; align-items: center; justify-content: center; gap: 4px; overflow: hidden;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
     .podium-3d-gold { background: linear-gradient(180deg, #132226 0%, #091318 65%, #04090c 100%); border-left: 1px solid rgba(253, 224, 71, 0.35); border-right: 1px solid rgba(253, 224, 71, 0.35); border-bottom: 3px solid #f59e0b; }
@@ -532,7 +549,7 @@
   <div id="modal-avatar-cropper" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-3">
     <div class="w-full max-w-sm bg-slate-900 text-white rounded-3xl shadow-2xl border-2 border-amber-500 p-4 text-center space-y-3">
       <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-        <span class="text-xs font-black text-amber-400">✂️ CĂN CHỈNH & CẮT HÌNH ẢNH (1:1)</span>
+        <span class="text-xs font-black text-amber-400">✂️ CĂN CHỈNH & CẮT HÌNH ẢNH SIÊU NÉT (1:1)</span>
         <button onclick="closeAvatarCropper()" class="text-xs text-slate-400 hover:text-white font-bold cursor-pointer">✖ Đóng</button>
       </div>
       <p class="text-[11px] text-slate-300 font-semibold">Dùng ngón tay (hoặc chuột) <strong class="text-amber-300">kéo di chuyển ảnh</strong> và trượt thanh <strong class="text-amber-300">Phóng to / Thu nhỏ</strong>:</p>
@@ -571,29 +588,30 @@
     </div>
   </div>
 
-  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI -->
-  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2.5 pt-10">
-    <div class="w-full max-w-[432px] victory-luxury-modal text-white rounded-[28px] p-3.5 pt-2 flex flex-col max-h-[90vh] relative">
-      <button onclick="closeRoundSpeedModal()" class="absolute top-3 right-3 w-7 h-7 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-xs flex items-center justify-center cursor-pointer z-30">✖</button>
+  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI THẦN TỐC (ĐÃ TĂNG KÍCH CỠ THÊM 20% & AVATAR SIÊU NÉT) -->
+  <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2 sm:p-3 pt-12">
+    <div class="w-full max-w-[518px] victory-luxury-modal text-white rounded-[32px] p-4 pt-2.5 flex flex-col max-h-[92vh] relative">
+      <button onclick="closeRoundSpeedModal()" class="absolute top-3.5 right-3.5 w-8 h-8 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-sm flex items-center justify-center cursor-pointer z-30">✖</button>
 
-      <div class="flex justify-center -mt-12 mb-1 select-none pointer-events-none relative z-20">
-        <div class="absolute w-[150px] h-[90px] top-3 rounded-full bg-amber-400/20 blur-xl"></div>
-        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[145px] h-[110px] object-contain relative z-10 logo-8k-pure">
+      <!-- Logo 10 Thập Đại Thần Tốc phóng to thêm 20% (174x132px) -->
+      <div class="flex justify-center -mt-14 mb-1.5 select-none pointer-events-none relative z-20">
+        <div class="absolute w-[180px] h-[108px] top-3 rounded-full bg-amber-400/25 blur-xl"></div>
+        <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[174px] h-[132px] object-contain relative z-10 logo-8k-pure">
       </div>
 
-      <div id="speed-modal-answer-bar" class="bg-gradient-to-r from-emerald-950/90 via-slate-900/95 to-emerald-950/90 border border-emerald-400/50 text-emerald-200 rounded-xl px-3 py-1.5 text-[10.5px] font-bold text-center mb-2 shadow-inner leading-snug">
+      <div id="speed-modal-answer-bar" class="bg-gradient-to-r from-emerald-950/90 via-slate-900/95 to-emerald-950/90 border border-emerald-400/50 text-emerald-200 rounded-2xl px-3.5 py-2 text-xs sm:text-[13px] font-bold text-center mb-2.5 shadow-inner leading-snug">
         ✅ Đáp án & Bảng vinh danh Thập Đại Thần Tốc
       </div>
 
-      <div id="speed-podium-box" class="grid grid-cols-3 gap-1.5 items-end mb-2 px-0.5 pt-1"></div>
+      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1 pt-1"></div>
       <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
 
       <div class="pt-2 border-t border-amber-500/25">
-        <div class="flex justify-between items-center text-[11px] font-bold text-slate-300 mb-1">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-300 mb-1">
           <span id="speed-footer-status">🕒 Tự động chuyển câu sau</span>
-          <span id="speed-footer-sec" class="bg-amber-400/20 text-amber-300 border border-amber-400/40 font-black px-2 py-0.5 rounded-full text-[10px]">05s</span>
+          <span id="speed-footer-sec" class="bg-amber-400/20 text-amber-300 border border-amber-400/40 font-black px-2.5 py-0.5 rounded-full text-[11px]">05s</span>
         </div>
-        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
           <div id="speed-footer-bar" class="h-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 transition-all duration-500" style="width: 100%;"></div>
         </div>
       </div>
@@ -741,7 +759,7 @@
     }
 
     function removeLogoBackground8K(imgElement, callback) {
-      const maxDim = 420, scale = Math.min(1, maxDim / Math.max(imgElement.width, imgElement.height));
+      const maxDim = 560, scale = Math.min(1, maxDim / Math.max(imgElement.width, imgElement.height));
       const w = Math.max(1, Math.round(imgElement.width * scale)), h = Math.max(1, Math.round(imgElement.height * scale));
       const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
       const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
@@ -793,12 +811,14 @@
 
     function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
 
+    // V52: KHUNG KHIÊN VECTOR SVG ĐỘC QUYỀN (+20% KÍCH CỠ) + TÁCH LỚP AVATAR NATIVE <img> SIÊU NÉT 8K (KHÔNG BAO GIỜ BỊ VỠ HẠT DO SVG FILTER)
     let svgFrameUidCounter = 0;
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
       const hasCustomAvatar = Boolean(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined');
       const src = hasCustomAvatar ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      const wrapSize = isTop1 ? "w-[132px] h-[136px]" : "w-[112px] h-[116px]";
+      // Tăng kích cỡ khung vinh danh Thập Đại Thần Tốc thêm 20%
+      const wrapSize = isTop1 ? "w-[156px] h-[160px]" : "w-[132px] h-[136px]";
       const uid = `rf_${rank}_${++svgFrameUidCounter}`;
 
       const pal = rank === 1 ? {
@@ -835,10 +855,16 @@
       const midShield   = "M 110 40 C 131 40, 149 45, 160 54 L 164 61 C 166 114, 145 155, 110 181 C 75 155, 54 114, 56 61 L 60 54 C 71 45, 89 40, 110 40 Z";
       const innerShield = "M 110 45 C 129 45, 145 50, 154 58 L 158 64 C 160 111, 141 149, 110 173 C 79 149, 60 111, 62 64 L 66 58 C 75 50, 91 45, 110 45 Z";
 
+      // Tách hoàn toàn thành 3 lớp phần cứng độc lập:
+      // Lớp 1 (z-10): Đế khiên Vector SVG
+      // Lớp 2 (z-20): Thẻ <img> HTML5 gốc hiển thị Avatar ở độ phân giải Retina/8K siêu nét, cắt đúng dáng lòng khiên
+      // Lớp 3 (z-30): Viền kim loại nổi của Khiên + Vương miện + Nguyệt quế + Huy chương 1/2/3 TOP ôm khít bên ngoài
       return `
         <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
           <div class="absolute inset-2 rounded-full ${pal.aura} blur-xl pointer-events-none z-0"></div>
-          <svg viewBox="0 0 220 212" class="w-full h-full relative z-10 overflow-visible drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]">
+
+          <!-- Lớp 1 (z-10): Đế Khiên 3D & Vòng Nguyệt Quế -->
+          <svg viewBox="0 0 220 212" class="absolute inset-0 w-full h-full z-10 overflow-visible pointer-events-none drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]">
             <defs>
               <linearGradient id="mg_${uid}" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="${pal.c1}"/>
@@ -862,11 +888,7 @@
                 <stop offset="0%" stop-color="${pal.rib1}"/>
                 <stop offset="100%" stop-color="${pal.rib2}"/>
               </linearGradient>
-              <clipPath id="clip_${uid}">
-                <path d="${innerShield}"/>
-              </clipPath>
             </defs>
-
             <g transform="translate(110, 21)">
               <path d="M -14,7 L -18,-5 L -7,1 L 0,-9 L 7,1 L 18,-5 L 14,7 Z" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1"/>
               <rect x="-14" y="7" width="28" height="3.5" rx="1.5" fill="url(#mg2_${uid})" stroke="${pal.c5}" stroke-width="0.8"/>
@@ -874,23 +896,26 @@
               <circle cx="0" cy="-11" r="2.4" fill="${pal.c1}"/>
               <circle cx="18" cy="-7" r="2" fill="${pal.c1}"/>
             </g>
-
             <path d="M 110,188 C 62,175 34,132 37,72" fill="none" stroke="url(#mg_${uid})" stroke-width="2.4" stroke-linecap="round"/>
             <path d="M 110,188 C 158,175 186,132 183,72" fill="none" stroke="url(#mg_${uid})" stroke-width="2.4" stroke-linecap="round"/>
             ${leftLeaves}
             ${rightLeaves}
             <path d="M 94,193 Q 110,183 126,193" fill="none" stroke="url(#mg_${uid})" stroke-width="3" stroke-linecap="round"/>
-
             <path d="${outerShield}" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1.8"/>
             <path d="${midShield}" fill="#0b101d" stroke="url(#mg2_${uid})" stroke-width="1.4"/>
+            <path d="${innerShield}" fill="#1e2433"/>
+          </svg>
 
-            <path d="${innerShield}" fill="#262b38"/>
-            <image href="${src}" x="56" y="42" width="108" height="134" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip_${uid})"/>
-            <path d="M 62,64 C 85,52 135,52 158,64 L 158,95 C 130,82 90,82 62,95 Z" fill="#ffffff" opacity="0.08" clip-path="url(#clip_${uid})"/>
+          <!-- Lớp 2 (z-20): Ảnh đại diện HTML5 <img> gốc siêu nét 8K (Không qua bộ lọc SVG nên giữ nguyên 100% độ nét gốc) -->
+          <div class="absolute inset-0 w-full h-full z-20 pointer-events-none shield-avatar-clip">
+            <img src="${src}" class="shield-avatar-img-hd" alt="Avatar Top ${rank}">
+          </div>
 
-            <path d="${innerShield}" fill="none" stroke="url(#mg_${uid})" stroke-width="3.4"/>
-            <path d="${innerShield}" fill="none" stroke="${pal.c1}" stroke-width="0.9" opacity="0.7"/>
-
+          <!-- Lớp 3 (z-30): Viền kim loại trong lòng khiên + Huy chương 1/2/3 TOP dập nổi đặt trên cùng -->
+          <svg viewBox="0 0 220 212" class="absolute inset-0 w-full h-full z-30 overflow-visible pointer-events-none">
+            <path d="${innerShield}" fill="none" stroke="#090d16" stroke-width="6.2"/>
+            <path d="${innerShield}" fill="none" stroke="url(#mg_${uid})" stroke-width="4.5"/>
+            <path d="${innerShield}" fill="none" stroke="${pal.c1}" stroke-width="1" opacity="0.8"/>
             <g transform="translate(71, 160)">
               <path d="M -9,12 L -19,35 L -10,31 L -5,38 L 2,15 Z" fill="url(#rib_${uid})" stroke="#090d16" stroke-width="0.8"/>
               <path d="M 7,12 L 18,34 L 9,31 L 5,38 L -2,15 Z" fill="url(#rib_${uid})" stroke="#090d16" stroke-width="0.8"/>
@@ -983,8 +1008,8 @@
     (function initMasterAssetsV52() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50') || localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v48');
-        savedLogo = localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50') || localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v48');
+        savedCover = localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50') || localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v47');
+        savedLogo = localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50') || localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v47');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1094,38 +1119,28 @@
       canvas.addEventListener('touchend', () => { isDraggingCrop = false; });
     });
 
-    function applyPhotoshopSharpenFilter(ctx, w, h) {
-      try {
-        const imgData = ctx.getImageData(0, 0, w, h), src = imgData.data, dstImg = ctx.createImageData(w, h), dst = dstImg.data, amount = 0.28;
-        for (let y = 1; y < h - 1; y++) {
-          for (let x = 1; x < w - 1; x++) {
-            const idx = (y * w + x) * 4;
-            for (let c = 0; c < 3; c++) {
-              const center = src[idx + c], neighbors = (src[((y - 1) * w + x) * 4 + c] + src[((y + 1) * w + x) * 4 + c] + src[(y * w + (x - 1)) * 4 + c] + src[(y * w + (x + 1)) * 4 + c]) * 0.25;
-              dst[idx + c] = Math.min(255, Math.max(0, Math.round(center + (center - neighbors) * (amount * 4))));
-            }
-            dst[idx + 3] = 255;
-          }
-        }
-        ctx.putImageData(dstImg, 0, 0);
-      } catch (e) {}
-    }
-
+    // V52: NÂNG CẤP ĐỘ PHÂN GIẢI CẮT ẢNH LÊN 360x360 SIÊU NÉT HD (CHỐNG RĂNG CƯA & VỠ HẠT KHI VINH DANH)
     function applyAvatarCrop() {
       if (!rawSourceImage) return;
-      const outCanvas = document.createElement('canvas'); outCanvas.width = 220; outCanvas.height = 220;
+      const outDim = 360;
+      const outCanvas = document.createElement('canvas'); outCanvas.width = outDim; outCanvas.height = outDim;
       const outCtx = outCanvas.getContext('2d'); outCtx.imageSmoothingEnabled = true; outCtx.imageSmoothingQuality = 'high';
       const totalScale = cropBaseScale * cropScale, sx = (36 - cropOffsetX) / totalScale, sy = (36 - cropOffsetY) / totalScale, sDim = 368 / totalScale;
-      outCtx.fillStyle = "#ffffff"; outCtx.fillRect(0, 0, 220, 220); outCtx.filter = 'contrast(1.05) saturate(1.08)';
-      outCtx.drawImage(rawSourceImage, sx, sy, sDim, sDim, 0, 0, 220, 220); outCtx.filter = 'none';
-      applyPhotoshopSharpenFilter(outCtx, 220, 220);
-      tempUploadedAvatar = outCanvas.toDataURL('image/jpeg', 0.84);
+      outCtx.fillStyle = "#0f172a"; outCtx.fillRect(0, 0, outDim, outDim);
+      outCtx.drawImage(rawSourceImage, sx, sy, sDim, sDim, 0, 0, outDim, outDim);
+      let quality = 0.90;
+      let dataUrl = outCanvas.toDataURL('image/jpeg', quality);
+      while (dataUrl.length > 115000 && quality > 0.72) {
+        quality -= 0.05;
+        dataUrl = outCanvas.toDataURL('image/jpeg', quality);
+      }
+      tempUploadedAvatar = dataUrl;
       const previewImg = document.getElementById('avatar-preview-img'), placeholder = document.getElementById('avatar-placeholder');
       const statusTxt = document.getElementById('avatar-status-text'), recropBtn = document.getElementById('btn-recrop'), alertBox = document.getElementById('avatar-missing-alert');
       if (alertBox) alertBox.classList.add('hidden');
       if (previewImg && placeholder) { previewImg.src = tempUploadedAvatar; previewImg.classList.remove('hidden'); placeholder.classList.add('hidden'); }
       if (recropBtn) recropBtn.classList.remove('hidden');
-      if (statusTxt) { statusTxt.innerText = "✅ Đã tải ảnh đại diện 1:1 sắc nét!"; statusTxt.className = "text-[10px] text-emerald-400 font-bold mt-1"; statusTxt.classList.remove('hidden'); }
+      if (statusTxt) { statusTxt.innerText = "✅ Đã tải ảnh đại diện HD siêu nét!"; statusTxt.className = "text-[10px] text-emerald-400 font-bold mt-1"; statusTxt.classList.remove('hidden'); }
       closeAvatarCropper();
     }
 
@@ -1285,35 +1300,35 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50') || localStorage.getItem('fourhome_quiz_bank_v49')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50') || localStorage.getItem('fourhome_quiz_bank_v49') || localStorage.getItem('fourhome_quiz_bank_v47')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v52') || getPersistentData('fh_hw_device_id_v51') || getPersistentData('fh_hw_device_id_v49');
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v52') || getPersistentData('fh_hw_device_id_v51') || getPersistentData('fh_hw_device_id_v49') || getPersistentData('fh_hw_device_id_v47');
     if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v52', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || getPersistentData('fh_account_uid_v49') || '';
-    let myName = getPersistentData('fh_locked_name_v52') || getPersistentData('fh_locked_name_v51') || getPersistentData('fh_locked_name_v49') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v52') || getPersistentData('fh_locked_avatar_v51') || getPersistentData('fh_locked_avatar_v49') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v52') || getPersistentData('fh_saved_score_v51') || getPersistentData('fh_saved_score_v49'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v52') || getPersistentData('fh_reset_id_v51') || getPersistentData('fh_reset_id_v49') || 'init_session';
-    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v52') || getPersistentData('fh_suspended_v51') || getPersistentData('fh_suspended_v49')) === 'true');
-    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v52') || getPersistentData('fh_logged_out_v51') || getPersistentData('fh_logged_out_v49')) === 'true');
+    let myId = getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || getPersistentData('fh_account_uid_v49') || getPersistentData('fh_account_uid_v47') || '';
+    let myName = getPersistentData('fh_locked_name_v52') || getPersistentData('fh_locked_name_v51') || getPersistentData('fh_locked_name_v49') || getPersistentData('fh_locked_name_v47') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v52') || getPersistentData('fh_locked_avatar_v51') || getPersistentData('fh_locked_avatar_v49') || getPersistentData('fh_locked_avatar_v47') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v52') || getPersistentData('fh_saved_score_v51') || getPersistentData('fh_saved_score_v49') || getPersistentData('fh_saved_score_v47'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v52') || getPersistentData('fh_reset_id_v51') || getPersistentData('fh_reset_id_v49') || getPersistentData('fh_reset_id_v47') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v52') || getPersistentData('fh_suspended_v51') || getPersistentData('fh_suspended_v49') || getPersistentData('fh_suspended_v47')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v52') || getPersistentData('fh_logged_out_v51') || getPersistentData('fh_logged_out_v49') || getPersistentData('fh_logged_out_v47')) === 'true');
     let isAdminMode = false;
 
     if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v52', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v47')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
     function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v52', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v52')) || JSON.parse(localStorage.getItem('fh_answered_history_v51')) || JSON.parse(localStorage.getItem('fh_answered_history_v49')) || {}; } catch (e) { answeredHistory = {}; }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v52')) || JSON.parse(localStorage.getItem('fh_answered_history_v51')) || JSON.parse(localStorage.getItem('fh_answered_history_v49')) || JSON.parse(localStorage.getItem('fh_answered_history_v47')) || {}; } catch (e) { answeredHistory = {}; }
     function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v52', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v52')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')); } catch (e) { prevQuizRecord = null; }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v52')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v47')); } catch (e) { prevQuizRecord = null; }
     function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v52', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
@@ -1423,11 +1438,11 @@
         if (stored['fh_master_cover_v52'] && stored['fh_master_cover_v52'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v52']);
         if (stored['fh_master_logo_v52'] && stored['fh_master_logo_v52'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v52']);
         if (stored['fh_logged_out_v52'] === 'true') return;
-        const idbName = stored['fh_locked_name_v52'] || stored['fh_locked_name_v51'] || stored['fh_locked_name_v49'];
-        const idbAvt = stored['fh_locked_avatar_v52'] || stored['fh_locked_avatar_v51'] || stored['fh_locked_avatar_v49'];
+        const idbName = stored['fh_locked_name_v52'] || stored['fh_locked_name_v51'] || stored['fh_locked_name_v49'] || stored['fh_locked_name_v47'];
+        const idbAvt = stored['fh_locked_avatar_v52'] || stored['fh_locked_avatar_v51'] || stored['fh_locked_avatar_v49'] || stored['fh_locked_avatar_v47'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v52'] || stored['fh_saved_score_v51'] || stored['fh_saved_score_v49'], 10) || 0;
+          myScore = parseInt(stored['fh_saved_score_v52'] || stored['fh_saved_score_v51'] || stored['fh_saved_score_v49'] || stored['fh_saved_score_v47'], 10) || 0;
           myId = stored['fh_account_uid_v52'] || stored['fh_account_uid_v51'] || ('acc_' + normalizeAccountKey(myName));
           isMyAccountSuspended = ((stored['fh_suspended_v52'] || stored['fh_suspended_v51']) === 'true');
           if (stored['fh_hw_device_id_v52']) myDeviceHwId = stored['fh_hw_device_id_v52'];
@@ -1754,10 +1769,10 @@
       }).sort((a, b) => (b.points !== a.points) ? (b.points - a.points) : (a.elapsedSec - b.elapsedSec)).slice(0, 10);
 
       function buildPodiumCol(item, rank) {
-        const bodyClass = rank === 1 ? 'podium-3d-gold h-[55px]' : rank === 2 ? 'podium-3d-silver h-[44px]' : 'podium-3d-bronze h-[40px]';
+        const bodyClass = rank === 1 ? 'podium-3d-gold h-[64px]' : rank === 2 ? 'podium-3d-silver h-[52px]' : 'podium-3d-bronze h-[48px]';
         const capClass = rank === 1 ? 'podium-top-surface-gold' : rank === 2 ? 'podium-top-surface-silver' : 'podium-top-surface-bronze';
         const spotClass = rank === 1 ? 'podium-spotlight-gold' : rank === 2 ? 'podium-spotlight-silver' : 'podium-spotlight-bronze';
-        const numClass = rank === 1 ? 'podium-rank-num-gold text-[30px]' : rank === 2 ? 'podium-rank-num-silver text-[25px]' : 'podium-rank-num-bronze text-[23px]';
+        const numClass = rank === 1 ? 'podium-rank-num-gold text-[34px]' : rank === 2 ? 'podium-rank-num-silver text-[29px]' : 'podium-rank-num-bronze text-[27px]';
         const scoreColor = rank === 1 ? 'text-amber-300' : rank === 2 ? 'text-slate-200' : 'text-orange-300';
         const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : null, rank);
 
@@ -1765,8 +1780,8 @@
           return `
             <div class="flex flex-col items-center text-center opacity-60">
               <div class="relative z-10">${shieldFrame}</div>
-              <div class="text-[11px] font-bold text-slate-400 truncate max-w-[96px] mt-0.5 z-10">Đang chờ...</div>
-              <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-500 my-0.5 z-10"><span>--</span></div>
+              <div class="text-xs font-bold text-slate-400 truncate max-w-[115px] mt-1 z-10">Đang chờ...</div>
+              <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2.5 py-0.5 text-[10px] font-bold text-slate-500 my-1 z-10"><span>--</span></div>
               <div class="podium-stage-wrap">
                 <div class="${capClass}"></div>
                 <div class="podium-3d-body ${bodyClass} rounded-b-xl">
@@ -1785,9 +1800,9 @@
         return `
           <div class="flex flex-col items-center text-center relative">
             <div class="relative z-10">${shieldFrame}</div>
-            <div class="text-[11.5px] font-black ${nameColor} truncate max-w-[106px] drop-shadow mt-0.5 z-10">${item.name}</div>
-            <div class="inline-flex items-center gap-1 bg-slate-900/95 border border-amber-400/45 rounded-full px-2 py-0.5 text-[9px] font-bold text-amber-200 my-0.5 shadow z-10">
-              <span class="w-3.5 h-3.5 aspect-square rounded-full ${choiceDotColor} text-[8px] flex items-center justify-center font-black shrink-0">${item.choice}</span>
+            <div class="text-[13px] font-black ${nameColor} truncate max-w-[125px] drop-shadow mt-1 z-10">${item.name}</div>
+            <div class="inline-flex items-center gap-1 bg-slate-900/95 border border-amber-400/45 rounded-full px-2.5 py-0.5 text-[10px] font-bold text-amber-200 my-1 shadow z-10">
+              <span class="w-4 h-4 aspect-square rounded-full ${choiceDotColor} text-[9px] flex items-center justify-center font-black shrink-0">${item.choice}</span>
               <span class="whitespace-nowrap">⚡ ${item.elapsedSec.toFixed(1)}s</span>
             </div>
             <div class="podium-stage-wrap">
@@ -1795,7 +1810,7 @@
               <div class="${capClass}"></div>
               <div class="podium-3d-body ${bodyClass} rounded-b-xl">
                 <span class="${numClass} font-black leading-none">${rank}</span>
-                <span class="text-[12px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
+                <span class="text-[13.5px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
               </div>
             </div>
           </div>
@@ -1807,16 +1822,16 @@
       list4to10.innerHTML = allParticipants.slice(3, 10).map((item, idx) => {
         const pointBadgeClass = item.points > 0 ? 'bg-amber-500/20 text-amber-300 border-amber-400/50' : 'bg-rose-500/20 text-rose-300 border-rose-400/40';
         return `
-          <div class="flex items-center justify-between bg-slate-900/85 border border-slate-700/80 rounded-xl px-2.5 py-1.5 text-xs gap-2">
+          <div class="flex items-center justify-between bg-slate-900/85 border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs gap-2">
             <div class="flex items-center gap-2 truncate min-w-0 flex-1">
-              <span class="w-5 h-5 aspect-square rounded-full bg-slate-800 text-amber-300 border border-amber-400/40 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 4}</span>
-              ${renderAvatarHTML(item.avatar, 'w-7 h-7', 'border border-amber-400/80 shadow-sm')}
-              <span class="font-extrabold text-slate-100 truncate">${item.name}</span>
+              <span class="w-5.5 h-5.5 aspect-square rounded-full bg-slate-800 text-amber-300 border border-amber-400/40 font-black text-[10.5px] flex items-center justify-center shrink-0">${idx + 4}</span>
+              ${renderAvatarHTML(item.avatar, 'w-8 h-8', 'border border-amber-400/80 shadow-sm')}
+              <span class="font-extrabold text-slate-100 truncate text-[12.5px]">${item.name}</span>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
-              <span class="bg-slate-800 text-amber-200 border border-slate-600 font-bold text-[10px] px-1.5 py-0.5 rounded">${item.choice}</span>
-              <span class="text-[10px] text-slate-400 font-bold whitespace-nowrap">⚡ ${item.elapsedSec.toFixed(1)}s</span>
-              <span class="${pointBadgeClass} font-black text-[10px] px-2 py-0.5 rounded-full border whitespace-nowrap">+${item.points}đ</span>
+              <span class="bg-slate-800 text-amber-200 border border-slate-600 font-bold text-[10.5px] px-1.5 py-0.5 rounded">${item.choice}</span>
+              <span class="text-[10.5px] text-slate-400 font-bold whitespace-nowrap">⚡ ${item.elapsedSec.toFixed(1)}s</span>
+              <span class="${pointBadgeClass} font-black text-[10.5px] px-2 py-0.5 rounded-full border whitespace-nowrap">+${item.points}đ</span>
             </div>
           </div>
         `;
@@ -2025,11 +2040,14 @@
       if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
         if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang "✨ Đăng ký TK mới".`);
         if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng đăng xuất trên máy cũ trước!`);
-        myId = existingAcc.id || targetAccountId; myName = existingAcc.name; myAvatar = existingAcc.avatar || DEFAULT_ADMIN_AVATAR; myScore = existingAcc.score || 0;
+        myId = existingAcc.id || targetAccountId; myName = existingAcc.name; myAvatar = (tempUploadedAvatar || existingAcc.avatar || DEFAULT_ADMIN_AVATAR); myScore = existingAcc.score || 0;
         isMyAccountSuspended = Boolean(existingAcc.isSuspended); isLoggedOutExplicitly = false;
       } else {
         if (existingAcc) {
-          if (existingAcc.isOnline === false || !existingAcc.lockedByDevice) { if (confirm(`Tài khoản "${existingAcc.name}" đã có sẵn! Bạn muốn ĐĂNG NHẬP luôn vào tài khoản này?`)) { switchAuthTab('login'); joinGame(); return; } }
+          if (existingAcc.isOnline === false || !existingAcc.lockedByDevice) {
+            if (tempUploadedAvatar) existingAcc.avatar = tempUploadedAvatar;
+            if (confirm(`Tài khoản "${existingAcc.name}" đã có sẵn! Bạn muốn ĐĂNG NHẬP luôn vào tài khoản này?`)) { switchAuthTab('login'); joinGame(); return; }
+          }
           return alert(`⚠️ Tên tài khoản "${nameInput}" đã tồn tại! Vui lòng đổi tên khác!`);
         }
         myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
