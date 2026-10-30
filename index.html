@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V55</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V56</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -205,7 +205,6 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
 
-    /* KIẾM THẾ TITLE ANIMATIONS & STYLING (V55: Nền tối cao cấp & Tương phản tuyệt đối) */
     @keyframes ktFlowGold { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
     @keyframes ktFlowEmerald { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
     @keyframes ktFlowPurple { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
@@ -264,7 +263,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V55 Kiếm Thế)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V56 Kiếm Thế)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -364,22 +363,17 @@
           <button type="button" id="tab-btn-login" onclick="switchAuthTab('login')" class="py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-amber-200 cursor-pointer transition-all whitespace-nowrap">📲 Đăng nhập TK cũ</button>
         </div>
 
-        <div id="auth-avatar-section" class="w-full vip-profile-card rounded-2xl p-3.5 flex flex-col items-center justify-center">
-          <div class="flex items-center gap-4 w-full justify-center">
-            <div onclick="reopenCropperIfAvailable()" class="w-[70px] h-[70px] aspect-square rounded-full bg-slate-950 border-2 border-amber-400 flex items-center justify-center overflow-hidden shadow-[0_0_18px_rgba(251,191,36,0.45)] shrink-0 cursor-pointer relative ring-2 ring-amber-400/20">
-              <span id="avatar-placeholder" class="text-[10px] text-amber-200/80 font-bold px-1 text-center leading-tight">Chưa có<br>ảnh</span>
-              <img id="avatar-preview-img" src="" class="hidden w-full h-full object-cover avatar-4k" alt="Avatar">
+        <div id="auth-avatar-section" class="w-full vip-profile-card rounded-2xl p-3.5 flex flex-col items-center justify-center space-y-2">
+          <label for="avatarInput" class="w-full btn-luxury-gold-shimmer font-black py-3 px-4 rounded-2xl text-xs tracking-wide cursor-pointer flex items-center justify-center gap-2 shadow-lg transition-all text-slate-950 whitespace-nowrap">
+            <span>👑</span> <span>Chọn hình ảnh đại diện</span>
+          </label>
+          <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
+          <div id="avatar-status-preview-box" class="hidden flex items-center gap-2.5 w-full bg-slate-950/80 border border-amber-400/50 rounded-xl px-3 py-2">
+            <div class="w-9 h-9 aspect-square rounded-full border-2 border-amber-400 overflow-hidden shrink-0 shadow">
+              <img id="avatar-preview-img" src="" class="w-full h-full object-cover avatar-4k" alt="Avatar">
             </div>
-            <div class="text-left">
-              <div class="flex flex-wrap items-center gap-1.5">
-                <label for="avatarInput" class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-amber-600/15 hover:from-amber-500/30 hover:to-amber-600/25 text-amber-200 border border-amber-400/50 text-xs font-extrabold px-3.5 py-2.5 rounded-xl cursor-pointer shadow-sm transition-all whitespace-nowrap">
-                  <span>📁</span> <span>Tải hình ảnh</span>
-                </label>
-                <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="hidden bg-amber-400 hover:bg-amber-300 text-slate-950 text-[11px] font-black px-2.5 py-2.5 rounded-xl shadow cursor-pointer whitespace-nowrap">✂️ Cắt lại</button>
-              </div>
-              <input id="avatarInput" type="file" accept="image/*" onchange="handleAvatarFileSelect(event)" class="hidden">
-              <p id="avatar-status-text" class="hidden text-[10px] font-extrabold mt-1"></p>
-            </div>
+            <span id="avatar-status-text" class="text-[11px] text-emerald-300 font-extrabold truncate flex-1">✅ Đã chọn ảnh đại diện chuẩn nét!</span>
+            <button type="button" id="btn-recrop" onclick="reopenCropperIfAvailable()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-lg shadow cursor-pointer whitespace-nowrap">✂️ Cắt lại</button>
           </div>
         </div>
 
@@ -832,7 +826,7 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v55', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v53', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
@@ -1162,12 +1156,12 @@
         dataUrl = outCanvas.toDataURL('image/jpeg', quality);
       }
       tempUploadedAvatar = dataUrl;
-      const previewImg = document.getElementById('avatar-preview-img'), placeholder = document.getElementById('avatar-placeholder');
-      const statusTxt = document.getElementById('avatar-status-text'), recropBtn = document.getElementById('btn-recrop'), alertBox = document.getElementById('avatar-missing-alert');
+      const previewImg = document.getElementById('avatar-preview-img'), statusBox = document.getElementById('avatar-status-preview-box');
+      const statusTxt = document.getElementById('avatar-status-text'), alertBox = document.getElementById('avatar-missing-alert');
       if (alertBox) alertBox.classList.add('hidden');
-      if (previewImg && placeholder) { previewImg.src = tempUploadedAvatar; previewImg.classList.remove('hidden'); placeholder.classList.add('hidden'); }
-      if (recropBtn) recropBtn.classList.remove('hidden');
-      if (statusTxt) { statusTxt.innerText = "✅ Đã tải ảnh đại diện HD siêu nét!"; statusTxt.className = "text-[10px] text-emerald-400 font-bold mt-1"; statusTxt.classList.remove('hidden'); }
+      if (previewImg) previewImg.src = tempUploadedAvatar;
+      if (statusBox) statusBox.classList.remove('hidden');
+      if (statusTxt) { statusTxt.innerText = "✅ Đã cắt ảnh đại diện HD siêu nét!"; }
       closeAvatarCropper();
     }
 
@@ -1762,8 +1756,7 @@
       stopAllMP3(); ['fh_locked_name_v55', 'fh_locked_avatar_v55', 'fh_saved_score_v55', 'fh_answered_history_v55', 'fh_account_uid_v54', 'fh_logged_out_v55', 'fh_suspended_v55'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
-      document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-placeholder').classList.remove('hidden');
-      document.getElementById('btn-recrop').classList.add('hidden'); document.getElementById('avatar-status-text').classList.add('hidden');
+      document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-status-preview-box').classList.add('hidden');
       switchAuthTab('register'); updateCharCount(); closeRoundSpeedModal();
       document.getElementById('screen-game').classList.add('hidden'); document.getElementById('screen-login').classList.remove('hidden');
       playLoginBackgroundMusic(); alert("⚠️ Tài khoản của bạn đã được Admin đặt lại.");
