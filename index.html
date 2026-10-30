@@ -1006,27 +1006,29 @@
 
     // HÀM RENDER KHUNG VINH DANH CHUẨN XÁC, ĐẢM BẢO AVATAR HIỂN THỊ TRỌN VẸN BÊN DƯỚI KHUNG PNG
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
-      const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
-      const isTop1 = (rank === 1);
-      const wrapSize = isTop1 ? "w-[125px] h-[125px]" : "w-[105px] h-[105px]";
-      const frameImgPath = rank === 1 ? "./khung_vinh_danh_top1.png" : rank === 2 ? "./khung_vinh_danh_top2.png" : "./khung_vinh_danh_top3.png";
-      const auraClass = rank === 1 ? 'bg-amber-400/30' : rank === 2 ? 'bg-sky-300/20' : 'bg-orange-400/20';
-      // Sửa lại tỷ lệ và tọa độ để ảnh avatar nằm hoàn toàn khớp vào vùng giữa của khung PNG mà không bị lệch hay che khuất
-      const innerClipSize = isTop1 ? "w-[56%] h-[56%] top-[24%] left-[22%]" : "w-[56%] h-[56%] top-[24%] left-[22%]";
+  const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
+  const isTop1 = (rank === 1);
+  const wrapSize = isTop1 ? "w-[125px] h-[125px]" : "w-[105px] h-[105px]";
+  const frameImgPath = rank === 1 ? "./khung_vinh_danh_top1.png" : rank === 2 ? "./khung_vinh_danh_top2.png" : "./khung_vinh_danh_top3.png";
+  const auraClass = rank === 1 ? 'bg-amber-400/30' : rank === 2 ? 'bg-sky-300/20' : 'bg-orange-400/20';
 
-      return `
-        <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
-          <div class="absolute inset-1 rounded-full ${auraClass} blur-xl pointer-events-none"></div>
-          <!-- Khung ảnh vinh danh PNG nằm ở lớp trên (z-20) -->
-          <img src="${frameImgPath}" class="absolute inset-0 w-full h-full object-contain z-20 pointer-events-none drop-shadow-md" alt="Khung Vinh Danh Top ${rank}">
-          <!-- Ảnh đại diện nằm ở lớp dưới (z-10) để hiển thị trọn vẹn bên trong khung -->
-          <div class="absolute ${innerClipSize} rounded-full overflow-hidden z-10 bg-slate-950 flex items-center justify-center shadow-inner">
-            <img src="${src}" class="w-full h-full object-cover avatar-4k" alt="Avatar">
-          </div>
-        </div>
-      `;
-    }
+  let innerClipSize = "w-[58%] h-[58%] top-[21%] left-[21%]"; 
+  if (rank === 2) {
+    innerClipSize = "w-[58%] h-[58%] top-[22%] left-[21%]"; 
+  } else if (rank === 3) {
+    innerClipSize = "w-[58%] h-[58%] top-[22%] left-[21%]";
+  }
 
+  return `
+    <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
+      <div class="absolute inset-1 rounded-full ${auraClass} blur-xl pointer-events-none"></div>
+      <img src="${frameImgPath}" class="absolute inset-0 w-full h-full object-contain z-20 pointer-events-none drop-shadow-md" alt="Khung Vinh Danh Top ${rank}">
+      <div class="absolute ${innerClipSize} rounded-full overflow-hidden z-10 bg-slate-950 flex items-center justify-center shadow-inner">
+        <img src="${src}" class="w-full h-full object-cover avatar-4k" alt="Avatar">
+      </div>
+    </div>
+  `;
+}
     function getRoyalTitleByRank(rankIndexZeroBased) {
       if (rankIndexZeroBased === 0) return "QUÁN QUÂN ĐẤU TRƯỜNG";
       if (rankIndexZeroBased === 1) return "Á QUÂN XUẤT CHÚNG";
