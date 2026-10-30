@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V52</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V53</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Montserrat:wght@500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Playfair+Display+SC:wght@700;900&family=Montserrat:wght@500;600;700;800;900&display=swap');
     body {
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: #060a14;
@@ -104,7 +104,6 @@
       aspect-ratio: 1 / 1;
     }
     .timer-ring-circle { transition: stroke-dashoffset 0.25s linear, stroke 0.25s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
-    /* AVATAR SIÊU NÉT 8K: Tắt crisp-edges gây vỡ hạt trên Chrome, dùng nội suy Bicubic GPU chất lượng cao */
     .avatar-4k {
       aspect-ratio: 1 / 1;
       border-radius: 9999px;
@@ -122,6 +121,7 @@
       -webkit-clip-path: polygon(50% 21%, 63% 22.5%, 71% 27.5%, 72.5% 32%, 72% 46%, 68.5% 60%, 61.5% 72%, 50% 81.8%, 38.5% 72%, 31.5% 60%, 28% 46%, 27.5% 32%, 29% 27.5%, 37% 22.5%);
       transform: translateZ(0);
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     .shield-avatar-img-hd {
       width: 100%;
@@ -222,6 +222,53 @@
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
+
+    /* KIẾM THẾ TITLE ANIMATIONS & STYLING (V53 Phương án 2: Sắc nét hoàng gia & Chạy lặp màu sắc) */
+    @keyframes ktFlowGold { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes ktFlowEmerald { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes ktFlowPurple { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes ktFlowCrimson { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+
+    .kt-title-gold {
+      font-family: 'Playfair Display SC', 'Cinzel', serif;
+      background: linear-gradient(90deg, #fef08a 0%, #fde047 25%, #ffffff 50%, #f59e0b 75%, #fef08a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: ktFlowGold 2.8s linear infinite;
+      filter: drop-shadow(0 1px 2px #451a03) drop-shadow(0 0 8px rgba(245, 158, 11, 0.65));
+      letter-spacing: 0.04em;
+    }
+    .kt-title-emerald {
+      font-family: 'Playfair Display SC', 'Cinzel', serif;
+      background: linear-gradient(90deg, #4ade80 0%, #38bdf8 25%, #ffffff 50%, #c084fc 75%, #4ade80 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: ktFlowEmerald 3s linear infinite;
+      filter: drop-shadow(0 1px 2px #065f46) drop-shadow(0 0 8px rgba(56, 189, 248, 0.65));
+      letter-spacing: 0.04em;
+    }
+    .kt-title-purple {
+      font-family: 'Playfair Display SC', 'Cinzel', serif;
+      background: linear-gradient(90deg, #d8b4fe 0%, #f43f5e 25%, #ffffff 50%, #fb923c 75%, #d8b4fe 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: ktFlowPurple 3.2s linear infinite;
+      filter: drop-shadow(0 1px 2px #581c87) drop-shadow(0 0 8px rgba(216, 180, 254, 0.65));
+      letter-spacing: 0.04em;
+    }
+    .kt-title-crimson {
+      font-family: 'Playfair Display SC', 'Cinzel', serif;
+      background: linear-gradient(90deg, #fca5a5 0%, #ef4444 25%, #ffffff 50%, #fde047 75%, #fca5a5 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: ktFlowCrimson 3s linear infinite;
+      filter: drop-shadow(0 1px 2px #7f1d1d) drop-shadow(0 0 8px rgba(239, 68, 68, 0.65));
+      letter-spacing: 0.04em;
+    }
   </style>
 </head>
 <body class="text-slate-800 flex flex-col justify-center items-center min-h-screen p-1.5 sm:p-3">
@@ -235,7 +282,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V52)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V53 Kiếm Thế)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -532,7 +579,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V52 Executive Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V53 Kiếm Thế Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -588,7 +635,7 @@
     </div>
   </div>
 
-  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI THẦN TỐC (ĐÃ TĂNG KÍCH CỠ THÊM 20% & AVATAR SIÊU NÉT) -->
+  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI THẦN TỐC (V53: LOGO +20%, AVATAR HD 8K & KIẾM THẾ TITLE GRADIENT) -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2 sm:p-3 pt-12">
     <div class="w-full max-w-[518px] victory-luxury-modal text-white rounded-[32px] p-4 pt-2.5 flex flex-col max-h-[92vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3.5 right-3.5 w-8 h-8 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-sm flex items-center justify-center cursor-pointer z-30">✖</button>
@@ -691,13 +738,13 @@
 
     function saveCustomCoverPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v52'); applyCoverBannerToUI('DEFAULT', false);
+        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v53'); applyCoverBannerToUI('DEFAULT', false);
         const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v52', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v52', dataUrl);
+      try { localStorage.setItem('fh_master_cover_v53', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v53', dataUrl);
       const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
 
@@ -732,7 +779,7 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v52', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v53', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
@@ -748,13 +795,13 @@
 
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v52'); applySpeedLogoToUI('DEFAULT', false);
+        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v53'); applySpeedLogoToUI('DEFAULT', false);
         const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v52', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v52', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v53', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v53', dataUrl);
       const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
 
@@ -804,20 +851,19 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v52', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v53', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
 
     function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
 
-    // V52: KHUNG KHIÊN VECTOR SVG ĐỘC QUYỀN (+20% KÍCH CỠ) + TÁCH LỚP AVATAR NATIVE <img> SIÊU NÉT 8K (KHÔNG BAO GIỜ BỊ VỠ HẠT DO SVG FILTER)
+    // V53: KHUNG KHIÊN VECTOR SVG ĐỘC QUYỀN (+20% KÍCH CỠ) + AVATAR NATIVE <img> SIÊU NÉT 8K
     let svgFrameUidCounter = 0;
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
       const hasCustomAvatar = Boolean(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined');
       const src = hasCustomAvatar ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      // Tăng kích cỡ khung vinh danh Thập Đại Thần Tốc thêm 20%
       const wrapSize = isTop1 ? "w-[156px] h-[160px]" : "w-[132px] h-[136px]";
       const uid = `rf_${rank}_${++svgFrameUidCounter}`;
 
@@ -855,15 +901,10 @@
       const midShield   = "M 110 40 C 131 40, 149 45, 160 54 L 164 61 C 166 114, 145 155, 110 181 C 75 155, 54 114, 56 61 L 60 54 C 71 45, 89 40, 110 40 Z";
       const innerShield = "M 110 45 C 129 45, 145 50, 154 58 L 158 64 C 160 111, 141 149, 110 173 C 79 149, 60 111, 62 64 L 66 58 C 75 50, 91 45, 110 45 Z";
 
-      // Tách hoàn toàn thành 3 lớp phần cứng độc lập:
-      // Lớp 1 (z-10): Đế khiên Vector SVG
-      // Lớp 2 (z-20): Thẻ <img> HTML5 gốc hiển thị Avatar ở độ phân giải Retina/8K siêu nét, cắt đúng dáng lòng khiên
-      // Lớp 3 (z-30): Viền kim loại nổi của Khiên + Vương miện + Nguyệt quế + Huy chương 1/2/3 TOP ôm khít bên ngoài
       return `
         <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
           <div class="absolute inset-2 rounded-full ${pal.aura} blur-xl pointer-events-none z-0"></div>
 
-          <!-- Lớp 1 (z-10): Đế Khiên 3D & Vòng Nguyệt Quế -->
           <svg viewBox="0 0 220 212" class="absolute inset-0 w-full h-full z-10 overflow-visible pointer-events-none drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]">
             <defs>
               <linearGradient id="mg_${uid}" x1="0" y1="0" x2="1" y2="1">
@@ -906,12 +947,10 @@
             <path d="${innerShield}" fill="#1e2433"/>
           </svg>
 
-          <!-- Lớp 2 (z-20): Ảnh đại diện HTML5 <img> gốc siêu nét 8K (Không qua bộ lọc SVG nên giữ nguyên 100% độ nét gốc) -->
           <div class="absolute inset-0 w-full h-full z-20 pointer-events-none shield-avatar-clip">
             <img src="${src}" class="shield-avatar-img-hd" alt="Avatar Top ${rank}">
           </div>
 
-          <!-- Lớp 3 (z-30): Viền kim loại trong lòng khiên + Huy chương 1/2/3 TOP dập nổi đặt trên cùng -->
           <svg viewBox="0 0 220 212" class="absolute inset-0 w-full h-full z-30 overflow-visible pointer-events-none">
             <path d="${innerShield}" fill="none" stroke="#090d16" stroke-width="6.2"/>
             <path d="${innerShield}" fill="none" stroke="url(#mg_${uid})" stroke-width="4.5"/>
@@ -931,6 +970,13 @@
       `;
     }
 
+    // V53: Ánh xạ 4 danh hiệu chuẩn phong cách Kiếm Thế (Hoàng Đế, Quốc Công, Thừa Tướng, Chí Tôn) có hiệu ứng chữ chạy đổi màu liên tục
+    function getRoyalTitleHTMLByRank(rankIndexZeroBased) {
+      if (rankIndexZeroBased === 0) return `<span class="kt-title-gold font-black uppercase text-[10.5px] sm:text-[11.5px] block truncate">QUÁN QUÂN ĐẤU TRƯỜNG</span>`;
+      if (rankIndexZeroBased === 1) return `<span class="kt-title-emerald font-black uppercase text-[10px] sm:text-[11px] block truncate">Á QUÂN XUẤT CHÚNG</span>`;
+      if (rankIndexZeroBased === 2) return `<span class="kt-title-purple font-black uppercase text-[10px] sm:text-[11px] block truncate">QUÝ QUÂN KIỆT XUẤT</span>`;
+      return `<span class="kt-title-crimson font-black uppercase text-[9.5px] sm:text-[10.5px] block truncate">THẬP ĐẠI THẦN TỐC</span>`;
+    }
     function getRoyalTitleByRank(rankIndexZeroBased) {
       if (rankIndexZeroBased === 0) return "QUÁN QUÂN ĐẤU TRƯỜNG";
       if (rankIndexZeroBased === 1) return "Á QUÂN XUẤT CHÚNG";
@@ -938,7 +984,7 @@
       return "THẬP ĐẠI THẦN TỐC";
     }
 
-    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V52";
+    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V53";
     const clientRateLimits = {};
     let adminActiveSecret = null;
 
@@ -961,7 +1007,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V52", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V53", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -1005,11 +1051,11 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV52() {
+    (function initMasterAssetsV53() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50') || localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v47');
-        savedLogo = localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50') || localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v47');
+        savedCover = localStorage.getItem('fh_master_cover_v53') || localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50');
+        savedLogo = localStorage.getItem('fh_master_logo_v53') || localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1119,7 +1165,6 @@
       canvas.addEventListener('touchend', () => { isDraggingCrop = false; });
     });
 
-    // V52: NÂNG CẤP ĐỘ PHÂN GIẢI CẮT ẢNH LÊN 360x360 SIÊU NÉT HD (CHỐNG RĂNG CƯA & VỠ HẠT KHI VINH DANH)
     function applyAvatarCrop() {
       if (!rawSourceImage) return;
       const outDim = 360;
@@ -1273,7 +1318,7 @@
 
     function adminBroadcastAudioCue(cueType) {
       executeSyncedAudioCue(cueType);
-      publishPacket('events', { type: 'AUDIO_SYNC_V52', id: 'admin', cue: cueType }, false);
+      publishPacket('events', { type: 'AUDIO_SYNC_V53', id: 'admin', cue: cueType }, false);
     }
 
     function launchFireworks() {
@@ -1300,36 +1345,36 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50') || localStorage.getItem('fourhome_quiz_bank_v49') || localStorage.getItem('fourhome_quiz_bank_v47')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v53') || localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v52') || getPersistentData('fh_hw_device_id_v51') || getPersistentData('fh_hw_device_id_v49') || getPersistentData('fh_hw_device_id_v47');
-    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v52', myDeviceHwId); }
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v53') || getPersistentData('fh_hw_device_id_v52') || getPersistentData('fh_hw_device_id_v51');
+    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v53', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || getPersistentData('fh_account_uid_v49') || getPersistentData('fh_account_uid_v47') || '';
-    let myName = getPersistentData('fh_locked_name_v52') || getPersistentData('fh_locked_name_v51') || getPersistentData('fh_locked_name_v49') || getPersistentData('fh_locked_name_v47') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v52') || getPersistentData('fh_locked_avatar_v51') || getPersistentData('fh_locked_avatar_v49') || getPersistentData('fh_locked_avatar_v47') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v52') || getPersistentData('fh_saved_score_v51') || getPersistentData('fh_saved_score_v49') || getPersistentData('fh_saved_score_v47'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v52') || getPersistentData('fh_reset_id_v51') || getPersistentData('fh_reset_id_v49') || getPersistentData('fh_reset_id_v47') || 'init_session';
-    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v52') || getPersistentData('fh_suspended_v51') || getPersistentData('fh_suspended_v49') || getPersistentData('fh_suspended_v47')) === 'true');
-    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v52') || getPersistentData('fh_logged_out_v51') || getPersistentData('fh_logged_out_v49') || getPersistentData('fh_logged_out_v47')) === 'true');
+    let myId = getPersistentData('fh_account_uid_v53') || getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || '';
+    let myName = getPersistentData('fh_locked_name_v53') || getPersistentData('fh_locked_name_v52') || getPersistentData('fh_locked_name_v51') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v53') || getPersistentData('fh_locked_avatar_v52') || getPersistentData('fh_locked_avatar_v51') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v53') || getPersistentData('fh_saved_score_v52') || getPersistentData('fh_saved_score_v51'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v53') || getPersistentData('fh_reset_id_v52') || getPersistentData('fh_reset_id_v51') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v53') || getPersistentData('fh_suspended_v52') || getPersistentData('fh_suspended_v51')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v53') || getPersistentData('fh_logged_out_v52') || getPersistentData('fh_logged_out_v51')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v52', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v53', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v47')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v53')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
-    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v52', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
+    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v53', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v52')) || JSON.parse(localStorage.getItem('fh_answered_history_v51')) || JSON.parse(localStorage.getItem('fh_answered_history_v49')) || JSON.parse(localStorage.getItem('fh_answered_history_v47')) || {}; } catch (e) { answeredHistory = {}; }
-    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v52', JSON.stringify(answeredHistory)); } catch (e) {} }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v53')) || JSON.parse(localStorage.getItem('fh_answered_history_v52')) || JSON.parse(localStorage.getItem('fh_answered_history_v51')) || {}; } catch (e) { answeredHistory = {}; }
+    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v53', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v52')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v47')); } catch (e) { prevQuizRecord = null; }
-    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v52', JSON.stringify(record)); } catch (e) {} }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v53')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v52')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')); } catch (e) { prevQuizRecord = null; }
+    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v53', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
@@ -1398,14 +1443,14 @@
       listEl.innerHTML = allPlayers.map((p, idx) => {
         const isMe = (p.id === myId), rankIcon = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
         const rowBg = isMe ? 'bg-amber-50 border-amber-400 shadow-sm' : (idx < 3 ? 'bg-slate-50 border-slate-200' : 'bg-white border-slate-100');
-        const titleTag = idx < 10 ? `<span class="text-[8px] font-extrabold ${idx === 0 ? 'text-amber-600' : idx === 1 ? 'text-slate-600' : idx === 2 ? 'text-orange-600' : 'text-sky-600'} uppercase block truncate">${getRoyalTitleByRank(idx)}</span>` : '';
+        const titleTag = idx < 10 ? getRoyalTitleHTMLByRank(idx) : '';
         return `
-          <div class="flex items-center justify-between px-2 py-1 rounded-xl border ${rowBg} text-xs gap-2">
+          <div class="flex items-center justify-between px-2 py-1.5 rounded-xl border ${rowBg} text-xs gap-2">
             <div class="flex items-center gap-2 min-w-0 flex-1">
-              <span class="w-4.5 h-4.5 aspect-square rounded-full bg-slate-800 text-amber-300 font-black text-[9.5px] flex items-center justify-center shrink-0">${rankIcon}</span>
-              ${renderAvatarHTML(p.avatar, 'w-6 h-6', 'border border-amber-400 shadow-sm')}
+              <span class="w-5 h-5 aspect-square rounded-full bg-slate-800 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${rankIcon}</span>
+              ${renderAvatarHTML(p.avatar, 'w-7 h-7', 'border border-amber-400 shadow-sm')}
               <div class="truncate min-w-0 flex-1">
-                <span class="font-extrabold text-slate-800 truncate block text-[11px]">${p.name} ${isMe ? '<span class="text-[8.5px] bg-amber-400 text-slate-950 px-1 py-0.2 rounded-full font-black ml-0.5">Bạn</span>' : ''}</span>
+                <span class="font-extrabold text-slate-800 truncate block text-[11.5px]">${p.name} ${isMe ? '<span class="text-[8.5px] bg-amber-400 text-slate-950 px-1 py-0.2 rounded-full font-black ml-0.5">Bạn</span>' : ''}</span>
                 ${titleTag}
               </div>
             </div>
@@ -1418,11 +1463,13 @@
     function downloadExcel() {
       const sorted = Object.values(players).sort((a, b) => (b.score || 0) - (a.score || 0));
       if (sorted.length === 0) return alert("Chưa có dữ liệu điểm số của thí sinh để xuất Excel!");
-      let csv = "\uFEFFHạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái\n";
+      let csv = "﻿Hạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái
+";
       sorted.forEach((p, idx) => {
         const title = idx < 10 ? getRoyalTitleByRank(idx) : "Thí sinh tham dự", status = p.isSuspended ? "Đình chỉ" : (p.isOnline !== false ? "Trực tuyến" : "Đã rời phòng");
         const cleanName = String(p.name || '').replace(/"/g, '""');
-        csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"\n`;
+        csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"
+`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
       a.href = url; a.download = `Bang_Diem_FourHomeMega_${new Date().toISOString().slice(0, 10)}.csv`;
@@ -1435,19 +1482,19 @@
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_cover_v52'] && stored['fh_master_cover_v52'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v52']);
-        if (stored['fh_master_logo_v52'] && stored['fh_master_logo_v52'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v52']);
-        if (stored['fh_logged_out_v52'] === 'true') return;
-        const idbName = stored['fh_locked_name_v52'] || stored['fh_locked_name_v51'] || stored['fh_locked_name_v49'] || stored['fh_locked_name_v47'];
-        const idbAvt = stored['fh_locked_avatar_v52'] || stored['fh_locked_avatar_v51'] || stored['fh_locked_avatar_v49'] || stored['fh_locked_avatar_v47'];
+        if (stored['fh_master_cover_v53'] && stored['fh_master_cover_v53'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v53']);
+        if (stored['fh_master_logo_v53'] && stored['fh_master_logo_v53'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v53']);
+        if (stored['fh_logged_out_v53'] === 'true') return;
+        const idbName = stored['fh_locked_name_v53'] || stored['fh_locked_name_v52'] || stored['fh_locked_name_v51'];
+        const idbAvt = stored['fh_locked_avatar_v53'] || stored['fh_locked_avatar_v52'] || stored['fh_locked_avatar_v51'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v52'] || stored['fh_saved_score_v51'] || stored['fh_saved_score_v49'] || stored['fh_saved_score_v47'], 10) || 0;
-          myId = stored['fh_account_uid_v52'] || stored['fh_account_uid_v51'] || ('acc_' + normalizeAccountKey(myName));
-          isMyAccountSuspended = ((stored['fh_suspended_v52'] || stored['fh_suspended_v51']) === 'true');
-          if (stored['fh_hw_device_id_v52']) myDeviceHwId = stored['fh_hw_device_id_v52'];
-          setPersistentData('fh_locked_name_v52', myName); setPersistentData('fh_locked_avatar_v52', myAvatar);
-          setPersistentData('fh_saved_score_v52', myScore); setPersistentData('fh_account_uid_v52', myId);
+          myScore = parseInt(stored['fh_saved_score_v53'] || stored['fh_saved_score_v52'] || stored['fh_saved_score_v51'], 10) || 0;
+          myId = stored['fh_account_uid_v53'] || stored['fh_account_uid_v52'] || ('acc_' + normalizeAccountKey(myName));
+          isMyAccountSuspended = ((stored['fh_suspended_v53'] || stored['fh_suspended_v52']) === 'true');
+          if (stored['fh_hw_device_id_v53']) myDeviceHwId = stored['fh_hw_device_id_v53'];
+          setPersistentData('fh_locked_name_v53', myName); setPersistentData('fh_locked_avatar_v53', myAvatar);
+          setPersistentData('fh_saved_score_v53', myScore); setPersistentData('fh_account_uid_v53', myId);
           players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
           document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -1464,7 +1511,7 @@
     }
     autoRestorePlayerSession();
 
-    const BASE_TOPIC = 'fourhome_mega_suc_2026_v52_secure';
+    const BASE_TOPIC = 'fourhome_mega_suc_2026_v53_secure';
     const BROKER_URLS = ['wss://broker.hivemq.com:8884/mqtt', 'wss://test.mosquitto.org:8081/mqtt', 'wss://broker.emqx.io:8084/mqtt'];
     const activeClients = []; let connectedBrokerCount = 0;
     const localChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(BASE_TOPIC) : null;
@@ -1478,7 +1525,7 @@
 
     BROKER_URLS.forEach((url, index) => {
       try {
-        const c = mqtt.connect(url, { clientId: 'fh52_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
+        const c = mqtt.connect(url, { clientId: 'fh53_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
         c.on('connect', () => {
           c._isConnected = true; connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length; updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
@@ -1560,7 +1607,7 @@
       } else if (data.type === 'SYNC_SPEED_LOGO' || data.type === 'FORCE_SYNC_LOGO') {
         if (data.logoImg === 'DEFAULT') saveCustomLogoPermanently('DEFAULT');
         else if (data.logoImg && data.logoImg.startsWith('data:image/')) saveCustomLogoPermanently(data.logoImg);
-      } else if (data.type === 'AUDIO_SYNC_V52') {
+      } else if (data.type === 'AUDIO_SYNC_V53') {
         if (!isAdminMode && data.cue) executeSyncedAudioCue(data.cue);
       } else if (data.type === 'MASTER_TICK') {
         if (isAdminMode) return;
@@ -1592,8 +1639,8 @@
           const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
 
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
-            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v52', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
-            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v52', suspState ? 'true' : 'false'); updateSuspensionUI(); }
+            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v53', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
+            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v53', suspState ? 'true' : 'false'); updateSuspensionUI(); }
           }
           const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
           const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
@@ -1608,7 +1655,7 @@
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].isSuspended = newSusp; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) players[data.targetId].isSuspended = newSusp;
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
-          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v52', newSusp ? 'true' : 'false'); updateSuspensionUI();
+          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v53', newSusp ? 'true' : 'false'); updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản bị Admin tạm đình chỉ!" : "✅ THÔNG BÁO: Admin đã BỎ ĐÌNH CHỈ!");
         }
         scheduleRenderLeaderboard(); scheduleRenderDirectory();
@@ -1646,15 +1693,15 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v52', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v53', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || ""; renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
         stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
-          myResetId = data.resetId; setPersistentData('fh_reset_id_v52', myResetId);
-          myScore = 0; setPersistentData('fh_saved_score_v52', 0); answeredHistory = {}; saveAnsweredHistory();
+          myResetId = data.resetId; setPersistentData('fh_reset_id_v53', myResetId);
+          myScore = 0; setPersistentData('fh_saved_score_v53', 0); answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -1685,7 +1732,7 @@
       if (!myName || !confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
       stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
-      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v52', 'true');
+      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v53', 'true');
       const logoutPacket = { type: 'PLAYER_LOGOUT', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: null, isOnline: false, isSuspended: isMyAccountSuspended };
       if (players[myId]) { players[myId].lockedByDevice = null; players[myId].isOnline = false; }
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
@@ -1708,7 +1755,7 @@
       const filtered = keyword ? allList.filter(p => (p.name || '').toLowerCase().includes(keyword)) : allList;
       if (filtered.length === 0) { container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Chưa có tài khoản thí sinh nào trong phòng...</div>`; return; }
       container.innerHTML = filtered.map((p, idx) => {
-        const safeName = (p.name || '').replace(/'/g, "\\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
+        const safeName = (p.name || '').replace(/'/g, "\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
         const statusBadge = isSusp ? `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : isLocked ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Trong phòng</span>` : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất</span>`;
         const suspendBtnHTML = isSusp ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">✅ Bỏ đình chỉ</button>` : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">⛔ Đình chỉ</button>`;
         return `<div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2"><div class="flex items-center gap-2.5 truncate min-w-0 flex-1"><span class="w-5 h-5 aspect-square rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}<div class="truncate min-w-0 flex-1"><div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div><div class="mt-0.5">${statusBadge}</div></div></div><div class="flex flex-wrap items-center justify-end gap-1 shrink-0">${suspendBtnHTML}<button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🔓</button><button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🗑️</button></div></div>`;
@@ -1731,7 +1778,7 @@
       renderPlayerDirectoryList(); alert(`✅ Đã mở khóa thiết bị cho "${targetName}"!`);
     }
     function forceResetMyLocalAccount() {
-      stopAllMP3(); ['fh_locked_name_v52', 'fh_locked_avatar_v52', 'fh_saved_score_v52', 'fh_answered_history_v52', 'fh_account_uid_v52', 'fh_logged_out_v52', 'fh_suspended_v52'].forEach(removePersistentData);
+      stopAllMP3(); ['fh_locked_name_v53', 'fh_locked_avatar_v53', 'fh_saved_score_v53', 'fh_answered_history_v53', 'fh_account_uid_v53', 'fh_logged_out_v53', 'fh_suspended_v53'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-placeholder').classList.remove('hidden');
@@ -1808,7 +1855,7 @@
             <div class="podium-stage-wrap">
               <div class="${spotClass}"></div>
               <div class="${capClass}"></div>
-              <div class="podium-3d-body ${bodyClass} rounded-b-xl">
+              <div class="${podium-3d-body} ${bodyClass} rounded-b-xl">
                 <span class="${numClass} font-black leading-none">${rank}</span>
                 <span class="text-[13.5px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
               </div>
@@ -1891,7 +1938,7 @@
       else {
         top10El.innerHTML = sorted.slice(0, 10).map((p, idx) => {
           const isMeTag = (p.id === myId) ? `<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded-full ml-1 shrink-0">Bạn</span>` : '';
-          const royalTitle = getRoyalTitleByRank(idx);
+          const royalTitleHTML = getRoyalTitleHTMLByRank(idx);
 
           if (idx === 0) {
             return `
@@ -1904,7 +1951,7 @@
                   </div>
                   <div class="min-w-0 flex-1">
                     <div class="font-black text-xs sm:text-[13.5px] text-amber-100 truncate flex items-center">${p.name}${isMeTag}</div>
-                    <div class="text-[9px] sm:text-[10px] font-black text-amber-300 uppercase tracking-tight mt-0.5 whitespace-nowrap">${royalTitle}</div>
+                    <div class="mt-0.5">${royalTitleHTML}</div>
                   </div>
                 </div>
                 <span class="font-black text-sm sm:text-base score-star-glow shrink-0 z-10 whitespace-nowrap">${p.score} ⭐</span>
@@ -1920,7 +1967,7 @@
                   ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-slate-200')}
                   <div class="min-w-0 flex-1">
                     <div class="font-extrabold text-xs text-slate-100 truncate flex items-center">${p.name}${isMeTag}</div>
-                    <div class="text-[9px] sm:text-[9.5px] font-extrabold text-slate-300 uppercase tracking-tight mt-0.5 whitespace-nowrap">${royalTitle}</div>
+                    <div class="mt-0.5">${royalTitleHTML}</div>
                   </div>
                 </div>
                 <span class="font-black text-xs sm:text-sm score-star-glow shrink-0 whitespace-nowrap">${p.score} ⭐</span>
@@ -1936,7 +1983,7 @@
                   ${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}
                   <div class="min-w-0 flex-1">
                     <div class="font-extrabold text-xs text-orange-100 truncate flex items-center">${p.name}${isMeTag}</div>
-                    <div class="text-[9px] sm:text-[9.5px] font-extrabold text-orange-300 uppercase tracking-tight mt-0.5 whitespace-nowrap">${royalTitle}</div>
+                    <div class="mt-0.5">${royalTitleHTML}</div>
                   </div>
                 </div>
                 <span class="font-black text-xs sm:text-sm score-star-glow shrink-0 whitespace-nowrap">${p.score} ⭐</span>
@@ -1951,7 +1998,7 @@
                 ${renderAvatarHTML(p.avatar, 'w-7 h-7', 'border border-amber-400/70')}
                 <div class="min-w-0 flex-1">
                   <div class="font-bold text-xs text-slate-100 truncate flex items-center">${p.name}${isMeTag}</div>
-                  <div class="text-[8.5px] font-bold text-sky-300/90 uppercase tracking-tight whitespace-nowrap">${royalTitle}</div>
+                  <div class="mt-0.5">${royalTitleHTML}</div>
                 </div>
               </div>
               <span class="font-black text-xs score-star-glow shrink-0 whitespace-nowrap">${p.score} ⭐</span>
@@ -1996,13 +2043,14 @@
       publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function deleteCurrentQuiz() {
-      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
-      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v52', JSON.stringify(quizBank)); } catch (e) {}
+      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:
+"${currentQuizName}" không?`)) return;
+      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v53', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function restoreDefaultQuiz() {
       const defaultTitle = Object.keys(defaultBank)[0]; quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v52', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v53', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = defaultTitle; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function saveNewQuizFromNotebook() {
@@ -2011,7 +2059,7 @@
       try {
         const parsed = JSON.parse(rawJson);
         if (!Array.isArray(parsed) || parsed.length === 0) return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
-        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v52', JSON.stringify(quizBank)); } catch (e) {}
+        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v53', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = title; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
         document.getElementById('new-quiz-title').value = ''; document.getElementById('new-quiz-json').value = ''; document.getElementById('modal-new-quiz').classList.add('hidden'); alert(`🎉 Đã thêm bộ đề "${title}"!`);
       } catch (e) { alert("Mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!"); }
@@ -2038,8 +2086,10 @@
       if (rawName.length > 20) return alert("Tên tài khoản không vượt quá 20 ký tự!");
       if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! (Mật khẩu thí sinh là số 1).");
       if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
-        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang "✨ Đăng ký TK mới".`);
-        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng đăng xuất trên máy cũ trước!`);
+        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!
+Vui lòng chuyển sang "✨ Đăng ký TK mới".`);
+        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!
+Vui lòng đăng xuất trên máy cũ trước!`);
         myId = existingAcc.id || targetAccountId; myName = existingAcc.name; myAvatar = (tempUploadedAvatar || existingAcc.avatar || DEFAULT_ADMIN_AVATAR); myScore = existingAcc.score || 0;
         isMyAccountSuspended = Boolean(existingAcc.isSuspended); isLoggedOutExplicitly = false;
       } else {
@@ -2052,8 +2102,8 @@
         }
         myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       }
-      setPersistentData('fh_account_uid_v52', myId); setPersistentData('fh_locked_name_v52', myName); setPersistentData('fh_locked_avatar_v52', myAvatar); setPersistentData('fh_saved_score_v52', myScore);
-      setPersistentData('fh_suspended_v52', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v52', 'false');
+      setPersistentData('fh_account_uid_v53', myId); setPersistentData('fh_locked_name_v53', myName); setPersistentData('fh_locked_avatar_v53', myAvatar); setPersistentData('fh_saved_score_v53', myScore);
+      setPersistentData('fh_suspended_v53', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v53', 'false');
       document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateSuspensionUI(); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; announceMyPresence(true); renderLeaderboard();
     }
@@ -2130,9 +2180,9 @@
       stopAllMP3(); closeRoundSpeedModal();
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v52', newResetId);
+      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v53', newResetId);
       activeClients.forEach(c => { if (c && c._isConnected) { c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); } });
-      myScore = 0; setPersistentData('fh_saved_score_v52', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
+      myScore = 0; setPersistentData('fh_saved_score_v53', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
       for (let k in players) players[k].score = 0; for (let k in accountRegistry) accountRegistry[k].score = 0;
       saveAccountRegistryLocal(); renderLeaderboard(); publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
     }
@@ -2222,7 +2272,7 @@
         const chosenBtn = document.getElementById(`btn-${myPendingChoice}`);
         if (myPendingChoice === correctKey) {
           const earnedPoints = myPendingTimeLeft;
-          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v52', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
+          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v53', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; fb.innerText = `🎉 CHÍNH XÁC! Bạn chốt đáp án ${myPendingChoice} ở giây thứ ${myPendingTimeLeft} (+${earnedPoints} ⭐)`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow"; playALTPCorrect();
         } else {
           if (chosenBtn) { chosenBtn.classList.remove('bg-amber-50'); chosenBtn.classList.add('bg-rose-100', 'border-rose-500'); }
