@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V49</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V51</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -84,13 +84,9 @@
       transition: all 0.2s ease;
     }
     .btn-luxury-gold-shimmer::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 42%;
+      content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
-      animation: shimmerSweep 2.8s infinite;
-      pointer-events: none;
+      animation: shimmerSweep 2.8s infinite; pointer-events: none;
     }
     .btn-luxury-gold-shimmer:active { transform: translateY(2px); box-shadow: 0 2px 0 #78350f, 0 6px 14px rgba(245, 158, 11, 0.4); }
     .btn-exec-gold-tab {
@@ -133,31 +129,17 @@
       -webkit-text-fill-color: transparent;
     }
     .option-card-v42 {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 76px;
-      height: 100%;
-      width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
-      word-break: break-word;
-      overflow-wrap: anywhere;
-      transition: all 0.18s ease;
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 76px; height: 100%; width: 100%; box-sizing: border-box;
+      overflow: hidden; word-break: break-word; overflow-wrap: anywhere; transition: all 0.18s ease;
     }
     .option-text-v42 {
-      font-size: clamp(11px, 3.1vw, 12.5px);
-      line-height: 1.35;
-      font-weight: 800;
-      color: #1e293b;
-      text-align: left;
-      word-break: break-word;
-      overflow-wrap: anywhere;
+      font-size: clamp(11px, 3.1vw, 12.5px); line-height: 1.35; font-weight: 800;
+      color: #1e293b; text-align: left; word-break: break-word; overflow-wrap: anywhere;
     }
     .victory-backdrop-overlay {
       background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.25) 0%, rgba(15, 23, 42, 0.90) 52%, rgba(2, 6, 23, 0.97) 100%);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
     .victory-luxury-modal {
       background: linear-gradient(165deg, #0d1627 0%, #070c18 52%, #0e1322 100%);
@@ -236,7 +218,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V49)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V51)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -495,7 +477,7 @@
             </div>
             <div class="flex items-center justify-between gap-1 mt-1.5 pt-1 border-t border-slate-100 w-full">
               <div id="avatars-D" class="flex items-center -space-x-1.5 overflow-hidden min-h-[18px] py-0.5"></div>
-              <span id="stat-D" class="text-[9px] bg-indigo-600 font-extrabold px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">0 (0%)</span>
+              <span id="stat-D" class="text-[9px] bg-indigo-50 text-indigo-600 font-extrabold px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">0 (0%)</span>
             </div>
           </button>
         </div>
@@ -533,7 +515,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V49 Executive Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V51 Executive Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -691,13 +673,13 @@
 
     function saveCustomCoverPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v49'); applyCoverBannerToUI('DEFAULT', false);
+        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v51'); applyCoverBannerToUI('DEFAULT', false);
         const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v49', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v49', dataUrl);
+      try { localStorage.setItem('fh_master_cover_v51', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v51', dataUrl);
       const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
 
@@ -732,7 +714,7 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v49', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v51', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
@@ -748,13 +730,13 @@
 
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v49'); applySpeedLogoToUI('DEFAULT', false);
+        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v51'); applySpeedLogoToUI('DEFAULT', false);
         const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v49', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v49', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v51', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v51', dataUrl);
       const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
 
@@ -804,30 +786,130 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v49', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v51', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
 
     function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
 
-    // HÀM RENDER KHUNG VINH DANH V49: ĐẢM BẢO AVATAR LỌT LÒNG TẤM KHIÊN VÀ LUÔN HIỂN THỊ RÕ 100%
+    // CƠ CHẾ 2 V51: KHUNG VECTOR SVG ĐỘC QUYỀN 5 CHI TIẾT GIỐNG HỆT BẢN GỐC (KHIÊN 3D + VƯƠNG MIỆN + NGUYỆT QUẾ + HUY CHƯƠNG 1/2/3 TOP + AVATAR LỌT LÒNG KHIÊN)
+    let svgFrameUidCounter = 0;
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
-      const src = (avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined') ? avatarUrl : DEFAULT_ADMIN_AVATAR;
+      const hasCustomAvatar = Boolean(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined');
+      const src = hasCustomAvatar ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      const wrapSize = isTop1 ? "w-[126px] h-[126px]" : "w-[106px] h-[106px]";
-      const frameImgPath = rank === 1 ? "./khung_vinh_danh_top1.png" : rank === 2 ? "./khung_vinh_danh_top2.png" : "./khung_vinh_danh_top3.png";
-      const auraClass = rank === 1 ? 'bg-amber-400/35' : rank === 2 ? 'bg-sky-300/25' : 'bg-orange-400/25';
-      const ringBorder = rank === 1 ? 'border-2 border-yellow-300 shadow-[0_0_12px_rgba(253,224,71,0.85)]' : rank === 2 ? 'border-2 border-slate-200 shadow-[0_0_10px_rgba(226,232,240,0.7)]' : 'border-2 border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.7)]';
-      const avtPos = isTop1 ? "w-[62px] h-[62px] top-[26px]" : "w-[52px] h-[52px] top-[22px]";
+      const wrapSize = isTop1 ? "w-[132px] h-[136px]" : "w-[112px] h-[116px]";
+      const uid = `rf_${rank}_${++svgFrameUidCounter}`;
+
+      const pal = rank === 1 ? {
+        c1: '#fffbeb', c2: '#fde68a', c3: '#eab308', c4: '#b45309', c5: '#451a03',
+        rib1: '#ef4444', rib2: '#991b1b', aura: 'bg-amber-400/35'
+      } : rank === 2 ? {
+        c1: '#ffffff', c2: '#e2e8f0', c3: '#94a3b8', c4: '#475569', c5: '#1e293b',
+        rib1: '#3b82f6', rib2: '#1e3a8a', aura: 'bg-sky-300/25'
+      } : {
+        c1: '#ffedd5', c2: '#fdba74', c3: '#d97706', c4: '#92400e', c5: '#451a03',
+        rib1: '#ea580c', rib2: '#7c2d12', aura: 'bg-orange-400/25'
+      };
+
+      // Tạo 11 cặp lá nguyệt quế kép uốn cong ôm sát 2 bên sườn khiên giống hệt khung gốc
+      let leftLeaves = '', rightLeaves = '';
+      for (let i = 0; i < 11; i++) {
+        const t = i / 10;
+        const ang = (104 + t * 136) * Math.PI / 180;
+        const cx = 110 + 73 * Math.cos(ang);
+        const cy = 110 + 74 * Math.sin(ang);
+        const deg = (ang * 180 / Math.PI) - 90;
+        const s = (1.02 - t * 0.35).toFixed(2);
+        const leafPair = `
+          <path d="M 0,0 C -11,-5 -17,-18 -6,-28 C 1,-18 2,-7 0,0 Z" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="0.6"/>
+          <path d="M 0,-2 C 9,-7 14,-19 5,-27 C -1,-18 -1,-8 0,-2 Z" fill="url(#mg2_${uid})" stroke="${pal.c5}" stroke-width="0.6"/>
+          <circle cx="-1" cy="-8" r="1.7" fill="${pal.c1}"/>
+        `;
+        leftLeaves += `<g transform="translate(${cx.toFixed(1)},${cy.toFixed(1)}) rotate(${deg.toFixed(1)}) scale(${s})">${leafPair}</g>`;
+        const rcx = (220 - cx).toFixed(1);
+        const rdeg = (-deg).toFixed(1);
+        rightLeaves += `<g transform="translate(${rcx},${cy.toFixed(1)}) rotate(${rdeg}) scale(-${s},${s})">${leafPair}</g>`;
+      }
+
+      const outerShield = "M 110 34 C 134 34, 154 40, 166 50 L 171 58 C 173 118, 150 163, 110 191 C 70 163, 47 118, 49 58 L 54 50 C 66 40, 86 34, 110 34 Z";
+      const midShield   = "M 110 40 C 131 40, 149 45, 160 54 L 164 61 C 166 114, 145 155, 110 181 C 75 155, 54 114, 56 61 L 60 54 C 71 45, 89 40, 110 40 Z";
+      const innerShield = "M 110 45 C 129 45, 145 50, 154 58 L 158 64 C 160 111, 141 149, 110 173 C 79 149, 60 111, 62 64 L 66 58 C 75 50, 91 45, 110 45 Z";
 
       return `
         <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
-          <div class="absolute inset-1 rounded-full ${auraClass} blur-xl pointer-events-none z-0"></div>
-          <img src="${frameImgPath}" class="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none drop-shadow-md" alt="Khung Top ${rank}">
-          <div class="absolute ${avtPos} left-1/2 -translate-x-1/2 rounded-full overflow-hidden z-20 ${ringBorder} bg-slate-900 flex items-center justify-center shadow-inner">
-            <img src="${src}" class="w-full h-full object-cover avatar-4k" alt="Avatar Top ${rank}">
-          </div>
+          <div class="absolute inset-2 rounded-full ${pal.aura} blur-xl pointer-events-none z-0"></div>
+          <svg viewBox="0 0 220 212" class="w-full h-full relative z-10 overflow-visible drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]">
+            <defs>
+              <linearGradient id="mg_${uid}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${pal.c1}"/>
+                <stop offset="28%" stop-color="${pal.c2}"/>
+                <stop offset="58%" stop-color="${pal.c3}"/>
+                <stop offset="85%" stop-color="${pal.c4}"/>
+                <stop offset="100%" stop-color="${pal.c2}"/>
+              </linearGradient>
+              <linearGradient id="mg2_${uid}" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${pal.c2}"/>
+                <stop offset="50%" stop-color="${pal.c3}"/>
+                <stop offset="100%" stop-color="${pal.c5}"/>
+              </linearGradient>
+              <radialGradient id="med_${uid}" cx="38%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="${pal.c1}"/>
+                <stop offset="40%" stop-color="${pal.c2}"/>
+                <stop offset="78%" stop-color="${pal.c3}"/>
+                <stop offset="100%" stop-color="${pal.c4}"/>
+              </radialGradient>
+              <linearGradient id="rib_${uid}" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${pal.rib1}"/>
+                <stop offset="100%" stop-color="${pal.rib2}"/>
+              </linearGradient>
+              <clipPath id="clip_${uid}">
+                <path d="${innerShield}"/>
+              </clipPath>
+            </defs>
+
+            <!-- 1. Vương miện nhỏ 3 đỉnh trên đỉnh khiên -->
+            <g transform="translate(110, 21)">
+              <path d="M -14,7 L -18,-5 L -7,1 L 0,-9 L 7,1 L 18,-5 L 14,7 Z" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1"/>
+              <rect x="-14" y="7" width="28" height="3.5" rx="1.5" fill="url(#mg2_${uid})" stroke="${pal.c5}" stroke-width="0.8"/>
+              <circle cx="-18" cy="-7" r="2" fill="${pal.c1}"/>
+              <circle cx="0" cy="-11" r="2.4" fill="${pal.c1}"/>
+              <circle cx="18" cy="-7" r="2" fill="${pal.c1}"/>
+            </g>
+
+            <!-- 2. Vòng nguyệt quế kép 2 bên sườn và nơ giao nhau ở đáy -->
+            <path d="M 110,188 C 62,175 34,132 37,72" fill="none" stroke="url(#mg_${uid})" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M 110,188 C 158,175 186,132 183,72" fill="none" stroke="url(#mg_${uid})" stroke-width="2.4" stroke-linecap="round"/>
+            ${leftLeaves}
+            ${rightLeaves}
+            <path d="M 94,193 Q 110,183 126,193" fill="none" stroke="url(#mg_${uid})" stroke-width="3" stroke-linecap="round"/>
+
+            <!-- 3. Khung Khiên Hoàng Gia 3D đa tầng -->
+            <path d="${outerShield}" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1.8"/>
+            <path d="${midShield}" fill="#0b101d" stroke="url(#mg2_${uid})" stroke-width="1.4"/>
+
+            <!-- 4. Lòng khiên & Ảnh đại diện thí sinh cắt chuẩn theo khuôn khiên (Không bao giờ đè hoặc bị che) -->
+            <path d="${innerShield}" fill="#262b38"/>
+            <image href="${src}" x="56" y="42" width="108" height="134" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip_${uid})"/>
+            <path d="M 62,64 C 85,52 135,52 158,64 L 158,95 C 130,82 90,82 62,95 Z" fill="#ffffff" opacity="0.08" clip-path="url(#clip_${uid})"/>
+
+            <!-- Viền kim loại nổi ôm sát mép trong của lòng khiên -->
+            <path d="${innerShield}" fill="none" stroke="url(#mg_${uid})" stroke-width="3.4"/>
+            <path d="${innerShield}" fill="none" stroke="${pal.c1}" stroke-width="0.9" opacity="0.7"/>
+
+            <!-- 5. Huy chương dập nổi 1/2/3 TOP kèm 2 dải ruy-băng ở góc dưới bên trái -->
+            <g transform="translate(71, 160)">
+              <path d="M -9,12 L -19,35 L -10,31 L -5,38 L 2,15 Z" fill="url(#rib_${uid})" stroke="#090d16" stroke-width="0.8"/>
+              <path d="M 7,12 L 18,34 L 9,31 L 5,38 L -2,15 Z" fill="url(#rib_${uid})" stroke="#090d16" stroke-width="0.8"/>
+              <circle cx="0" cy="0" r="21" fill="url(#med_${uid})" stroke="${pal.c5}" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="17.5" fill="none" stroke="${pal.c1}" stroke-width="1" stroke-dasharray="2.2 1.8" opacity="0.85"/>
+              <circle cx="0" cy="0" r="14.8" fill="url(#mg2_${uid})" stroke="${pal.c4}" stroke-width="1"/>
+              <text x="0" y="1" text-anchor="middle" font-family="Cinzel, Montserrat, serif" font-weight="900" font-size="16" fill="${pal.c5}" opacity="0.45">${rank}</text>
+              <text x="0" y="0" text-anchor="middle" font-family="Cinzel, Montserrat, serif" font-weight="900" font-size="16" fill="${pal.c1}">${rank}</text>
+              <text x="0" y="10" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="6.5" fill="${pal.c1}" letter-spacing="0.6">TOP</text>
+            </g>
+          </svg>
         </div>
       `;
     }
@@ -839,7 +921,7 @@
       return "THẬP ĐẠI THẦN TỐC";
     }
 
-    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V49";
+    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V51";
     const clientRateLimits = {};
     let adminActiveSecret = null;
 
@@ -862,7 +944,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V49", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V51", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -906,11 +988,11 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV49() {
+    (function initMasterAssetsV51() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v48') || localStorage.getItem('fh_master_cover_v47');
-        savedLogo = localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v48') || localStorage.getItem('fh_master_logo_v47');
+        savedCover = localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50') || localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v48') || localStorage.getItem('fh_master_cover_v47');
+        savedLogo = localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50') || localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v48') || localStorage.getItem('fh_master_logo_v47');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1184,7 +1266,7 @@
 
     function adminBroadcastAudioCue(cueType) {
       executeSyncedAudioCue(cueType);
-      publishPacket('events', { type: 'AUDIO_SYNC_V49', id: 'admin', cue: cueType }, false);
+      publishPacket('events', { type: 'AUDIO_SYNC_V51', id: 'admin', cue: cueType }, false);
     }
 
     function launchFireworks() {
@@ -1211,36 +1293,36 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v49') || localStorage.getItem('fourhome_quiz_bank_v48') || localStorage.getItem('fourhome_quiz_bank_v47')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50') || localStorage.getItem('fourhome_quiz_bank_v49') || localStorage.getItem('fourhome_quiz_bank_v48') || localStorage.getItem('fourhome_quiz_bank_v47')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v49') || getPersistentData('fh_hw_device_id_v48');
-    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v49', myDeviceHwId); }
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v51') || getPersistentData('fh_hw_device_id_v49') || getPersistentData('fh_hw_device_id_v47');
+    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v51', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v49') || getPersistentData('fh_account_uid_v48') || '';
-    let myName = getPersistentData('fh_locked_name_v49') || getPersistentData('fh_locked_name_v48') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v49') || getPersistentData('fh_locked_avatar_v48') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v49') || getPersistentData('fh_saved_score_v48'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v49') || getPersistentData('fh_reset_id_v48') || 'init_session';
-    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v49') || getPersistentData('fh_suspended_v48')) === 'true');
-    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v49') || getPersistentData('fh_logged_out_v48')) === 'true');
+    let myId = getPersistentData('fh_account_uid_v51') || getPersistentData('fh_account_uid_v49') || getPersistentData('fh_account_uid_v47') || '';
+    let myName = getPersistentData('fh_locked_name_v51') || getPersistentData('fh_locked_name_v49') || getPersistentData('fh_locked_name_v47') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v51') || getPersistentData('fh_locked_avatar_v49') || getPersistentData('fh_locked_avatar_v47') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v51') || getPersistentData('fh_saved_score_v49') || getPersistentData('fh_saved_score_v47'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v51') || getPersistentData('fh_reset_id_v49') || getPersistentData('fh_reset_id_v47') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v51') || getPersistentData('fh_suspended_v49') || getPersistentData('fh_suspended_v47')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v51') || getPersistentData('fh_logged_out_v49') || getPersistentData('fh_logged_out_v47')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v49', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v51', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v48')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v47')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
-    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v49', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
+    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v51', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v49')) || JSON.parse(localStorage.getItem('fh_answered_history_v48')) || {}; } catch (e) { answeredHistory = {}; }
-    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v49', JSON.stringify(answeredHistory)); } catch (e) {} }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v51')) || JSON.parse(localStorage.getItem('fh_answered_history_v49')) || JSON.parse(localStorage.getItem('fh_answered_history_v47')) || {}; } catch (e) { answeredHistory = {}; }
+    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v51', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v48')); } catch (e) { prevQuizRecord = null; }
-    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v49', JSON.stringify(record)); } catch (e) {} }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v51')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v47')); } catch (e) { prevQuizRecord = null; }
+    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v51', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
@@ -1346,18 +1428,19 @@
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_cover_v49'] && stored['fh_master_cover_v49'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v49']);
-        if (stored['fh_master_logo_v49'] && stored['fh_master_logo_v49'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v49']);
-        if (stored['fh_logged_out_v49'] === 'true') return;
-        const idbName = stored['fh_locked_name_v49'] || stored['fh_locked_name_v48'], idbAvt = stored['fh_locked_avatar_v49'] || stored['fh_locked_avatar_v48'];
+        if (stored['fh_master_cover_v51'] && stored['fh_master_cover_v51'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v51']);
+        if (stored['fh_master_logo_v51'] && stored['fh_master_logo_v51'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v51']);
+        if (stored['fh_logged_out_v51'] === 'true') return;
+        const idbName = stored['fh_locked_name_v51'] || stored['fh_locked_name_v49'] || stored['fh_locked_name_v47'];
+        const idbAvt = stored['fh_locked_avatar_v51'] || stored['fh_locked_avatar_v49'] || stored['fh_locked_avatar_v47'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v49'] || stored['fh_saved_score_v48'], 10) || 0;
-          myId = stored['fh_account_uid_v49'] || stored['fh_account_uid_v48'] || ('acc_' + normalizeAccountKey(myName));
-          isMyAccountSuspended = ((stored['fh_suspended_v49'] || stored['fh_suspended_v48']) === 'true');
-          if (stored['fh_hw_device_id_v49']) myDeviceHwId = stored['fh_hw_device_id_v49'];
-          setPersistentData('fh_locked_name_v49', myName); setPersistentData('fh_locked_avatar_v49', myAvatar);
-          setPersistentData('fh_saved_score_v49', myScore); setPersistentData('fh_account_uid_v49', myId);
+          myScore = parseInt(stored['fh_saved_score_v51'] || stored['fh_saved_score_v49'] || stored['fh_saved_score_v47'], 10) || 0;
+          myId = stored['fh_account_uid_v51'] || stored['fh_account_uid_v49'] || ('acc_' + normalizeAccountKey(myName));
+          isMyAccountSuspended = ((stored['fh_suspended_v51'] || stored['fh_suspended_v49']) === 'true');
+          if (stored['fh_hw_device_id_v51']) myDeviceHwId = stored['fh_hw_device_id_v51'];
+          setPersistentData('fh_locked_name_v51', myName); setPersistentData('fh_locked_avatar_v51', myAvatar);
+          setPersistentData('fh_saved_score_v51', myScore); setPersistentData('fh_account_uid_v51', myId);
           players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
           document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -1374,7 +1457,7 @@
     }
     autoRestorePlayerSession();
 
-    const BASE_TOPIC = 'fourhome_mega_suc_2026_v49_secure';
+    const BASE_TOPIC = 'fourhome_mega_suc_2026_v51_secure';
     const BROKER_URLS = ['wss://broker.hivemq.com:8884/mqtt', 'wss://test.mosquitto.org:8081/mqtt', 'wss://broker.emqx.io:8084/mqtt'];
     const activeClients = []; let connectedBrokerCount = 0;
     const localChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(BASE_TOPIC) : null;
@@ -1388,7 +1471,7 @@
 
     BROKER_URLS.forEach((url, index) => {
       try {
-        const c = mqtt.connect(url, { clientId: 'fh49_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
+        const c = mqtt.connect(url, { clientId: 'fh51_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
         c.on('connect', () => {
           c._isConnected = true; connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length; updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
@@ -1470,7 +1553,7 @@
       } else if (data.type === 'SYNC_SPEED_LOGO' || data.type === 'FORCE_SYNC_LOGO') {
         if (data.logoImg === 'DEFAULT') saveCustomLogoPermanently('DEFAULT');
         else if (data.logoImg && data.logoImg.startsWith('data:image/')) saveCustomLogoPermanently(data.logoImg);
-      } else if (data.type === 'AUDIO_SYNC_V49') {
+      } else if (data.type === 'AUDIO_SYNC_V51') {
         if (!isAdminMode && data.cue) executeSyncedAudioCue(data.cue);
       } else if (data.type === 'MASTER_TICK') {
         if (isAdminMode) return;
@@ -1502,8 +1585,8 @@
           const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
 
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
-            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v49', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
-            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v49', suspState ? 'true' : 'false'); updateSuspensionUI(); }
+            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v51', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
+            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v51', suspState ? 'true' : 'false'); updateSuspensionUI(); }
           }
           const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
           const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
@@ -1518,7 +1601,7 @@
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].isSuspended = newSusp; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) players[data.targetId].isSuspended = newSusp;
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
-          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v49', newSusp ? 'true' : 'false'); updateSuspensionUI();
+          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v51', newSusp ? 'true' : 'false'); updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản bị Admin tạm đình chỉ!" : "✅ THÔNG BÁO: Admin đã BỎ ĐÌNH CHỈ!");
         }
         scheduleRenderLeaderboard(); scheduleRenderDirectory();
@@ -1556,15 +1639,15 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || ""; renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
         stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
-          myResetId = data.resetId; setPersistentData('fh_reset_id_v49', myResetId);
-          myScore = 0; setPersistentData('fh_saved_score_v49', 0); answeredHistory = {}; saveAnsweredHistory();
+          myResetId = data.resetId; setPersistentData('fh_reset_id_v51', myResetId);
+          myScore = 0; setPersistentData('fh_saved_score_v51', 0); answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -1595,7 +1678,7 @@
       if (!myName || !confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
       stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
-      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v49', 'true');
+      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v51', 'true');
       const logoutPacket = { type: 'PLAYER_LOGOUT', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: null, isOnline: false, isSuspended: isMyAccountSuspended };
       if (players[myId]) { players[myId].lockedByDevice = null; players[myId].isOnline = false; }
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
@@ -1641,7 +1724,7 @@
       renderPlayerDirectoryList(); alert(`✅ Đã mở khóa thiết bị cho "${targetName}"!`);
     }
     function forceResetMyLocalAccount() {
-      stopAllMP3(); ['fh_locked_name_v49', 'fh_locked_avatar_v49', 'fh_saved_score_v49', 'fh_answered_history_v49', 'fh_account_uid_v49', 'fh_logged_out_v49', 'fh_suspended_v49'].forEach(removePersistentData);
+      stopAllMP3(); ['fh_locked_name_v51', 'fh_locked_avatar_v51', 'fh_saved_score_v51', 'fh_answered_history_v51', 'fh_account_uid_v51', 'fh_logged_out_v51', 'fh_suspended_v51'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-placeholder').classList.remove('hidden');
@@ -1684,11 +1767,11 @@
         const spotClass = rank === 1 ? 'podium-spotlight-gold' : rank === 2 ? 'podium-spotlight-silver' : 'podium-spotlight-bronze';
         const numClass = rank === 1 ? 'podium-rank-num-gold text-[30px]' : rank === 2 ? 'podium-rank-num-silver text-[25px]' : 'podium-rank-num-bronze text-[23px]';
         const scoreColor = rank === 1 ? 'text-amber-300' : rank === 2 ? 'text-slate-200' : 'text-orange-300';
-        const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : DEFAULT_ADMIN_AVATAR, rank);
+        const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : null, rank);
 
         if (!item) {
           return `
-            <div class="flex flex-col items-center text-center opacity-55">
+            <div class="flex flex-col items-center text-center opacity-60">
               <div class="relative z-10">${shieldFrame}</div>
               <div class="text-[11px] font-bold text-slate-400 truncate max-w-[96px] mt-0.5 z-10">Đang chờ...</div>
               <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2 py-0.5 text-[9px] font-bold text-slate-500 my-0.5 z-10"><span>--</span></div>
@@ -1907,12 +1990,12 @@
     }
     function deleteCurrentQuiz() {
       if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
-      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
+      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function restoreDefaultQuiz() {
       const defaultTitle = Object.keys(defaultBank)[0]; quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = defaultTitle; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function saveNewQuizFromNotebook() {
@@ -1921,7 +2004,7 @@
       try {
         const parsed = JSON.parse(rawJson);
         if (!Array.isArray(parsed) || parsed.length === 0) return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
-        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
+        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v51', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = title; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
         document.getElementById('new-quiz-title').value = ''; document.getElementById('new-quiz-json').value = ''; document.getElementById('modal-new-quiz').classList.add('hidden'); alert(`🎉 Đã thêm bộ đề "${title}"!`);
       } catch (e) { alert("Mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!"); }
@@ -1959,8 +2042,8 @@
         }
         myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       }
-      setPersistentData('fh_account_uid_v49', myId); setPersistentData('fh_locked_name_v49', myName); setPersistentData('fh_locked_avatar_v49', myAvatar); setPersistentData('fh_saved_score_v49', myScore);
-      setPersistentData('fh_suspended_v49', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v49', 'false');
+      setPersistentData('fh_account_uid_v51', myId); setPersistentData('fh_locked_name_v51', myName); setPersistentData('fh_locked_avatar_v51', myAvatar); setPersistentData('fh_saved_score_v51', myScore);
+      setPersistentData('fh_suspended_v51', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v51', 'false');
       document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateSuspensionUI(); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; announceMyPresence(true); renderLeaderboard();
     }
@@ -2037,9 +2120,9 @@
       stopAllMP3(); closeRoundSpeedModal();
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v49', newResetId);
+      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v51', newResetId);
       activeClients.forEach(c => { if (c && c._isConnected) { c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); } });
-      myScore = 0; setPersistentData('fh_saved_score_v49', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
+      myScore = 0; setPersistentData('fh_saved_score_v51', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
       for (let k in players) players[k].score = 0; for (let k in accountRegistry) accountRegistry[k].score = 0;
       saveAccountRegistryLocal(); renderLeaderboard(); publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
     }
@@ -2129,7 +2212,7 @@
         const chosenBtn = document.getElementById(`btn-${myPendingChoice}`);
         if (myPendingChoice === correctKey) {
           const earnedPoints = myPendingTimeLeft;
-          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v49', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
+          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v51', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; fb.innerText = `🎉 CHÍNH XÁC! Bạn chốt đáp án ${myPendingChoice} ở giây thứ ${myPendingTimeLeft} (+${earnedPoints} ⭐)`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow"; playALTPCorrect();
         } else {
           if (chosenBtn) { chosenBtn.classList.remove('bg-amber-50'); chosenBtn.classList.add('bg-rose-100', 'border-rose-500'); }
