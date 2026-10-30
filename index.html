@@ -116,24 +116,6 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-    .shield-avatar-clip {
-      clip-path: polygon(50% 21%, 63% 22.5%, 71% 27.5%, 72.5% 32%, 72% 46%, 68.5% 60%, 61.5% 72%, 50% 81.8%, 38.5% 72%, 31.5% 60%, 28% 46%, 27.5% 32%, 29% 27.5%, 37% 22.5%);
-      -webkit-clip-path: polygon(50% 21%, 63% 22.5%, 71% 27.5%, 72.5% 32%, 72% 46%, 68.5% 60%, 61.5% 72%, 50% 81.8%, 38.5% 72%, 31.5% 60%, 28% 46%, 27.5% 32%, 29% 27.5%, 37% 22.5%);
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .shield-avatar-img-hd {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 28%;
-      image-rendering: auto;
-      filter: contrast(1.05) saturate(1.10) brightness(1.02);
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
     .logo-8k-pure {
       image-rendering: auto;
       filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.88)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.5));
@@ -223,7 +205,7 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
 
-    /* KIẾM THẾ TITLE ANIMATIONS & STYLING (V53 Phương án 2: Sắc nét hoàng gia & Chạy lặp màu sắc) */
+    /* KIẾM THẾ TITLE ANIMATIONS & STYLING (V55: Nền tối cao cấp & Tương phản tuyệt đối) */
     @keyframes ktFlowGold { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
     @keyframes ktFlowEmerald { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
     @keyframes ktFlowPurple { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
@@ -282,7 +264,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V53 Kiếm Thế)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V55 Kiếm Thế)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -547,10 +529,10 @@
         </div>
       </div>
 
-      <!-- BẢNG XẾP HẠNG -->
-      <div class="w-full bg-white/95 rounded-[18px] p-2.5 shadow-md flex flex-col mb-1.5 border border-amber-200/70">
-        <div class="flex items-center justify-center pb-1 mb-1 border-b border-slate-100">
-          <span class="text-xs font-black text-slate-800 tracking-wide whitespace-nowrap">🏆 Bảng xếp hạng</span>
+      <!-- BẢNG XẾP HẠNG (V55: NỀN TỐI SANG TRỌNG GIÚP 4 DANH HIỆU NỔI BẬT HOÀN TOÀN) -->
+      <div class="w-full bg-slate-900/95 rounded-[18px] p-2.5 shadow-xl flex flex-col mb-1.5 border border-amber-500/40 backdrop-blur-md">
+        <div class="flex items-center justify-center pb-1 mb-1.5 border-b border-slate-800">
+          <span class="text-xs font-black text-amber-400 tracking-wide uppercase whitespace-nowrap">🏆 Bảng Xếp Hạng Đấu Trường</span>
         </div>
         <div id="leaderboard-list" class="space-y-1.5 overflow-y-auto max-h-[160px] pr-0.5"></div>
       </div>
@@ -579,7 +561,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V53 Kiếm Thế Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V55 Kiếm Thế Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -635,12 +617,11 @@
     </div>
   </div>
 
-  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI THẦN TỐC (V53: LOGO +20%, AVATAR HD 8K & KIẾM THẾ TITLE GRADIENT) -->
+  <!-- MODAL 1: BẢNG VINH DANH THẬP ĐẠI THẦN TỐC (V55) -->
   <div id="modal-round-speed" class="hidden fixed inset-0 z-40 victory-backdrop-overlay flex items-center justify-center p-2 sm:p-3 pt-12">
     <div class="w-full max-w-[518px] victory-luxury-modal text-white rounded-[32px] p-4 pt-2.5 flex flex-col max-h-[92vh] relative">
       <button onclick="closeRoundSpeedModal()" class="absolute top-3.5 right-3.5 w-8 h-8 aspect-square rounded-full bg-slate-800/90 hover:bg-slate-700 text-amber-200 border border-amber-400/40 font-black text-sm flex items-center justify-center cursor-pointer z-30">✖</button>
 
-      <!-- Logo 10 Thập Đại Thần Tốc phóng to thêm 20% (174x132px) -->
       <div class="flex justify-center -mt-14 mb-1.5 select-none pointer-events-none relative z-20">
         <div class="absolute w-[180px] h-[108px] top-3 rounded-full bg-amber-400/25 blur-xl"></div>
         <img id="speed-logo-png" src="" alt="10 Thập Đại Thần Tốc" class="w-[174px] h-[132px] object-contain relative z-10 logo-8k-pure">
@@ -851,14 +832,13 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v53', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v55', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
 
     function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
 
-    // V53: KHUNG KHIÊN VECTOR SVG ĐỘC QUYỀN (+20% KÍCH CỠ) + AVATAR NATIVE <img> SIÊU NÉT 8K
     let svgFrameUidCounter = 0;
     function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
       const hasCustomAvatar = Boolean(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined');
@@ -950,7 +930,6 @@
             <path d="${innerShield}" fill="#1e2433"/>
           </svg>
 
-          <!-- V54 FIX: Đặt đúng tọa độ tuyệt đối trong lòng khiên và gán trực tiếp SVG clipPath để không bao giờ bị tràn ra ngoài -->
           <div class="absolute z-20 pointer-events-none overflow-hidden" style="left: 27.3%; top: 21.2%; width: 45.4%; height: 60.4%; clip-path: url(#clip_${uid}); -webkit-clip-path: url(#clip_${uid});">
             <img src="${src}" class="w-full h-full object-cover object-center avatar-4k" alt="Avatar Top ${rank}">
           </div>
@@ -974,7 +953,6 @@
       `;
     }
 
-    // V53: Ánh xạ 4 danh hiệu chuẩn phong cách Kiếm Thế (Hoàng Đế, Quốc Công, Thừa Tướng, Chí Tôn) có hiệu ứng chữ chạy đổi màu liên tục
     function getRoyalTitleHTMLByRank(rankIndexZeroBased) {
       if (rankIndexZeroBased === 0) return `<span class="kt-title-gold font-black uppercase text-[10.5px] sm:text-[11.5px] block truncate">QUÁN QUÂN ĐẤU TRƯỜNG</span>`;
       if (rankIndexZeroBased === 1) return `<span class="kt-title-emerald font-black uppercase text-[10px] sm:text-[11px] block truncate">Á QUÂN XUẤT CHÚNG</span>`;
@@ -988,7 +966,7 @@
       return "THẬP ĐẠI THẦN TỐC";
     }
 
-    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V53";
+    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V55";
     const clientRateLimits = {};
     let adminActiveSecret = null;
 
@@ -1011,7 +989,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V53", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V55", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -1055,11 +1033,11 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV53() {
+    (function initMasterAssetsV55() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v55') || localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51') || localStorage.getItem('fh_master_cover_v50');
-        savedLogo = localStorage.getItem('fh_master_logo_v55') || localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51') || localStorage.getItem('fh_master_logo_v50');
+        savedCover = localStorage.getItem('fh_master_cover_v55') || localStorage.getItem('fh_master_cover_v52') || localStorage.getItem('fh_master_cover_v51');
+        savedLogo = localStorage.getItem('fh_master_logo_v55') || localStorage.getItem('fh_master_logo_v52') || localStorage.getItem('fh_master_logo_v51');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1322,7 +1300,7 @@
 
     function adminBroadcastAudioCue(cueType) {
       executeSyncedAudioCue(cueType);
-      publishPacket('events', { type: 'AUDIO_SYNC_V53', id: 'admin', cue: cueType }, false);
+      publishPacket('events', { type: 'AUDIO_SYNC_V55', id: 'admin', cue: cueType }, false);
     }
 
     function launchFireworks() {
@@ -1349,14 +1327,14 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v55') || localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51') || localStorage.getItem('fourhome_quiz_bank_v50')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v55') || localStorage.getItem('fourhome_quiz_bank_v52') || localStorage.getItem('fourhome_quiz_bank_v51')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
     let myDeviceHwId = getPersistentData('fh_hw_device_id_v55') || getPersistentData('fh_hw_device_id_v52') || getPersistentData('fh_hw_device_id_v51');
     if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v55', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v54') || getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || '';
+    let myId = getPersistentData('fh_account_uid_v55') || getPersistentData('fh_account_uid_v52') || getPersistentData('fh_account_uid_v51') || '';
     let myName = getPersistentData('fh_locked_name_v55') || getPersistentData('fh_locked_name_v52') || getPersistentData('fh_locked_name_v51') || '';
     let myAvatar = getPersistentData('fh_locked_avatar_v55') || getPersistentData('fh_locked_avatar_v52') || getPersistentData('fh_locked_avatar_v51') || '';
     let myScore = parseInt(getPersistentData('fh_saved_score_v55') || getPersistentData('fh_saved_score_v52') || getPersistentData('fh_saved_score_v51'), 10) || 0;
@@ -1365,7 +1343,7 @@
     let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v55') || getPersistentData('fh_logged_out_v52') || getPersistentData('fh_logged_out_v51')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v54', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v55', myId); }
 
     let accountRegistry = {};
     try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v55')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v51')) || {}; } catch (e) { accountRegistry = {}; }
@@ -1468,13 +1446,11 @@
     function downloadExcel() {
       const sorted = Object.values(players).sort((a, b) => (b.score || 0) - (a.score || 0));
       if (sorted.length === 0) return alert("Chưa có dữ liệu điểm số của thí sinh để xuất Excel!");
-      let csv = "﻿Hạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái
-";
+      let csv = "\uFEFFHạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái\n";
       sorted.forEach((p, idx) => {
         const title = idx < 10 ? getRoyalTitleByRank(idx) : "Thí sinh tham dự", status = p.isSuspended ? "Đình chỉ" : (p.isOnline !== false ? "Trực tuyến" : "Đã rời phòng");
         const cleanName = String(p.name || '').replace(/"/g, '""');
-        csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"
-`;
+        csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
       a.href = url; a.download = `Bang_Diem_FourHomeMega_${new Date().toISOString().slice(0, 10)}.csv`;
@@ -1760,7 +1736,7 @@
       const filtered = keyword ? allList.filter(p => (p.name || '').toLowerCase().includes(keyword)) : allList;
       if (filtered.length === 0) { container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Chưa có tài khoản thí sinh nào trong phòng...</div>`; return; }
       container.innerHTML = filtered.map((p, idx) => {
-        const safeName = (p.name || '').replace(/'/g, "\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
+        const safeName = (p.name || '').replace(/'/g, "\\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
         const statusBadge = isSusp ? `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : isLocked ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Trong phòng</span>` : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất</span>`;
         const suspendBtnHTML = isSusp ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">✅ Bỏ đình chỉ</button>` : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">⛔ Đình chỉ</button>`;
         return `<div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2"><div class="flex items-center gap-2.5 truncate min-w-0 flex-1"><span class="w-5 h-5 aspect-square rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}<div class="truncate min-w-0 flex-1"><div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div><div class="mt-0.5">${statusBadge}</div></div></div><div class="flex flex-wrap items-center justify-end gap-1 shrink-0">${suspendBtnHTML}<button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🔓</button><button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🗑️</button></div></div>`;
@@ -1860,7 +1836,7 @@
             <div class="podium-stage-wrap">
               <div class="${spotClass}"></div>
               <div class="${capClass}"></div>
-              <div class="${podium-3d-body} ${bodyClass} rounded-b-xl">
+              <div class="podium-3d-body ${bodyClass} rounded-b-xl">
                 <span class="${numClass} font-black leading-none">${rank}</span>
                 <span class="text-[13.5px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
               </div>
@@ -2048,8 +2024,7 @@
       publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function deleteCurrentQuiz() {
-      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:
-"${currentQuizName}" không?`)) return;
+      if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
       delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v55', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
@@ -2091,10 +2066,8 @@
       if (rawName.length > 20) return alert("Tên tài khoản không vượt quá 20 ký tự!");
       if (passInput !== String.fromCharCode(49)) return alert("Sai mật khẩu! (Mật khẩu thí sinh là số 1).");
       if (authMode === 'login' || (existingAcc && existingAcc.lockedByDevice === myDeviceHwId)) {
-        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!
-Vui lòng chuyển sang "✨ Đăng ký TK mới".`);
-        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!
-Vui lòng đăng xuất trên máy cũ trước!`);
+        if (!existingAcc) return alert(`⚠️ Không tìm thấy tài khoản "${nameInput}"!\nVui lòng chuyển sang "✨ Đăng ký TK mới".`);
+        if (existingAcc.isOnline !== false && existingAcc.lockedByDevice && existingAcc.lockedByDevice !== myDeviceHwId) return alert(`🔒 TÀI KHOẢN ĐANG ĐĂNG NHẬP Ở THIẾT BỊ KHÁC!\nVui lòng đăng xuất trên máy cũ trước!`);
         myId = existingAcc.id || targetAccountId; myName = existingAcc.name; myAvatar = (tempUploadedAvatar || existingAcc.avatar || DEFAULT_ADMIN_AVATAR); myScore = existingAcc.score || 0;
         isMyAccountSuspended = Boolean(existingAcc.isSuspended); isLoggedOutExplicitly = false;
       } else {
