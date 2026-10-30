@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V47</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V49</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -39,14 +39,8 @@
       border: 1.5px solid rgba(251, 191, 36, 0.45);
       box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.92), 0 0 28px rgba(245, 158, 11, 0.14), inset 0 1px 1px rgba(254, 240, 138, 0.22);
     }
-    .hero-cover-bright {
-      filter: brightness(1.18) contrast(1.06) saturate(1.12);
-      transition: filter 0.3s ease;
-    }
-    @keyframes titleChasingRainbowGlow {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 300% 50%; }
-    }
+    .hero-cover-bright { filter: brightness(1.18) contrast(1.06) saturate(1.12); }
+    @keyframes titleChasingRainbowGlow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
     .fourhome-3d-chasing-title {
       background: linear-gradient(90deg, #ffffff 0%, #fde047 14%, #f59e0b 28%, #38bdf8 44%, #c084fc 58%, #fb7185 72%, #fde047 86%, #ffffff 100%);
       background-size: 300% auto;
@@ -58,10 +52,7 @@
       font-size: clamp(20px, 6.2vw, 27px);
       white-space: nowrap;
     }
-    .single-line-subtitle {
-      font-size: clamp(10px, 3vw, 12px);
-      white-space: nowrap;
-    }
+    .single-line-subtitle { font-size: clamp(10px, 3vw, 12px); white-space: nowrap; }
     .vip-profile-card {
       background: linear-gradient(145deg, rgba(15, 23, 42, 0.92) 0%, rgba(7, 11, 22, 0.96) 100%);
       border: 1px solid rgba(251, 191, 36, 0.42);
@@ -74,10 +65,7 @@
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.75);
       transition: all 0.22s ease;
     }
-    .luxury-dark-input::placeholder {
-      color: rgba(148, 163, 184, 0.68);
-      font-weight: 600;
-    }
+    .luxury-dark-input::placeholder { color: rgba(148, 163, 184, 0.68); font-weight: 600; }
     .luxury-dark-input:focus {
       background: #040710;
       border-color: #fde047;
@@ -85,10 +73,7 @@
       box-shadow: 0 0 16px rgba(251, 191, 36, 0.35), inset 0 1px 4px rgba(251, 191, 36, 0.15);
       outline: none;
     }
-    @keyframes shimmerSweep {
-      0% { transform: translateX(-140%) skewX(-22deg); }
-      100% { transform: translateX(240%) skewX(-22deg); }
-    }
+    @keyframes shimmerSweep { 0% { transform: translateX(-140%) skewX(-22deg); } 100% { transform: translateX(240%) skewX(-22deg); } }
     .btn-luxury-gold-shimmer {
       background: linear-gradient(180deg, #fef08a 0%, #f59e0b 48%, #b45309 100%);
       border: 1.5px solid #fffbeb;
@@ -107,10 +92,7 @@
       animation: shimmerSweep 2.8s infinite;
       pointer-events: none;
     }
-    .btn-luxury-gold-shimmer:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #78350f, 0 6px 14px rgba(245, 158, 11, 0.4);
-    }
+    .btn-luxury-gold-shimmer:active { transform: translateY(2px); box-shadow: 0 2px 0 #78350f, 0 6px 14px rgba(245, 158, 11, 0.4); }
     .btn-exec-gold-tab {
       background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #b45309 100%);
       color: #060a14;
@@ -125,11 +107,7 @@
       -webkit-mask-image: -webkit-radial-gradient(white, black);
       aspect-ratio: 1 / 1;
     }
-    .timer-ring-circle {
-      transition: stroke-dashoffset 0.25s linear, stroke 0.25s ease;
-      transform: rotate(-90deg);
-      transform-origin: 50% 50%;
-    }
+    .timer-ring-circle { transition: stroke-dashoffset 0.25s linear, stroke 0.25s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
     .avatar-4k {
       aspect-ratio: 1 / 1;
       border-radius: 9999px;
@@ -175,7 +153,6 @@
       text-align: left;
       word-break: break-word;
       overflow-wrap: anywhere;
-      hyphens: auto;
     }
     .victory-backdrop-overlay {
       background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.25) 0%, rgba(15, 23, 42, 0.90) 52%, rgba(2, 6, 23, 0.97) 100%);
@@ -187,179 +164,62 @@
       border: 1.5px solid rgba(251, 191, 36, 0.55);
       box-shadow: 0 0 50px rgba(245, 158, 11, 0.22), 0 25px 60px rgba(0, 0, 0, 0.92), inset 0 1px 1px rgba(254, 240, 138, 0.25);
     }
-    .podium-stage-wrap {
-      position: relative;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 2px;
+    .podium-stage-wrap { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 2px; }
+    .podium-spotlight-gold, .podium-spotlight-silver, .podium-spotlight-bronze {
+      position: absolute; bottom: 92%; left: 6%; right: 6%; height: 95px; pointer-events: none; z-index: 1;
     }
-    .podium-spotlight-gold {
-      position: absolute;
-      bottom: 92%;
-      left: 6%;
-      right: 6%;
-      height: 110px;
-      background: radial-gradient(ellipse at 50% 100%, rgba(251, 191, 36, 0.38) 0%, rgba(245, 158, 11, 0.08) 55%, transparent 80%);
-      pointer-events: none;
-      z-index: 1;
+    .podium-spotlight-gold { background: radial-gradient(ellipse at 50% 100%, rgba(251, 191, 36, 0.38) 0%, rgba(245, 158, 11, 0.08) 55%, transparent 80%); }
+    .podium-spotlight-silver { background: radial-gradient(ellipse at 50% 100%, rgba(226, 232, 240, 0.26) 0%, rgba(148, 163, 184, 0.05) 55%, transparent 80%); }
+    .podium-spotlight-bronze { background: radial-gradient(ellipse at 50% 100%, rgba(251, 146, 60, 0.26) 0%, rgba(234, 88, 12, 0.05) 55%, transparent 80%); }
+    .podium-top-surface-gold, .podium-top-surface-silver, .podium-top-surface-bronze {
+      width: 100%; height: 12px; clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
     }
-    .podium-spotlight-silver {
-      position: absolute;
-      bottom: 92%;
-      left: 8%;
-      right: 8%;
-      height: 85px;
-      background: radial-gradient(ellipse at 50% 100%, rgba(226, 232, 240, 0.26) 0%, rgba(148, 163, 184, 0.05) 55%, transparent 80%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .podium-spotlight-bronze {
-      position: absolute;
-      bottom: 92%;
-      left: 8%;
-      right: 8%;
-      height: 80px;
-      background: radial-gradient(ellipse at 50% 100%, rgba(251, 146, 60, 0.26) 0%, rgba(234, 88, 12, 0.05) 55%, transparent 80%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .podium-top-surface-gold {
-      width: 100%;
-      height: 13px;
-      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-      border-bottom: 2.5px solid #fde047;
-      box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
-    }
-    .podium-top-surface-silver {
-      width: 100%;
-      height: 11px;
-      background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
-      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-      border-bottom: 2px solid #e2e8f0;
-    }
-    .podium-top-surface-bronze {
-      width: 100%;
-      height: 11px;
-      background: linear-gradient(180deg, #292524 0%, #1c1917 100%);
-      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-      border-bottom: 2px solid #fdba74;
-    }
+    .podium-top-surface-gold { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-bottom: 2.5px solid #fde047; box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5); }
+    .podium-top-surface-silver { background: linear-gradient(180deg, #334155 0%, #1e293b 100%); border-bottom: 2px solid #e2e8f0; }
+    .podium-top-surface-bronze { background: linear-gradient(180deg, #292524 0%, #1c1917 100%); border-bottom: 2px solid #fdba74; }
     .podium-3d-body {
-      width: 100%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      overflow: hidden;
+      width: 100%; position: relative; display: flex; align-items: center; justify-content: center; gap: 3px; overflow: hidden;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
-    .podium-3d-gold {
-      background: linear-gradient(180deg, #132226 0%, #091318 65%, #04090c 100%);
-      border-left: 1px solid rgba(253, 224, 71, 0.35);
-      border-right: 1px solid rgba(253, 224, 71, 0.35);
-      border-bottom: 3px solid #f59e0b;
-    }
-    .podium-3d-silver {
-      background: linear-gradient(180deg, #16202a 0%, #0b121a 65%, #05090e 100%);
-      border-left: 1px solid rgba(226, 232, 240, 0.28);
-      border-right: 1px solid rgba(226, 232, 240, 0.28);
-      border-bottom: 2.5px solid #94a3b8;
-    }
-    .podium-3d-bronze {
-      background: linear-gradient(180deg, #1f1918 0%, #120e0d 65%, #080605 100%);
-      border-left: 1px solid rgba(253, 186, 116, 0.28);
-      border-right: 1px solid rgba(253, 186, 116, 0.28);
-      border-bottom: 2.5px solid #d97706;
-    }
-    .podium-rank-num-gold {
-      font-family: 'Cinzel', serif;
-      background: linear-gradient(180deg, #ffffff 0%, #fef08a 35%, #f59e0b 75%, #92400e 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
-    }
-    .podium-rank-num-silver {
-      font-family: 'Cinzel', serif;
-      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 85%, #475569 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
-    }
-    .podium-rank-num-bronze {
-      font-family: 'Cinzel', serif;
-      background: linear-gradient(180deg, #fff7ed 0%, #fdba74 45%, #ea580c 85%, #7c2d12 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
-    }
+    .podium-3d-gold { background: linear-gradient(180deg, #132226 0%, #091318 65%, #04090c 100%); border-left: 1px solid rgba(253, 224, 71, 0.35); border-right: 1px solid rgba(253, 224, 71, 0.35); border-bottom: 3px solid #f59e0b; }
+    .podium-3d-silver { background: linear-gradient(180deg, #16202a 0%, #0b121a 65%, #05090e 100%); border-left: 1px solid rgba(226, 232, 240, 0.28); border-right: 1px solid rgba(226, 232, 240, 0.28); border-bottom: 2.5px solid #94a3b8; }
+    .podium-3d-bronze { background: linear-gradient(180deg, #1f1918 0%, #120e0d 65%, #080605 100%); border-left: 1px solid rgba(253, 186, 116, 0.28); border-right: 1px solid rgba(253, 186, 116, 0.28); border-bottom: 2.5px solid #d97706; }
+    .podium-rank-num-gold, .podium-rank-num-silver, .podium-rank-num-bronze { font-family: 'Cinzel', serif; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95)); }
+    .podium-rank-num-gold { background: linear-gradient(180deg, #ffffff 0%, #fef08a 35%, #f59e0b 75%, #92400e 100%); }
+    .podium-rank-num-silver { background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 85%, #475569 100%); }
+    .podium-rank-num-bronze { background: linear-gradient(180deg, #fff7ed 0%, #fdba74 45%, #ea580c 85%, #7c2d12 100%); }
     .victory-gold-title {
       background: linear-gradient(180deg, #FFFFFF 0%, #FEF08A 26%, #F59E0B 64%, #B45309 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.45));
-      font-size: clamp(12px, 3.8vw, 15.5px);
-      white-space: nowrap;
+      font-size: clamp(12px, 3.8vw, 15.5px); white-space: nowrap;
     }
     .rank-top1-card {
       background: linear-gradient(135deg, rgba(120, 53, 15, 0.65) 0%, rgba(245, 158, 11, 0.28) 48%, rgba(69, 26, 3, 0.78) 100%);
-      border: 1.5px solid #fde047;
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.28), inset 0 0 16px rgba(254, 240, 138, 0.18);
-      position: relative;
-      overflow: hidden;
+      border: 1.5px solid #fde047; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.28), inset 0 0 16px rgba(254, 240, 138, 0.18);
+      position: relative; overflow: hidden;
     }
     .rank-top1-card::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 45%;
+      content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24), transparent);
-      animation: shimmerSweep 3.2s infinite;
-      pointer-events: none;
+      animation: shimmerSweep 3.2s infinite; pointer-events: none;
     }
-    .rank-top2-card {
-      background: linear-gradient(135deg, rgba(51, 65, 85, 0.75) 0%, rgba(148, 163, 184, 0.25) 50%, rgba(15, 23, 42, 0.88) 100%);
-      border: 1.5px solid #e2e8f0;
-      box-shadow: 0 4px 14px rgba(226, 232, 240, 0.18);
-    }
-    .rank-top3-card {
-      background: linear-gradient(135deg, rgba(124, 45, 18, 0.68) 0%, rgba(234, 88, 12, 0.24) 50%, rgba(23, 15, 12, 0.88) 100%);
-      border: 1.5px solid #fdba74;
-      box-shadow: 0 4px 14px rgba(251, 146, 60, 0.20);
-    }
-    .rank-normal-card {
-      background: rgba(15, 23, 42, 0.78);
-      border: 1px solid rgba(71, 85, 105, 0.6);
-    }
-    .score-star-glow {
-      color: #fef08a;
-      text-shadow: 0 0 10px rgba(250, 204, 21, 0.85), 0 2px 3px rgba(0, 0, 0, 0.95);
-    }
+    .rank-top2-card { background: linear-gradient(135deg, rgba(51, 65, 85, 0.75) 0%, rgba(148, 163, 184, 0.25) 50%, rgba(15, 23, 42, 0.88) 100%); border: 1.5px solid #e2e8f0; }
+    .rank-top3-card { background: linear-gradient(135deg, rgba(124, 45, 18, 0.68) 0%, rgba(234, 88, 12, 0.24) 50%, rgba(23, 15, 12, 0.88) 100%); border: 1.5px solid #fdba74; }
+    .rank-normal-card { background: rgba(15, 23, 42, 0.78); border: 1px solid rgba(71, 85, 105, 0.6); }
+    .score-star-glow { color: #fef08a; text-shadow: 0 0 10px rgba(250, 204, 21, 0.85), 0 2px 3px rgba(0, 0, 0, 0.95); }
     .btn-3d-fireworks {
       background: linear-gradient(180deg, #fef08a 0%, #f59e0b 45%, #ea580c 100%);
-      border: 1.5px solid #ffffff;
-      color: #090d16;
+      border: 1.5px solid #ffffff; color: #090d16;
       box-shadow: 0 4px 0 #9a3412, 0 8px 22px rgba(245, 158, 11, 0.5), inset 0 1px 1px #ffffff;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.18s ease;
+      position: relative; overflow: hidden; transition: all 0.18s ease;
     }
     .btn-3d-fireworks::after {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 40%;
+      content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-      animation: shimmerSweep 2.6s infinite;
-      pointer-events: none;
+      animation: shimmerSweep 2.6s infinite; pointer-events: none;
     }
-    .btn-3d-fireworks:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 #9a3412, 0 4px 12px rgba(245, 158, 11, 0.45);
-    }
+    .btn-3d-fireworks:active { transform: translateY(3px); box-shadow: 0 1px 0 #9a3412, 0 4px 12px rgba(245, 158, 11, 0.45); }
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.45); border-radius: 9999px; }
@@ -376,7 +236,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V47)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V49)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -635,7 +495,7 @@
             </div>
             <div class="flex items-center justify-between gap-1 mt-1.5 pt-1 border-t border-slate-100 w-full">
               <div id="avatars-D" class="flex items-center -space-x-1.5 overflow-hidden min-h-[18px] py-0.5"></div>
-              <span id="stat-D" class="text-[9px] bg-indigo-50 text-indigo-600 font-extrabold px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">0 (0%)</span>
+              <span id="stat-D" class="text-[9px] bg-indigo-600 font-extrabold px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">0 (0%)</span>
             </div>
           </button>
         </div>
@@ -673,7 +533,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V47 Executive Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V49 Executive Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -814,51 +674,37 @@
     const GITHUB_STATIC_COVER_PATH = "./cover-fourhome.jpg";
     const GITHUB_STATIC_LOGO_PATH = "./logo-thapdai.png";
 
-    const DEFAULT_LUXURY_COVER_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0f1f3d"/><stop offset="45%" stop-color="#1e3a8a"/><stop offset="78%" stop-color="#78350f"/><stop offset="100%" stop-color="#0b1120"/></linearGradient><radialGradient id="sunGlow" cx="50%" cy="58%" r="52%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="28%" stop-color="#FEF08A" stop-opacity="0.88"/><stop offset="60%" stop-color="#F59E0B" stop-opacity="0.45"/><stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/></radialGradient><linearGradient id="goldTower" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="35%" stop-color="#FDE047"/><stop offset="75%" stop-color="#D97706"/><stop offset="100%" stop-color="#78350F"/></linearGradient><linearGradient id="darkTower" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#334155"/><stop offset="60%" stop-color="#1E293B"/><stop offset="100%" stop-color="#0F172A"/></linearGradient></defs><rect width="960" height="440" fill="url(#skyBg)"/><circle cx="480" cy="255" r="270" fill="url(#sunGlow)"/><circle cx="480" cy="255" r="95" fill="#FFFBEB" opacity="0.35"/><circle cx="480" cy="255" r="145" fill="none" stroke="#FEF08A" stroke-width="1.5" stroke-dasharray="6 8" opacity="0.6"/><g fill="#1E293B" opacity="0.9"><rect x="45" y="185" width="48" height="175"/><rect x="102" y="150" width="54" height="210"/><rect x="165" y="200" width="44" height="160"/><rect x="275" y="135" width="58" height="225"/><rect x="630" y="140" width="56" height="220"/><rect x="755" y="165" width="52" height="195"/><rect x="820" y="195" width="46" height="165"/><rect x="875" y="175" width="50" height="185"/></g><g stroke="url(#goldTower)" fill="none" opacity="0.88"><path d="M 0 335 Q 240 280 480 330 T 960 330" stroke-width="3.5"/><line x1="210" y1="195" x2="210" y2="355" stroke-width="5"/><line x1="740" y1="195" x2="740" y2="355" stroke-width="5"/></g><g><polygon points="338,110 392,84 392,355 338,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.2"/><polygon points="396,130 438,110 438,355 396,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="1.8"/><polygon points="480,26 494,68 466,68" fill="url(#goldTower)"/><rect x="448" y="68" width="64" height="287" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.6"/><polygon points="522,110 564,130 564,355 522,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="1.8"/><polygon points="568,84 622,110 622,355 568,355" fill="url(#darkTower)" stroke="url(#goldTower)" stroke-width="2.2"/></g><rect x="0" y="352" width="960" height="88" fill="#090f1d"/><line x1="40" y1="352" x2="920" y2="352" stroke="#FDE047" stroke-width="2.5"/></svg>`);
+    const DEFAULT_LUXURY_COVER_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440"><defs><linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0f1f3d"/><stop offset="60%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#0b1120"/></linearGradient><linearGradient id="goldTower" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#FDE047"/><stop offset="100%" stop-color="#D97706"/></linearGradient></defs><rect width="960" height="440" fill="url(#skyBg)"/><circle cx="480" cy="220" r="180" fill="#F59E0B" opacity="0.25"/><polygon points="480,40 520,120 440,120" fill="url(#goldTower)"/><rect x="450" y="120" width="60" height="230" fill="#1E293B" stroke="url(#goldTower)" stroke-width="3"/><rect x="360" y="160" width="60" height="190" fill="#1E293B" stroke="url(#goldTower)" stroke-width="2.5"/><rect x="540" y="160" width="60" height="190" fill="#1E293B" stroke="url(#goldTower)" stroke-width="2.5"/><rect x="0" y="350" width="960" height="90" fill="#090f1d"/><line x1="0" y1="350" x2="960" y2="350" stroke="#FDE047" stroke-width="3"/></svg>`);
 
-    const DEFAULT_SPEED_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250"><defs><linearGradient id="lgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFBEB"/><stop offset="25%" stop-color="#FDE047"/><stop offset="55%" stop-color="#F59E0B"/><stop offset="85%" stop-color="#92400E"/><stop offset="100%" stop-color="#FEF08A"/></linearGradient><linearGradient id="lgBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38BDF8"/><stop offset="50%" stop-color="#1D4ED8"/><stop offset="100%" stop-color="#0F172A"/></linearGradient></defs><g filter="drop-shadow(0 6px 10px rgba(0,0,0,0.85))"><path d="M90,130 C45,115 35,65 75,35" fill="none" stroke="url(#lgGold)" stroke-width="6" stroke-linecap="round"/><path d="M230,130 C275,115 285,65 245,35" fill="none" stroke="url(#lgGold)" stroke-width="6" stroke-linecap="round"/><polygon points="135,34 128,12 146,22 160,4 174,22 192,12 185,34" fill="url(#lgGold)" stroke="#FFF" stroke-width="1.5"/><path d="M160,36 L210,48 L210,95 C210,132 160,152 160,152 C160,152 110,132 110,95 L110,48 Z" fill="url(#lgBlue)" stroke="url(#lgGold)" stroke-width="6"/><text x="160" y="112" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="54" fill="url(#lgGold)" stroke="#451A03" stroke-width="2">10</text><rect x="52" y="142" width="216" height="44" rx="12" fill="url(#lgBlue)" stroke="url(#lgGold)" stroke-width="3.5"/><text x="160" y="172" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="27" fill="url(#lgGold)" letter-spacing="1">THẬP ĐẠI</text><rect x="68" y="190" width="184" height="38" rx="10" fill="#0F172A" stroke="url(#lgGold)" stroke-width="2.8"/><text x="160" y="216" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="23" fill="#FEF08A" letter-spacing="1">★ THẦN TỐC ★</text></g></svg>`);
+    const DEFAULT_SPEED_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250"><defs><linearGradient id="lgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFBEB"/><stop offset="50%" stop-color="#FDE047"/><stop offset="100%" stop-color="#D97706"/></linearGradient></defs><path d="M160,30 L215,48 L215,100 C215,140 160,165 160,165 C160,165 105,140 105,100 L105,48 Z" fill="#1D4ED8" stroke="url(#lgGold)" stroke-width="5"/><text x="160" y="118" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="56" fill="url(#lgGold)">10</text><rect x="55" y="150" width="210" height="42" rx="10" fill="#0F172A" stroke="url(#lgGold)" stroke-width="3"/><text x="160" y="179" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="24" fill="url(#lgGold)">THẬP ĐẠI</text><rect x="70" y="196" width="180" height="36" rx="8" fill="#1E293B" stroke="url(#lgGold)" stroke-width="2.5"/><text x="160" y="221" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="20" fill="#FEF08A">★ THẦN TỐC ★</text></svg>`);
 
-    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><defs><radialGradient id="admBg" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#1E3A8A"/><stop offset="65%" stop-color="#0F172A"/><stop offset="100%" stop-color="#020617"/></radialGradient><linearGradient id="admGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="25%" stop-color="#FEF08A"/><stop offset="55%" stop-color="#F59E0B"/><stop offset="85%" stop-color="#B45309"/><stop offset="100%" stop-color="#FDE047"/></linearGradient></defs><circle cx="80" cy="80" r="80" fill="url(#admBg)"/><circle cx="80" cy="80" r="70" fill="none" stroke="url(#admGold)" stroke-width="2" opacity="0.45"/><path d="M42,102 L34,58 L60,76 L80,44 L100,76 L126,58 L118,102 Z" fill="url(#admGold)" stroke="#FFFBEB" stroke-width="2"/><rect x="40" y="106" width="80" height="10" rx="5" fill="url(#admGold)"/></svg>`);
+    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><circle cx="80" cy="80" r="80" fill="#0F172A"/><circle cx="80" cy="80" r="70" fill="none" stroke="#F59E0B" stroke-width="3"/><path d="M42,102 L34,58 L60,76 L80,44 L100,76 L126,58 L118,102 Z" fill="#FDE047" stroke="#FFF" stroke-width="2"/><rect x="40" y="106" width="80" height="10" rx="5" fill="#F59E0B"/></svg>`);
 
     function applyCoverBannerToUI(dataUrl, lockPermanently = false) {
-      const coverEl = document.getElementById('login-hero-cover-img');
-      const finishBanner = document.getElementById('finish-hero-banner');
+      const coverEl = document.getElementById('login-hero-cover-img'), finishBanner = document.getElementById('finish-hero-banner');
       const imgSrc = (!dataUrl || dataUrl === 'DEFAULT') ? DEFAULT_LUXURY_COVER_SVG : dataUrl;
-      if (!dataUrl || dataUrl === 'DEFAULT') {
-        activeCoverBannerDataUrl = '';
-        hasCustomCoverLocked = false;
-      } else if (dataUrl.startsWith('data:image/') || dataUrl.startsWith('http') || dataUrl.startsWith('./')) {
-        activeCoverBannerDataUrl = dataUrl;
-        if (lockPermanently) hasCustomCoverLocked = true;
-      }
+      if (!dataUrl || dataUrl === 'DEFAULT') { activeCoverBannerDataUrl = ''; hasCustomCoverLocked = false; }
+      else if (dataUrl.startsWith('data:image/') || dataUrl.startsWith('http') || dataUrl.startsWith('./')) { activeCoverBannerDataUrl = dataUrl; if (lockPermanently) hasCustomCoverLocked = true; }
       if (coverEl) coverEl.src = imgSrc;
       if (finishBanner) finishBanner.src = imgSrc;
     }
 
     function saveCustomCoverPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomCoverLocked = false;
-        activeCoverBannerDataUrl = '';
-        removePersistentData('fh_master_cover_v47');
-        applyCoverBannerToUI('DEFAULT', false);
-        const statusEl = document.getElementById('cover-sync-status');
-        if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định';
-        return;
+        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v49'); applyCoverBannerToUI('DEFAULT', false);
+        const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v47', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v47', dataUrl);
-      const statusEl = document.getElementById('cover-sync-status');
-      if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
+      try { localStorage.setItem('fh_master_cover_v49', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v49', dataUrl);
+      const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
 
     function compressCoverBannerHD(imgElement, callback) {
-      const targetW = 900, targetH = 420;
-      const canvas = document.createElement('canvas');
+      const targetW = 900, targetH = 420, canvas = document.createElement('canvas');
       canvas.width = targetW; canvas.height = targetH;
-      const ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
       const scale = Math.max(targetW / imgElement.width, targetH / imgElement.height);
       const drawW = imgElement.width * scale, drawH = imgElement.height * scale;
       ctx.fillStyle = '#0b1120'; ctx.fillRect(0, 0, targetW, targetH);
@@ -870,16 +716,13 @@
 
     function handleCustomCoverUpload(event) {
       const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      if (!file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
+      if (!file || !file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
           compressCoverBannerHD(img, (hdUrl) => {
-            saveCustomCoverPermanently(hdUrl);
-            forceBroadcastCoverNow(false);
-            alert("🏞️ Đã nạp Ảnh Bìa Đăng Nhập & Vinh Danh Chung Cuộc thành công!");
+            saveCustomCoverPermanently(hdUrl); forceBroadcastCoverNow(false); alert("🏞️ Đã nạp Ảnh Bìa thành công!");
           });
         };
         img.src = e.target.result;
@@ -889,82 +732,52 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v47', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v49', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
 
-    function resetToDefaultCoverBanner() {
-      saveCustomCoverPermanently('DEFAULT');
-      forceBroadcastCoverNow(false);
-    }
+    function resetToDefaultCoverBanner() { saveCustomCoverPermanently('DEFAULT'); forceBroadcastCoverNow(false); }
 
     function applySpeedLogoToUI(dataUrl, lockPermanently = false) {
-      const logoEl = document.getElementById('speed-logo-png');
-      const imgSrc = (!dataUrl || dataUrl === 'DEFAULT') ? DEFAULT_SPEED_LOGO_SVG : dataUrl;
-      if (!dataUrl || dataUrl === 'DEFAULT') {
-        activeTransparentLogoPNG = '';
-        hasCustomLogoLocked = false;
-      } else if (dataUrl.startsWith('data:image/') || dataUrl.startsWith('http') || dataUrl.startsWith('./')) {
-        activeTransparentLogoPNG = dataUrl;
-        if (lockPermanently) hasCustomLogoLocked = true;
-      }
+      const logoEl = document.getElementById('speed-logo-png'), imgSrc = (!dataUrl || dataUrl === 'DEFAULT') ? DEFAULT_SPEED_LOGO_SVG : dataUrl;
+      if (!dataUrl || dataUrl === 'DEFAULT') { activeTransparentLogoPNG = ''; hasCustomLogoLocked = false; }
+      else if (dataUrl.startsWith('data:image/') || dataUrl.startsWith('http') || dataUrl.startsWith('./')) { activeTransparentLogoPNG = dataUrl; if (lockPermanently) hasCustomLogoLocked = true; }
       if (logoEl) logoEl.src = imgSrc;
     }
 
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomLogoLocked = false;
-        activeTransparentLogoPNG = '';
-        removePersistentData('fh_master_logo_v47');
-        applySpeedLogoToUI('DEFAULT', false);
-        const statusEl = document.getElementById('logo-sync-status');
-        if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định';
-        return;
+        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v49'); applySpeedLogoToUI('DEFAULT', false);
+        const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v47', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v47', dataUrl);
-      const statusEl = document.getElementById('logo-sync-status');
-      if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
+      try { localStorage.setItem('fh_master_logo_v49', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v49', dataUrl);
+      const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
 
     function removeLogoBackground8K(imgElement, callback) {
-      const maxDim = 420;
-      const scale = Math.min(1, maxDim / Math.max(imgElement.width, imgElement.height));
-      const w = Math.max(1, Math.round(imgElement.width * scale));
-      const h = Math.max(1, Math.round(imgElement.height * scale));
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      const maxDim = 420, scale = Math.min(1, maxDim / Math.max(imgElement.width, imgElement.height));
+      const w = Math.max(1, Math.round(imgElement.width * scale)), h = Math.max(1, Math.round(imgElement.height * scale));
+      const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(imgElement, 0, 0, w, h);
       try {
-        const imgData = ctx.getImageData(0, 0, w, h);
-        const d = imgData.data;
-        const r0 = d[0], g0 = d[1], b0 = d[2], a0 = d[3];
+        const imgData = ctx.getImageData(0, 0, w, h), d = imgData.data, r0 = d[0], g0 = d[1], b0 = d[2], a0 = d[3];
         if (a0 > 240) {
-          const visited = new Uint8Array(w * h);
-          const queue = [];
-          const pushSeed = (x, y) => {
-            const idx = y * w + x;
-            if (!visited[idx]) { visited[idx] = 1; queue.push(idx); }
-          };
+          const visited = new Uint8Array(w * h), queue = [];
+          const pushSeed = (x, y) => { const idx = y * w + x; if (!visited[idx]) { visited[idx] = 1; queue.push(idx); } };
           for (let x = 0; x < w; x++) { pushSeed(x, 0); pushSeed(x, h - 1); }
           for (let y = 0; y < h; y++) { pushSeed(0, y); pushSeed(w - 1, y); }
           const tol = 48;
           while (queue.length > 0) {
-            const curr = queue.pop();
-            const p = curr * 4;
-            const dr = Math.abs(d[p] - r0), dg = Math.abs(d[p + 1] - g0), db = Math.abs(d[p + 2] - b0);
+            const curr = queue.pop(), p = curr * 4, dr = Math.abs(d[p] - r0), dg = Math.abs(d[p + 1] - g0), db = Math.abs(d[p + 2] - b0);
             if (dr <= tol && dg <= tol && db <= tol) {
-              d[p + 3] = 0;
-              const cx = curr % w, cy = (curr - cx) / w;
-              if (cx > 0) pushSeed(cx - 1, cy);
-              if (cx < w - 1) pushSeed(cx + 1, cy);
-              if (cy > 0) pushSeed(cx, cy - 1);
-              if (cy < h - 1) pushSeed(cx, cy + 1);
+              d[p + 3] = 0; const cx = curr % w, cy = (curr - cx) / w;
+              if (cx > 0) pushSeed(cx - 1, cy); if (cx < w - 1) pushSeed(cx + 1, cy);
+              if (cy > 0) pushSeed(cx, cy - 1); if (cy < h - 1) pushSeed(cx, cy + 1);
             }
           }
           ctx.putImageData(imgData, 0, 0);
@@ -975,16 +788,13 @@
 
     function handleCustomLogoUpload(event) {
       const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      if (!file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
+      if (!file || !file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
           removeLogoBackground8K(img, (pngDataUrl) => {
-            saveCustomLogoPermanently(pngDataUrl);
-            forceBroadcastLogoNow(false);
-            alert("🛡️ Đã nạp & tách nền Logo 10 Thập Đại Thần Tốc thành công!");
+            saveCustomLogoPermanently(pngDataUrl); forceBroadcastLogoNow(false); alert("🛡️ Đã nạp & tách nền Logo thành công!");
           });
         };
         img.src = e.target.result;
@@ -994,48 +804,34 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v47', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v49', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
 
-    function resetToDefaultLogo() {
-      saveCustomLogoPermanently('DEFAULT');
-      forceBroadcastLogoNow(false);
+    function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
+
+    // HÀM RENDER KHUNG VINH DANH V49: ĐẢM BẢO AVATAR LỌT LÒNG TẤM KHIÊN VÀ LUÔN HIỂN THỊ RÕ 100%
+    function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
+      const src = (avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined') ? avatarUrl : DEFAULT_ADMIN_AVATAR;
+      const isTop1 = (rank === 1);
+      const wrapSize = isTop1 ? "w-[126px] h-[126px]" : "w-[106px] h-[106px]";
+      const frameImgPath = rank === 1 ? "./khung_vinh_danh_top1.png" : rank === 2 ? "./khung_vinh_danh_top2.png" : "./khung_vinh_danh_top3.png";
+      const auraClass = rank === 1 ? 'bg-amber-400/35' : rank === 2 ? 'bg-sky-300/25' : 'bg-orange-400/25';
+      const ringBorder = rank === 1 ? 'border-2 border-yellow-300 shadow-[0_0_12px_rgba(253,224,71,0.85)]' : rank === 2 ? 'border-2 border-slate-200 shadow-[0_0_10px_rgba(226,232,240,0.7)]' : 'border-2 border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.7)]';
+      const avtPos = isTop1 ? "w-[62px] h-[62px] top-[26px]" : "w-[52px] h-[52px] top-[22px]";
+
+      return `
+        <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
+          <div class="absolute inset-1 rounded-full ${auraClass} blur-xl pointer-events-none z-0"></div>
+          <img src="${frameImgPath}" class="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none drop-shadow-md" alt="Khung Top ${rank}">
+          <div class="absolute ${avtPos} left-1/2 -translate-x-1/2 rounded-full overflow-hidden z-20 ${ringBorder} bg-slate-900 flex items-center justify-center shadow-inner">
+            <img src="${src}" class="w-full h-full object-cover avatar-4k" alt="Avatar Top ${rank}">
+          </div>
+        </div>
+      `;
     }
 
-    // HÀM RENDER KHUNG VINH DANH CHUẨN XÁC, ĐẢM BẢO AVATAR HIỂN THỊ TRỌN VẸN BÊN DƯỚI KHUNG PNG
-   function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
-  const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
-  const isTop1 = (rank === 1);
-  const wrapSize = isTop1 ? "w-[125px] h-[125px]" : "w-[105px] h-[105px]";
-  const frameImgPath = rank === 1 ? "./khung_vinh_danh_top1.png" : rank === 2 ? "./khung_vinh_danh_top2.png" : "./khung_vinh_danh_top3.png";
-  const auraClass = rank === 1 ? 'bg-amber-400/30' : rank === 2 ? 'bg-sky-300/20' : 'bg-orange-400/20';
-
-  let innerStyle = "width: 48%; height: 58%; top: 15%; left: 26%; border-radius: 50%;";
-  
-  if (rank === 2) {
-    innerStyle = "width: 47%; height: 56%; top: 16%; left: 26.5%; border-radius: 50%;";
-  } else if (rank === 3) {
-    innerStyle = "width: 47%; height: 56%; top: 16%; left: 26.5%; border-radius: 50%;";
-  }
-
-  return `
-    <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
-      <div class="absolute inset-1 rounded-full ${auraClass} blur-xl pointer-events-none"></div>
-      
-      <!-- Hộp chứa ảnh đại diện hình bầu dục dọc -->
-      <div class="absolute overflow-hidden z-10 bg-slate-950 flex items-center justify-center shadow-inner" style="${innerStyle}">
-        <img src="${src}" class="w-full h-full object-cover avatar-4k scale-110" alt="Avatar">
-      </div>
-
-      <!-- Khung PNG nguyệt quế đè lên che kín mép -->
-      <img src="${frameImgPath}" class="absolute inset-0 w-full h-full object-contain z-20 pointer-events-none drop-shadow-md" alt="Khung Vinh Danh Top ${rank}">
-    </div>
-  `;
-}
-  `;
-}
     function getRoyalTitleByRank(rankIndexZeroBased) {
       if (rankIndexZeroBased === 0) return "QUÁN QUÂN ĐẤU TRƯỜNG";
       if (rankIndexZeroBased === 1) return "Á QUÂN XUẤT CHÚNG";
@@ -1043,7 +839,7 @@
       return "THẬP ĐẠI THẦN TỐC";
     }
 
-    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V47";
+    const SECURITY_SALT = "FH_MEGA_ARENA_2026_SHIELD_V49";
     const clientRateLimits = {};
     let adminActiveSecret = null;
 
@@ -1066,7 +862,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V47", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V49", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -1110,26 +906,22 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV47() {
+    (function initMasterAssetsV49() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v47') || localStorage.getItem('fh_master_cover_v46') || localStorage.getItem('fh_master_cover_v45');
-        savedLogo = localStorage.getItem('fh_master_logo_v47') || localStorage.getItem('fh_master_logo_v46') || localStorage.getItem('fh_master_logo_v45');
+        savedCover = localStorage.getItem('fh_master_cover_v49') || localStorage.getItem('fh_master_cover_v48') || localStorage.getItem('fh_master_cover_v47');
+        savedLogo = localStorage.getItem('fh_master_logo_v49') || localStorage.getItem('fh_master_logo_v48') || localStorage.getItem('fh_master_logo_v47');
       } catch (e) {}
-      if (savedCover && savedCover.startsWith('data:image/')) {
-        saveCustomCoverPermanently(savedCover);
-      } else {
+      if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
+      else {
         applyCoverBannerToUI('DEFAULT', false);
-        const testCover = new Image();
-        testCover.onload = () => { if (!hasCustomCoverLocked) applyCoverBannerToUI(GITHUB_STATIC_COVER_PATH, false); };
+        const testCover = new Image(); testCover.onload = () => { if (!hasCustomCoverLocked) applyCoverBannerToUI(GITHUB_STATIC_COVER_PATH, false); };
         testCover.src = GITHUB_STATIC_COVER_PATH;
       }
-      if (savedLogo && savedLogo.startsWith('data:image/')) {
-        saveCustomLogoPermanently(savedLogo);
-      } else {
+      if (savedLogo && savedLogo.startsWith('data:image/')) saveCustomLogoPermanently(savedLogo);
+      else {
         applySpeedLogoToUI('DEFAULT', false);
-        const testLogo = new Image();
-        testLogo.onload = () => { if (!hasCustomLogoLocked) applySpeedLogoToUI(GITHUB_STATIC_LOGO_PATH, false); };
+        const testLogo = new Image(); testLogo.onload = () => { if (!hasCustomLogoLocked) applySpeedLogoToUI(GITHUB_STATIC_LOGO_PATH, false); };
         testLogo.src = GITHUB_STATIC_LOGO_PATH;
       }
     })();
@@ -1164,8 +956,7 @@
 
     function handleAvatarFileSelect(event) {
       const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      if (!file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
+      if (!file || !file.type.startsWith('image/')) return alert("Vui lòng chọn tệp hình ảnh!");
       const reader = new FileReader();
       reader.onload = function(e) {
         const img = new Image();
@@ -1218,8 +1009,7 @@
       const canvas = document.getElementById('cropper-canvas');
       if (!canvas) return;
       function getPoint(e) {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX, clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const rect = canvas.getBoundingClientRect(), clientX = e.touches ? e.touches[0].clientX : e.clientX, clientY = e.touches ? e.touches[0].clientY : e.clientY;
         return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
       }
       canvas.addEventListener('mousedown', (e) => { isDraggingCrop = true; const pt = getPoint(e); dragStartX = pt.x - cropOffsetX; dragStartY = pt.y - cropOffsetY; });
@@ -1237,8 +1027,7 @@
           for (let x = 1; x < w - 1; x++) {
             const idx = (y * w + x) * 4;
             for (let c = 0; c < 3; c++) {
-              const center = src[idx + c];
-              const neighbors = (src[((y - 1) * w + x) * 4 + c] + src[((y + 1) * w + x) * 4 + c] + src[(y * w + (x - 1)) * 4 + c] + src[(y * w + (x + 1)) * 4 + c]) * 0.25;
+              const center = src[idx + c], neighbors = (src[((y - 1) * w + x) * 4 + c] + src[((y + 1) * w + x) * 4 + c] + src[(y * w + (x - 1)) * 4 + c] + src[(y * w + (x + 1)) * 4 + c]) * 0.25;
               dst[idx + c] = Math.min(255, Math.max(0, Math.round(center + (center - neighbors) * (amount * 4))));
             }
             dst[idx + 3] = 255;
@@ -1267,20 +1056,14 @@
     }
 
     function renderAvatarHTML(avatarUrl, sizeClass = "w-7 h-7", borderClass = "border border-amber-400") {
-      const src = (avatarUrl && avatarUrl.startsWith('data:image/')) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
+      const src = (avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined') ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       return `<img src="${src}" class="${sizeClass} aspect-square rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-900" alt="avt">`;
     }
 
     let audioCtx = null, mp3Unlocked = false, keepAliveNode = null, isBgmActive = false;
     let delayedBgmTimeout = null;
-    const loginBgmEl = document.getElementById('audio-login-bgm');
-    const introEl = document.getElementById('audio-intro');
-    const bgmEl = document.getElementById('audio-bgm');
-    const correctEl = document.getElementById('audio-correct');
-    const wrongEl = document.getElementById('audio-wrong');
-    const victoryEl = document.getElementById('audio-victory');
+    const loginBgmEl = document.getElementById('audio-login-bgm'), introEl = document.getElementById('audio-intro'), bgmEl = document.getElementById('audio-bgm'), correctEl = document.getElementById('audio-correct'), wrongEl = document.getElementById('audio-wrong'), victoryEl = document.getElementById('audio-victory');
     const ALL_AUDIO_ELEMENTS = [loginBgmEl, introEl, bgmEl, correctEl, wrongEl, victoryEl];
-
     ALL_AUDIO_ELEMENTS.forEach(el => { if (el) { el.volume = 1.0; try { el.load(); } catch (e) {} } });
 
     function initAudio() {
@@ -1310,30 +1093,16 @@
 
     function playLoginBackgroundMusic() {
       initAudio();
-      if (loginBgmEl && loginBgmEl.paused) {
-        loginBgmEl.muted = false;
-        loginBgmEl.volume = 0.75;
-        loginBgmEl.play().catch(() => {});
-      }
+      if (loginBgmEl && loginBgmEl.paused) { loginBgmEl.muted = false; loginBgmEl.volume = 0.75; loginBgmEl.play().catch(() => {}); }
     }
     ['touchstart', 'click'].forEach(evt => { document.addEventListener(evt, playLoginBackgroundMusic, { once: true, passive: true }); });
     window.addEventListener('DOMContentLoaded', () => { setTimeout(playLoginBackgroundMusic, 800); });
 
     function stopAllMP3() {
-      isBgmActive = false;
-      clearTimeout(delayedBgmTimeout);
-      ALL_AUDIO_ELEMENTS.forEach(el => {
-        if (el && el !== loginBgmEl) {
-          try { el.pause(); el.currentTime = 0; } catch (e) {}
-        }
-      });
+      isBgmActive = false; clearTimeout(delayedBgmTimeout);
+      ALL_AUDIO_ELEMENTS.forEach(el => { if (el && el !== loginBgmEl) { try { el.pause(); el.currentTime = 0; } catch (e) {} } });
     }
-
-    function stopLoginMusicCompletely() {
-      if (loginBgmEl) {
-        try { loginBgmEl.pause(); loginBgmEl.currentTime = 0; } catch (e) {}
-      }
-    }
+    function stopLoginMusicCompletely() { if (loginBgmEl) { try { loginBgmEl.pause(); loginBgmEl.currentTime = 0; } catch (e) {} } }
 
     function playSynthTone(freq, startOffset, duration, type = 'triangle', volume = 0.16) {
       initAudio(); if (!audioCtx) return;
@@ -1346,43 +1115,27 @@
     }
 
     function playALTPIntroPhase() {
-      initAudio();
-      stopAllMP3();
+      initAudio(); stopAllMP3();
       if (introEl) {
-        introEl.muted = false; introEl.volume = 1.0;
-        try { introEl.currentTime = 0; } catch (e) {}
+        introEl.muted = false; introEl.volume = 1.0; try { introEl.currentTime = 0; } catch (e) {}
         const p = introEl.play();
         if (p !== undefined) {
-          p.catch(() => {
-            playSynthTone(392.00, 0, 0.25, 'triangle', 0.18);
-            playSynthTone(523.25, 0.22, 0.35, 'triangle', 0.20);
-            playALTPBgmLoop();
-          });
+          p.catch(() => { playSynthTone(392.00, 0, 0.25, 'triangle', 0.18); playSynthTone(523.25, 0.22, 0.35, 'triangle', 0.20); playALTPBgmLoop(); });
         }
-      } else {
-        playALTPBgmLoop();
-      }
+      } else playALTPBgmLoop();
     }
 
     function playALTPBgmLoop() {
-      initAudio();
-      stopAllMP3();
-      isBgmActive = true;
+      initAudio(); stopAllMP3(); isBgmActive = true;
       if (bgmEl) {
-        bgmEl.muted = false; bgmEl.volume = 0.92;
-        try { bgmEl.currentTime = 0; } catch (e) {}
-        const p = bgmEl.play();
-        if (p !== undefined) p.catch(() => { playSynthTone(293.66, 0, 0.5, 'triangle', 0.18); });
+        bgmEl.muted = false; bgmEl.volume = 0.92; try { bgmEl.currentTime = 0; } catch (e) {}
+        const p = bgmEl.play(); if (p !== undefined) p.catch(() => { playSynthTone(293.66, 0, 0.5, 'triangle', 0.18); });
       }
     }
 
     function playALTPQuestionStart() {
-      stopLoginMusicCompletely();
-      playALTPIntroPhase();
-      clearTimeout(delayedBgmTimeout);
-      delayedBgmTimeout = setTimeout(() => {
-        if (!isQuestionRevealed) playALTPBgmLoop();
-      }, 2800);
+      stopLoginMusicCompletely(); playALTPIntroPhase(); clearTimeout(delayedBgmTimeout);
+      delayedBgmTimeout = setTimeout(() => { if (!isQuestionRevealed) playALTPBgmLoop(); }, 2800);
     }
 
     function playALTPTick(timeLeft) {
@@ -1392,45 +1145,30 @@
     }
 
     function playALTPCorrect() {
-      initAudio();
-      stopAllMP3();
+      initAudio(); stopAllMP3();
       if (correctEl) {
-        correctEl.muted = false; correctEl.volume = 1.0;
-        try { correctEl.currentTime = 0; } catch (e) {}
-        const p = correctEl.play();
-        if (p !== undefined) p.catch(() => { playSynthTone(523.25, 0, 0.3, 'triangle', 0.24); });
+        correctEl.muted = false; correctEl.volume = 1.0; try { correctEl.currentTime = 0; } catch (e) {}
+        const p = correctEl.play(); if (p !== undefined) p.catch(() => { playSynthTone(523.25, 0, 0.3, 'triangle', 0.24); });
       }
     }
 
     function playALTPWrong() {
-      initAudio();
-      stopAllMP3();
+      initAudio(); stopAllMP3();
       if (wrongEl) {
-        wrongEl.muted = false; wrongEl.volume = 1.0;
-        try { wrongEl.currentTime = 0; } catch (e) {}
-        const p = wrongEl.play();
-        if (p !== undefined) p.catch(() => { playSynthTone(277.18, 0, 0.4, 'sawtooth', 0.25); });
+        wrongEl.muted = false; wrongEl.volume = 1.0; try { wrongEl.currentTime = 0; } catch (e) {}
+        const p = wrongEl.play(); if (p !== undefined) p.catch(() => { playSynthTone(277.18, 0, 0.4, 'sawtooth', 0.25); });
       }
     }
 
     function playALTPVictoryFanfare() {
-      initAudio();
-      stopAllMP3();
+      initAudio(); stopAllMP3();
       if (victoryEl) {
-        victoryEl.muted = false; victoryEl.volume = 1.0;
-        try { victoryEl.currentTime = 0; } catch (e) {}
+        victoryEl.muted = false; victoryEl.volume = 1.0; try { victoryEl.currentTime = 0; } catch (e) {}
         const p = victoryEl.play();
         if (p !== undefined) {
-          p.catch(() => {
-            playALTPCorrect();
-            playSynthTone(523.25, 0, 0.2, 'triangle', 0.2);
-            playSynthTone(659.25, 0.18, 0.2, 'triangle', 0.2);
-            playSynthTone(783.99, 0.36, 0.45, 'triangle', 0.24);
-          });
+          p.catch(() => { playALTPCorrect(); playSynthTone(523.25, 0, 0.2, 'triangle', 0.2); playSynthTone(659.25, 0.18, 0.2, 'triangle', 0.2); playSynthTone(783.99, 0.36, 0.45, 'triangle', 0.24); });
         }
-      } else {
-        playALTPCorrect();
-      }
+      } else playALTPCorrect();
     }
 
     function executeSyncedAudioCue(cueType) {
@@ -1446,12 +1184,11 @@
 
     function adminBroadcastAudioCue(cueType) {
       executeSyncedAudioCue(cueType);
-      publishPacket('events', { type: 'AUDIO_SYNC_V47', id: 'admin', cue: cueType }, false);
+      publishPacket('events', { type: 'AUDIO_SYNC_V49', id: 'admin', cue: cueType }, false);
     }
 
     function launchFireworks() {
-      stopLoginMusicCompletely();
-      playALTPVictoryFanfare();
+      stopLoginMusicCompletely(); playALTPVictoryFanfare();
       if (typeof confetti !== 'function') return;
       const luxuryColors = ['#FFD700', '#FDE047', '#F59E0B', '#FFFBEB', '#38BDF8', '#FB7185'];
       confetti({ particleCount: 80, spread: 100, startVelocity: 42, origin: { x: 0.5, y: 0.35 }, colors: luxuryColors, zIndex: 9999 });
@@ -1474,36 +1211,36 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v47') || localStorage.getItem('fourhome_quiz_bank_v46') || localStorage.getItem('fourhome_quiz_bank_v45')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v49') || localStorage.getItem('fourhome_quiz_bank_v48') || localStorage.getItem('fourhome_quiz_bank_v47')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v47');
-    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v47', myDeviceHwId); }
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v49') || getPersistentData('fh_hw_device_id_v48');
+    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v49', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v47') || '';
-    let myName = getPersistentData('fh_locked_name_v47') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v47') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v47'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v47') || 'init_session';
-    let isMyAccountSuspended = (getPersistentData('fh_suspended_v47') === 'true');
-    let isLoggedOutExplicitly = (getPersistentData('fh_logged_out_v47') === 'true');
+    let myId = getPersistentData('fh_account_uid_v49') || getPersistentData('fh_account_uid_v48') || '';
+    let myName = getPersistentData('fh_locked_name_v49') || getPersistentData('fh_locked_name_v48') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v49') || getPersistentData('fh_locked_avatar_v48') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v49') || getPersistentData('fh_saved_score_v48'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v49') || getPersistentData('fh_reset_id_v48') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v49') || getPersistentData('fh_suspended_v48')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v49') || getPersistentData('fh_logged_out_v48')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v47', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v49', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v47')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v49')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v48')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
-    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v47', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
+    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v49', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v47')) || {}; } catch (e) { answeredHistory = {}; }
-    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v47', JSON.stringify(answeredHistory)); } catch (e) {} }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v49')) || JSON.parse(localStorage.getItem('fh_answered_history_v48')) || {}; } catch (e) { answeredHistory = {}; }
+    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v49', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v47')); } catch (e) { prevQuizRecord = null; }
-    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v47', JSON.stringify(record)); } catch (e) {} }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v49')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v48')); } catch (e) { prevQuizRecord = null; }
+    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v49', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
@@ -1550,15 +1287,11 @@
     function updateVoteStatsUI() {
       const total = votes.total || 0;
       ['A', 'B', 'C', 'D'].forEach(k => {
-        const count = votes[k] || 0;
-        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-        const statEl = document.getElementById(`stat-${k}`);
-        if (statEl) statEl.innerText = `${count} (${pct}%)`;
+        const count = votes[k] || 0, pct = total > 0 ? Math.round((count / total) * 100) : 0;
+        const statEl = document.getElementById(`stat-${k}`); if (statEl) statEl.innerText = `${count} (${pct}%)`;
         const avtContainer = document.getElementById(`avatars-${k}`);
         if (avtContainer) {
-          const pickers = optionPickers[k] || [];
-          const visible = pickers.slice(-4);
-          const extra = pickers.length - visible.length;
+          const pickers = optionPickers[k] || [], visible = pickers.slice(-4), extra = pickers.length - visible.length;
           avtContainer.innerHTML = visible.map(p => renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-white shadow-sm')).join('') +
             (extra > 0 ? `<span class="w-5 h-5 aspect-square rounded-full bg-slate-800 text-amber-300 text-[8px] font-black flex items-center justify-center border border-white shrink-0">+${extra}</span>` : '');
         }
@@ -1566,21 +1299,15 @@
     }
 
     function renderLeaderboard() {
-      const listEl = document.getElementById('leaderboard-list');
-      const dirBtnCount = document.getElementById('admin-dir-count-btn');
+      const listEl = document.getElementById('leaderboard-list'), dirBtnCount = document.getElementById('admin-dir-count-btn');
       const allPlayers = Object.values(players).sort((a, b) => (b.score || 0) - (a.score || 0));
       if (dirBtnCount) dirBtnCount.innerText = allPlayers.length;
       updateConnectionUI();
       if (!listEl) return;
-
-      if (allPlayers.length === 0) {
-        listEl.innerHTML = `<div class="text-center py-4 text-xs text-slate-400 italic font-semibold">Đang chờ các thí sinh vào Đấu Trường...</div>`;
-        return;
-      }
+      if (allPlayers.length === 0) { listEl.innerHTML = `<div class="text-center py-4 text-xs text-slate-400 italic font-semibold">Đang chờ các thí sinh vào Đấu Trường...</div>`; return; }
 
       listEl.innerHTML = allPlayers.map((p, idx) => {
-        const isMe = (p.id === myId);
-        const rankIcon = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
+        const isMe = (p.id === myId), rankIcon = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}`;
         const rowBg = isMe ? 'bg-amber-50 border-amber-400 shadow-sm' : (idx < 3 ? 'bg-slate-50 border-slate-200' : 'bg-white border-slate-100');
         const titleTag = idx < 10 ? `<span class="text-[8px] font-extrabold ${idx === 0 ? 'text-amber-600' : idx === 1 ? 'text-slate-600' : idx === 2 ? 'text-orange-600' : 'text-sky-600'} uppercase block truncate">${getRoyalTitleByRank(idx)}</span>` : '';
         return `
@@ -1604,45 +1331,33 @@
       if (sorted.length === 0) return alert("Chưa có dữ liệu điểm số của thí sinh để xuất Excel!");
       let csv = "\uFEFFHạng,Tên Tài Khoản,Danh Hiệu Đấu Trường,Tổng Điểm,Trạng Thái\n";
       sorted.forEach((p, idx) => {
-        const title = idx < 10 ? getRoyalTitleByRank(idx) : "Thí sinh tham dự";
-        const status = p.isSuspended ? "Đình chỉ" : (p.isOnline !== false ? "Trực tuyến" : "Đã rời phòng");
+        const title = idx < 10 ? getRoyalTitleByRank(idx) : "Thí sinh tham dự", status = p.isSuspended ? "Đình chỉ" : (p.isOnline !== false ? "Trực tuyến" : "Đã rời phòng");
         const cleanName = String(p.name || '').replace(/"/g, '""');
         csv += `${idx + 1},"${cleanName}","${title}",${p.score || 0},"${status}"\n`;
       });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Bang_Diem_FourHomeMega_${new Date().toISOString().slice(0, 10)}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = `Bang_Diem_FourHomeMega_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     }
 
-    function openSystemInfoModal() {
-      updateConnectionUI();
-      document.getElementById('modal-system-info').classList.remove('hidden');
-    }
-    function closeSystemInfoModal() {
-      document.getElementById('modal-system-info').classList.add('hidden');
-    }
+    function openSystemInfoModal() { updateConnectionUI(); document.getElementById('modal-system-info').classList.remove('hidden'); }
+    function closeSystemInfoModal() { document.getElementById('modal-system-info').classList.add('hidden'); }
 
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_cover_v47'] && stored['fh_master_cover_v47'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v47']);
-        if (stored['fh_master_logo_v47'] && stored['fh_master_logo_v47'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v47']);
-        if (stored['fh_logged_out_v47'] === 'true') return;
-        const idbName = stored['fh_locked_name_v47'], idbAvt = stored['fh_locked_avatar_v47'];
+        if (stored['fh_master_cover_v49'] && stored['fh_master_cover_v49'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v49']);
+        if (stored['fh_master_logo_v49'] && stored['fh_master_logo_v49'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v49']);
+        if (stored['fh_logged_out_v49'] === 'true') return;
+        const idbName = stored['fh_locked_name_v49'] || stored['fh_locked_name_v48'], idbAvt = stored['fh_locked_avatar_v49'] || stored['fh_locked_avatar_v48'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v47'], 10) || 0;
-          myId = stored['fh_account_uid_v47'] || ('acc_' + normalizeAccountKey(myName));
-          isMyAccountSuspended = (stored['fh_suspended_v47'] === 'true');
-          if (stored['fh_hw_device_id_v47']) myDeviceHwId = stored['fh_hw_device_id_v47'];
-          setPersistentData('fh_locked_name_v47', myName); setPersistentData('fh_locked_avatar_v47', myAvatar);
-          setPersistentData('fh_saved_score_v47', myScore); setPersistentData('fh_account_uid_v47', myId);
+          myScore = parseInt(stored['fh_saved_score_v49'] || stored['fh_saved_score_v48'], 10) || 0;
+          myId = stored['fh_account_uid_v49'] || stored['fh_account_uid_v48'] || ('acc_' + normalizeAccountKey(myName));
+          isMyAccountSuspended = ((stored['fh_suspended_v49'] || stored['fh_suspended_v48']) === 'true');
+          if (stored['fh_hw_device_id_v49']) myDeviceHwId = stored['fh_hw_device_id_v49'];
+          setPersistentData('fh_locked_name_v49', myName); setPersistentData('fh_locked_avatar_v49', myAvatar);
+          setPersistentData('fh_saved_score_v49', myScore); setPersistentData('fh_account_uid_v49', myId);
           players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
           document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -1659,27 +1374,21 @@
     }
     autoRestorePlayerSession();
 
-    const BASE_TOPIC = 'fourhome_mega_suc_2026_v47_secure';
+    const BASE_TOPIC = 'fourhome_mega_suc_2026_v49_secure';
     const BROKER_URLS = ['wss://broker.hivemq.com:8884/mqtt', 'wss://test.mosquitto.org:8081/mqtt', 'wss://broker.emqx.io:8084/mqtt'];
     const activeClients = []; let connectedBrokerCount = 0;
     const localChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(BASE_TOPIC) : null;
     if (localChannel) localChannel.onmessage = (ev) => handleIncomingPacket(ev.data.subTopic, ev.data.payload);
 
     function updateConnectionUI() {
-      const brokerEl = document.getElementById('sys-modal-broker-status');
-      const onlineEl = document.getElementById('sys-modal-online-players');
-      if (brokerEl) {
-        brokerEl.innerText = connectedBrokerCount > 0 ? `🟢 Trực tuyến (${connectedBrokerCount} trạm)` : `🟡 Đang kết nối máy chủ...`;
-      }
-      if (onlineEl) {
-        const countOnline = Object.values(players).filter(p => p.isOnline !== false).length;
-        onlineEl.innerText = `${countOnline} thiết bị`;
-      }
+      const brokerEl = document.getElementById('sys-modal-broker-status'), onlineEl = document.getElementById('sys-modal-online-players');
+      if (brokerEl) brokerEl.innerText = connectedBrokerCount > 0 ? `🟢 Trực tuyến (${connectedBrokerCount} trạm)` : `🟡 Đang kết nối máy chủ...`;
+      if (onlineEl) { const countOnline = Object.values(players).filter(p => p.isOnline !== false).length; onlineEl.innerText = `${countOnline} thiết bị`; }
     }
 
     BROKER_URLS.forEach((url, index) => {
       try {
-        const c = mqtt.connect(url, { clientId: 'fh47_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
+        const c = mqtt.connect(url, { clientId: 'fh49_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
         c.on('connect', () => {
           c._isConnected = true; connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length; updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
@@ -1761,7 +1470,7 @@
       } else if (data.type === 'SYNC_SPEED_LOGO' || data.type === 'FORCE_SYNC_LOGO') {
         if (data.logoImg === 'DEFAULT') saveCustomLogoPermanently('DEFAULT');
         else if (data.logoImg && data.logoImg.startsWith('data:image/')) saveCustomLogoPermanently(data.logoImg);
-      } else if (data.type === 'AUDIO_SYNC_V47') {
+      } else if (data.type === 'AUDIO_SYNC_V49') {
         if (!isAdminMode && data.cue) executeSyncedAudioCue(data.cue);
       } else if (data.type === 'MASTER_TICK') {
         if (isAdminMode) return;
@@ -1793,8 +1502,8 @@
           const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
 
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
-            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v47', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
-            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v47', suspState ? 'true' : 'false'); updateSuspensionUI(); }
+            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v49', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
+            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v49', suspState ? 'true' : 'false'); updateSuspensionUI(); }
           }
           const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
           const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
@@ -1809,14 +1518,14 @@
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].isSuspended = newSusp; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) players[data.targetId].isSuspended = newSusp;
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
-          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v47', newSusp ? 'true' : 'false'); updateSuspensionUI();
+          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v49', newSusp ? 'true' : 'false'); updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản bị Admin tạm đình chỉ!" : "✅ THÔNG BÁO: Admin đã BỎ ĐÌNH CHỈ!");
         }
         scheduleRenderLeaderboard(); scheduleRenderDirectory();
       } else if (data.type === 'ADMIN_UNLOCK_DEVICE') {
         const accKey = normalizeAccountKey(data.targetName || '');
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
-        if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[targetId].isOnline = false; }
+        if (data.targetId && players[data.targetId]) { players[data.targetId].lockedByDevice = null; players[data.targetId].isOnline = false; }
         scheduleRenderDirectory();
       } else if (data.type === 'KICK_RESET_PLAYER') {
         const accKey = normalizeAccountKey(data.targetName || '');
@@ -1837,8 +1546,7 @@
         const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
         const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : (accountRegistry[accKey] && accountRegistry[accKey].avatar ? accountRegistry[accKey].avatar : DEFAULT_ADMIN_AVATAR));
         players[data.id] = { id: data.id, name: cleanName, avatar: avt, score: validScore, lockedByDevice: existing ? existing.lockedByDevice : null, isOnline: true, isSuspended: existing ? Boolean(existing.isSuspended) : false };
-        accountRegistry[accKey] = players[data.id]; saveAccountRegistryLocal();
-        scheduleRenderLeaderboard();
+        accountRegistry[accKey] = players[data.id]; saveAccountRegistryLocal(); scheduleRenderLeaderboard();
         if (isQuestionRevealed) renderRoundSpeedModalContent(window.currentCorrectAns, window.currentExplanation);
       } else if (data.type === 'REVEAL_CORRECT') {
         if (!data.qUid || data.qUid === window.activeQuestionUid) { clearTimeout(soloFallbackRevealTimer); revealAnswerAndPlaySound(data.correct, data.explanation); }
@@ -1848,16 +1556,15 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v47', JSON.stringify(quizBank)); } catch (e) {}
-        currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || "";
-        renderQuizDropdown();
+        try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
+        currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || ""; renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
         stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
-          myResetId = data.resetId; setPersistentData('fh_reset_id_v47', myResetId);
-          myScore = 0; setPersistentData('fh_saved_score_v47', 0); answeredHistory = {}; saveAnsweredHistory();
+          myResetId = data.resetId; setPersistentData('fh_reset_id_v49', myResetId);
+          myScore = 0; setPersistentData('fh_saved_score_v49', 0); answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -1881,17 +1588,14 @@
 
     function logoutAccount() {
       if (isAdminMode && !myName) {
-        stopAllMP3();
-        isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden'); document.getElementById('screen-game').classList.add('hidden'); document.getElementById('screen-login').classList.remove('hidden');
+        stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden'); document.getElementById('screen-game').classList.add('hidden'); document.getElementById('screen-login').classList.remove('hidden');
         document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; updateCharCount();
-        playLoginBackgroundMusic();
-        return;
+        playLoginBackgroundMusic(); return;
       }
-      if (!myName) return;
-      if (!confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
+      if (!myName || !confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
       stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
-      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v47', 'true');
+      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v49', 'true');
       const logoutPacket = { type: 'PLAYER_LOGOUT', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: null, isOnline: false, isSuspended: isMyAccountSuspended };
       if (players[myId]) { players[myId].lockedByDevice = null; players[myId].isOnline = false; }
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
@@ -1914,8 +1618,7 @@
       const filtered = keyword ? allList.filter(p => (p.name || '').toLowerCase().includes(keyword)) : allList;
       if (filtered.length === 0) { container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Chưa có tài khoản thí sinh nào trong phòng...</div>`; return; }
       container.innerHTML = filtered.map((p, idx) => {
-        const safeName = (p.name || '').replace(/'/g, "\\'");
-        const isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
+        const safeName = (p.name || '').replace(/'/g, "\\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
         const statusBadge = isSusp ? `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : isLocked ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Trong phòng</span>` : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất</span>`;
         const suspendBtnHTML = isSusp ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">✅ Bỏ đình chỉ</button>` : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">⛔ Đình chỉ</button>`;
         return `<div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2"><div class="flex items-center gap-2.5 truncate min-w-0 flex-1"><span class="w-5 h-5 aspect-square rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}<div class="truncate min-w-0 flex-1"><div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div><div class="mt-0.5">${statusBadge}</div></div></div><div class="flex flex-wrap items-center justify-end gap-1 shrink-0">${suspendBtnHTML}<button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🔓</button><button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🗑️</button></div></div>`;
@@ -1938,15 +1641,14 @@
       renderPlayerDirectoryList(); alert(`✅ Đã mở khóa thiết bị cho "${targetName}"!`);
     }
     function forceResetMyLocalAccount() {
-      stopAllMP3(); ['fh_locked_name_v47', 'fh_locked_avatar_v47', 'fh_saved_score_v47', 'fh_answered_history_v47', 'fh_account_uid_v47', 'fh_logged_out_v47', 'fh_suspended_v47'].forEach(removePersistentData);
+      stopAllMP3(); ['fh_locked_name_v49', 'fh_locked_avatar_v49', 'fh_saved_score_v49', 'fh_answered_history_v49', 'fh_account_uid_v49', 'fh_logged_out_v49', 'fh_suspended_v49'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-placeholder').classList.remove('hidden');
       document.getElementById('btn-recrop').classList.add('hidden'); document.getElementById('avatar-status-text').classList.add('hidden');
       switchAuthTab('register'); updateCharCount(); closeRoundSpeedModal();
       document.getElementById('screen-game').classList.add('hidden'); document.getElementById('screen-login').classList.remove('hidden');
-      playLoginBackgroundMusic();
-      alert("⚠️ Tài khoản của bạn đã được Admin xóa/đặt lại.");
+      playLoginBackgroundMusic(); alert("⚠️ Tài khoản của bạn đã được Admin đặt lại.");
     }
     function adminDeletePlayerAccount(targetId, targetName) {
       if (!confirm(`Admin muốn XÓA hoàn toàn tài khoản "${targetName}"?`)) return;
@@ -1962,24 +1664,15 @@
     }
 
     function renderRoundSpeedModalContent(correctKey, explanationText) {
-      const ansBar = document.getElementById('speed-modal-answer-bar');
-      const podiumBox = document.getElementById('speed-podium-box');
-      const list4to10 = document.getElementById('speed-list-4to10');
+      const ansBar = document.getElementById('speed-modal-answer-bar'), podiumBox = document.getElementById('speed-podium-box'), list4to10 = document.getElementById('speed-list-4to10');
       if (!podiumBox || !list4to10) return;
-
       const logoImg = document.getElementById('speed-logo-png');
-      if (logoImg) {
-        logoImg.src = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : (activeTransparentLogoPNG || DEFAULT_SPEED_LOGO_SVG);
-      }
-
-      if (ansBar) {
-        ansBar.innerHTML = `✅ <strong class="text-amber-300">Đáp án đúng: ${correctKey || 'B'}</strong> — <span class="text-slate-100">${explanationText || 'Chúc mừng các thí sinh có câu trả lời chính xác và thần tốc nhất!'}</span>`;
-      }
+      if (logoImg) logoImg.src = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : (activeTransparentLogoPNG || DEFAULT_SPEED_LOGO_SVG);
+      if (ansBar) ansBar.innerHTML = `✅ <strong class="text-amber-300">Đáp án đúng: ${correctKey || 'B'}</strong> — <span class="text-slate-100">${explanationText || 'Chúc mừng các thí sinh có câu trả lời chính xác và thần tốc nhất!'}</span>`;
 
       const answeredList = Object.values(currentRoundAnswers);
       const allParticipants = answeredList.map(item => {
-        const isCorrect = (item.choice === correctKey);
-        const accKey = normalizeAccountKey(item.name);
+        const isCorrect = (item.choice === correctKey), accKey = normalizeAccountKey(item.name);
         const globalPlayer = Object.values(players).find(p => p && normalizeAccountKey(p.name) === accKey) || accountRegistry[accKey];
         const bestAvatar = (globalPlayer && globalPlayer.avatar && globalPlayer.avatar.startsWith('data:image/')) ? globalPlayer.avatar : ((item.avatar && item.avatar.startsWith('data:image/')) ? item.avatar : DEFAULT_ADMIN_AVATAR);
         return { ...item, avatar: bestAvatar, isCorrect, points: isCorrect ? Math.max(1, Math.min(20, item.timeLeft)) : 0 };
@@ -2059,9 +1752,7 @@
       renderRoundSpeedModalContent(window.currentCorrectAns || 'B', window.currentExplanation || 'Four Home Mega - Đấu Trường Tri Thức!');
       document.getElementById('modal-round-speed').classList.remove('hidden');
     }
-    function closeRoundSpeedModal() {
-      document.getElementById('modal-round-speed').classList.add('hidden');
-    }
+    function closeRoundSpeedModal() { document.getElementById('modal-round-speed').classList.add('hidden'); }
 
     function openPrevRankModal() {
       const modal = document.getElementById('modal-prev-rank'), titleEl = document.getElementById('prev-quiz-title'), summaryEl = document.getElementById('prev-my-summary'), listEl = document.getElementById('prev-rank-list');
@@ -2088,35 +1779,26 @@
     function closePrevRankModal() { document.getElementById('modal-prev-rank').classList.add('hidden'); }
 
     function showFinishCelebration(quizTitle) {
-      stopLoginMusicCompletely();
-      closeRoundSpeedModal();
+      stopLoginMusicCompletely(); closeRoundSpeedModal();
       const record = buildCurrentStandingsRecord(quizTitle);
       if (record) savePrevQuizRecord(record);
-
       const finishBanner = document.getElementById('finish-hero-banner');
-      if (finishBanner) {
-        finishBanner.src = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : (activeCoverBannerDataUrl || DEFAULT_LUXURY_COVER_SVG);
-      }
-
+      if (finishBanner) finishBanner.src = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : (activeCoverBannerDataUrl || DEFAULT_LUXURY_COVER_SVG);
       document.getElementById('finish-quiz-name').innerText = quizTitle || currentQuizName;
       const myBoxEl = document.getElementById('finish-my-rank-box'), top10El = document.getElementById('finish-top10-list');
       const sorted = Object.entries(players).map(([id, p]) => ({ id, name: p.name, avatar: p.avatar || DEFAULT_ADMIN_AVATAR, score: p.score || 0 })).sort((a, b) => b.score - a.score);
       const myIndex = sorted.findIndex(r => r.id === myId || (myName && r.name.toLowerCase() === myName.toLowerCase()));
 
       if (myIndex !== -1) {
-        const myRank = myIndex + 1;
-        const myTitle = getRoyalTitleByRank(myIndex);
-        const subNote = myRank === 1
-          ? `<span class="text-emerald-300 text-[11px] block mt-0.5">👑 Xuất sắc! Bạn đạt danh hiệu ${myTitle}!</span>`
-          : `<span class="text-sky-300 text-[11px] block mt-0.5">🎖️ Danh hiệu: ${myTitle} — Xếp ngay trên: ${sorted[myIndex - 1].name} (${sorted[myIndex - 1].score} ⭐)</span>`;
+        const myRank = myIndex + 1, myTitle = getRoyalTitleByRank(myIndex);
+        const subNote = myRank === 1 ? `<span class="text-emerald-300 text-[11px] block mt-0.5">👑 Xuất sắc! Bạn đạt danh hiệu ${myTitle}!</span>` : `<span class="text-sky-300 text-[11px] block mt-0.5">🎖️ Danh hiệu: ${myTitle} — Xếp ngay trên: ${sorted[myIndex - 1].name} (${sorted[myIndex - 1].score} ⭐)</span>`;
         myBoxEl.innerHTML = `🎖️ Thành tích của <span class="text-white">${myName}</span>: <strong class="text-amber-300">Hạng ${myRank}/${sorted.length}</strong> — Đạt <strong class="score-star-glow">${sorted[myIndex].score} ⭐</strong>${subNote}`;
       } else {
         myBoxEl.innerHTML = `✨ Tổng số thí sinh tham gia vinh danh: <strong class="text-amber-300">${sorted.length} người</strong>`;
       }
 
-      if (sorted.length === 0) {
-        top10El.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Đang chờ dữ liệu điểm số của các thí sinh...</div>`;
-      } else {
+      if (sorted.length === 0) top10El.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 italic">Đang chờ dữ liệu điểm số của các thí sinh...</div>`;
+      else {
         top10El.innerHTML = sorted.slice(0, 10).map((p, idx) => {
           const isMeTag = (p.id === myId) ? `<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded-full ml-1 shrink-0">Bạn</span>` : '';
           const royalTitle = getRoyalTitleByRank(idx);
@@ -2191,9 +1873,7 @@
       launchFireworks();
     }
 
-    function closeFinishModal() {
-      document.getElementById('modal-finish-celebration').classList.add('hidden');
-    }
+    function closeFinishModal() { document.getElementById('modal-finish-celebration').classList.add('hidden'); }
 
     function renderQuizDropdown() {
       const sel = document.getElementById('admin-quiz-select'), countLabel = document.getElementById('quiz-count-label');
@@ -2206,8 +1886,7 @@
         const opt = document.createElement('option'); opt.value = title; opt.innerText = `${title} (${quizBank[title].length} câu)`;
         if (title === currentQuizName) opt.selected = true; sel.appendChild(opt);
       });
-      const pill = document.getElementById('live-topic-pill');
-      if (pill) pill.innerText = `Chuyên đề: ${currentQuizName}`;
+      const pill = document.getElementById('live-topic-pill'); if (pill) pill.innerText = `Chuyên đề: ${currentQuizName}`;
     }
 
     function activateAdminSession() {
@@ -2228,12 +1907,12 @@
     }
     function deleteCurrentQuiz() {
       if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
-      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v47', JSON.stringify(quizBank)); } catch (e) {}
+      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function restoreDefaultQuiz() {
       const defaultTitle = Object.keys(defaultBank)[0]; quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v47', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = defaultTitle; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function saveNewQuizFromNotebook() {
@@ -2242,7 +1921,7 @@
       try {
         const parsed = JSON.parse(rawJson);
         if (!Array.isArray(parsed) || parsed.length === 0) return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
-        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v47', JSON.stringify(quizBank)); } catch (e) {}
+        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v49', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = title; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
         document.getElementById('new-quiz-title').value = ''; document.getElementById('new-quiz-json').value = ''; document.getElementById('modal-new-quiz').classList.add('hidden'); alert(`🎉 Đã thêm bộ đề "${title}"!`);
       } catch (e) { alert("Mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!"); }
@@ -2255,8 +1934,7 @@
     }
 
     function joinGame() {
-      stopLoginMusicCompletely();
-      initAudio();
+      stopLoginMusicCompletely(); initAudio();
       const rawName = document.getElementById('playerName').value.trim(), nameInput = sanitizeText(rawName, 20), passInput = document.getElementById('playerPassword').value.trim(), alertBox = document.getElementById('avatar-missing-alert');
       if (alertBox) alertBox.classList.add('hidden');
       if (normalizeAccountKey(rawName) === 'admin') { if (verifyAdminPin(passInput)) { activateAdminSession(); return; } else return alert("Sai mật khẩu Quản trò!"); }
@@ -2281,15 +1959,14 @@
         }
         myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       }
-      setPersistentData('fh_account_uid_v47', myId); setPersistentData('fh_locked_name_v47', myName); setPersistentData('fh_locked_avatar_v47', myAvatar); setPersistentData('fh_saved_score_v47', myScore);
-      setPersistentData('fh_suspended_v47', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v47', 'false');
+      setPersistentData('fh_account_uid_v49', myId); setPersistentData('fh_locked_name_v49', myName); setPersistentData('fh_locked_avatar_v49', myAvatar); setPersistentData('fh_saved_score_v49', myScore);
+      setPersistentData('fh_suspended_v49', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v49', 'false');
       document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateSuspensionUI(); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; announceMyPresence(true); renderLeaderboard();
     }
 
     function hostNextQuestion() {
-      stopLoginMusicCompletely();
-      initAudio();
+      stopLoginMusicCompletely(); initAudio();
       if (!currentQuizName || !quizBank[currentQuizName]) return alert("Kho đề đang trống!");
       const list = quizBank[currentQuizName] || [], nextIdx = currentQIndex + 1;
       if (nextIdx >= list.length) {
@@ -2348,8 +2025,7 @@
             const finalRecord = buildCurrentStandingsRecord(currentQuizName);
             if (finalRecord) { savePrevQuizRecord(finalRecord); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: finalRecord }, true); }
             publishPacket('events', { type: 'FINISH_QUIZ', id: 'admin', quizTitle: currentQuizName, record: finalRecord }, false);
-            showFinishCelebration(currentQuizName);
-            currentQIndex = -1;
+            showFinishCelebration(currentQuizName); currentQIndex = -1;
           }, 5500);
         }
       }, (3 + qTime) * 1000);
@@ -2361,9 +2037,9 @@
       stopAllMP3(); closeRoundSpeedModal();
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v47', newResetId);
+      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v49', newResetId);
       activeClients.forEach(c => { if (c && c._isConnected) { c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); } });
-      myScore = 0; setPersistentData('fh_saved_score_v47', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
+      myScore = 0; setPersistentData('fh_saved_score_v49', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
       for (let k in players) players[k].score = 0; for (let k in accountRegistry) accountRegistry[k].score = 0;
       saveAccountRegistryLocal(); renderLeaderboard(); publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
     }
@@ -2453,7 +2129,7 @@
         const chosenBtn = document.getElementById(`btn-${myPendingChoice}`);
         if (myPendingChoice === correctKey) {
           const earnedPoints = myPendingTimeLeft;
-          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v47', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
+          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v49', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; fb.innerText = `🎉 CHÍNH XÁC! Bạn chốt đáp án ${myPendingChoice} ở giây thứ ${myPendingTimeLeft} (+${earnedPoints} ⭐)`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow"; playALTPCorrect();
         } else {
           if (chosenBtn) { chosenBtn.classList.remove('bg-amber-50'); chosenBtn.classList.add('bg-rose-100', 'border-rose-500'); }
