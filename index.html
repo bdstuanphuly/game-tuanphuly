@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V58</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V59</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -145,30 +145,145 @@
       border: 1.5px solid rgba(251, 191, 36, 0.55);
       box-shadow: 0 0 50px rgba(245, 158, 11, 0.22), 0 25px 60px rgba(0, 0, 0, 0.92), inset 0 1px 1px rgba(254, 240, 138, 0.25);
     }
+
+    /* HỆ THỐNG BỤC VINH DANH 3D V59 ĐỒNG BỘ MÀU KHUNG KHIÊN + VỆT SÁNG LẤP LÁNH ĐỔI MÀU LIÊN TỤC */
     .podium-stage-wrap { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 2px; }
     .podium-spotlight-gold, .podium-spotlight-silver, .podium-spotlight-bronze {
       position: absolute; bottom: 92%; left: 6%; right: 6%; height: 110px; pointer-events: none; z-index: 1;
     }
-    .podium-spotlight-gold { background: radial-gradient(ellipse at 50% 100%, rgba(251, 191, 36, 0.38) 0%, rgba(245, 158, 11, 0.08) 55%, transparent 80%); }
-    .podium-spotlight-silver { background: radial-gradient(ellipse at 50% 100%, rgba(226, 232, 240, 0.26) 0%, rgba(148, 163, 184, 0.05) 55%, transparent 80%); }
-    .podium-spotlight-bronze { background: radial-gradient(ellipse at 50% 100%, rgba(251, 146, 60, 0.26) 0%, rgba(234, 88, 12, 0.05) 55%, transparent 80%); }
+    .podium-spotlight-gold { background: radial-gradient(ellipse at 50% 100%, rgba(251, 191, 36, 0.45) 0%, rgba(245, 158, 11, 0.12) 55%, transparent 80%); }
+    .podium-spotlight-silver { background: radial-gradient(ellipse at 50% 100%, rgba(226, 232, 240, 0.35) 0%, rgba(148, 163, 184, 0.08) 55%, transparent 80%); }
+    .podium-spotlight-bronze { background: radial-gradient(ellipse at 50% 100%, rgba(251, 146, 60, 0.35) 0%, rgba(234, 88, 12, 0.08) 55%, transparent 80%); }
+
     .podium-top-surface-gold, .podium-top-surface-silver, .podium-top-surface-bronze {
-      width: 100%; height: 14px; clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      width: 100%; height: 14px; clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); z-index: 2;
     }
-    .podium-top-surface-gold { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-bottom: 2.5px solid #fde047; box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5); }
-    .podium-top-surface-silver { background: linear-gradient(180deg, #334155 0%, #1e293b 100%); border-bottom: 2px solid #e2e8f0; }
-    .podium-top-surface-bronze { background: linear-gradient(180deg, #292524 0%, #1c1917 100%); border-bottom: 2px solid #fdba74; }
+    .podium-top-surface-gold {
+      background: linear-gradient(180deg, #fffbeb 0%, #fde047 55%, #d97706 100%);
+      border-bottom: 2px solid #ffffff;
+      box-shadow: 0 2px 12px rgba(251, 191, 36, 0.65);
+    }
+    .podium-top-surface-silver {
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 55%, #64748b 100%);
+      border-bottom: 2px solid #f8fafc;
+      box-shadow: 0 2px 10px rgba(226, 232, 240, 0.5);
+    }
+    .podium-top-surface-bronze {
+      background: linear-gradient(180deg, #ffedd5 0%, #fdba74 55%, #c2410c 100%);
+      border-bottom: 2px solid #fff7ed;
+      box-shadow: 0 2px 10px rgba(251, 146, 60, 0.5);
+    }
+
+    @keyframes podiumPrismaticSweep {
+      0% { transform: translateX(-160%) skewX(-25deg); filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(180deg); }
+      100% { transform: translateX(260%) skewX(-25deg); filter: hue-rotate(360deg); }
+    }
+    @keyframes podiumSurfaceGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
     .podium-3d-body {
-      width: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; overflow: hidden; padding: 6px 4px;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      width: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; overflow: hidden; padding: 7px 4px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.92), inset 0 1.5px 1px rgba(255, 255, 255, 0.75);
+      z-index: 2;
     }
-    .podium-3d-gold { background: linear-gradient(180deg, #132226 0%, #091318 65%, #04090c 100%); border-left: 1px solid rgba(253, 224, 71, 0.35); border-right: 1px solid rgba(253, 224, 71, 0.35); border-bottom: 3px solid #f59e0b; }
-    .podium-3d-silver { background: linear-gradient(180deg, #16202a 0%, #0b121a 65%, #05090e 100%); border-left: 1px solid rgba(226, 232, 240, 0.28); border-right: 1px solid rgba(226, 232, 240, 0.28); border-bottom: 2.5px solid #94a3b8; }
-    .podium-3d-bronze { background: linear-gradient(180deg, #1f1918 0%, #120e0d 65%, #080605 100%); border-left: 1px solid rgba(253, 186, 116, 0.28); border-right: 1px solid rgba(253, 186, 116, 0.28); border-bottom: 2.5px solid #d97706; }
-    .podium-rank-num-gold, .podium-rank-num-silver, .podium-rank-num-bronze { font-family: 'Cinzel', serif; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95)); }
-    .podium-rank-num-gold { background: linear-gradient(180deg, #ffffff 0%, #fef08a 35%, #f59e0b 75%, #92400e 100%); }
-    .podium-rank-num-silver { background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 85%, #475569 100%); }
-    .podium-rank-num-bronze { background: linear-gradient(180deg, #fff7ed 0%, #fdba74 45%, #ea580c 85%, #7c2d12 100%); }
+    /* Vệt sáng lấp lánh đổi màu liên tục chạy ngang mặt trước của cả 3 bục */
+    .podium-3d-body::after {
+      content: "";
+      position: absolute;
+      top: -10%; bottom: -10%; left: 0;
+      width: 58%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.25) 20%,
+        rgba(56, 189, 248, 0.55) 40%,
+        rgba(255, 255, 255, 0.92) 50%,
+        rgba(244, 63, 94, 0.55) 60%,
+        rgba(253, 224, 71, 0.45) 80%,
+        transparent 100%
+      );
+      animation: podiumPrismaticSweep 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: overlay;
+    }
+    .podium-3d-body::before {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 35%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      animation: shimmerSweep 2.4s infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Mặt trước Bục Top 1: Đồng bộ màu Vàng Hoàng Kim của khung vinh danh Top 1 */
+    .podium-3d-gold {
+      background: linear-gradient(135deg, #fef08a 0%, #fde047 22%, #f59e0b 52%, #b45309 82%, #78350f 100%);
+      background-size: 200% 200%;
+      animation: podiumSurfaceGlow 4s ease infinite;
+      border-left: 2px solid #fffbeb;
+      border-right: 2px solid #fffbeb;
+      border-bottom: 3.5px solid #451a03;
+    }
+    /* Mặt trước Bục Top 2: Đồng bộ màu Bạc Bạch Kim của khung vinh danh Top 2 */
+    .podium-3d-silver {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 24%, #94a3b8 55%, #475569 85%, #1e293b 100%);
+      background-size: 200% 200%;
+      animation: podiumSurfaceGlow 4s ease infinite;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #ffffff;
+      border-bottom: 3px solid #0f172a;
+    }
+    /* Mặt trước Bục Top 3: Đồng bộ màu Đồng Hoàng Gia của khung vinh danh Top 3 */
+    .podium-3d-bronze {
+      background: linear-gradient(135deg, #ffedd5 0%, #fdba74 24%, #ea580c 55%, #9a3412 85%, #431407 100%);
+      background-size: 200% 200%;
+      animation: podiumSurfaceGlow 4s ease infinite;
+      border-left: 2px solid #ffedd5;
+      border-right: 2px solid #ffedd5;
+      border-bottom: 3px solid #290d04;
+    }
+
+    /* Chữ Danh Hiệu tương phản cực mạnh với mặt bục sáng */
+    .podium-contrast-title-top1 {
+      position: relative; z-index: 5;
+      color: #1c0a00;
+      font-weight: 900;
+      text-shadow: 0 1px 0 #ffffff, 0 0 8px rgba(255, 255, 255, 0.95), 0 0 14px rgba(254, 240, 138, 0.8);
+      letter-spacing: -0.02em;
+    }
+    .podium-contrast-title-top2 {
+      position: relative; z-index: 5;
+      color: #091326;
+      font-weight: 900;
+      text-shadow: 0 1px 0 #ffffff, 0 0 8px rgba(255, 255, 255, 0.95), 0 0 14px rgba(226, 232, 240, 0.8);
+      letter-spacing: -0.02em;
+    }
+    .podium-contrast-title-top3 {
+      position: relative; z-index: 5;
+      color: #270901;
+      font-weight: 900;
+      text-shadow: 0 1px 0 #fff7ed, 0 0 8px rgba(255, 247, 237, 0.95), 0 0 14px rgba(254, 215, 170, 0.8);
+      letter-spacing: -0.02em;
+    }
+
+    /* Điểm số ngôi sao nổi bật trong viên nang tối tương phản trên mặt bục sáng */
+    .podium-contrast-score-pill {
+      position: relative; z-index: 5;
+      background: rgba(6, 10, 20, 0.86);
+      border: 1.5px solid #fef08a;
+      color: #fef08a;
+      padding: 1px 9px;
+      border-radius: 9999px;
+      font-weight: 900;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.65), inset 0 0 6px rgba(250, 204, 21, 0.35);
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.8);
+    }
+
     .victory-gold-title {
       background: linear-gradient(180deg, #FFFFFF 0%, #FEF08A 26%, #F59E0B 64%, #B45309 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -263,7 +378,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V58 Kiếm Thế)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V59 Kiếm Thế)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -555,7 +670,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V58 Kiếm Thế Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V59 Kiếm Thế Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -734,13 +849,13 @@
 
     function saveCustomCoverPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v58'); applyCoverBannerToUI('DEFAULT', false);
+        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v59'); applyCoverBannerToUI('DEFAULT', false);
         const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v58', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v58', dataUrl);
+      try { localStorage.setItem('fh_master_cover_v59', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v59', dataUrl);
       const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
 
@@ -775,7 +890,7 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v58', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v59', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
@@ -791,13 +906,13 @@
 
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v58'); applySpeedLogoToUI('DEFAULT', false);
+        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v59'); applySpeedLogoToUI('DEFAULT', false);
         const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v58', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v58', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v59', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v59', dataUrl);
       const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
 
@@ -847,7 +962,7 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v58', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v59', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
@@ -1009,7 +1124,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V58", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V59", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -1053,11 +1168,11 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV58() {
+    (function initMasterAssetsV59() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v58') || localStorage.getItem('fh_master_cover_v57') || localStorage.getItem('fh_master_cover_v56');
-        savedLogo = localStorage.getItem('fh_master_logo_v58') || localStorage.getItem('fh_master_logo_v57') || localStorage.getItem('fh_master_logo_v56');
+        savedCover = localStorage.getItem('fh_master_cover_v59') || localStorage.getItem('fh_master_cover_v58') || localStorage.getItem('fh_master_cover_v57');
+        savedLogo = localStorage.getItem('fh_master_logo_v59') || localStorage.getItem('fh_master_logo_v58') || localStorage.getItem('fh_master_logo_v57');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1347,36 +1462,36 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v58') || localStorage.getItem('fourhome_quiz_bank_v57') || localStorage.getItem('fourhome_quiz_bank_v56')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v59') || localStorage.getItem('fourhome_quiz_bank_v58') || localStorage.getItem('fourhome_quiz_bank_v57')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v58') || getPersistentData('fh_hw_device_id_v57') || getPersistentData('fh_hw_device_id_v56');
-    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v58', myDeviceHwId); }
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v59') || getPersistentData('fh_hw_device_id_v58') || getPersistentData('fh_hw_device_id_v57');
+    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v59', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v58') || getPersistentData('fh_account_uid_v57') || getPersistentData('fh_account_uid_v56') || '';
-    let myName = getPersistentData('fh_locked_name_v58') || getPersistentData('fh_locked_name_v57') || getPersistentData('fh_locked_name_v56') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v58') || getPersistentData('fh_locked_avatar_v57') || getPersistentData('fh_locked_avatar_v56') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v58') || getPersistentData('fh_saved_score_v57') || getPersistentData('fh_saved_score_v56'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v58') || getPersistentData('fh_reset_id_v57') || getPersistentData('fh_reset_id_v56') || 'init_session';
-    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v58') || getPersistentData('fh_suspended_v57') || getPersistentData('fh_suspended_v56')) === 'true');
-    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v58') || getPersistentData('fh_logged_out_v57') || getPersistentData('fh_logged_out_v56')) === 'true');
+    let myId = getPersistentData('fh_account_uid_v59') || getPersistentData('fh_account_uid_v58') || getPersistentData('fh_account_uid_v57') || '';
+    let myName = getPersistentData('fh_locked_name_v59') || getPersistentData('fh_locked_name_v58') || getPersistentData('fh_locked_name_v57') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v59') || getPersistentData('fh_locked_avatar_v58') || getPersistentData('fh_locked_avatar_v57') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v59') || getPersistentData('fh_saved_score_v58') || getPersistentData('fh_saved_score_v57'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v59') || getPersistentData('fh_reset_id_v58') || getPersistentData('fh_reset_id_v57') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v59') || getPersistentData('fh_suspended_v58') || getPersistentData('fh_suspended_v57')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v59') || getPersistentData('fh_logged_out_v58') || getPersistentData('fh_logged_out_v57')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v58', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v59', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v58')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v57')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v56')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v59')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v58')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v57')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
-    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v58', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
+    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v59', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v58')) || JSON.parse(localStorage.getItem('fh_answered_history_v57')) || JSON.parse(localStorage.getItem('fh_answered_history_v56')) || {}; } catch (e) { answeredHistory = {}; }
-    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v58', JSON.stringify(answeredHistory)); } catch (e) {} }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v59')) || JSON.parse(localStorage.getItem('fh_answered_history_v58')) || JSON.parse(localStorage.getItem('fh_answered_history_v57')) || {}; } catch (e) { answeredHistory = {}; }
+    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v59', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v58')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v57')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v56')); } catch (e) { prevQuizRecord = null; }
-    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v58', JSON.stringify(record)); } catch (e) {} }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v59')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v58')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v57')); } catch (e) { prevQuizRecord = null; }
+    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v59', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
@@ -1486,19 +1601,19 @@
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_cover_v58'] && stored['fh_master_cover_v58'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v58']);
-        if (stored['fh_master_logo_v58'] && stored['fh_master_logo_v58'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v58']);
-        if (stored['fh_logged_out_v58'] === 'true') return;
-        const idbName = stored['fh_locked_name_v58'] || stored['fh_locked_name_v57'] || stored['fh_locked_name_v56'];
-        const idbAvt = stored['fh_locked_avatar_v58'] || stored['fh_locked_avatar_v57'] || stored['fh_locked_avatar_v56'];
+        if (stored['fh_master_cover_v59'] && stored['fh_master_cover_v59'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v59']);
+        if (stored['fh_master_logo_v59'] && stored['fh_master_logo_v59'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v59']);
+        if (stored['fh_logged_out_v59'] === 'true') return;
+        const idbName = stored['fh_locked_name_v59'] || stored['fh_locked_name_v58'] || stored['fh_locked_name_v57'];
+        const idbAvt = stored['fh_locked_avatar_v59'] || stored['fh_locked_avatar_v58'] || stored['fh_locked_avatar_v57'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v58'] || stored['fh_saved_score_v57'] || stored['fh_saved_score_v56'], 10) || 0;
-          myId = stored['fh_account_uid_v58'] || stored['fh_account_uid_v57'] || ('acc_' + normalizeAccountKey(myName));
-          isMyAccountSuspended = ((stored['fh_suspended_v58'] || stored['fh_suspended_v57']) === 'true');
-          if (stored['fh_hw_device_id_v58']) myDeviceHwId = stored['fh_hw_device_id_v58'];
-          setPersistentData('fh_locked_name_v58', myName); setPersistentData('fh_locked_avatar_v58', myAvatar);
-          setPersistentData('fh_saved_score_v58', myScore); setPersistentData('fh_account_uid_v58', myId);
+          myScore = parseInt(stored['fh_saved_score_v59'] || stored['fh_saved_score_v58'] || stored['fh_saved_score_v57'], 10) || 0;
+          myId = stored['fh_account_uid_v59'] || stored['fh_account_uid_v58'] || ('acc_' + normalizeAccountKey(myName));
+          isMyAccountSuspended = ((stored['fh_suspended_v59'] || stored['fh_suspended_v58']) === 'true');
+          if (stored['fh_hw_device_id_v59']) myDeviceHwId = stored['fh_hw_device_id_v59'];
+          setPersistentData('fh_locked_name_v59', myName); setPersistentData('fh_locked_avatar_v59', myAvatar);
+          setPersistentData('fh_saved_score_v59', myScore); setPersistentData('fh_account_uid_v59', myId);
           players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
           document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -1529,7 +1644,7 @@
 
     BROKER_URLS.forEach((url, index) => {
       try {
-        const c = mqtt.connect(url, { clientId: 'fh58_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
+        const c = mqtt.connect(url, { clientId: 'fh59_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
         c.on('connect', () => {
           c._isConnected = true; connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length; updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
@@ -1650,8 +1765,8 @@
           const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
 
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
-            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v58', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
-            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v58', suspState ? 'true' : 'false'); updateSuspensionUI(); }
+            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v59', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
+            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v59', suspState ? 'true' : 'false'); updateSuspensionUI(); }
           }
           const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
           const avt = resolveBestAvatar(data.avatar, data.id, cleanName);
@@ -1669,7 +1784,7 @@
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].isSuspended = newSusp; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) players[data.targetId].isSuspended = newSusp;
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
-          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v58', newSusp ? 'true' : 'false'); updateSuspensionUI();
+          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v59', newSusp ? 'true' : 'false'); updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản bị Admin tạm đình chỉ!" : "✅ THÔNG BÁO: Admin đã BỎ ĐÌNH CHỈ!");
         }
         scheduleRenderLeaderboard(); scheduleRenderDirectory();
@@ -1707,15 +1822,15 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v58', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v59', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || ""; renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
         stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
-          myResetId = data.resetId; setPersistentData('fh_reset_id_v58', myResetId);
-          myScore = 0; setPersistentData('fh_saved_score_v58', 0); answeredHistory = {}; saveAnsweredHistory();
+          myResetId = data.resetId; setPersistentData('fh_reset_id_v59', myResetId);
+          myScore = 0; setPersistentData('fh_saved_score_v59', 0); answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -1746,7 +1861,7 @@
       if (!myName || !confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
       stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
-      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v58', 'true');
+      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v59', 'true');
       const logoutPacket = { type: 'PLAYER_LOGOUT', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: null, isOnline: false, isSuspended: isMyAccountSuspended };
       if (players[myId]) { players[myId].lockedByDevice = null; players[myId].isOnline = false; }
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
@@ -1793,7 +1908,7 @@
       renderPlayerDirectoryList(); alert(`✅ Đã mở khóa thiết bị cho "${targetName}"!`);
     }
     function forceResetMyLocalAccount() {
-      stopAllMP3(); ['fh_locked_name_v58', 'fh_locked_avatar_v58', 'fh_saved_score_v58', 'fh_answered_history_v58', 'fh_account_uid_v58', 'fh_logged_out_v58', 'fh_suspended_v58'].forEach(removePersistentData);
+      stopAllMP3(); ['fh_locked_name_v59', 'fh_locked_avatar_v59', 'fh_saved_score_v59', 'fh_answered_history_v59', 'fh_account_uid_v59', 'fh_logged_out_v59', 'fh_suspended_v59'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-status-preview-box').classList.add('hidden');
@@ -1829,24 +1944,24 @@
       }).sort((a, b) => (b.points !== a.points) ? (b.points - a.points) : (a.elapsedSec - b.elapsedSec)).slice(0, 10);
 
       function buildPodiumCol(item, rank) {
-        const bodyClass = rank === 1 ? 'podium-3d-gold h-[78px]' : rank === 2 ? 'podium-3d-silver h-[66px]' : 'podium-3d-bronze h-[60px]';
+        const bodyClass = rank === 1 ? 'podium-3d-gold h-[80px]' : rank === 2 ? 'podium-3d-silver h-[68px]' : 'podium-3d-bronze h-[62px]';
         const capClass = rank === 1 ? 'podium-top-surface-gold' : rank === 2 ? 'podium-top-surface-silver' : 'podium-top-surface-bronze';
         const spotClass = rank === 1 ? 'podium-spotlight-gold' : rank === 2 ? 'podium-spotlight-silver' : 'podium-spotlight-bronze';
         const titleText = rank === 1 ? 'QUÁN QUÂN ĐẤU TRƯỜNG' : rank === 2 ? 'Á QUÂN XUẤT CHÚNG' : 'QUÝ QUÂN KIỆT XUẤT';
-        const scoreColor = rank === 1 ? 'text-amber-300' : rank === 2 ? 'text-slate-100' : 'text-orange-200';
+        const contrastTitleClass = rank === 1 ? 'podium-contrast-title-top1' : rank === 2 ? 'podium-contrast-title-top2' : 'podium-contrast-title-top3';
         const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : null, rank, Boolean(item));
 
         if (!item) {
           return `
-            <div class="flex flex-col items-center text-center opacity-60">
+            <div class="flex flex-col items-center text-center opacity-70">
               <div class="relative z-10">${shieldFrame}</div>
               <div class="text-xs font-bold text-slate-400 truncate max-w-[115px] mt-1 z-10">Đang chờ...</div>
               <div class="inline-flex items-center gap-1 bg-slate-900/70 border border-slate-700 rounded-full px-2.5 py-0.5 text-[10px] font-bold text-slate-500 my-1 z-10"><span>--</span></div>
               <div class="podium-stage-wrap">
                 <div class="${capClass}"></div>
                 <div class="podium-3d-body ${bodyClass} rounded-b-xl">
-                  <span class="text-[9.5px] font-black uppercase tracking-tight text-amber-400/85 text-center px-1 leading-tight">${titleText}</span>
-                  <span class="text-xs font-black text-slate-500">--</span>
+                  <span class="text-[9px] sm:text-[9.5px] uppercase text-center px-1 leading-tight ${contrastTitleClass}">${titleText}</span>
+                  <span class="podium-contrast-score-pill text-[10.5px]">-- ⭐</span>
                 </div>
               </div>
             </div>
@@ -1855,7 +1970,7 @@
 
         const nameColor = rank === 1 ? 'text-amber-200' : rank === 2 ? 'text-slate-100' : 'text-orange-200';
         const choiceDotColor = item.isCorrect ? 'bg-emerald-500 text-slate-950' : 'bg-rose-500 text-white';
-        const pointDisplay = rank === 1 ? `+${item.points} ⭐` : `+${item.points} đ`;
+        const pointDisplay = `+${item.points} ⭐`;
 
         return `
           <div class="flex flex-col items-center text-center relative">
@@ -1869,8 +1984,8 @@
               <div class="${spotClass}"></div>
               <div class="${capClass}"></div>
               <div class="podium-3d-body ${bodyClass} rounded-b-xl">
-                <span class="text-[9px] font-black uppercase tracking-tighter text-amber-300 text-center px-1 leading-tight drop-shadow">${titleText}</span>
-                <span class="text-[13px] font-black ${scoreColor} drop-shadow whitespace-nowrap">${pointDisplay}</span>
+                <span class="text-[8.8px] sm:text-[9.5px] uppercase text-center px-0.5 leading-tight ${contrastTitleClass}">${titleText}</span>
+                <span class="podium-contrast-score-pill text-[11.5px] sm:text-[12.5px] whitespace-nowrap">${pointDisplay}</span>
               </div>
             </div>
           </div>
@@ -1891,7 +2006,7 @@
             <div class="flex items-center gap-1.5 shrink-0">
               <span class="bg-slate-800 text-amber-200 border border-slate-600 font-bold text-[10.5px] px-1.5 py-0.5 rounded">${item.choice}</span>
               <span class="text-[10.5px] text-slate-400 font-bold whitespace-nowrap">⚡ ${item.elapsedSec.toFixed(1)}s</span>
-              <span class="${pointBadgeClass} font-black text-[10.5px] px-2 py-0.5 rounded-full border whitespace-nowrap">+${item.points}đ</span>
+              <span class="${pointBadgeClass} font-black text-[10.5px] px-2 py-0.5 rounded-full border whitespace-nowrap">+${item.points} ⭐</span>
             </div>
           </div>
         `;
@@ -2044,7 +2159,7 @@
       isAdminMode = true;
       if (isValidAvatarString(tempUploadedAvatar)) {
         myAvatar = tempUploadedAvatar;
-        setPersistentData('fh_locked_avatar_v58', myAvatar);
+        setPersistentData('fh_locked_avatar_v59', myAvatar);
       }
       document.getElementById('admin-panel').classList.remove('hidden'); document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateLockedPlayerBadgeUI(); renderLeaderboard(); requestPlayerPresence();
@@ -2062,12 +2177,12 @@
     }
     function deleteCurrentQuiz() {
       if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
-      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v58', JSON.stringify(quizBank)); } catch (e) {}
+      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v59', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function restoreDefaultQuiz() {
       const defaultTitle = Object.keys(defaultBank)[0]; quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v58', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v59', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = defaultTitle; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function saveNewQuizFromNotebook() {
@@ -2076,7 +2191,7 @@
       try {
         const parsed = JSON.parse(rawJson);
         if (!Array.isArray(parsed) || parsed.length === 0) return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
-        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v58', JSON.stringify(quizBank)); } catch (e) {}
+        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v59', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = title; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
         document.getElementById('new-quiz-title').value = ''; document.getElementById('new-quiz-json').value = ''; document.getElementById('modal-new-quiz').classList.add('hidden'); alert(`🎉 Đã thêm bộ đề "${title}"!`);
       } catch (e) { alert("Mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!"); }
@@ -2117,8 +2232,8 @@
         }
         myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       }
-      setPersistentData('fh_account_uid_v58', myId); setPersistentData('fh_locked_name_v58', myName); setPersistentData('fh_locked_avatar_v58', myAvatar); setPersistentData('fh_saved_score_v58', myScore);
-      setPersistentData('fh_suspended_v58', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v58', 'false');
+      setPersistentData('fh_account_uid_v59', myId); setPersistentData('fh_locked_name_v59', myName); setPersistentData('fh_locked_avatar_v59', myAvatar); setPersistentData('fh_saved_score_v59', myScore);
+      setPersistentData('fh_suspended_v59', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v59', 'false');
       document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateSuspensionUI(); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; announceMyPresence(true); renderLeaderboard();
     }
@@ -2195,9 +2310,9 @@
       stopAllMP3(); closeRoundSpeedModal();
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v58', newResetId);
+      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v59', newResetId);
       activeClients.forEach(c => { if (c && c._isConnected) { c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); } });
-      myScore = 0; setPersistentData('fh_saved_score_v58', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
+      myScore = 0; setPersistentData('fh_saved_score_v59', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
       for (let k in players) players[k].score = 0; for (let k in accountRegistry) accountRegistry[k].score = 0;
       saveAccountRegistryLocal(); renderLeaderboard(); publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
     }
@@ -2267,7 +2382,7 @@
       if (isThinkingPhase || hasAnswered || isQuestionRevealed || currentTimeLeft <= 0) return;
       initAudio(); hasAnswered = true; myPendingChoice = choice; myPendingTimeLeft = Math.max(1, Math.min(20, currentTimeLeft)); myPendingElapsedSec = Math.max(0.1, Math.min(19.9, (Date.now() - answerPhaseStartMs) / 1000));
       document.getElementById(`btn-${choice}`).classList.add('ring-4', 'ring-amber-400', 'bg-amber-50');
-      const fb = document.getElementById('answer-feedback'); fb.classList.remove('hidden'); fb.innerText = `🔒 Đã chốt ${choice} ở giây thứ ${myPendingTimeLeft} (Mốc +${myPendingTimeLeft}đ). Chờ hết 20s mở kết quả!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow";
+      const fb = document.getElementById('answer-feedback'); fb.classList.remove('hidden'); fb.innerText = `🔒 Đã chốt ${choice} ở giây thứ ${myPendingTimeLeft} (Mốc +${myPendingTimeLeft} ⭐). Chờ hết 20s mở kết quả!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow";
       if (window.activeQuestionUid) { answeredHistory[window.activeQuestionUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: false, bonus: 0 }; saveAnsweredHistory(); }
       const displayName = myName || 'Admin Tuấn PL';
       const displayAvt = resolveBestAvatar(myAvatar || tempUploadedAvatar, myId || 'admin', displayName);
@@ -2288,7 +2403,7 @@
         const chosenBtn = document.getElementById(`btn-${myPendingChoice}`);
         if (myPendingChoice === correctKey) {
           const earnedPoints = myPendingTimeLeft;
-          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v58', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
+          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v59', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; fb.innerText = `🎉 CHÍNH XÁC! Bạn chốt đáp án ${myPendingChoice} ở giây thứ ${myPendingTimeLeft} (+${earnedPoints} ⭐)`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow"; playALTPCorrect();
         } else {
           if (chosenBtn) { chosenBtn.classList.remove('bg-amber-50'); chosenBtn.classList.add('bg-rose-100', 'border-rose-500'); }
