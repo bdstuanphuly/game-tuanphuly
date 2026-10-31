@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="referrer" content="no-referrer">
-  <title>Four Home Mega - Đấu Trường Tri Thức V56</title>
+  <title>Four Home Mega - Đấu Trường Tri Thức V57</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.16.1/mqtt.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.min.js"></script>
@@ -263,7 +263,7 @@
 
   <div id="admin-panel" class="hidden w-full max-w-[440px] bg-slate-900/95 text-white rounded-2xl p-3 mb-2.5 border-2 border-amber-500 shadow-2xl space-y-2.5 z-30 backdrop-blur-md">
     <div class="flex flex-wrap items-center justify-between gap-1 border-b border-slate-700 pb-2">
-      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V56 Kiếm Thế)</span>
+      <span class="text-xs font-black text-amber-400 whitespace-nowrap">👑 QUẢN TRÒ: TUẤN PHỦ LÝ (V57 Kiếm Thế)</span>
       <div class="flex flex-wrap gap-1">
         <button onclick="openSystemInfoModal()" class="text-[10px] bg-slate-700 hover:bg-slate-600 text-amber-300 border border-amber-400/50 px-2 py-1 rounded-lg font-extrabold shadow cursor-pointer">📂 Hệ thống</button>
         <button onclick="openRoundSpeedModal()" class="text-[10px] bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded-lg font-bold shadow cursor-pointer">🏆 Thập Đại</button>
@@ -555,7 +555,7 @@
       <div class="space-y-2.5 text-xs">
         <div class="bg-slate-800/90 border border-amber-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">💎 Phiên bản hệ thống:</span>
-          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V56 Kiếm Thế Royal</span>
+          <span class="bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full">V57 Kiếm Thế Royal</span>
         </div>
         <div class="bg-slate-800/90 border border-emerald-500/40 rounded-2xl p-3 flex items-center justify-between">
           <span class="text-slate-300 font-bold">📡 Kết nối máy chủ:</span>
@@ -624,7 +624,7 @@
         ✅ Đáp án & Bảng vinh danh Thập Đại Thần Tốc
       </div>
 
-      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1 pt-1"></div>
+      <div id="speed-podium-box" class="grid grid-cols-3 gap-2 items-end mb-2.5 px-1 pt-2"></div>
       <div id="speed-list-4to10" class="flex-1 overflow-y-auto space-y-1.5 pr-0.5 mb-2"></div>
 
       <div class="pt-2 border-t border-amber-500/25">
@@ -699,7 +699,29 @@
 
     const DEFAULT_SPEED_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250"><defs><linearGradient id="lgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFBEB"/><stop offset="50%" stop-color="#FDE047"/><stop offset="100%" stop-color="#D97706"/></linearGradient></defs><path d="M160,30 L215,48 L215,100 C215,140 160,165 160,165 C160,165 105,140 105,100 L105,48 Z" fill="#1D4ED8" stroke="url(#lgGold)" stroke-width="5"/><text x="160" y="118" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="56" fill="url(#lgGold)">10</text><rect x="55" y="150" width="210" height="42" rx="10" fill="#0F172A" stroke="url(#lgGold)" stroke-width="3"/><text x="160" y="179" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="24" fill="url(#lgGold)">THẬP ĐẠI</text><rect x="70" y="196" width="180" height="36" rx="8" fill="#1E293B" stroke="url(#lgGold)" stroke-width="2.5"/><text x="160" y="221" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="20" fill="#FEF08A">★ THẦN TỐC ★</text></svg>`);
 
-    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><circle cx="80" cy="80" r="80" fill="#0F172A"/><circle cx="80" cy="80" r="70" fill="none" stroke="#F59E0B" stroke-width="3"/><path d="M42,102 L34,58 L60,76 L80,44 L100,76 L126,58 L118,102 Z" fill="#FDE047" stroke="#FFF" stroke-width="2"/><rect x="40" y="106" width="80" height="10" rx="5" fill="#F59E0B"/></svg>`);
+    const DEFAULT_ADMIN_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><defs><radialGradient id="avBg" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#1E293B"/><stop offset="100%" stop-color="#090D16"/></radialGradient><linearGradient id="avGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFBEB"/><stop offset="45%" stop-color="#FDE047"/><stop offset="100%" stop-color="#D97706"/></linearGradient></defs><rect width="160" height="160" fill="url(#avBg)"/><circle cx="80" cy="80" r="72" fill="none" stroke="url(#avGold)" stroke-width="3" opacity="0.6"/><path d="M42,106 L32,60 L60,78 L80,42 L100,78 L128,60 L118,106 Z" fill="url(#avGold)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/><rect x="42" y="112" width="76" height="10" rx="5" fill="url(#avGold)"/><circle cx="32" cy="54" r="5" fill="#FFFBEB"/><circle cx="80" cy="36" r="6" fill="#FFFBEB"/><circle cx="128" cy="54" r="5" fill="#FFFBEB"/></svg>`);
+
+    function isValidAvatarString(str) {
+      return Boolean(str && typeof str === 'string' && str.trim().length > 10 && str !== 'null' && str !== 'undefined');
+    }
+
+    function resolveBestAvatar(candidateAvt, playerId, playerName) {
+      if (isValidAvatarString(candidateAvt) && candidateAvt !== DEFAULT_ADMIN_AVATAR) return candidateAvt;
+      if (playerId && players[playerId] && isValidAvatarString(players[playerId].avatar) && players[playerId].avatar !== DEFAULT_ADMIN_AVATAR) {
+        return players[playerId].avatar;
+      }
+      const accKey = normalizeAccountKey(playerName || '');
+      if (accKey && accountRegistry[accKey] && isValidAvatarString(accountRegistry[accKey].avatar) && accountRegistry[accKey].avatar !== DEFAULT_ADMIN_AVATAR) {
+        return accountRegistry[accKey].avatar;
+      }
+      const foundInPlayers = Object.values(players).find(p => p && normalizeAccountKey(p.name) === accKey && isValidAvatarString(p.avatar));
+      if (foundInPlayers) return foundInPlayers.avatar;
+      if (isValidAvatarString(candidateAvt)) return candidateAvt;
+      if (isValidAvatarString(myAvatar) && (playerId === myId || (playerName && myName && normalizeAccountKey(playerName) === normalizeAccountKey(myName)))) {
+        return myAvatar;
+      }
+      return DEFAULT_ADMIN_AVATAR;
+    }
 
     function applyCoverBannerToUI(dataUrl, lockPermanently = false) {
       const coverEl = document.getElementById('login-hero-cover-img'), finishBanner = document.getElementById('finish-hero-banner');
@@ -712,13 +734,13 @@
 
     function saveCustomCoverPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v56'); applyCoverBannerToUI('DEFAULT', false);
+        hasCustomCoverLocked = false; activeCoverBannerDataUrl = ''; removePersistentData('fh_master_cover_v57'); applyCoverBannerToUI('DEFAULT', false);
         const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '🏞️ Ảnh Bìa: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applyCoverBannerToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_cover_v56', dataUrl); } catch (e) {}
-      idbSet('fh_master_cover_v56', dataUrl);
+      try { localStorage.setItem('fh_master_cover_v57', dataUrl); } catch (e) {}
+      idbSet('fh_master_cover_v57', dataUrl);
       const statusEl = document.getElementById('cover-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Ảnh Bìa riêng';
     }
 
@@ -753,7 +775,7 @@
 
     function forceBroadcastCoverNow(showNotification = true) {
       const payloadImg = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : 'DEFAULT';
-      publishPacket('state/cover_v56', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
+      publishPacket('state/cover_v57', { type: 'SYNC_COVER_BANNER', id: 'admin', coverImg: payloadImg }, true);
       publishPacket('events', { type: 'FORCE_SYNC_COVER', id: 'admin', coverImg: payloadImg }, false);
       if (showNotification) alert("📡 Đã đồng bộ Ảnh Bìa sang toàn bộ điện thoại!");
     }
@@ -769,13 +791,13 @@
 
     function saveCustomLogoPermanently(dataUrl) {
       if (!dataUrl || dataUrl === 'DEFAULT') {
-        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v56'); applySpeedLogoToUI('DEFAULT', false);
+        hasCustomLogoLocked = false; activeTransparentLogoPNG = ''; removePersistentData('fh_master_logo_v57'); applySpeedLogoToUI('DEFAULT', false);
         const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '🛡️ Logo Thập Đại: Mặc định'; return;
       }
       if (!dataUrl.startsWith('data:image/') && !dataUrl.startsWith('http') && !dataUrl.startsWith('./')) return;
       applySpeedLogoToUI(dataUrl, true);
-      try { localStorage.setItem('fh_master_logo_v56', dataUrl); } catch (e) {}
-      idbSet('fh_master_logo_v56', dataUrl);
+      try { localStorage.setItem('fh_master_logo_v57', dataUrl); } catch (e) {}
+      idbSet('fh_master_logo_v57', dataUrl);
       const statusEl = document.getElementById('logo-sync-status'); if (statusEl) statusEl.innerText = '✅ Đã khóa Logo 8K';
     }
 
@@ -825,7 +847,7 @@
 
     function forceBroadcastLogoNow(showNotification = true) {
       const payloadLogo = (hasCustomLogoLocked && activeTransparentLogoPNG) ? activeTransparentLogoPNG : 'DEFAULT';
-      publishPacket('state/logo_v56', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
+      publishPacket('state/logo_v57', { type: 'SYNC_SPEED_LOGO', id: 'admin', logoImg: payloadLogo }, true);
       publishPacket('events', { type: 'FORCE_SYNC_LOGO', id: 'admin', logoImg: payloadLogo }, false);
       if (showNotification) alert("📡 Đã đồng bộ Logo Thập Đại Thần Tốc sang toàn bộ điện thoại!");
     }
@@ -833,11 +855,10 @@
     function resetToDefaultLogo() { saveCustomLogoPermanently('DEFAULT'); forceBroadcastLogoNow(false); }
 
     let svgFrameUidCounter = 0;
-    function renderRoyalShieldFrameHTML(avatarUrl, rank = 1) {
-      const hasCustomAvatar = Boolean(avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined');
-      const src = hasCustomAvatar ? avatarUrl : DEFAULT_ADMIN_AVATAR;
+    function renderRoyalShieldFrameHTML(avatarUrl, rank = 1, hasParticipant = false) {
+      const src = isValidAvatarString(avatarUrl) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       const isTop1 = (rank === 1);
-      const wrapSize = isTop1 ? "w-[156px] h-[160px]" : "w-[132px] h-[136px]";
+      const wrapSize = isTop1 ? "w-[148px] h-[152px]" : "w-[128px] h-[132px]";
       const uid = `rf_${rank}_${++svgFrameUidCounter}`;
 
       const pal = rank === 1 ? {
@@ -874,11 +895,17 @@
       const midShield   = "M 110 40 C 131 40, 149 45, 160 54 L 164 61 C 166 114, 145 155, 110 181 C 75 155, 54 114, 56 61 L 60 54 C 71 45, 89 40, 110 40 Z";
       const innerShield = "M 110 45 C 129 45, 145 50, 154 58 L 158 64 C 160 111, 141 149, 110 173 C 79 149, 60 111, 62 64 L 66 58 C 75 50, 91 45, 110 45 Z";
 
+      const avatarSvgLayer = (hasParticipant || isValidAvatarString(avatarUrl)) ? `
+        <g clip-path="url(#clip_${uid})">
+          <image href="${src}" x="56" y="42" width="108" height="135" preserveAspectRatio="xMidYMid slice"/>
+        </g>
+      ` : '';
+
       return `
-        <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none">
+        <div class="relative ${wrapSize} flex items-center justify-center shrink-0 select-none mx-auto">
           <div class="absolute inset-2 rounded-full ${pal.aura} blur-xl pointer-events-none z-0"></div>
 
-          <svg viewBox="0 0 220 212" class="absolute inset-0 w-full h-full z-10 overflow-visible pointer-events-none drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]">
+          <svg viewBox="0 0 220 212" class="w-full h-full z-10 overflow-visible pointer-events-none drop-shadow-[0_6px_12px_rgba(0,0,0,0.85)]">
             <defs>
               <linearGradient id="mg_${uid}" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="${pal.c1}"/>
@@ -902,10 +929,12 @@
                 <stop offset="0%" stop-color="${pal.rib1}"/>
                 <stop offset="100%" stop-color="${pal.rib2}"/>
               </linearGradient>
-              <clipPath id="clip_${uid}">
+              <clipPath id="clip_${uid}" clipPathUnits="userSpaceOnUse">
                 <path d="${innerShield}"/>
               </clipPath>
             </defs>
+
+            <!-- Vương miện đỉnh khiên -->
             <g transform="translate(110, 21)">
               <path d="M -14,7 L -18,-5 L -7,1 L 0,-9 L 7,1 L 18,-5 L 14,7 Z" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1"/>
               <rect x="-14" y="7" width="28" height="3.5" rx="1.5" fill="url(#mg2_${uid})" stroke="${pal.c5}" stroke-width="0.8"/>
@@ -913,24 +942,28 @@
               <circle cx="0" cy="-11" r="2.4" fill="${pal.c1}"/>
               <circle cx="18" cy="-7" r="2" fill="${pal.c1}"/>
             </g>
+
+            <!-- Vòng nguyệt quế 2 bên -->
             <path d="M 110,188 C 62,175 34,132 37,72" fill="none" stroke="url(#mg_${uid})" stroke-width="2.4" stroke-linecap="round"/>
             <path d="M 110,188 C 158,175 186,132 183,72" fill="none" stroke="url(#mg_${uid})" stroke-width="2.4" stroke-linecap="round"/>
             ${leftLeaves}
             ${rightLeaves}
             <path d="M 94,193 Q 110,183 126,193" fill="none" stroke="url(#mg_${uid})" stroke-width="3" stroke-linecap="round"/>
-            <path d="M ${outerShield}" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1.8"/>
+
+            <!-- Khung nền khiên chuẩn xác (Đã fix lỗi dư chữ M làm lẹm góc phải) -->
+            <path d="${outerShield}" fill="url(#mg_${uid})" stroke="${pal.c5}" stroke-width="1.8"/>
             <path d="${midShield}" fill="#0b101d" stroke="url(#mg2_${uid})" stroke-width="1.4"/>
-            <path d="${innerShield}" fill="#1e2433"/>
-          </svg>
+            <path d="${innerShield}" fill="#131926"/>
 
-          <div class="absolute z-20 pointer-events-none overflow-hidden" style="left: 27.3%; top: 21.2%; width: 45.4%; height: 60.4%; clip-path: url(#clip_${uid}); -webkit-clip-path: url(#clip_${uid});">
-            <img src="${src}" class="w-full h-full object-cover object-center avatar-4k" alt="Avatar Top ${rank}">
-          </div>
+            <!-- Hình ảnh đại diện nằm trực tiếp trong lòng khiên SVG -->
+            ${avatarSvgLayer}
 
-          <svg viewBox="0 0 220 212" class="absolute inset-0 w-full h-full z-30 overflow-visible pointer-events-none">
+            <!-- Viền kim loại nổi bọc ngoài ảnh đại diện -->
             <path d="${innerShield}" fill="none" stroke="#090d16" stroke-width="6.2"/>
             <path d="${innerShield}" fill="none" stroke="url(#mg_${uid})" stroke-width="4.5"/>
-            <path d="${innerShield}" fill="none" stroke="${pal.c1}" stroke-width="1" opacity="0.8"/>
+            <path d="${innerShield}" fill="none" stroke="${pal.c1}" stroke-width="1" opacity="0.85"/>
+
+            <!-- Huy chương TOP 1 / 2 / 3 góc dưới -->
             <g transform="translate(71, 160)">
               <path d="M -9,12 L -19,35 L -10,31 L -5,38 L 2,15 Z" fill="url(#rib_${uid})" stroke="#090d16" stroke-width="0.8"/>
               <path d="M 7,12 L 18,34 L 9,31 L 5,38 L -2,15 Z" fill="url(#rib_${uid})" stroke="#090d16" stroke-width="0.8"/>
@@ -982,7 +1015,7 @@
       clientRateLimits[senderId].count++; return clientRateLimits[senderId].count > 30;
     }
 
-    const IDB_NAME = "FourHomeMegaArenaDB_V56", IDB_STORE = "kv_store";
+    const IDB_NAME = "FourHomeMegaArenaDB_V57", IDB_STORE = "kv_store";
     function idbSet(key, val) {
       try {
         const req = indexedDB.open(IDB_NAME, 1);
@@ -1026,11 +1059,11 @@
       try { document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`; } catch (e) {}
     }
 
-    (function initMasterAssetsV56() {
+    (function initMasterAssetsV57() {
       let savedCover = null, savedLogo = null;
       try {
-        savedCover = localStorage.getItem('fh_master_cover_v56') || localStorage.getItem('fh_master_cover_v55') || localStorage.getItem('fh_master_cover_v52');
-        savedLogo = localStorage.getItem('fh_master_logo_v56') || localStorage.getItem('fh_master_logo_v55') || localStorage.getItem('fh_master_logo_v52');
+        savedCover = localStorage.getItem('fh_master_cover_v57') || localStorage.getItem('fh_master_cover_v56') || localStorage.getItem('fh_master_cover_v55');
+        savedLogo = localStorage.getItem('fh_master_logo_v57') || localStorage.getItem('fh_master_logo_v56') || localStorage.getItem('fh_master_logo_v55');
       } catch (e) {}
       if (savedCover && savedCover.startsWith('data:image/')) saveCustomCoverPermanently(savedCover);
       else {
@@ -1165,7 +1198,7 @@
     }
 
     function renderAvatarHTML(avatarUrl, sizeClass = "w-7 h-7", borderClass = "border border-amber-400") {
-      const src = (avatarUrl && typeof avatarUrl === 'string' && avatarUrl.trim() && avatarUrl !== 'null' && avatarUrl !== 'undefined') ? avatarUrl : DEFAULT_ADMIN_AVATAR;
+      const src = isValidAvatarString(avatarUrl) ? avatarUrl : DEFAULT_ADMIN_AVATAR;
       return `<img src="${src}" class="${sizeClass} aspect-square rounded-full object-cover avatar-4k ${borderClass} shrink-0 inline-block bg-slate-900" alt="avt">`;
     }
 
@@ -1320,36 +1353,36 @@
     };
 
     let quizBank = null;
-    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v56') || localStorage.getItem('fourhome_quiz_bank_v55') || localStorage.getItem('fourhome_quiz_bank_v52')); } catch (e) {}
+    try { quizBank = JSON.parse(localStorage.getItem('fourhome_quiz_bank_v57') || localStorage.getItem('fourhome_quiz_bank_v56') || localStorage.getItem('fourhome_quiz_bank_v55')); } catch (e) {}
     if (!quizBank || Object.keys(quizBank).length === 0) quizBank = JSON.parse(JSON.stringify(defaultBank));
     let currentQuizName = Object.keys(quizBank)[0] || "", currentQIndex = -1;
 
-    let myDeviceHwId = getPersistentData('fh_hw_device_id_v56') || getPersistentData('fh_hw_device_id_v55') || getPersistentData('fh_hw_device_id_v52');
-    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v56', myDeviceHwId); }
+    let myDeviceHwId = getPersistentData('fh_hw_device_id_v57') || getPersistentData('fh_hw_device_id_v56') || getPersistentData('fh_hw_device_id_v55');
+    if (!myDeviceHwId) { myDeviceHwId = 'hw_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36); setPersistentData('fh_hw_device_id_v57', myDeviceHwId); }
 
-    let myId = getPersistentData('fh_account_uid_v56') || getPersistentData('fh_account_uid_v55') || getPersistentData('fh_account_uid_v52') || '';
-    let myName = getPersistentData('fh_locked_name_v56') || getPersistentData('fh_locked_name_v55') || getPersistentData('fh_locked_name_v52') || '';
-    let myAvatar = getPersistentData('fh_locked_avatar_v56') || getPersistentData('fh_locked_avatar_v55') || getPersistentData('fh_locked_avatar_v52') || '';
-    let myScore = parseInt(getPersistentData('fh_saved_score_v56') || getPersistentData('fh_saved_score_v55') || getPersistentData('fh_saved_score_v52'), 10) || 0;
-    let myResetId = getPersistentData('fh_reset_id_v56') || getPersistentData('fh_reset_id_v55') || getPersistentData('fh_reset_id_v52') || 'init_session';
-    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v56') || getPersistentData('fh_suspended_v55') || getPersistentData('fh_suspended_v52')) === 'true');
-    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v56') || getPersistentData('fh_logged_out_v55') || getPersistentData('fh_logged_out_v52')) === 'true');
+    let myId = getPersistentData('fh_account_uid_v57') || getPersistentData('fh_account_uid_v56') || getPersistentData('fh_account_uid_v55') || '';
+    let myName = getPersistentData('fh_locked_name_v57') || getPersistentData('fh_locked_name_v56') || getPersistentData('fh_locked_name_v55') || '';
+    let myAvatar = getPersistentData('fh_locked_avatar_v57') || getPersistentData('fh_locked_avatar_v56') || getPersistentData('fh_locked_avatar_v55') || '';
+    let myScore = parseInt(getPersistentData('fh_saved_score_v57') || getPersistentData('fh_saved_score_v56') || getPersistentData('fh_saved_score_v55'), 10) || 0;
+    let myResetId = getPersistentData('fh_reset_id_v57') || getPersistentData('fh_reset_id_v56') || getPersistentData('fh_reset_id_v55') || 'init_session';
+    let isMyAccountSuspended = ((getPersistentData('fh_suspended_v57') || getPersistentData('fh_suspended_v56') || getPersistentData('fh_suspended_v55')) === 'true');
+    let isLoggedOutExplicitly = ((getPersistentData('fh_logged_out_v57') || getPersistentData('fh_logged_out_v56') || getPersistentData('fh_logged_out_v55')) === 'true');
     let isAdminMode = false;
 
-    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v56', myId); }
+    if (!myId && myName) { myId = 'acc_' + normalizeAccountKey(myName); setPersistentData('fh_account_uid_v57', myId); }
 
     let accountRegistry = {};
-    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v56')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v55')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v52')) || {}; } catch (e) { accountRegistry = {}; }
+    try { accountRegistry = JSON.parse(localStorage.getItem('fh_cloud_accounts_v57')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v56')) || JSON.parse(localStorage.getItem('fh_cloud_accounts_v55')) || {}; } catch (e) { accountRegistry = {}; }
     let registrySaveTimer = null;
-    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v56', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
+    function saveAccountRegistryLocal() { if (registrySaveTimer) return; registrySaveTimer = setTimeout(() => { registrySaveTimer = null; try { localStorage.setItem('fh_cloud_accounts_v57', JSON.stringify(accountRegistry)); } catch (e) {} }, 300); }
 
     let answeredHistory = {};
-    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v56')) || JSON.parse(localStorage.getItem('fh_answered_history_v55')) || JSON.parse(localStorage.getItem('fh_answered_history_v52')) || {}; } catch (e) { answeredHistory = {}; }
-    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v56', JSON.stringify(answeredHistory)); } catch (e) {} }
+    try { answeredHistory = JSON.parse(localStorage.getItem('fh_answered_history_v57')) || JSON.parse(localStorage.getItem('fh_answered_history_v56')) || JSON.parse(localStorage.getItem('fh_answered_history_v55')) || {}; } catch (e) { answeredHistory = {}; }
+    function saveAnsweredHistory() { try { localStorage.setItem('fh_answered_history_v57', JSON.stringify(answeredHistory)); } catch (e) {} }
 
     let prevQuizRecord = null;
-    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v56')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v55')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v52')); } catch (e) { prevQuizRecord = null; }
-    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v56', JSON.stringify(record)); } catch (e) {} }
+    try { prevQuizRecord = JSON.parse(localStorage.getItem('fh_prev_quiz_record_v57')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v56')) || JSON.parse(localStorage.getItem('fh_prev_quiz_record_v55')); } catch (e) { prevQuizRecord = null; }
+    function savePrevQuizRecord(record) { if (!record || !Array.isArray(record.rankings) || record.rankings.length === 0) return; prevQuizRecord = record; try { localStorage.setItem('fh_prev_quiz_record_v57', JSON.stringify(record)); } catch (e) {} }
 
     let isThinkingPhase = false, hasAnswered = true, isQuestionRevealed = false, currentTimeLeft = 20, answerPhaseStartMs = 0;
     let myPendingChoice = null, myPendingTimeLeft = 0, myPendingElapsedSec = 0;
@@ -1378,10 +1411,12 @@
       const badgeEl = document.getElementById('locked-player-badge');
       if (!badgeEl) return;
       if (isAdminMode && !myName) {
-        badgeEl.innerHTML = `${renderAvatarHTML(DEFAULT_ADMIN_AVATAR, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">👑 Admin Tuấn Phủ Lý</span>`;
-      } else if (myName && myAvatar) {
+        const adminAvt = isValidAvatarString(tempUploadedAvatar) ? tempUploadedAvatar : DEFAULT_ADMIN_AVATAR;
+        badgeEl.innerHTML = `${renderAvatarHTML(adminAvt, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">👑 Admin Tuấn Phủ Lý</span>`;
+      } else if (myName) {
+        const bestMyAvt = resolveBestAvatar(myAvatar, myId, myName);
         const suspTag = isMyAccountSuspended ? `<span class="text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded-full font-black shrink-0">⛔ Đình chỉ</span>` : '';
-        badgeEl.innerHTML = `${renderAvatarHTML(myAvatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
+        badgeEl.innerHTML = `${renderAvatarHTML(bestMyAvt, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')} <span class="truncate font-black text-slate-800">${myName}</span> ${suspTag}`;
       }
     }
 
@@ -1401,7 +1436,7 @@
         const avtContainer = document.getElementById(`avatars-${k}`);
         if (avtContainer) {
           const pickers = optionPickers[k] || [], visible = pickers.slice(-4), extra = pickers.length - visible.length;
-          avtContainer.innerHTML = visible.map(p => renderAvatarHTML(p.avatar, 'w-5 h-5', 'border border-white shadow-sm')).join('') +
+          avtContainer.innerHTML = visible.map(p => renderAvatarHTML(resolveBestAvatar(p.avatar, p.id, p.name), 'w-5 h-5', 'border border-white shadow-sm')).join('') +
             (extra > 0 ? `<span class="w-5 h-5 aspect-square rounded-full bg-slate-800 text-amber-300 text-[8px] font-black flex items-center justify-center border border-white shrink-0">+${extra}</span>` : '');
         }
       });
@@ -1420,11 +1455,12 @@
         const rowBg = isMe ? 'bg-gradient-to-r from-amber-950/80 via-slate-900 to-amber-950/80 border-amber-400 shadow-md' : (idx === 0 ? 'bg-gradient-to-r from-amber-950/60 via-slate-900 to-slate-900 border-amber-500/60' : idx === 1 ? 'bg-gradient-to-r from-slate-900 via-slate-900 to-slate-900 border-slate-400/50' : idx === 2 ? 'bg-gradient-to-r from-orange-950/50 via-slate-900 to-slate-900 border-orange-400/50' : 'bg-slate-900/85 border-slate-700/80');
         const titleTag = idx < 10 ? getRoyalTitleHTMLByRank(idx) : '';
         const nameColor = isMe ? 'text-amber-200 font-black' : 'text-white font-extrabold';
+        const bestAvt = resolveBestAvatar(p.avatar, p.id, p.name);
         return `
           <div class="flex items-center justify-between px-2.5 py-2 rounded-xl border ${rowBg} text-xs gap-2">
             <div class="flex items-center gap-2.5 min-w-0 flex-1">
               <span class="w-5.5 h-5.5 aspect-square rounded-full bg-slate-800 text-amber-300 font-black text-[10.5px] flex items-center justify-center shrink-0 border border-amber-400/40">${rankIcon}</span>
-              ${renderAvatarHTML(p.avatar, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')}
+              ${renderAvatarHTML(bestAvt, 'w-8 h-8', 'border-2 border-amber-400 shadow-sm')}
               <div class="truncate min-w-0 flex-1">
                 <span class="${nameColor} truncate block text-[12px]">${p.name} ${isMe ? '<span class="text-[8.5px] bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded-full font-black ml-1">Bạn</span>' : ''}</span>
                 <div class="mt-0.5">${titleTag}</div>
@@ -1456,19 +1492,19 @@
     function autoRestorePlayerSession() {
       renderQuizDropdown();
       idbGetAll((stored) => {
-        if (stored['fh_master_cover_v56'] && stored['fh_master_cover_v56'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v56']);
-        if (stored['fh_master_logo_v56'] && stored['fh_master_logo_v56'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v56']);
-        if (stored['fh_logged_out_v56'] === 'true') return;
-        const idbName = stored['fh_locked_name_v56'] || stored['fh_locked_name_v55'] || stored['fh_locked_name_v52'];
-        const idbAvt = stored['fh_locked_avatar_v56'] || stored['fh_locked_avatar_v55'] || stored['fh_locked_avatar_v52'];
+        if (stored['fh_master_cover_v57'] && stored['fh_master_cover_v57'].startsWith('data:image/')) saveCustomCoverPermanently(stored['fh_master_cover_v57']);
+        if (stored['fh_master_logo_v57'] && stored['fh_master_logo_v57'].startsWith('data:image/')) saveCustomLogoPermanently(stored['fh_master_logo_v57']);
+        if (stored['fh_logged_out_v57'] === 'true') return;
+        const idbName = stored['fh_locked_name_v57'] || stored['fh_locked_name_v56'] || stored['fh_locked_name_v55'];
+        const idbAvt = stored['fh_locked_avatar_v57'] || stored['fh_locked_avatar_v56'] || stored['fh_locked_avatar_v55'];
         if (idbName && idbAvt && !myName) {
           myName = idbName; myAvatar = idbAvt;
-          myScore = parseInt(stored['fh_saved_score_v56'] || stored['fh_saved_score_v55'] || stored['fh_saved_score_v52'], 10) || 0;
-          myId = stored['fh_account_uid_v56'] || stored['fh_account_uid_v55'] || ('acc_' + normalizeAccountKey(myName));
-          isMyAccountSuspended = ((stored['fh_suspended_v56'] || stored['fh_suspended_v55']) === 'true');
-          if (stored['fh_hw_device_id_v56']) myDeviceHwId = stored['fh_hw_device_id_v56'];
-          setPersistentData('fh_locked_name_v56', myName); setPersistentData('fh_locked_avatar_v56', myAvatar);
-          setPersistentData('fh_saved_score_v56', myScore); setPersistentData('fh_account_uid_v56', myId);
+          myScore = parseInt(stored['fh_saved_score_v57'] || stored['fh_saved_score_v56'] || stored['fh_saved_score_v55'], 10) || 0;
+          myId = stored['fh_account_uid_v57'] || stored['fh_account_uid_v56'] || ('acc_' + normalizeAccountKey(myName));
+          isMyAccountSuspended = ((stored['fh_suspended_v57'] || stored['fh_suspended_v56']) === 'true');
+          if (stored['fh_hw_device_id_v57']) myDeviceHwId = stored['fh_hw_device_id_v57'];
+          setPersistentData('fh_locked_name_v57', myName); setPersistentData('fh_locked_avatar_v57', myAvatar);
+          setPersistentData('fh_saved_score_v57', myScore); setPersistentData('fh_account_uid_v57', myId);
           players[myId] = { id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
           document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`;
@@ -1499,7 +1535,7 @@
 
     BROKER_URLS.forEach((url, index) => {
       try {
-        const c = mqtt.connect(url, { clientId: 'fh56_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
+        const c = mqtt.connect(url, { clientId: 'fh57_' + index + '_' + Math.random().toString(16).substring(2, 9), protocolVersion: 4, clean: true, keepalive: 25, connectTimeout: 5000, reconnectPeriod: 1500 });
         c.on('connect', () => {
           c._isConnected = true; connectedBrokerCount = activeClients.filter(cl => cl._isConnected).length; updateConnectionUI();
           c.subscribe(`${BASE_TOPIC}/#`, { qos: 0 });
@@ -1554,15 +1590,22 @@
 
     function recordRoundChoice(data) {
       if (!data || !data.id || !data.choice || !['A', 'B', 'C', 'D'].includes(data.choice)) return;
-      const safeName = sanitizeText(data.name || 'Thí sinh', 20), accKey = normalizeAccountKey(safeName);
-      const cachedPlayer = players[data.id] || accountRegistry[accKey];
-      const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : ((cachedPlayer && cachedPlayer.avatar) || DEFAULT_ADMIN_AVATAR);
+      const safeName = sanitizeText(data.name || 'Thí sinh', 20);
+      const avt = resolveBestAvatar(data.avatar, data.id, safeName);
       const tLeft = Math.max(1, Math.min(20, parseInt(data.timeLeft, 10) || 10));
       const elap = typeof data.elapsedSec === 'number' ? Math.max(0.1, Math.min(20, data.elapsedSec)) : Math.max(0.5, 20 - tLeft);
-      if (!currentRoundAnswers[data.id]) optionPickers[data.choice].push({ id: data.id, name: safeName, avatar: avt });
+
+      ['A', 'B', 'C', 'D'].forEach(k => {
+        optionPickers[k] = optionPickers[k].filter(p => p.id !== data.id);
+      });
+      optionPickers[data.choice].push({ id: data.id, name: safeName, avatar: avt });
+
       currentRoundAnswers[data.id] = { id: data.id, name: safeName, avatar: avt, choice: data.choice, timeLeft: tLeft, elapsedSec: elap };
-      votes[data.choice] = optionPickers[data.choice].length;
-      votes.total = optionPickers.A.length + optionPickers.B.length + optionPickers.C.length + optionPickers.D.length;
+      votes.A = optionPickers.A.length;
+      votes.B = optionPickers.B.length;
+      votes.C = optionPickers.C.length;
+      votes.D = optionPickers.D.length;
+      votes.total = votes.A + votes.B + votes.C + votes.D;
       updateVoteStatsUI();
     }
 
@@ -1613,15 +1656,18 @@
           const suspState = (typeof data.isSuspended === 'boolean') ? data.isSuspended : (existing ? Boolean(existing.isSuspended) : false);
 
           if (data.id === myId && (!data.resetId || data.resetId === myResetId) && !isLoggedOutExplicitly) {
-            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v56', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
-            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v56', suspState ? 'true' : 'false'); updateSuspensionUI(); }
+            if (validScore > myScore) { myScore = validScore; setPersistentData('fh_saved_score_v57', myScore); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; }
+            if (isMyAccountSuspended !== suspState) { isMyAccountSuspended = suspState; setPersistentData('fh_suspended_v57', suspState ? 'true' : 'false'); updateSuspensionUI(); }
           }
           const bestScore = (data.resetId && data.resetId !== myResetId) ? validScore : (existing ? Math.max(existing.score || 0, validScore) : validScore);
-          const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : DEFAULT_ADMIN_AVATAR);
+          const avt = resolveBestAvatar(data.avatar, data.id, cleanName);
           const isOnlineNow = (data.type === 'PLAYER_LOGOUT') ? false : (data.isOnline !== false);
           const lockDev = isOnlineNow ? (data.lockedByDevice || (existing && existing.lockedByDevice) || null) : null;
           const updatedRecord = { id: data.id, name: cleanName, avatar: avt, score: bestScore, lockedByDevice: lockDev, isOnline: isOnlineNow, isSuspended: suspState };
           players[data.id] = updatedRecord; accountRegistry[accKey] = updatedRecord; saveAccountRegistryLocal();
+          if (currentRoundAnswers[data.id] && isValidAvatarString(avt)) {
+            currentRoundAnswers[data.id].avatar = avt;
+          }
           scheduleRenderLeaderboard(); scheduleRenderDirectory();
         }
       } else if (data.type === 'ADMIN_SUSPEND_PLAYER') {
@@ -1629,7 +1675,7 @@
         if (accKey && accountRegistry[accKey]) { accountRegistry[accKey].isSuspended = newSusp; saveAccountRegistryLocal(); }
         if (data.targetId && players[data.targetId]) players[data.targetId].isSuspended = newSusp;
         if (data.targetId === myId || (myName && data.targetName && data.targetName.toLowerCase() === myName.toLowerCase())) {
-          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v56', newSusp ? 'true' : 'false'); updateSuspensionUI();
+          isMyAccountSuspended = newSusp; setPersistentData('fh_suspended_v57', newSusp ? 'true' : 'false'); updateSuspensionUI();
           alert(newSusp ? "⛔ THÔNG BÁO: Tài khoản bị Admin tạm đình chỉ!" : "✅ THÔNG BÁO: Admin đã BỎ ĐÌNH CHỈ!");
         }
         scheduleRenderLeaderboard(); scheduleRenderDirectory();
@@ -1655,7 +1701,7 @@
         recordRoundChoice(data);
         const existing = players[data.id], cleanName = sanitizeText(data.name, 20), accKey = normalizeAccountKey(cleanName);
         const validScore = Math.max(0, Math.min(2000, parseInt(data.score, 10) || 0));
-        const avt = (data.avatar && data.avatar.startsWith('data:image/')) ? data.avatar : (existing && existing.avatar ? existing.avatar : (accountRegistry[accKey] && accountRegistry[accKey].avatar ? accountRegistry[accKey].avatar : DEFAULT_ADMIN_AVATAR));
+        const avt = resolveBestAvatar(data.avatar, data.id, cleanName);
         players[data.id] = { id: data.id, name: cleanName, avatar: avt, score: validScore, lockedByDevice: existing ? existing.lockedByDevice : null, isOnline: true, isSuspended: existing ? Boolean(existing.isSuspended) : false };
         accountRegistry[accKey] = players[data.id]; saveAccountRegistryLocal(); scheduleRenderLeaderboard();
         if (isQuestionRevealed) renderRoundSpeedModalContent(window.currentCorrectAns, window.currentExplanation);
@@ -1667,15 +1713,15 @@
         if (data.record) savePrevQuizRecord(data.record);
       } else if (data.type === 'SYNC_QUIZ_BANK') {
         quizBank = data.bank || {};
-        try { localStorage.setItem('fourhome_quiz_bank_v56', JSON.stringify(quizBank)); } catch (e) {}
+        try { localStorage.setItem('fourhome_quiz_bank_v57', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = data.activeTitle || Object.keys(quizBank)[0] || ""; renderQuizDropdown();
       } else if (data.type === 'RESET_GAME') {
         stopAllMP3(); closeRoundSpeedModal();
         if (data.prevRecord) savePrevQuizRecord(data.prevRecord);
         closeFinishModal();
         if (data.resetId && data.resetId !== myResetId) {
-          myResetId = data.resetId; setPersistentData('fh_reset_id_v56', myResetId);
-          myScore = 0; setPersistentData('fh_saved_score_v56', 0); answeredHistory = {}; saveAnsweredHistory();
+          myResetId = data.resetId; setPersistentData('fh_reset_id_v57', myResetId);
+          myScore = 0; setPersistentData('fh_saved_score_v57', 0); answeredHistory = {}; saveAnsweredHistory();
         }
         window.activeQuestionUid = null;
         for (let k in players) players[k].score = 0;
@@ -1706,7 +1752,7 @@
       if (!myName || !confirm(`Bạn muốn ĐĂNG XUẤT tài khoản "${myName}"?`)) return;
       stopAllMP3(); isAdminMode = false; document.getElementById('admin-panel').classList.add('hidden');
       const accKey = normalizeAccountKey(myName);
-      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v56', 'true');
+      isLoggedOutExplicitly = true; setPersistentData('fh_logged_out_v57', 'true');
       const logoutPacket = { type: 'PLAYER_LOGOUT', id: myId, name: myName, avatar: myAvatar, score: myScore, lockedByDevice: null, isOnline: false, isSuspended: isMyAccountSuspended };
       if (players[myId]) { players[myId].lockedByDevice = null; players[myId].isOnline = false; }
       if (accountRegistry[accKey]) { accountRegistry[accKey].lockedByDevice = null; accountRegistry[accKey].isOnline = false; saveAccountRegistryLocal(); }
@@ -1732,7 +1778,8 @@
         const safeName = (p.name || '').replace(/'/g, "\\'"), isLocked = Boolean(p.lockedByDevice && p.isOnline !== false), isSusp = Boolean(p.isSuspended);
         const statusBadge = isSusp ? `<span class="text-[9px] bg-rose-950 text-rose-400 border border-rose-500/40 px-1.5 py-0.5 rounded-full font-black">⛔ Đình chỉ</span>` : isLocked ? `<span class="text-[9px] text-emerald-400 font-bold">🟢 Trong phòng</span>` : `<span class="text-[9px] text-amber-300 font-bold">🔓 Đã đăng xuất</span>`;
         const suspendBtnHTML = isSusp ? `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', false)" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">✅ Bỏ đình chỉ</button>` : `<button onclick="adminToggleSuspendPlayer('${p.id}', '${safeName}', true)" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">⛔ Đình chỉ</button>`;
-        return `<div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2"><div class="flex items-center gap-2.5 truncate min-w-0 flex-1"><span class="w-5 h-5 aspect-square rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>${renderAvatarHTML(p.avatar, 'w-9 h-9', 'border-2 border-amber-400')}<div class="truncate min-w-0 flex-1"><div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div><div class="mt-0.5">${statusBadge}</div></div></div><div class="flex flex-wrap items-center justify-end gap-1 shrink-0">${suspendBtnHTML}<button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🔓</button><button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🗑️</button></div></div>`;
+        const bestAvt = resolveBestAvatar(p.avatar, p.id, p.name);
+        return `<div class="flex items-center justify-between bg-slate-800/90 border ${isSusp ? 'border-rose-500' : 'border-slate-700'} rounded-2xl px-3 py-2 text-xs gap-2"><div class="flex items-center gap-2.5 truncate min-w-0 flex-1"><span class="w-5 h-5 aspect-square rounded-full bg-slate-700 text-amber-300 font-black text-[10px] flex items-center justify-center shrink-0">${idx + 1}</span>${renderAvatarHTML(bestAvt, 'w-9 h-9', 'border-2 border-amber-400')}<div class="truncate min-w-0 flex-1"><div class="font-extrabold text-white truncate">${p.name} <span class="text-amber-400">(${p.score}⭐)</span></div><div class="mt-0.5">${statusBadge}</div></div></div><div class="flex flex-wrap items-center justify-end gap-1 shrink-0">${suspendBtnHTML}<button onclick="adminUnlockPlayerDevice('${p.id}', '${safeName}')" class="bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🔓</button><button onclick="adminDeletePlayerAccount('${p.id}', '${safeName}')" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-[10px] px-2 py-1.5 rounded-xl cursor-pointer shadow">🗑️</button></div></div>`;
       }).join('');
     }
 
@@ -1752,7 +1799,7 @@
       renderPlayerDirectoryList(); alert(`✅ Đã mở khóa thiết bị cho "${targetName}"!`);
     }
     function forceResetMyLocalAccount() {
-      stopAllMP3(); ['fh_locked_name_v56', 'fh_locked_avatar_v56', 'fh_saved_score_v56', 'fh_answered_history_v56', 'fh_account_uid_v56', 'fh_logged_out_v56', 'fh_suspended_v56'].forEach(removePersistentData);
+      stopAllMP3(); ['fh_locked_name_v57', 'fh_locked_avatar_v57', 'fh_saved_score_v57', 'fh_answered_history_v57', 'fh_account_uid_v57', 'fh_logged_out_v57', 'fh_suspended_v57'].forEach(removePersistentData);
       myId = ''; myName = ''; myAvatar = ''; tempUploadedAvatar = ''; rawSourceImage = null; myScore = 0; answeredHistory = {}; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       document.getElementById('playerName').value = ''; document.getElementById('playerPassword').value = ''; document.getElementById('avatarInput').value = '';
       document.getElementById('avatar-preview-img').classList.add('hidden'); document.getElementById('avatar-status-preview-box').classList.add('hidden');
@@ -1768,7 +1815,7 @@
       publishPacket('events', { type: 'KICK_RESET_PLAYER', id: 'admin', targetId: targetId, targetName: targetName }, false);
     }
     function buildCurrentStandingsRecord(title) {
-      const sorted = Object.entries(players).map(([id, p]) => ({ id, name: p.name, avatar: p.avatar || DEFAULT_ADMIN_AVATAR, score: p.score || 0 })).sort((a, b) => b.score - a.score);
+      const sorted = Object.entries(players).map(([id, p]) => ({ id, name: p.name, avatar: resolveBestAvatar(p.avatar, id, p.name), score: p.score || 0 })).sort((a, b) => b.score - a.score);
       if (sorted.length === 0) return null;
       return { quizTitle: title || currentQuizName || "Bộ đề gần nhất", savedAt: new Date().toLocaleTimeString('vi-VN') + ' - ' + new Date().toLocaleDateString('vi-VN'), rankings: sorted };
     }
@@ -1782,9 +1829,8 @@
 
       const answeredList = Object.values(currentRoundAnswers);
       const allParticipants = answeredList.map(item => {
-        const isCorrect = (item.choice === correctKey), accKey = normalizeAccountKey(item.name);
-        const globalPlayer = Object.values(players).find(p => p && normalizeAccountKey(p.name) === accKey) || accountRegistry[accKey];
-        const bestAvatar = (globalPlayer && globalPlayer.avatar && globalPlayer.avatar.startsWith('data:image/')) ? globalPlayer.avatar : ((item.avatar && item.avatar.startsWith('data:image/')) ? item.avatar : DEFAULT_ADMIN_AVATAR);
+        const isCorrect = (item.choice === correctKey);
+        const bestAvatar = resolveBestAvatar(item.avatar, item.id, item.name);
         return { ...item, avatar: bestAvatar, isCorrect, points: isCorrect ? Math.max(1, Math.min(20, item.timeLeft)) : 0 };
       }).sort((a, b) => (b.points !== a.points) ? (b.points - a.points) : (a.elapsedSec - b.elapsedSec)).slice(0, 10);
 
@@ -1794,7 +1840,7 @@
         const spotClass = rank === 1 ? 'podium-spotlight-gold' : rank === 2 ? 'podium-spotlight-silver' : 'podium-spotlight-bronze';
         const numClass = rank === 1 ? 'podium-rank-num-gold text-[34px]' : rank === 2 ? 'podium-rank-num-silver text-[29px]' : 'podium-rank-num-bronze text-[27px]';
         const scoreColor = rank === 1 ? 'text-amber-300' : rank === 2 ? 'text-slate-200' : 'text-orange-300';
-        const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : null, rank);
+        const shieldFrame = renderRoyalShieldFrameHTML(item ? item.avatar : null, rank, Boolean(item));
 
         if (!item) {
           return `
@@ -1883,7 +1929,7 @@
       }
       listEl.innerHTML = rankings.map((p, idx) => {
         const isMe = (idx === myIndex), badge = idx === 0 ? '🥇 Hạng 1' : idx === 1 ? '🥈 Hạng 2' : idx === 2 ? '🥉 Hạng 3' : `Hạng ${idx + 1}`;
-        return `<div class="flex items-center justify-between py-1.5 px-3 rounded-xl border ${isMe ? 'bg-emerald-900/60 border-emerald-400 text-white' : 'bg-slate-800/60 border-slate-700 text-slate-200'} text-xs gap-2"><div class="flex items-center gap-2 min-w-0 flex-1"><span class="font-extrabold text-amber-400 shrink-0">${badge}:</span>${renderAvatarHTML(p.avatar, 'w-7 h-7')}<span class="font-bold truncate">${p.name} ${isMe ? '(Bản thân)' : ''}</span></div><span class="font-black text-amber-300 shrink-0 whitespace-nowrap">${p.score} ⭐</span></div>`;
+        return `<div class="flex items-center justify-between py-1.5 px-3 rounded-xl border ${isMe ? 'bg-emerald-900/60 border-emerald-400 text-white' : 'bg-slate-800/60 border-slate-700 text-slate-200'} text-xs gap-2"><div class="flex items-center gap-2 min-w-0 flex-1"><span class="font-extrabold text-amber-400 shrink-0">${badge}:</span>${renderAvatarHTML(resolveBestAvatar(p.avatar, p.id, p.name), 'w-7 h-7')}<span class="font-bold truncate">${p.name} ${isMe ? '(Bản thân)' : ''}</span></div><span class="font-black text-amber-300 shrink-0 whitespace-nowrap">${p.score} ⭐</span></div>`;
       }).join('');
     }
     function closePrevRankModal() { document.getElementById('modal-prev-rank').classList.add('hidden'); }
@@ -1896,7 +1942,7 @@
       if (finishBanner) finishBanner.src = (hasCustomCoverLocked && activeCoverBannerDataUrl) ? activeCoverBannerDataUrl : (activeCoverBannerDataUrl || DEFAULT_LUXURY_COVER_SVG);
       document.getElementById('finish-quiz-name').innerText = quizTitle || currentQuizName;
       const myBoxEl = document.getElementById('finish-my-rank-box'), top10El = document.getElementById('finish-top10-list');
-      const sorted = Object.entries(players).map(([id, p]) => ({ id, name: p.name, avatar: p.avatar || DEFAULT_ADMIN_AVATAR, score: p.score || 0 })).sort((a, b) => b.score - a.score);
+      const sorted = Object.entries(players).map(([id, p]) => ({ id, name: p.name, avatar: resolveBestAvatar(p.avatar, id, p.name), score: p.score || 0 })).sort((a, b) => b.score - a.score);
       const myIndex = sorted.findIndex(r => r.id === myId || (myName && r.name.toLowerCase() === myName.toLowerCase()));
 
       if (myIndex !== -1) {
@@ -2001,7 +2047,12 @@
 
     function activateAdminSession() {
       stopLoginMusicCompletely();
-      isAdminMode = true; document.getElementById('admin-panel').classList.remove('hidden'); document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
+      isAdminMode = true;
+      if (isValidAvatarString(tempUploadedAvatar)) {
+        myAvatar = tempUploadedAvatar;
+        setPersistentData('fh_locked_avatar_v57', myAvatar);
+      }
+      document.getElementById('admin-panel').classList.remove('hidden'); document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateLockedPlayerBadgeUI(); renderLeaderboard(); requestPlayerPresence();
       if (hasCustomCoverLocked && activeCoverBannerDataUrl) forceBroadcastCoverNow(false);
       if (hasCustomLogoLocked && activeTransparentLogoPNG) forceBroadcastLogoNow(false);
@@ -2017,12 +2068,12 @@
     }
     function deleteCurrentQuiz() {
       if (!currentQuizName || !confirm(`Admin muốn XÓA bộ đề:\n"${currentQuizName}" không?`)) return;
-      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v56', JSON.stringify(quizBank)); } catch (e) {}
+      delete quizBank[currentQuizName]; try { localStorage.setItem('fourhome_quiz_bank_v57', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = Object.keys(quizBank)[0] || ""; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function restoreDefaultQuiz() {
       const defaultTitle = Object.keys(defaultBank)[0]; quizBank[defaultTitle] = JSON.parse(JSON.stringify(defaultBank[defaultTitle]));
-      try { localStorage.setItem('fourhome_quiz_bank_v56', JSON.stringify(quizBank)); } catch (e) {}
+      try { localStorage.setItem('fourhome_quiz_bank_v57', JSON.stringify(quizBank)); } catch (e) {}
       currentQuizName = defaultTitle; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
     }
     function saveNewQuizFromNotebook() {
@@ -2031,7 +2082,7 @@
       try {
         const parsed = JSON.parse(rawJson);
         if (!Array.isArray(parsed) || parsed.length === 0) return alert("Dữ liệu JSON phải nằm trong cặp ngoặc vuông [ ... ]!");
-        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v56', JSON.stringify(quizBank)); } catch (e) {}
+        quizBank[title] = parsed; try { localStorage.setItem('fourhome_quiz_bank_v57', JSON.stringify(quizBank)); } catch (e) {}
         currentQuizName = title; renderQuizDropdown(); publishPacket('state/quiz', { type: 'SYNC_QUIZ_BANK', id: 'admin', bank: quizBank, activeTitle: currentQuizName }, true);
         document.getElementById('new-quiz-title').value = ''; document.getElementById('new-quiz-json').value = ''; document.getElementById('modal-new-quiz').classList.add('hidden'); alert(`🎉 Đã thêm bộ đề "${title}"!`);
       } catch (e) { alert("Mã JSON chưa đúng chuẩn từ `[` đến `]`. Anh kiểm tra lại nhé!"); }
@@ -2072,8 +2123,8 @@
         }
         myId = targetAccountId; myName = nameInput; myAvatar = tempUploadedAvatar || myAvatar; myScore = 0; isMyAccountSuspended = false; isLoggedOutExplicitly = false;
       }
-      setPersistentData('fh_account_uid_v56', myId); setPersistentData('fh_locked_name_v56', myName); setPersistentData('fh_locked_avatar_v56', myAvatar); setPersistentData('fh_saved_score_v56', myScore);
-      setPersistentData('fh_suspended_v56', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v56', 'false');
+      setPersistentData('fh_account_uid_v57', myId); setPersistentData('fh_locked_name_v57', myName); setPersistentData('fh_locked_avatar_v57', myAvatar); setPersistentData('fh_saved_score_v57', myScore);
+      setPersistentData('fh_suspended_v57', isMyAccountSuspended ? 'true' : 'false'); setPersistentData('fh_logged_out_v57', 'false');
       document.getElementById('screen-login').classList.add('hidden'); document.getElementById('screen-game').classList.remove('hidden');
       updateSuspensionUI(); document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; announceMyPresence(true); renderLeaderboard();
     }
@@ -2150,9 +2201,9 @@
       stopAllMP3(); closeRoundSpeedModal();
       const snap = buildCurrentStandingsRecord(currentQuizName);
       if (snap && snap.rankings.some(r => r.score > 0)) { savePrevQuizRecord(snap); publishPacket('state/prev_result', { type: 'PREV_QUIZ_RECORD', id: 'admin', record: snap }, true); }
-      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v56', newResetId);
+      const newResetId = 'rst_' + Date.now(); myResetId = newResetId; setPersistentData('fh_reset_id_v57', newResetId);
       activeClients.forEach(c => { if (c && c._isConnected) { c.publish(`${BASE_TOPIC}/state/question`, '', { retain: true }); c.publish(`${BASE_TOPIC}/state/reveal`, '', { retain: true }); } });
-      myScore = 0; setPersistentData('fh_saved_score_v56', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
+      myScore = 0; setPersistentData('fh_saved_score_v57', 0); answeredHistory = {}; saveAnsweredHistory(); document.getElementById('my-score-badge').innerText = `0 ⭐`;
       for (let k in players) players[k].score = 0; for (let k in accountRegistry) accountRegistry[k].score = 0;
       saveAccountRegistryLocal(); renderLeaderboard(); publishPacket('state/reset', { type: 'RESET_GAME', id: 'admin', resetId: newResetId, prevRecord: snap }, true);
     }
@@ -2224,7 +2275,8 @@
       document.getElementById(`btn-${choice}`).classList.add('ring-4', 'ring-amber-400', 'bg-amber-50');
       const fb = document.getElementById('answer-feedback'); fb.classList.remove('hidden'); fb.innerText = `🔒 Đã chốt ${choice} ở giây thứ ${myPendingTimeLeft} (Mốc +${myPendingTimeLeft}đ). Chờ hết 20s mở kết quả!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow";
       if (window.activeQuestionUid) { answeredHistory[window.activeQuestionUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: false, bonus: 0 }; saveAnsweredHistory(); }
-      const displayName = myName || 'Admin Tuấn PL', displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
+      const displayName = myName || 'Admin Tuấn PL';
+      const displayAvt = resolveBestAvatar(myAvatar || tempUploadedAvatar, myId || 'admin', displayName);
       recordRoundChoice({ id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec });
       publishPacket('events', { type: 'LOCK_CHOICE', id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec }, false);
     }
@@ -2242,7 +2294,7 @@
         const chosenBtn = document.getElementById(`btn-${myPendingChoice}`);
         if (myPendingChoice === correctKey) {
           const earnedPoints = myPendingTimeLeft;
-          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v56', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
+          if (!alreadyScored) { myScore += earnedPoints; setPersistentData('fh_saved_score_v57', myScore); if (qUid) { answeredHistory[qUid] = { choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec, revealed: true, bonus: earnedPoints }; saveAnsweredHistory(); } }
           document.getElementById('my-score-badge').innerText = `${myScore} ⭐`; fb.innerText = `🎉 CHÍNH XÁC! Bạn chốt đáp án ${myPendingChoice} ở giây thứ ${myPendingTimeLeft} (+${earnedPoints} ⭐)`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow"; playALTPCorrect();
         } else {
           if (chosenBtn) { chosenBtn.classList.remove('bg-amber-50'); chosenBtn.classList.add('bg-rose-100', 'border-rose-500'); }
@@ -2253,7 +2305,8 @@
         fb.innerText = `⏰ HẾT 20 GIÂY! Bạn chưa chọn đáp án (+0 ⭐). Đáp án đúng là ${correctKey}!`; fb.className = "mt-1.5 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-slate-700 text-amber-300 shadow";
         if (!isAdminMode) playALTPWrong(); else playALTPCorrect();
       }
-      const displayName = myName || 'Admin Tuấn PL', displayAvt = myAvatar || DEFAULT_ADMIN_AVATAR;
+      const displayName = myName || 'Admin Tuấn PL';
+      const displayAvt = resolveBestAvatar(myAvatar || tempUploadedAvatar, myId || 'admin', displayName);
       if (myName) players[myId] = { id: myId, name: displayName, avatar: displayAvt, score: myScore, lockedByDevice: myDeviceHwId, isOnline: true, isSuspended: isMyAccountSuspended };
       if (myPendingChoice) recordRoundChoice({ id: myId || 'admin', name: displayName, avatar: displayAvt, choice: myPendingChoice, timeLeft: myPendingTimeLeft, elapsedSec: myPendingElapsedSec });
       updateVoteStatsUI(); scheduleRenderLeaderboard();
